@@ -1,0 +1,8 @@
+http://www.convertcsv.com/csv-to-json.htm
+
+[{br}
+
+    ["{f1}","{f2}","{f3}","{f4}","{f5}"]
+
+{br}]
+

@@ -1,0 +1,82 @@
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#page {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "head head head" "left-nav main right-nav" "left-nav foot foot";
+    grid-template-rows: 50px 380px 30px;
+    grid-template-columns: 150px 1fr 150px;
+    justify-content: stretch;
+    align-content: stretch;
+}
+
+#page > header {
+    grid-area: head;
+    background-color: #222;
+    color: white;
+    font-size: large;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#page > .left-nav {
+    grid-area: left-nav;
+    background-color: #444;
+    color: white;
+}
+
+#page > .right-nav {
+    grid-area: right-nav;
+    background-color: #EEE;
+}
+
+#page > main {
+    grid-area: main;
+    background-color: #DDD;
+    padding: 20px;
+}
+
+#page > footer {
+    grid-area: foot;
+    background-color: #222;
+    color: white;
+    font-size: small;
+    padding: 5px;
+    text-align: right;
+}
+
+#word_input {
+    font-size: 70px;
+    padding: 20px;
+    /*background-color: #DDD;*/
+    border: none;
+    width: 100%;
+    /*color: darkred;*/
+}
+
+#word_input:focus {
+    border: none;
+    outline: 0 none;
+}
+
+#source_word_div {
+    font-size: 70px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.correct_translation {
+    background-color: lightgreen;
+}
+
+.stats {
+    font-weight: bold;
+}

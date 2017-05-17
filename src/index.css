@@ -52,7 +52,7 @@ body {
     text-align: right;
 }
 
-#word_input {
+#translation_input {
     font-size: 70px;
     padding: 20px;
     /*background-color: #DDD;*/
@@ -61,7 +61,7 @@ body {
     /*color: darkred;*/
 }
 
-#word_input:focus {
+#translation_input:focus {
     border: none;
     outline: 0 none;
 }

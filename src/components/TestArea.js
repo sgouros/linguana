@@ -1,11 +1,35 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+// props:
+// vocabulary: array of objects
+
+//  <div className="stats">
+//       <br />
+//       <ul>
+//         <li>
+//           Έχετε απαντήσει σωστά σε
+//           {" "}
+//           {this.count_total_correct_answers()}
+//           {" "}
+//           από
+//           {" τις "}
+//           {this.state.voc.length}
+//           {" "}
+//           συνολικά λέξεις προς εκμάθηση
+//         </li>
+//         <li>current word index: {this.state.current_voc_index}</li>
+//       </ul>
+//     </div>
+//   </div>
+
+import TranslationInput from "./TranslationInput.js";
+
 class Testarea extends Component {
   s_Timeout = 0;
 
   state = {
-    voc: this.props.vocabulary.slice(),
+    currentTranslationInputValue: "a",
     current_voc_index: 0,
     translation_try: "",
     css_source_term_label: "wrong_translation",
@@ -16,15 +40,24 @@ class Testarea extends Component {
     )
   };
 
-  handleChange = event => {
+  handleTranslationInputChange = event => {
     const translation_typed = event.target.value;
-    this.setState({ translation_try: translation_typed });
-    if (this.translationIsCorrect(translation_typed)) {
-      this.setState({ css_source_term_label: "correct_translation" });
-      console.debug("success");
-    } else {
-      this.setState({ css_source_term_label: "wrong_translation" });
-    }
+    this.setState({ currentTranslationInputValue: translation_typed });
+    this.checkTranslation(translation_typed);
+  };
+
+  checkTranslation = translation_typed => {
+    this.translationIsCorrect(translation_typed)
+      ? this.highlightCorrectAnswer()
+      : this.highlightWrongAnswer();
+  };
+
+  highlightCorrectAnswer = () => {
+    this.setState({ css_source_term_label: "correct_translation" });
+  };
+
+  highlightWrongAnswer = () => {
+    this.setState({ css_source_term_label: "wrong_translation" });
   };
 
   handleSubmit = event => {
@@ -80,7 +113,11 @@ class Testarea extends Component {
   };
 
   translationIsCorrect = translation_typed => {
-    if (translation_typed === this.state.voc[this.state.current_voc_index][1]) {
+    // apo edo
+    if (
+      translation_typed ===
+      this.state.vocabulary[this.state.current_voc_index].source_Term[1]
+    ) {
       console.debug("correct translation");
       return true;
     } else {
@@ -223,40 +260,17 @@ class Testarea extends Component {
             `\n------------ showing voc index ${this.state.current_voc_index} -------------`
           )}
           <div id="source_word_div">
-            {this.state.voc[this.state.current_voc_index][0]}
+            {
+              this.props.vocabulary[this.state.current_voc_index]
+                .greek_terms_array[0]
+            }
           </div>
-          <input
-            id="word_input"
-            className={this.state.css_source_term_label}
-            name="translation_try_input"
-            type="text"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck="off"
-            value={this.state.translation_try}
-            onKeyDown={this.handleKeyDown}
-            onChange={this.handleChange}
+          <TranslationInput
+            currentInputValue={this.state.currentTranslationInputValue}
+            onChange={this.handleTranslationInputChange}
           />
 
         </form>
-
-        <div className="stats">
-          <br />
-          <ul>
-            <li>
-              Έχετε απαντήσει σωστά σε
-              {" "}
-              {this.count_total_correct_answers()}
-              {" "}
-              από
-              {" τις "}
-              {this.state.voc.length}
-              {" "}
-              συνολικά λέξεις προς εκμάθηση
-            </li>
-            <li>current word index: {this.state.current_voc_index}</li>
-          </ul>
-        </div>
       </div>
     );
   }

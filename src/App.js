@@ -23,7 +23,7 @@ const voc2 = [
 ];
 
 class App extends Component {
-  state = { vocabulary: voc1 };
+  state = { vocabulary: voc1.slice() };
 
   construct_alert_message = () => {
     let flatArray = this.state.vocabulary.map(item => {
@@ -48,7 +48,8 @@ class App extends Component {
   };
 
   restart = () => {
-    this.setState({ vocabulary: voc2 });
+    console.log("restart called");
+    this.setState({ vocabulary: voc2.slice() });
   };
 
   render() {

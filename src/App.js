@@ -59,7 +59,6 @@ class App extends Component {
   };
 
   recordSuccessfulTranslation = vocabulary_index => {
-    console.info("recording success");
     const new_vocabulary = this.state.vocabulary;
     // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
     new_vocabulary[vocabulary_index].success();
@@ -67,7 +66,6 @@ class App extends Component {
   };
 
   recordFailedTranslation = vocabulary_index => {
-    console.info("recording failure");
     const new_vocabulary = this.state.vocabulary;
     // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
     new_vocabulary[vocabulary_index].failure();

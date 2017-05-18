@@ -43,10 +43,10 @@ class Testarea extends Component {
     let term_index = this.state.current_voc_index;
 
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
-      console.info("CORRECT translation");
+      console.debug("CORRECT translation");
       this.props.onSuccessfulTranslation(term_index);
     } else {
-      console.info("WRONG translation");
+      console.debug("WRONG translation");
       this.props.onFailedTranslation(term_index);
       this.showWordComparison();
     }
@@ -81,6 +81,9 @@ class Testarea extends Component {
   };
 
   getSourceTerm = () => {
+    console.log(this.state.current_voc_index);
+    console.info(this.props.vocabulary);
+
     return this.props.vocabulary[this.state.current_voc_index].entries[0];
   };
 
@@ -92,13 +95,7 @@ class Testarea extends Component {
     const currentIndex = this.state.current_voc_index;
     this.props.onEscPress(currentIndex);
     console.debug("current index check:" + currentIndex);
-    const newIndex = currentIndex >= this.props.vocabulary.length
-      ? this.props.vocabulary.length - 1
-      : currentIndex;
-    this.clearInput(); // todo αυτό να πάει πιο κάτω στην ιεραρχία των components
-    this.setState({
-      current_voc_index: newIndex
-    });
+    this.clearInput();
     console.info(this.props.vocabulary);
   };
 

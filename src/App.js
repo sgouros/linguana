@@ -20,12 +20,12 @@ class Term {
   }
 
   failure() {
-    this.failedTranslations += 1;
+    this.totalFailedTranslations += 1;
     this.isCurrentlyCorrectTranslated = false;
   }
 
   selected() {
-    this.timesSelected += 1;
+    this.totalTimesSelected += 1;
   }
 }
 
@@ -60,17 +60,18 @@ class App extends Component {
 
   recordSuccessfulTranslation = vocabulary_index => {
     console.info("recording success");
-    this.getTerm(vocabulary_index).success();
+    const new_vocabulary = this.state.vocabulary;
+    // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
+    new_vocabulary[vocabulary_index].success();
+    this.setState({ vocabulary: new_vocabulary });
   };
 
   recordFailedTranslation = vocabulary_index => {
     console.info("recording failure");
-    this.getTerm(vocabulary_index).failure();
-  };
-
-  getTerm = term_index => {
-    console.info(this.state.vocabulary);
-    return this.state.vocabulary[term_index];
+    const new_vocabulary = this.state.vocabulary;
+    // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
+    new_vocabulary[vocabulary_index].failure();
+    this.setState({ vocabulary: new_vocabulary });
   };
 
   removeTermFromVocabulary = currentIndex => {
@@ -97,15 +98,13 @@ class App extends Component {
   };
 
   getTotalCorrectTranslatedTerms = () => {
-    let total = this.state.vocabulary.reduce((totalCount, term) => {
+    return this.state.vocabulary.reduce((totalCount, term) => {
       return totalCount + (term.isCurrentlyCorrectTranslated === true);
     }, 0);
-    console.info(total);
-    return total;
   };
 
   getTotalWrongTranslatedTerms = () => {
-    return 8;
+    return this.getTotalTerms() - this.getTotalCorrectTranslatedTerms();
   };
 
   render() {

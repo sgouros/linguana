@@ -5,30 +5,31 @@ import TestArea from "./components/TestArea.js";
 
 const voc = [
   {
-    greek_terms_array: ["ναι", "ok"],
-    deutsch_terms_array: ["ja", "in ordnung"]
+    sourceTermsArray: ["ναι"],
+    destinationTermsArray: ["ja"]
   },
   {
-    greek_terms_array: ["κατόπιν"],
-    deutsch_terms_array: ["danach", "anschließend"]
+    sourceTermsArray: ["κατόπιν"],
+    destinationTermsArray: ["danach", "anschließend"]
   },
   {
-    greek_terms_array: ["ευγενικός"],
-    deutsch_terms_array: ["nett"]
+    sourceTermsArray: ["ευγενικός"],
+    destinationTermsArray: ["nett"]
   },
   {
-    greek_terms_array: ["αυτοκίνητο", "αμάξι", "ΙΧ"],
-    deutsch_terms_array: ["das Auto", "das Wagen"]
+    sourceTermsArray: ["αυτοκίνητο", "αμάξι", "ΙΧ"],
+    destinationTermsArray: ["das Auto", "das Wagen"]
   }
 ];
 
 class App extends Component {
   state = { vocabulary: voc.slice() };
 
+  // {alert(this.construct_alert_message())}
   construct_alert_message = () => {
     let flatArray = this.state.vocabulary.map(item => {
       return (
-        item.greek_terms_array[0] + ": " + item.deutsch_terms_array[0] + "\n"
+        item.sourceTermsArray[0] + ": " + item.destinationTermsArray[0] + "\n"
       );
     });
     return (
@@ -43,6 +44,14 @@ class App extends Component {
     // this.setState({ vocabulary: voc.slice() });
   };
 
+  recordSuccessfulTranslation = () => {
+    console.info("------successful translation received");
+  };
+
+  recordFailedTranslation = () => {
+    console.info("------failed translation received");
+  };
+
   render() {
     return (
       <div id="page">
@@ -53,8 +62,11 @@ class App extends Component {
           left nav
         </nav>
         <main>
-          {alert(this.construct_alert_message())}
-          <TestArea vocabulary={this.state.vocabulary} />
+          <TestArea
+            vocabulary={this.state.vocabulary}
+            onSuccessfulTranslation={this.recordSuccessfulTranslation}
+            onFailedTranslation={this.recordFailedTranslation}
+          />
         </main>
         <nav className="right-nav">
           <button onClick={this.restart}>new</button>

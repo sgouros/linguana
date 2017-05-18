@@ -26,13 +26,16 @@ import PropTypes from "prop-types";
 import TranslationInput from "./TranslationInput.js";
 
 class Testarea extends Component {
+  static propTypes = {
+    vocabulary: PropTypes.array
+  };
+
   s_Timeout = 0;
 
   state = {
-    currentTranslationInputValue: "a",
+    currentTranslationInputValue: "",
     current_voc_index: 0,
-    translation_try: "",
-    css_source_term_label: "wrong_translation",
+    cssSourceTermLabel: "wrong_translation",
     correct_answers_array: new Array(this.props.vocabulary.length).fill(
       0,
       0,
@@ -53,20 +56,22 @@ class Testarea extends Component {
   };
 
   highlightCorrectAnswer = () => {
-    this.setState({ css_source_term_label: "correct_translation" });
+    this.setState({ cssSourceTermLabel: "correct_translation" });
   };
 
   highlightWrongAnswer = () => {
-    this.setState({ css_source_term_label: "wrong_translation" });
+    this.setState({ cssSourceTermLabel: "wrong_translation" });
   };
 
   handleSubmit = event => {
-    if (this.translationIsCorrect(this.state.translation_try)) {
+    let term_index = this.state.current_voc_index;
+
+    if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
       console.info("CORRECT translation");
-      this.recordSuccess();
+      this.props.onSuccessfulTranslation(term_index);
     } else {
       console.info("WRONG translation");
-      this.recordFailure();
+      this.props.onFailedTranslation(term_index);
       this.showWordComparison();
     }
     this.loadNextTerm();
@@ -74,68 +79,55 @@ class Testarea extends Component {
   };
 
   showWordComparison = () => {
-    alert(
-      `correct       :   ${this.state.voc[this.state.current_voc_index][1]}\nyou typed :   ${this.state.translation_try}`
-    );
+    let correct = this.getSourceTerm();
+    let typed = this.state.currentTranslationInputValue;
+    alert(`correct      :       ${correct}\nyou typed:       ${typed}`);
   };
 
-  recordSuccess = () => {
-    const currentIndex = this.state.current_voc_index;
-    const ar = [
-      ...this.state.correct_answers_array.slice(0, currentIndex),
-      1,
-      ...this.state.correct_answers_array.slice(
-        currentIndex + 1,
-        this.state.correct_answers_array.length
-      )
-    ];
-    this.setState({
-      correct_answers_array: ar
-    });
-    console.debug(ar);
-  };
+  // recordSuccess = (term_index) => {
+  // let  = this.state.current_voc_index;
 
-  recordFailure = () => {
-    const currentIndex = this.state.current_voc_index;
-    const ar = [
-      ...this.state.correct_answers_array.slice(0, currentIndex),
-      0,
-      ...this.state.correct_answers_array.slice(
-        currentIndex + 1,
-        this.state.correct_answers_array.length
-      )
-    ];
+  // const currentIndex = this.state.current_voc_index;
+  // const ar = [
+  //   ...this.state.correct_answers_array.slice(0, currentIndex),
+  //   1,
+  //   ...this.state.correct_answers_array.slice(
+  //     currentIndex + 1,
+  //     this.state.correct_answers_array.length
+  //   )
+  // ];
+  // this.setState({
+  //   correct_answers_array: ar
+  // });
+  // console.debug(ar);
+  // };
 
-    this.setState({
-      correct_answers_array: ar
-    });
-    console.debug(ar);
-  };
+  // recordFailure = () => {
+  //   const currentIndex = this.state.current_voc_index;
+  //   const ar = [
+  //     ...this.state.correct_answers_array.slice(0, currentIndex),
+  //     0,
+  //     ...this.state.correct_answers_array.slice(
+  //       currentIndex + 1,
+  //       this.state.correct_answers_array.length
+  //     )
+  //   ];
+
+  //   this.setState({
+  //     correct_answers_array: ar
+  //   });
+  //   console.debug(ar);
+  // };
 
   translationIsCorrect = translation_typed => {
-    // apo edo
-    if (
-      translation_typed ===
-      this.state.vocabulary[this.state.current_voc_index].source_Term[1]
-    ) {
-      console.debug("correct translation");
-      return true;
-    } else {
-      console.debug("wrong translation");
-      return false;
-    }
+    return translation_typed === this.getCorrectTranslation() ? true : false;
   };
 
   loadNextTerm = () => {
-    const current_Term = this.state.voc[this.state.current_voc_index][0];
-    const translated_term = this.state.translation_try;
     const currentIndex = this.state.current_voc_index;
-    const lastVocIndex = this.state.voc.length - 1;
+    const lastVocIndex = this.props.vocabulary.length - 1;
     const nextIndex = currentIndex === lastVocIndex ? 0 : currentIndex + 1;
-    console.debug(
-      `-----Current translation of "${current_Term}" is "${translated_term}" and I am advancing to next term (index ${nextIndex})`
-    );
-
+    console.info(`----- I am advancing to next term (index ${nextIndex})`);
     this.clearInput();
     this.setState({
       current_voc_index: nextIndex,
@@ -144,7 +136,7 @@ class Testarea extends Component {
   };
 
   clearInput = () => {
-    this.setState({ translation_try: "" });
+    this.setState({ currentTranslationInputValue: "" });
   };
 
   specialKeyAlreadyPressed = () => {
@@ -237,6 +229,16 @@ class Testarea extends Component {
     console.debug(`timeout reset! ${this.s_Timeout}`);
   };
 
+  getSourceTerm = () => {
+    return this.props.vocabulary[this.state.current_voc_index]
+      .sourceTermsArray[0];
+  };
+
+  getCorrectTranslation = () => {
+    return this.props.vocabulary[this.state.current_voc_index]
+      .destinationTermsArray[0];
+  };
+
   count_total_correct_answers = () => {
     return this.state.correct_answers_array.reduce(
       (prevItem, item) => prevItem + item,
@@ -259,11 +261,8 @@ class Testarea extends Component {
           {console.info(
             `\n------------ showing voc index ${this.state.current_voc_index} -------------`
           )}
-          <div id="source_word_div">
-            {
-              this.props.vocabulary[this.state.current_voc_index]
-                .greek_terms_array[0]
-            }
+          <div id="source_word_div" className={this.state.cssSourceTermLabel}>
+            {this.getSourceTerm()}
           </div>
           <TranslationInput
             currentInputValue={this.state.currentTranslationInputValue}
@@ -275,9 +274,5 @@ class Testarea extends Component {
     );
   }
 }
-
-Testarea.propTypes = {
-  vocabulary: PropTypes.array
-};
 
 export default Testarea;

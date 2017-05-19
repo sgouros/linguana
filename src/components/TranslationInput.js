@@ -3,7 +3,6 @@ import React, { Component } from "react";
 class TranslationInput extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
-
   special_letter_substitutions = [
     [83, "s", "ß"],
     [65, "a", "ä"],
@@ -44,7 +43,9 @@ class TranslationInput extends Component {
   handleSpecialKeyPress = event => {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
-    console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
+    console.debug(
+      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`
+    );
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
 

@@ -3,25 +3,28 @@ import "./App.css";
 import Stats from "./components/Stats.js";
 
 import TestArea from "./components/TestArea.js";
+// import StartPage from "./components/StartPage.js";
+
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Term {
-  constructor(entriesArray, translationsArray) {
+  constructor(entriesArray, translationsArray, totalTimesSelected) {
     this.entries = entriesArray;
     this.translations = translationsArray;
-    this.totalSuccessfulTranslations = 0;
-    this.totalFailedTranslations = 0;
-    this.totalTimesSelected = 0;
-    this.isCurrentlyCorrectTranslated = false;
+    this.totalSuccessfulTranslations = Math.floor(Math.random() * 50 + 1);
+    this.totalFailedTranslations = Math.floor(Math.random() * 50 + 1);
+    this.totalTimesSelected = totalTimesSelected;
+    this.isCurrentlyCorrectlyTranslated = false;
   }
 
   success() {
     this.totalSuccessfulTranslations += 1;
-    this.isCurrentlyCorrectTranslated = true;
+    this.isCurrentlyCorrectlyTranslated = true;
   }
 
   failure() {
     this.totalFailedTranslations += 1;
-    this.isCurrentlyCorrectTranslated = false;
+    this.isCurrentlyCorrectlyTranslated = false;
   }
 
   selected() {
@@ -29,24 +32,31 @@ class Term {
   }
 }
 
-const voc = [
-  new Term(["ναι"], ["ja"]),
-  new Term(["κατόπιν"], ["anschließend"]),
-  new Term(["ευγενικός"], ["nett"]),
-  new Term(["αυτοκίνητο"], ["das Auto"])
-];
-
-const voc1 = [
-  new Term(["λάθος"], ["der Fehler"]),
-  new Term(["όχι"], ["nein"]),
-  new Term(["οθόνη"], ["der Monitor"]),
-  new Term(["ηλεκτρονικός υπολογιστής"], ["der Rechner"]),
-  new Term(["εγκατάσταση"], ["installieren"]),
-  new Term(["σύνδεση"], ["einloggen"])
+const GLOBAL_VOC = [
+  new Term(["ναι"], ["ja"], 1),
+  new Term(["κατόπιν"], ["anschließend"], 5),
+  new Term(["ευγενικός"], ["nett"], 7),
+  new Term(["αυτοκίνητο"], ["das Auto"], 12),
+  new Term(["λάθος"], ["der Fehler"], 5),
+  new Term(["όχι"], ["nein"], 3),
+  new Term(["οθόνη"], ["der Monitor"], 1),
+  new Term(["ηλεκτρονικός υπολογιστής"], ["der Rechner"], 2),
+  new Term(["εγκατάσταση"], ["installieren"], 0),
+  new Term(["σύνδεση"], ["einloggen"], 20),
+  new Term(["hardly μετα βίας"]["kaum"], 7),
+  new Term(["πόνος"], ["der Schmerz"], 12),
+  new Term(["ασφαλισμένος"], ["versichert"], 17),
+  new Term(["προφανώς"], ["offensichtlich"], 8),
+  new Term(["εκφράζω"], ["ausdrücken"], 7),
+  new Term(["αξία"], ["der Wert"], 4),
+  new Term(["διατήρηση"], ["die Erhaltung"], 16),
+  new Term(["μεταφόρτωση (download)"], ["runterladen"], 7),
+  new Term(["ανέκδοτο"], ["der Witz"], 4),
+  new Term(["τρόφιμα"], ["das Lebensmittel"], 8)
 ];
 
 class App extends Component {
-  state = { vocabulary: voc.slice() };
+  state = { vocabulary: GLOBAL_VOC };
 
   // {alert(this.construct_alert_message())}
   construct_alert_message = () => {
@@ -63,27 +73,48 @@ class App extends Component {
   };
 
   finish = () => {
-    console.log("FINISHED pressed");
-    alert("Congratulations! Now restarting");
+    // alert("Congratulations! Now restarting");
     this.restart();
   };
 
   restart = () => {
-    console.log("now RESTARTING");
-    this.setState({ vocabulary: voc1.slice() });
+    console.log("\n\n=====================now RESTARTING");
+    const newConstructedVocabulary = this.constructNewVocabulary();
+
+    this.traceVocabulary(newConstructedVocabulary);
+    this.setState({ vocabulary: newConstructedVocabulary });
+  };
+
+  // από εδώ. Πρέπει να μπορείς να κάνεις σωστά trace το global voc και μετά το sliced voc που κάνεις construct
+  traceVocabulary = () => {
+    //  console.info(theVoc);
+    GLOBAL_VOC.map(item => {
+      console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
+      return item;
+    });
+  };
+
+  constructNewVocabulary = () => {
+    const maxNumberOfWords = 4;
+    let sortedVocabulary = GLOBAL_VOC.sort(function(term_a, term_b) {
+      return term_a.totalTimesSelected - term_b.totalTimesSelected;
+    });
+    let slicedVocabulary = sortedVocabulary.slice(0, maxNumberOfWords);
+
+    let updatedVocabulary = slicedVocabulary.map(item => {
+      item.selected();
+      return item;
+    });
+    return updatedVocabulary;
   };
 
   recordSuccessfulTranslation = vocabulary_index => {
-    const new_vocabulary = this.state.vocabulary;
-    // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
-    new_vocabulary[vocabulary_index].success();
+    const new_vocabulary = this.state.vocabulary[vocabulary_index].success();
     this.setState({ vocabulary: new_vocabulary });
   };
 
   recordFailedTranslation = vocabulary_index => {
-    const new_vocabulary = this.state.vocabulary;
-    // todo εδώ ίσως να πρέπει να κάνω σωστό αντίγραφο του vocabulary
-    new_vocabulary[vocabulary_index].failure();
+    const new_vocabulary = this.state.vocabulary[vocabulary_index].failure();
     this.setState({ vocabulary: new_vocabulary });
   };
 
@@ -108,7 +139,7 @@ class App extends Component {
 
   getTotalCorrectTranslatedTerms = () => {
     return this.state.vocabulary.reduce((totalCount, term) => {
-      return totalCount + (term.isCurrentlyCorrectTranslated === true);
+      return totalCount + (term.isCurrentlyCorrectlyTranslated === true);
     }, 0);
   };
 

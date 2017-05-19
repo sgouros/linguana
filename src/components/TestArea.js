@@ -81,9 +81,6 @@ class Testarea extends Component {
   };
 
   getSourceTerm = () => {
-    console.log(this.state.current_voc_index);
-    console.info(this.props.vocabulary);
-
     return this.props.vocabulary[this.state.current_voc_index].entries[0];
   };
 
@@ -92,11 +89,32 @@ class Testarea extends Component {
   };
 
   onEscPress = () => {
-    const currentIndex = this.state.current_voc_index;
-    this.props.onEscPress(currentIndex);
-    console.debug("current index check:" + currentIndex);
-    this.clearInput();
-    console.info(this.props.vocabulary);
+    if (this.props.vocabulary.length === 1) {
+      console.info("ignoring esc key because only one term remains");
+    } else {
+      const currentIndex = this.state.current_voc_index;
+      const lastVocIndex = this.props.vocabulary.length - 1;
+      console.info("currentIndex:" + currentIndex);
+      console.info("lastVocIndex index:" + lastVocIndex);
+
+      let newIndex = -1;
+
+      if (lastVocIndex === 0) {
+        newIndex = 0;
+      } else if (currentIndex === lastVocIndex) {
+        newIndex = lastVocIndex - 1;
+      } else {
+        newIndex = currentIndex;
+      }
+      console.info("new index:" + newIndex);
+      this.clearInput();
+      this.setState({
+        current_voc_index: newIndex
+      });
+      this.props.onEscPress(currentIndex);
+      console.info("vocabulary after term removal:");
+      console.info(this.props.vocabulary);
+    }
   };
 
   render() {

@@ -73,22 +73,18 @@ class App extends Component {
   };
 
   removeTermFromVocabulary = currentIndex => {
-    if (this.state.vocabulary.length === 1) {
-      console.log("ignoring esc key because only one term remains");
-    } else {
-      console.debug("removing item from vocabulary array");
-      const new_voc = [
-        ...this.state.vocabulary.slice(0, currentIndex),
-        ...this.state.vocabulary.slice(
-          currentIndex + 1,
-          this.state.vocabulary.length
-        )
-      ];
+    console.info("removing item from vocabulary array");
+    const new_voc = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...this.state.vocabulary.slice(
+        currentIndex + 1,
+        this.state.vocabulary.length
+      )
+    ];
 
-      this.setState({
-        vocabulary: new_voc
-      });
-    }
+    this.setState({
+      vocabulary: new_voc
+    });
   };
 
   getTotalTerms = () => {

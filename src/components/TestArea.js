@@ -11,12 +11,7 @@ class Testarea extends Component {
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
-    cssSourceTermLabel: "wrong_translation",
-    correct_answers_array: new Array(this.props.vocabulary.length).fill(
-      0,
-      0,
-      this.props.vocabulary.length
-    )
+    cssSourceTermLabel: "wrong_translation"
   };
 
   handleTranslationInputChange = event => {
@@ -72,7 +67,7 @@ class Testarea extends Component {
     this.clearInput();
     this.setState({
       current_voc_index: nextIndex,
-      css_source_term_label: "wrong_translation"
+      cssSourceTermLabel: "wrong_translation"
     });
   };
 
@@ -121,9 +116,7 @@ class Testarea extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          {console.info(
-            `\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`
-          )}
+          {console.info(`\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`)}
           <div id="source_word_div" className={this.state.cssSourceTermLabel}>
             {this.getSourceTerm()}
           </div>

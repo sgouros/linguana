@@ -36,6 +36,15 @@ const voc = [
   new Term(["αυτοκίνητο"], ["das Auto"])
 ];
 
+const voc1 = [
+  new Term(["λάθος"], ["der Fehler"]),
+  new Term(["όχι"], ["nein"]),
+  new Term(["οθόνη"], ["der Monitor"]),
+  new Term(["ηλεκτρονικός υπολογιστής"], ["der Rechner"]),
+  new Term(["εγκατάσταση"], ["installieren"]),
+  new Term(["σύνδεση"], ["einloggen"])
+];
+
 class App extends Component {
   state = { vocabulary: voc.slice() };
 
@@ -53,9 +62,15 @@ class App extends Component {
     );
   };
 
+  finish = () => {
+    console.log("FINISHED pressed");
+    alert("Congratulations! Now restarting");
+    this.restart();
+  };
+
   restart = () => {
-    // console.log("restart called");
-    // this.setState({ vocabulary: voc.slice() });
+    console.log("now RESTARTING");
+    this.setState({ vocabulary: voc1.slice() });
   };
 
   recordSuccessfulTranslation = vocabulary_index => {
@@ -123,7 +138,7 @@ class App extends Component {
           />
         </main>
         <nav className="right-nav">
-          <button onClick={this.restart}>new</button>
+          <button onClick={this.finish}>Finished</button>
         </nav>
         <footer>
           Διεύθυνση Αναπτυξιακού Προγραμματισμού Περιφέρειας ΑΜΘ

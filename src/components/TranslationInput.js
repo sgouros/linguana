@@ -30,12 +30,12 @@ class TranslationInput extends Component {
     } else if (event.keyCode === 27) {
       this.handleEscPress(event);
     } else {
-      console.info("normal key pressed");
+      console.debug("normal key pressed");
     }
   };
 
   resetSpecialKeyPress = () => {
-    console.info(`Clearing special key press timeout ${this.s_Timeout}`);
+    console.debug(`Clearing special key press timeout ${this.s_Timeout}`);
     clearTimeout(this.s_Timeout);
     this.s_Timeout = 0;
     this.alreadyPressedSpecialKeyCode = -1;
@@ -44,12 +44,12 @@ class TranslationInput extends Component {
   handleSpecialKeyPress = event => {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
-    console.info(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
+    console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
 
   handleSameSpecialKeyPress = event => {
-    console.info("SAME special key pressed AGAIN");
+    console.debug("SAME special key pressed AGAIN");
 
     const initial_value = event.target.value;
     const specialKeyPairIndex = this.special_letter_substitutions.findIndex(
@@ -69,7 +69,7 @@ class TranslationInput extends Component {
   };
 
   handleEscPress = event => {
-    console.info("\n--- esc key pressed.");
+    console.info("\nESC key pressed");
     this.props.onEscPress();
   };
 

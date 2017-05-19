@@ -6,6 +6,6 @@ code
 npm start
 # gnome-terminal -x bash -c 'npm start'
 
-#------------ όταν θελεις να κατεβάσεις από το github και να κάνεις overwrite το local
-#git reset --hard
-#git pull origin master
+------------ όταν θελεις να κατεβάσεις από το github και να κάνεις overwrite το local
+git reset --hard
+git pull origin master

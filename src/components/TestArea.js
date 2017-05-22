@@ -63,7 +63,7 @@ class Testarea extends Component {
     const currentIndex = this.state.current_voc_index;
     const lastVocIndex = this.props.vocabulary.length - 1;
     const nextIndex = currentIndex === lastVocIndex ? 0 : currentIndex + 1;
-    console.info(`Advancing to next term (index ${nextIndex})`);
+    console.debug(`Advancing to next term (index ${nextIndex})`);
     this.clearInput();
     this.setState({
       current_voc_index: nextIndex,
@@ -116,7 +116,9 @@ class Testarea extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          {console.info(`\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`)}
+          {console.info(
+            `\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`
+          )}
           <div id="source_word_div" className={this.state.cssSourceTermLabel}>
             {this.getSourceTerm()}
           </div>

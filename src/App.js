@@ -33,17 +33,16 @@ class Term {
 }
 
 const GLOBAL_VOC = [
+  new Term(["εγκατάσταση"], ["installieren"], 0),
   new Term(["ναι"], ["ja"], 1),
+  new Term(["οθόνη"], ["der Monitor"], 1),
   new Term(["κατόπιν"], ["anschließend"], 5),
   new Term(["ευγενικός"], ["nett"], 7),
   new Term(["αυτοκίνητο"], ["das Auto"], 12),
   new Term(["λάθος"], ["der Fehler"], 5),
   new Term(["όχι"], ["nein"], 3),
-  new Term(["οθόνη"], ["der Monitor"], 1),
   new Term(["ηλεκτρονικός υπολογιστής"], ["der Rechner"], 2),
-  new Term(["εγκατάσταση"], ["installieren"], 0),
-  new Term(["σύνδεση"], ["einloggen"], 20),
-  new Term(["hardly μετα βίας"]["kaum"], 7),
+  new Term(["hardly μετα βίας"], ["kaum"], 7),
   new Term(["πόνος"], ["der Schmerz"], 12),
   new Term(["ασφαλισμένος"], ["versichert"], 17),
   new Term(["προφανώς"], ["offensichtlich"], 8),
@@ -52,11 +51,15 @@ const GLOBAL_VOC = [
   new Term(["διατήρηση"], ["die Erhaltung"], 16),
   new Term(["μεταφόρτωση (download)"], ["runterladen"], 7),
   new Term(["ανέκδοτο"], ["der Witz"], 4),
-  new Term(["τρόφιμα"], ["das Lebensmittel"], 8)
+  new Term(["τρόφιμα"], ["das Lebensmittel"], 8),
+  new Term(["σύνδεση"], ["einloggen"], 20)
 ];
 
 class App extends Component {
-  state = { vocabulary: GLOBAL_VOC };
+  state = {
+    vocabulary: GLOBAL_VOC,
+    first_session: true
+  };
 
   // {alert(this.construct_alert_message())}
   construct_alert_message = () => {
@@ -72,25 +75,32 @@ class App extends Component {
     );
   };
 
-  finish = () => {
-    // alert("Congratulations! Now restarting");
-    this.restart();
-  };
-
   restart = () => {
-    console.log("\n\n===================== now RESTARTING");
+    console.log("\n\n=========== now RESTARTING");
     const newConstructedVocabulary = this.constructNewVocabulary();
-    this.traceVocabulary(newConstructedVocabulary);
-    this.setState({ vocabulary: newConstructedVocabulary });
+    this.traceGlobalVocabulary(newConstructedVocabulary);
+    this.setState({
+      vocabulary: newConstructedVocabulary,
+      first_session: false
+    });
   };
 
-  traceVocabulary = () => {
+  traceGlobalVocabulary = () => {
     //  console.info(theVoc);
     console.log("\n\n------- tracing GLOBAL_VOC ---------");
     GLOBAL_VOC.map(item => {
       console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
       return item;
     });
+  };
+
+  traceVocabulary = () => {
+    console.log("\n\n------- tracing vocabulary ---------");
+    this.state.vocabulary.map(item => {
+      console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
+      return item;
+    });
+    console.log("----- end tracing vocabulary -------");
   };
 
   constructNewVocabulary = () => {
@@ -107,14 +117,16 @@ class App extends Component {
     return updatedVocabulary;
   };
 
-  recordSuccessfulTranslation = vocabulary_index => {
-    const new_vocabulary = this.state.vocabulary[vocabulary_index].success();
-    this.setState({ vocabulary: new_vocabulary });
+  recordSuccessfulTranslation = term_index => {
+    const new_voc = this.state.vocabulary;
+    new_voc[term_index].success();
+    this.setState({ vocabulary: new_voc });
   };
 
-  recordFailedTranslation = vocabulary_index => {
-    const new_vocabulary = this.state.vocabulary[vocabulary_index].failure();
-    this.setState({ vocabulary: new_vocabulary });
+  recordFailedTranslation = term_index => {
+    const new_voc = this.state.vocabulary;
+    new_voc[term_index].failure();
+    this.setState({ vocabulary: new_voc });
   };
 
   removeTermFromVocabulary = currentIndex => {
@@ -160,15 +172,19 @@ class App extends Component {
           />
         </nav>
         <main>
-          <TestArea
-            vocabulary={this.state.vocabulary}
-            onSuccessfulTranslation={this.recordSuccessfulTranslation}
-            onFailedTranslation={this.recordFailedTranslation}
-            onEscPress={this.removeTermFromVocabulary}
-          />
+          {this.state.first_session
+            ? <p>Olease press start to begin</p>
+            : <TestArea
+                vocabulary={this.state.vocabulary}
+                onSuccessfulTranslation={this.recordSuccessfulTranslation}
+                onFailedTranslation={this.recordFailedTranslation}
+                onEscPress={this.removeTermFromVocabulary}
+              />}
         </main>
         <nav className="right-nav">
-          <button onClick={this.finish}>Finished</button>
+          <button onClick={this.restart}>start</button>
+          <br /><br />
+          <button onClick={this.traceVocabulary}>trace voc</button>
         </nav>
         <footer>
           Διεύθυνση Αναπτυξιακού Προγραμματισμού Περιφέρειας ΑΜΘ

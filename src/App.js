@@ -1,14 +1,41 @@
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 import "./App.css";
 import Stats from "./components/Stats.js";
 
 import TestArea from "./components/TestArea.js";
+
+import { ModalContainer, ModalDialog } from "react-modal-dialog";
 
 // import excel
 // http://codetheory.in/parse-read-excel-files-xls-xlsx-javascript/
 // http://stackoverflow.com/questions/6382572/how-to-read-an-excel-file-contents-on-client-side
 // http://stackoverflow.com/questions/28782074/excel-to-json-javascript-code
 // http://oss.sheetjs.com/js-xls/
+
+class StartModal extends Component {
+  state = {
+    title: "Welcome",
+    whatToShow: "These are the contents",
+    isShowingModal: true
+  };
+
+  handleModalClick = () => this.setState({ isShowingModal: true });
+  handleModalClose = () => this.setState({ isShowingModal: false });
+
+  render() {
+    return (
+      <div onClick={this.handleModalClick}>
+        {this.state.isShowingModal &&
+          <ModalContainer onClose={this.handleModalClose}>
+            <ModalDialog onClose={this.handleModalClose}>
+              <h1>{this.props.title}</h1>
+              <p>{this.props.content}</p>
+            </ModalDialog>
+          </ModalContainer>}
+      </div>
+    );
+  }
+}
 
 class Term {
   constructor(entriesArray, translationsArray, totalTimesSelected) {
@@ -61,8 +88,12 @@ const GLOBAL_VOC = [
 class App extends Component {
   state = {
     vocabulary: GLOBAL_VOC,
-    first_session: true
+    first_session: true,
+    isShowingModal: true
   };
+
+  handleModalClick = () => this.setState({ isShowingModal: true });
+  handleModalClose = () => this.setState({ isShowingModal: false });
 
   showStartAlert = newConstructedVocabulary => {
     let flatArray = newConstructedVocabulary.map(item => {
@@ -81,9 +112,9 @@ class App extends Component {
     this.traceGlobalVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,
-      first_session: false
+      first_session: false,
+      isShowingModal: true
     });
-    this.showStartAlert(newConstructedVocabulary);
   };
 
   traceGlobalVocabulary = () => {
@@ -175,7 +206,9 @@ class App extends Component {
         </nav>
         <main>
           {this.state.first_session
-            ? <p>Please press start to begin</p>
+            ? <p>
+                Please press start to begin
+              </p>
             : <TestArea
                 vocabulary={this.state.vocabulary}
                 onSuccessfulTranslation={this.recordSuccessfulTranslation}
@@ -183,6 +216,8 @@ class App extends Component {
                 onEscPress={this.removeTermFromVocabulary}
               />}
         </main>
+        // εδώ πρέπει να στείλω τα σωστά δεδομένα (πχ έναν πίνακα μέσα στο modal για να τα δείξει)
+        <StartModal title="Welcome!" content={this.constructNewVocabulary()} />
         <nav className="right-nav">
           <button onClick={this.start}>start</button>
           <br /><br />

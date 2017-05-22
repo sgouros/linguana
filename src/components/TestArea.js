@@ -115,7 +115,7 @@ class Testarea extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form className="translation_form" onSubmit={this.handleSubmit}>
           {console.info(
             `\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`
           )}

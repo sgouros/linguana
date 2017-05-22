@@ -35,6 +35,7 @@ body {
 #page > .right-nav {
     grid-area: right-nav;
     background-color: #EEE;
+    padding: 5px;
 }
 
 #page > main {
@@ -52,13 +53,17 @@ body {
     text-align: right;
 }
 
+.translation_form {
+    box-sizing: border-box;
+}
+
 #translation_input {
     font-size: 70px;
     padding: 20px;
-    /*background-color: #DDD;*/
+    background-color: #EEE;
     border: none;
     width: 100%;
-    /*color: darkred;*/
+    box-sizing: border-box;
 }
 
 #translation_input:focus {

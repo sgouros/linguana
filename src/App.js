@@ -61,32 +61,29 @@ class App extends Component {
     first_session: true
   };
 
-  // {alert(this.construct_alert_message())}
-  construct_alert_message = () => {
-    let flatArray = this.state.vocabulary.map(item => {
-      return (
-        item.sourceTermsArray[0] + ": " + item.destinationTermsArray[0] + "\n"
-      );
+  showStartAlert = newConstructedVocabulary => {
+    let flatArray = newConstructedVocabulary.map(item => {
+      return item.entries[0] + " :         " + item.translations[0] + "\n";
     });
-    return (
+    alert(
       "Καλημέρα!\n\nΈχετε να μάθετε τις παρακάτω λέξεις:\n\n" +
-      " " +
-      flatArray.join(" ")
+        " " +
+        flatArray.join(" ")
     );
   };
 
-  restart = () => {
-    console.log("\n\n=========== now RESTARTING");
+  start = () => {
+    console.log("\n\n=========== now STARTING");
     const newConstructedVocabulary = this.constructNewVocabulary();
     this.traceGlobalVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,
       first_session: false
     });
+    this.showStartAlert(newConstructedVocabulary);
   };
 
   traceGlobalVocabulary = () => {
-    //  console.info(theVoc);
     console.log("\n\n------- tracing GLOBAL_VOC ---------");
     GLOBAL_VOC.map(item => {
       console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
@@ -165,15 +162,17 @@ class App extends Component {
           Planner: ΟΠΣ Παρακολούθησης Αναπτυξιακών Εργων Περιφέρειας ΑΜΘ
         </header>
         <nav className="left-nav">
-          <Stats
-            totalTermsCount={this.getTotalTerms()}
-            correctTranslatedTermsCount={this.getTotalCorrectTranslatedTerms()}
-            wrongTranslatedTermsCount={this.getTotalWrongTranslatedTerms()}
-          />
+          {this.state.first_session
+            ? null
+            : <Stats
+                totalTermsCount={this.getTotalTerms()}
+                correctTranslatedTermsCount={this.getTotalCorrectTranslatedTerms()}
+                wrongTranslatedTermsCount={this.getTotalWrongTranslatedTerms()}
+              />}
         </nav>
         <main>
           {this.state.first_session
-            ? <p>Olease press start to begin</p>
+            ? <p>Please press start to begin</p>
             : <TestArea
                 vocabulary={this.state.vocabulary}
                 onSuccessfulTranslation={this.recordSuccessfulTranslation}
@@ -182,7 +181,7 @@ class App extends Component {
               />}
         </main>
         <nav className="right-nav">
-          <button onClick={this.restart}>start</button>
+          <button onClick={this.start}>start</button>
           <br /><br />
           <button onClick={this.traceVocabulary}>trace voc</button>
         </nav>

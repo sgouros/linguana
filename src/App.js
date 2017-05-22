@@ -78,16 +78,15 @@ class App extends Component {
   };
 
   restart = () => {
-    console.log("\n\n=====================now RESTARTING");
+    console.log("\n\n===================== now RESTARTING");
     const newConstructedVocabulary = this.constructNewVocabulary();
-
     this.traceVocabulary(newConstructedVocabulary);
     this.setState({ vocabulary: newConstructedVocabulary });
   };
 
-  // από εδώ. Πρέπει να μπορείς να κάνεις σωστά trace το global voc και μετά το sliced voc που κάνεις construct
   traceVocabulary = () => {
     //  console.info(theVoc);
+    console.log("\n\n------- tracing GLOBAL_VOC ---------");
     GLOBAL_VOC.map(item => {
       console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
       return item;

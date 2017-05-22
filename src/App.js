@@ -3,9 +3,12 @@ import "./App.css";
 import Stats from "./components/Stats.js";
 
 import TestArea from "./components/TestArea.js";
-// import StartPage from "./components/StartPage.js";
 
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import excel
+// http://codetheory.in/parse-read-excel-files-xls-xlsx-javascript/
+// http://stackoverflow.com/questions/6382572/how-to-read-an-excel-file-contents-on-client-side
+// http://stackoverflow.com/questions/28782074/excel-to-json-javascript-code
+// http://oss.sheetjs.com/js-xls/
 
 class Term {
   constructor(entriesArray, translationsArray, totalTimesSelected) {

@@ -128,6 +128,7 @@ export default class Testarea extends Component {
             {this.getSourceTerm()}
           </div>
           <TranslationInput
+            ref="translationInput"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}

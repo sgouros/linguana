@@ -77,6 +77,7 @@ class TranslationInput extends Component {
   render() {
     return (
       <input
+        ref="theInput"
         className={this.props.cssBackgroundClassName}
         id="translation_input"
         name="translation_input"

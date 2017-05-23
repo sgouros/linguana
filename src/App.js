@@ -14,6 +14,8 @@ export default class App extends Component {
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
+    console.log(this.refs);
+    this.refs.testArea.refs.translationInput.refs.theInput.focus();
   };
 
   start = () => {
@@ -138,6 +140,7 @@ export default class App extends Component {
         <main>
           {!this.state.first_session &&
             <TestArea
+              ref="testArea"
               vocabulary={this.state.vocabulary}
               onSuccessfulTranslation={this.recordSuccessfulTranslation}
               onFailedTranslation={this.recordFailedTranslation}

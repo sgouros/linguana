@@ -60,7 +60,6 @@ body {
 #translation_input {
     font-size: 70px;
     padding: 20px;
-    background-color: #EEE;
     border: none;
     width: 100%;
     box-sizing: border-box;
@@ -78,8 +77,13 @@ body {
     padding: 20px;
 }
 
-.correct_translation {
+.css_correct_translation_background {
     background-color: lightgreen;
+}
+
+#test-area-div {
+    width: 100%;
+    height: 100%;
 }
 
 .stats {

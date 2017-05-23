@@ -75,9 +75,9 @@ class TranslationInput extends Component {
   };
 
   render() {
-    //const {} = this.props
     return (
       <input
+        className={this.props.cssBackgroundClassName}
         id="translation_input"
         name="translation_input"
         type="text"

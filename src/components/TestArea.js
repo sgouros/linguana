@@ -3,19 +3,18 @@ import PropTypes from "prop-types";
 
 import TranslationInput from "./TranslationInput.js";
 
-class Testarea extends Component {
+export default class Testarea extends Component {
   static propTypes = {
     vocabulary: PropTypes.array,
     onSuccessfulTranslation: PropTypes.func,
     onFailedTranslation: PropTypes.func,
-    onEscPress: PropTypes.func,
-    isShowing: PropTypes.bool
+    onEscPress: PropTypes.func
   };
 
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
-    cssSourceTermLabel: "wrong_translation"
+    cssBackground: "css_wrong_translation_background"
   };
 
   handleTranslationInputChange = event => {
@@ -31,11 +30,11 @@ class Testarea extends Component {
   };
 
   highlightCorrectAnswer = () => {
-    this.setState({ cssSourceTermLabel: "correct_translation" });
+    this.setState({ cssBackground: "css_correct_translation_background" });
   };
 
   highlightWrongAnswer = () => {
-    this.setState({ cssSourceTermLabel: "wrong_translation" });
+    this.setState({ cssBackground: "css_wrong_translation_background" });
   };
 
   handleSubmit = event => {
@@ -70,13 +69,15 @@ class Testarea extends Component {
     console.debug(`Advancing to next term (index ${nextIndex})`);
     this.clearInput();
     this.setState({
-      current_voc_index: nextIndex,
-      cssSourceTermLabel: "wrong_translation"
+      current_voc_index: nextIndex
     });
   };
 
   clearInput = () => {
-    this.setState({ currentTranslationInputValue: "" });
+    this.setState({
+      currentTranslationInputValue: "",
+      cssBackground: "css_wrong_translation_background"
+    });
   };
 
   getSourceTerm = () => {
@@ -118,7 +119,7 @@ class Testarea extends Component {
 
   render() {
     return (
-      <div className={this.state.cssSourceTermLabel}>
+      <div id="test-area-div" className={this.state.cssBackground}>
         <form className="translation_form" onSubmit={this.handleSubmit}>
           {console.info(
             `\nshowing vocabulary index: ${this.state.current_voc_index}`
@@ -130,11 +131,10 @@ class Testarea extends Component {
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}
+            cssBackgroundClassName={this.state.cssBackground}
           />
         </form>
       </div>
     );
   }
 }
-
-export default Testarea;

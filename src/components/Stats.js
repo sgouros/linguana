@@ -22,20 +22,3 @@ class Stats extends Component {
 }
 
 export default Stats;
-
-//       <ul>
-//         <li>
-//           Έχετε απαντήσει σωστά σε
-//           {" "}
-//           {this.count_total_correct_answers()}
-//           {" "}
-//           από
-//           {" τις "}
-//           {this.state.voc.length}
-//           {" "}
-//           συνολικά λέξεις προς εκμάθηση
-//         </li>
-//         <li>current word index: {this.state.current_voc_index}</li>
-//       </ul>
-//     </div>
-//   </div>

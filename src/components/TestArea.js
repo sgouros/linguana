@@ -5,7 +5,11 @@ import TranslationInput from "./TranslationInput.js";
 
 class Testarea extends Component {
   static propTypes = {
-    vocabulary: PropTypes.array
+    vocabulary: PropTypes.array,
+    onSuccessfulTranslation: PropTypes.func,
+    onFailedTranslation: PropTypes.func,
+    onEscPress: PropTypes.func,
+    isShowing: PropTypes.bool
   };
 
   state = {
@@ -38,10 +42,10 @@ class Testarea extends Component {
     let term_index = this.state.current_voc_index;
 
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
-      console.debug("CORRECT translation");
+      console.info("correct translation");
       this.props.onSuccessfulTranslation(term_index);
     } else {
-      console.debug("WRONG translation");
+      console.info("wrong translation");
       this.props.onFailedTranslation(term_index);
       this.showWordComparison();
     }
@@ -114,12 +118,12 @@ class Testarea extends Component {
 
   render() {
     return (
-      <div>
+      <div className={this.state.cssSourceTermLabel}>
         <form className="translation_form" onSubmit={this.handleSubmit}>
           {console.info(
-            `\n------------ showing vocabulary index ${this.state.current_voc_index} -------------`
+            `\nshowing vocabulary index: ${this.state.current_voc_index}`
           )}
-          <div id="source_word_div" className={this.state.cssSourceTermLabel}>
+          <div id="source_word_div">
             {this.getSourceTerm()}
           </div>
           <TranslationInput
@@ -127,7 +131,6 @@ class Testarea extends Component {
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}
           />
-
         </form>
       </div>
     );

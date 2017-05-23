@@ -85,3 +85,37 @@ body {
 .stats {
     font-weight: bold;
 }
+
+.modalDialogTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+th, td {
+    width: 50%;
+    height: 1.8em;
+    padding-left: 5px;
+}
+
+tr:nth-child(odd) {
+    background: #EEE
+}
+
+.new-session-button {
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 4px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 16px;
+    background: #3498db;
+    padding: 20px 20px 20px 20px;
+    border: solid #1f628d 1px;
+    text-decoration: none;
+}
+
+.new-session-button:hover {
+    background: #73c6fa;
+    text-decoration: none;
+    cursor: pointer;
+}

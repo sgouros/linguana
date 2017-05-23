@@ -1,133 +1,43 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Stats from "./components/Stats.js";
-
 import TestArea from "./components/TestArea.js";
+import StartModal from "./components/StartModal.js";
+import GLOBAL_VOC from "./Globals.js";
 
-import { ModalContainer, ModalDialog } from "react-modal-dialog";
-
-// import excel
-// http://codetheory.in/parse-read-excel-files-xls-xlsx-javascript/
-// http://stackoverflow.com/questions/6382572/how-to-read-an-excel-file-contents-on-client-side
-// http://stackoverflow.com/questions/28782074/excel-to-json-javascript-code
-// http://oss.sheetjs.com/js-xls/
-
-class StartModal extends Component {
-  state = {
-    title: "Welcome",
-    whatToShow: "These are the contents",
-    isShowingModal: true
-  };
-
-  handleModalClick = () => this.setState({ isShowingModal: true });
-  handleModalClose = () => this.setState({ isShowingModal: false });
-
-  render() {
-    return (
-      <div onClick={this.handleModalClick}>
-        {this.state.isShowingModal &&
-          <ModalContainer onClose={this.handleModalClose}>
-            <ModalDialog onClose={this.handleModalClose}>
-              <h1>{this.props.title}</h1>
-              <p>{this.props.content}</p>
-            </ModalDialog>
-          </ModalContainer>}
-      </div>
-    );
-  }
-}
-
-class Term {
-  constructor(entriesArray, translationsArray, totalTimesSelected) {
-    this.entries = entriesArray;
-    this.translations = translationsArray;
-    this.totalSuccessfulTranslations = Math.floor(Math.random() * 50 + 1);
-    this.totalFailedTranslations = Math.floor(Math.random() * 50 + 1);
-    this.totalTimesSelected = totalTimesSelected;
-    this.isCurrentlyCorrectlyTranslated = false;
-  }
-
-  success() {
-    this.totalSuccessfulTranslations += 1;
-    this.isCurrentlyCorrectlyTranslated = true;
-  }
-
-  failure() {
-    this.totalFailedTranslations += 1;
-    this.isCurrentlyCorrectlyTranslated = false;
-  }
-
-  selected() {
-    this.totalTimesSelected += 1;
-  }
-}
-
-const GLOBAL_VOC = [
-  new Term(["εγκατάσταση"], ["installieren"], 0),
-  new Term(["ναι"], ["ja"], 1),
-  new Term(["οθόνη"], ["der Monitor"], 1),
-  new Term(["κατόπιν"], ["anschließend"], 5),
-  new Term(["ευγενικός"], ["nett"], 7),
-  new Term(["αυτοκίνητο"], ["das Auto"], 12),
-  new Term(["λάθος"], ["der Fehler"], 5),
-  new Term(["όχι"], ["nein"], 3),
-  new Term(["ηλεκτρονικός υπολογιστής"], ["der Rechner"], 2),
-  new Term(["hardly μετα βίας"], ["kaum"], 7),
-  new Term(["πόνος"], ["der Schmerz"], 12),
-  new Term(["ασφαλισμένος"], ["versichert"], 17),
-  new Term(["προφανώς"], ["offensichtlich"], 8),
-  new Term(["εκφράζω"], ["ausdrücken"], 7),
-  new Term(["αξία"], ["der Wert"], 4),
-  new Term(["διατήρηση"], ["die Erhaltung"], 16),
-  new Term(["μεταφόρτωση (download)"], ["runterladen"], 7),
-  new Term(["ανέκδοτο"], ["der Witz"], 4),
-  new Term(["τρόφιμα"], ["das Lebensmittel"], 8),
-  new Term(["σύνδεση"], ["einloggen"], 20)
-];
-
-class App extends Component {
+export default class App extends Component {
   state = {
     vocabulary: GLOBAL_VOC,
     first_session: true,
-    isShowingModal: true
+    showStartModal: false
   };
 
-  handleModalClick = () => this.setState({ isShowingModal: true });
-  handleModalClose = () => this.setState({ isShowingModal: false });
-
-  showStartAlert = newConstructedVocabulary => {
-    let flatArray = newConstructedVocabulary.map(item => {
-      return item.entries[0] + " :         " + item.translations[0] + "\n";
-    });
-    alert(
-      "Καλημέρα!\n\nΈχετε να μάθετε τις παρακάτω λέξεις:\n\n" +
-        " " +
-        flatArray.join(" ")
-    );
+  closeStartingSummaryModal = () => {
+    this.setState({ showStartModal: false });
   };
 
   start = () => {
-    console.log("\n\n=========== now STARTING");
+    console.log("\n\n-------------------- now STARTING --------------");
     const newConstructedVocabulary = this.constructNewVocabulary();
-    this.traceGlobalVocabulary(newConstructedVocabulary);
+    this.traceVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,
       first_session: false,
-      isShowingModal: true
+      showStartModal: true
     });
   };
 
   traceGlobalVocabulary = () => {
-    console.log("\n\n------- tracing GLOBAL_VOC ---------");
+    console.log("------- tracing GLOBAL_VOC ---------");
     GLOBAL_VOC.map(item => {
       console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
       return item;
     });
   };
 
-  traceVocabulary = () => {
+  traceVocabulary = voc => {
     console.log("\n\n------- tracing vocabulary ---------");
-    this.state.vocabulary.map(item => {
+    voc.map(item => {
       console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
       return item;
     });
@@ -169,7 +79,6 @@ class App extends Component {
         this.state.vocabulary.length
       )
     ];
-
     this.setState({
       vocabulary: new_voc
     });
@@ -189,6 +98,29 @@ class App extends Component {
     return this.getTotalTerms() - this.getTotalCorrectTranslatedTerms();
   };
 
+  constructStartingSummaryModalContent = () => {
+    const htmlTable = this.state.vocabulary.map(term => {
+      return (
+        <tr key={term.entries[0]}>
+          <td>{term.entries[0]}</td>
+          <td>{term.translations[0]}</td>
+        </tr>
+      );
+    });
+
+    return (
+      <div>
+        <p>Here are the words you need to learn:</p>
+        <table className="modalDialogTable">
+          <tbody>
+            {htmlTable}
+          </tbody>
+        </table>
+
+      </div>
+    );
+  };
+
   render() {
     return (
       <div id="page">
@@ -196,32 +128,33 @@ class App extends Component {
           Planner: ΟΠΣ Παρακολούθησης Αναπτυξιακών Εργων Περιφέρειας ΑΜΘ
         </header>
         <nav className="left-nav">
-          {this.state.first_session
-            ? null
-            : <Stats
-                totalTermsCount={this.getTotalTerms()}
-                correctTranslatedTermsCount={this.getTotalCorrectTranslatedTerms()}
-                wrongTranslatedTermsCount={this.getTotalWrongTranslatedTerms()}
-              />}
+          {!this.state.first_session &&
+            <Stats
+              totalTermsCount={this.getTotalTerms()}
+              correctTranslatedTermsCount={this.getTotalCorrectTranslatedTerms()}
+              wrongTranslatedTermsCount={this.getTotalWrongTranslatedTerms()}
+            />}
         </nav>
         <main>
-          {this.state.first_session
-            ? <p>
-                Please press start to begin
-              </p>
-            : <TestArea
-                vocabulary={this.state.vocabulary}
-                onSuccessfulTranslation={this.recordSuccessfulTranslation}
-                onFailedTranslation={this.recordFailedTranslation}
-                onEscPress={this.removeTermFromVocabulary}
-              />}
+          {!this.state.first_session &&
+            <TestArea
+              vocabulary={this.state.vocabulary}
+              onSuccessfulTranslation={this.recordSuccessfulTranslation}
+              onFailedTranslation={this.recordFailedTranslation}
+              onEscPress={this.removeTermFromVocabulary}
+            />}
         </main>
-        // εδώ πρέπει να στείλω τα σωστά δεδομένα (πχ έναν πίνακα μέσα στο modal για να τα δείξει)
-        <StartModal title="Welcome!" content={this.constructNewVocabulary()} />
+        {this.state.showStartModal
+          ? <StartModal
+              title="Welcome to Linguana!"
+              content={this.constructStartingSummaryModalContent()}
+              onClose={this.closeStartingSummaryModal}
+            />
+          : null}
         <nav className="right-nav">
-          <button onClick={this.start}>start</button>
-          <br /><br />
-          <button onClick={this.traceVocabulary}>trace voc</button>
+          <button className="new-session-button" onClick={this.start}>
+            new session
+          </button>
         </nav>
         <footer>
           Διεύθυνση Αναπτυξιακού Προγραμματισμού Περιφέρειας ΑΜΘ
@@ -230,5 +163,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

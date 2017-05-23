@@ -28,6 +28,8 @@ class TranslationInput extends Component {
       }
     } else if (event.keyCode === 27) {
       this.handleEscPress(event);
+    } else if (event.keyCode === 107) {
+      this.handlePlusPress(event);
     } else {
       console.debug("normal key pressed");
     }
@@ -72,6 +74,12 @@ class TranslationInput extends Component {
   handleEscPress = event => {
     console.info("\nESC key pressed");
     this.props.onEscPress();
+  };
+
+  handlePlusPress = event => {
+    console.info("\n+ key pressed");
+    this.props.onPlusPress();
+    event.preventDefault();
   };
 
   render() {

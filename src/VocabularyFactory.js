@@ -23,4 +23,36 @@ const GLOBAL_VOC = [
   new VocabularyTerm(["σύνδεση"], ["einloggen"], 20)
 ];
 
-export default GLOBAL_VOC;
+export default class VocabularyFactory {
+  getNewVocabulary = (numberOfTerms, allSelectedTerms = []) => {
+    let totalTermsSelected = 0;
+
+    let sortedVocabulary = this.sortGlobalVocabulary();
+
+    let filteredVocabulary = sortedVocabulary.filter(term => {
+      if (allSelectedTerms.indexOf(term) >= 0) {
+        return false;
+      } else {
+        if (totalTermsSelected >= numberOfTerms) {
+          return false;
+        } else {
+          totalTermsSelected += 1;
+          return true;
+        }
+      }
+    });
+
+    let updatedVocabulary = filteredVocabulary.map(item => {
+      item.selected();
+      return item;
+    });
+
+    return updatedVocabulary;
+  };
+
+  sortGlobalVocabulary = () => {
+    return GLOBAL_VOC.sort(function(term_a, term_b) {
+      return term_a.totalTimesSelected - term_b.totalTimesSelected;
+    });
+  };
+}

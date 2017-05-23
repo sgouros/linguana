@@ -8,7 +8,8 @@ export default class Testarea extends Component {
     vocabulary: PropTypes.array,
     onSuccessfulTranslation: PropTypes.func,
     onFailedTranslation: PropTypes.func,
-    onEscPress: PropTypes.func
+    onEscPress: PropTypes.func,
+    onPlusPress: PropTypes.func
   };
 
   state = {
@@ -117,6 +118,12 @@ export default class Testarea extends Component {
     }
   };
 
+  onPlusPress = () => {
+    const currentIndex = this.state.current_voc_index;
+    this.clearInput();
+    this.props.onPlusPress(currentIndex);
+  };
+
   render() {
     return (
       <div id="test-area-div" className={this.state.cssBackground}>
@@ -132,6 +139,7 @@ export default class Testarea extends Component {
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}
+            onPlusPress={this.onPlusPress}
             cssBackgroundClassName={this.state.cssBackground}
           />
         </form>

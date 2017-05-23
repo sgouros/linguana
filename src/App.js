@@ -3,24 +3,35 @@ import "./App.css";
 import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
-import GLOBAL_VOC from "./Globals.js";
+import VocabularyFactory from "./VocabularyFactory.js";
 
 export default class App extends Component {
   state = {
-    vocabulary: GLOBAL_VOC,
+    vocabulary: [],
     first_session: true,
     showStartModal: false
   };
 
+  vocabularyFactory = new VocabularyFactory();
+  initialVocabularyLength = 10;
+  allSelectedTerms = [];
+
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
-    console.log(this.refs);
     this.refs.testArea.refs.translationInput.refs.theInput.focus();
   };
 
   start = () => {
-    console.log("\n\n-------------------- now STARTING --------------");
-    const newConstructedVocabulary = this.constructNewVocabulary();
+    console.info("\n\n-------------------- now STARTING --------------");
+    const newConstructedVocabulary = this.vocabularyFactory.getNewVocabulary(
+      this.initialVocabularyLength,
+      this.allSelectedTerms
+    );
+    this.allSelectedTerms = [...newConstructedVocabulary];
+
+    console.info(
+      `adding ${this.initialVocabularyLength} new terms to vocabulary array`
+    );
     this.traceVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,
@@ -29,35 +40,13 @@ export default class App extends Component {
     });
   };
 
-  traceGlobalVocabulary = () => {
-    console.log("------- tracing GLOBAL_VOC ---------");
-    GLOBAL_VOC.map(item => {
-      console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
-      return item;
-    });
-  };
-
   traceVocabulary = voc => {
-    console.log("\n\n------- tracing vocabulary ---------");
+    console.info("------- tracing vocabulary ---------");
     voc.map(item => {
-      console.log(`${item.entries[0]}: ${item.totalTimesSelected}`);
+      console.info(`${item.entries[0]}: ${item.totalTimesSelected}`);
       return item;
     });
-    console.log("----- end tracing vocabulary -------");
-  };
-
-  constructNewVocabulary = () => {
-    const maxNumberOfWords = 4;
-    let sortedVocabulary = GLOBAL_VOC.sort(function(term_a, term_b) {
-      return term_a.totalTimesSelected - term_b.totalTimesSelected;
-    });
-    let slicedVocabulary = sortedVocabulary.slice(0, maxNumberOfWords);
-
-    let updatedVocabulary = slicedVocabulary.map(item => {
-      item.selected();
-      return item;
-    });
-    return updatedVocabulary;
+    console.info("----- end tracing vocabulary -------");
   };
 
   recordSuccessfulTranslation = term_index => {
@@ -73,7 +62,7 @@ export default class App extends Component {
   };
 
   removeTermFromVocabulary = currentIndex => {
-    console.info("removing item from vocabulary array");
+    console.info("removing term from vocabulary array");
     const new_voc = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...this.state.vocabulary.slice(
@@ -83,6 +72,27 @@ export default class App extends Component {
     ];
     this.setState({
       vocabulary: new_voc
+    });
+  };
+
+  addTermToVocabulary = currentIndex => {
+    const vocabularyToAdd = this.vocabularyFactory.getNewVocabulary(
+      1,
+      this.allSelectedTerms
+    );
+    console.info(`adding 1 new term to vocabulary array`);
+    this.traceVocabulary(vocabularyToAdd);
+    const updatedVocabulary = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...vocabularyToAdd,
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+    ];
+    this.allSelectedTerms.push(...vocabularyToAdd);
+    console.info("+++++++++++++tracing allSelectedTerms");
+    this.traceVocabulary(this.allSelectedTerms);
+
+    this.setState({
+      vocabulary: updatedVocabulary
     });
   };
 
@@ -145,6 +155,7 @@ export default class App extends Component {
               onSuccessfulTranslation={this.recordSuccessfulTranslation}
               onFailedTranslation={this.recordFailedTranslation}
               onEscPress={this.removeTermFromVocabulary}
+              onPlusPress={this.addTermToVocabulary}
             />}
         </main>
         {this.state.showStartModal

@@ -5,13 +5,15 @@ import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
+import TermManager from "./components/TermManager.js";
 
 export default class App extends Component {
   state = {
     vocabulary: [],
     first_session: true,
     showStartModal: false,
-    showFinishModal: false
+    showFinishModal: false,
+    showTermManager: false
   };
 
   vocabularyFactory = new VocabularyFactory();
@@ -142,7 +144,11 @@ export default class App extends Component {
 
   constructFinishModalContent = () => {
     return (
-      <img className="css-congratulations-img" src="/img/congratulations.jpg" />
+      <img
+        className="css-congratulations-img"
+        src="/img/congratulations.jpg"
+        alt="congratulations"
+      />
     );
   };
 
@@ -151,6 +157,11 @@ export default class App extends Component {
       showFinishModal: false,
       first_session: true
     });
+  };
+
+  newTerm = () => {
+    console.info("------- opening term manager ----------");
+    this.setState({ showTermManager: true });
   };
 
   render() {
@@ -178,6 +189,7 @@ export default class App extends Component {
               onLastEscPress={this.finish}
               onPlusPress={this.addTermToVocabulary}
             />}
+          {this.state.showTermManager && <TermManager />}
         </main>
         {this.state.showStartModal
           ? <StartModal
@@ -196,6 +208,9 @@ export default class App extends Component {
         <nav className="right-nav">
           <button className="new-session-button" onClick={this.start}>
             new session
+          </button>
+          <button className="new-term-button" onClick={this.newTerm}>
+            add new term
           </button>
         </nav>
         <footer>

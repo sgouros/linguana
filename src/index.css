@@ -138,6 +138,7 @@ body {
 }
 
 .new-session-button {
+    margin-bottom: 20px;
     -webkit-border-radius: 4;
     -moz-border-radius: 4;
     border-radius: 4px;
@@ -148,10 +149,35 @@ body {
     padding: 20px 20px 20px 20px;
     border: solid #1f628d 1px;
     text-decoration: none;
+    width: 140px;
+    outline: 1;
 }
 
 .new-session-button:hover {
-    background: #73c6fa;
+    background: #99cFfF;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.new-term-button {
+    width: 140px;
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 4px;
+    font-family: Arial;
+    font-size: 16px;
+    background: #DDD;
+    color: black;
+    padding: 20px 20px 20px 20px;
+    border: solid #aaa 1px;
+    text-decoration: none;
+    outline: 1;
+}
+
+.new-term-button:hover {
+    background: #999;
+    color: white;
     text-decoration: none;
     cursor: pointer;
 }

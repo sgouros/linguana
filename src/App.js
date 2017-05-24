@@ -3,13 +3,15 @@ import "./App.css";
 import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
+import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 
 export default class App extends Component {
   state = {
     vocabulary: [],
     first_session: true,
-    showStartModal: false
+    showStartModal: false,
+    showFinishModal: false
   };
 
   vocabularyFactory = new VocabularyFactory();
@@ -37,6 +39,12 @@ export default class App extends Component {
       vocabulary: newConstructedVocabulary,
       first_session: false,
       showStartModal: true
+    });
+  };
+
+  finish = () => {
+    this.setState({
+      showFinishModal: true
     });
   };
 
@@ -132,6 +140,19 @@ export default class App extends Component {
     );
   };
 
+  constructFinishModalContent = () => {
+    return (
+      <img className="css-congratulations-img" src="/img/congratulations.jpg" />
+    );
+  };
+
+  closeFinishModal = () => {
+    this.setState({
+      showFinishModal: false,
+      first_session: true
+    });
+  };
+
   render() {
     return (
       <div id="page">
@@ -154,6 +175,7 @@ export default class App extends Component {
               onSuccessfulTranslation={this.recordSuccessfulTranslation}
               onFailedTranslation={this.recordFailedTranslation}
               onEscPress={this.removeTermFromVocabulary}
+              onLastEscPress={this.finish}
               onPlusPress={this.addTermToVocabulary}
             />}
         </main>
@@ -162,6 +184,13 @@ export default class App extends Component {
               title="Welcome to Linguana! Here are your words for today:"
               content={this.constructStartingSummaryModalContent()}
               onClose={this.closeStartingSummaryModal}
+            />
+          : null}
+        {this.state.showFinishModal
+          ? <FinishModal
+              title=""
+              content={this.constructFinishModalContent()}
+              onClose={this.closeFinishModal}
             />
           : null}
         <nav className="right-nav">

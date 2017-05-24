@@ -11,6 +11,7 @@ export default class Testarea extends Component {
     onSuccessfulTranslation: PropTypes.func,
     onFailedTranslation: PropTypes.func,
     onEscPress: PropTypes.func,
+    onLastEscPress: PropTypes.func,
     onPlusPress: PropTypes.func
   };
 
@@ -93,6 +94,7 @@ export default class Testarea extends Component {
   onEscPress = () => {
     if (this.props.vocabulary.length === 1) {
       console.info("ignoring esc key because only one term remains");
+      this.props.onLastEscPress();
     } else {
       const currentIndex = this.state.current_voc_index;
       const lastVocIndex = this.props.vocabulary.length - 1;

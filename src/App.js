@@ -24,7 +24,7 @@ export default class App extends Component {
   };
 
   start = () => {
-    console.info("\n\n-------------------- now STARTING --------------");
+    console.info("\n\n-------------------- now STARTING -----------------");
     const newConstructedVocabulary = this.vocabularyFactory.getNewVocabulary(
       this.initialVocabularyLength,
       this.allSelectedTerms

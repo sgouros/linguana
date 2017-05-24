@@ -122,7 +122,6 @@ export default class App extends Component {
 
     return (
       <div>
-        <p>Here are the words you need to learn:</p>
         <table className="modalDialogTable">
           <tbody>
             {htmlTable}
@@ -160,7 +159,7 @@ export default class App extends Component {
         </main>
         {this.state.showStartModal
           ? <StartModal
-              title="Welcome to Linguana!"
+              title="Welcome to Linguana! Here are your words for today:"
               content={this.constructStartingSummaryModalContent()}
               onClose={this.closeStartingSummaryModal}
             />

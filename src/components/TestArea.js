@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import TranslationInput from "./TranslationInput.js";
 
+import WordComparisonDialog from "./WordComparisonDialog.js";
+
 export default class Testarea extends Component {
   static propTypes = {
     vocabulary: PropTypes.array,
@@ -15,7 +17,8 @@ export default class Testarea extends Component {
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
-    cssBackground: "css_wrong_translation_background"
+    cssBackground: "css_wrong_translation_background",
+    showWordComparisonDialog: false
   };
 
   handleTranslationInputChange = event => {
@@ -44,19 +47,17 @@ export default class Testarea extends Component {
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
       console.info("correct translation");
       this.props.onSuccessfulTranslation(term_index);
+      this.loadNextTerm();
     } else {
       console.info("wrong translation");
+      this.showWordComparisonDialog();
       this.props.onFailedTranslation(term_index);
-      this.showWordComparison();
     }
-    this.loadNextTerm();
     event.preventDefault();
   };
 
-  showWordComparison = () => {
-    let correct = this.getCorrectTranslation();
-    let typed = this.state.currentTranslationInputValue;
-    alert(`correct      :       ${correct}\nyou typed:       ${typed}`);
+  showWordComparisonDialog = () => {
+    this.setState({ showWordComparisonDialog: true });
   };
 
   translationIsCorrect = translation_typed => {
@@ -124,9 +125,37 @@ export default class Testarea extends Component {
     this.props.onPlusPress(currentIndex);
   };
 
+  closeWordComparisonDialog = () => {
+    this.setState({ showWordComparisonDialog: false });
+    this.loadNextTerm();
+    this.refs.translationInput.refs.theInput.focus();
+  };
+
+  getWordComparisonDialogContent = () => {
+    let correct = this.getCorrectTranslation();
+    let typed = this.state.currentTranslationInputValue;
+    return (
+      <div>
+        <table className="wordComparisonTable">
+          <tbody>
+            <tr>
+              <td>Correct answer:</td>
+              <td>{correct}</td>
+            </tr>
+            <tr>
+              <td>You typed:</td>
+              <td>{typed}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
   render() {
     return (
       <div id="test-area-div" className={this.state.cssBackground}>
+
         <form className="translation_form" onSubmit={this.handleSubmit}>
           {console.info(
             `\nshowing vocabulary index: ${this.state.current_voc_index}`
@@ -143,6 +172,15 @@ export default class Testarea extends Component {
             cssBackgroundClassName={this.state.cssBackground}
           />
         </form>
+
+        {this.state.showWordComparisonDialog
+          ? <WordComparisonDialog
+              title="hmmm, I don't think so..."
+              content={this.getWordComparisonDialogContent()}
+              onClose={this.closeWordComparisonDialog}
+            />
+          : null}
+
       </div>
     );
   }

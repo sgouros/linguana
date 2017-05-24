@@ -78,7 +78,7 @@ body {
 }
 
 .css_correct_translation_background {
-    background-color: lightgreen;
+    background-color: #2E2;
 }
 
 #test-area-div {
@@ -90,18 +90,50 @@ body {
     font-weight: bold;
 }
 
+.wordComparisonTable {
+    table-layout: fixed;
+    width: 100%;
+    border-spacing: 10px;
+}
+
+.wordComparisonTable td {
+    width: 70%;
+    height: 1.8em;
+    font-size: 30px;
+    padding: 10px 10px 10px 15px;
+}
+
+.wordComparisonTable td:first-child {
+    text-align: right;
+    width: 30%;
+    height: 1.8em;
+    font-size: 30px;
+    padding: 10px 10px 10px 15px;
+}
+
+.wordComparisonTable tr:first-child td:last-child {
+    background: #43C;
+    color: white;
+}
+
+.wordComparisonTable tr:last-child td:last-child {
+    background: #D20;
+    color: white
+}
+
 .modalDialogTable {
     table-layout: fixed;
     width: 100%;
 }
 
-th, td {
+.modalDialogTable td {
     width: 50%;
     height: 1.8em;
-    padding-left: 5px;
+    padding: 5px 5px 5px 15px;
+    font-size: 22px;
 }
 
-tr:nth-child(odd) {
+.modalDialogTable tr:nth-child(odd) {
     background: #EEE
 }
 
@@ -122,4 +154,35 @@ tr:nth-child(odd) {
     background: #73c6fa;
     text-decoration: none;
     cursor: pointer;
+}
+
+.css-modal-dialog-ok-button {
+    background: #ECECEC;
+    border-radius: 15px;
+    padding: 10px 20px;
+    display: block;
+    font-family: arial;
+    font-weight: bold;
+    color: #7f7f7f;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #fff;
+    border: 1px solid #a7a7a7;
+    width: 145px;
+    margin: 0px auto;
+    margin-top: 100px;
+    box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition: box-shadow 0.5s;
+}
+
+.css-modal-dialog-ok-button:hover {
+    box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+.css-modal-dialog-ok-button:active {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
+    background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
+}
+
+.css-modal-dialog-ok-button:focus {
+    outline: 0;
 }

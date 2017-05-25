@@ -4,24 +4,50 @@ import TranslationInput from "./TranslationInput.js";
 // import WordComparisonDialog from "./WordComparisonDialog.js";
 
 export default class TermManager extends Component {
+  state = {
+    currentTermManagerSourceInputValue: "",
+    currentTermManagerTranslationInputValue: ""
+  };
+
+  handleTermManagerTranslationInputChange = event => {
+    console.info("setting TranslationInput to key:");
+    console.info(event.target.value);
+
+    this.setState({
+      currentTermManagerTranslationInputValue: event.target.value
+    });
+  };
+
+  handleTermManagerSourceInputChange = event => {
+    console.info("setting SourceInput to key:");
+    console.info(event.target.value);
+    this.setState({
+      currentTermManagerSourceInputValue: event.target.value
+    });
+  };
+
   render() {
-    <div id="term-manager-div">
+    return (
+      <div id="term-manager-div">
 
-      <form className="translterm-manager-form" onSubmit={this.handleSubmit}>
+        <form className="term-manager-form" onSubmit={this.handleSubmit}>
 
-        <TranslationInput
-          ref="termManagerSourceInput"
-          currentInputValue={this.state.currentTermManagerSourceInputValue}
-          onChange={this.handleTermManagerSourceInputChange}
-        />
+          <TranslationInput
+            ref="termManagerSourceInput"
+            currentInputValue={this.state.currentTermManagerSourceInputValue}
+            onChange={this.handleTermManagerSourceInputChange}
+          />
 
-        <TranslationInput
-          ref="termManagerTranslationInput"
-          currentInputValue={this.state.currentTermManagerTranslationInputValue}
-          onChange={this.handleTermManagerTranslationInputChange}
-        />
-      </form>
-      // todo αρχίζεις και βλέπεις πώς μπορείς να προσθέτεις λέξεις στο global dictionary
-    </div>;
+          <TranslationInput
+            ref="termManagerTranslationInput"
+            currentInputValue={
+              this.state.currentTermManagerTranslationInputValue
+            }
+            onChange={this.handleTermManagerTranslationInputChange}
+          />
+        </form>
+
+      </div>
+    );
   }
 }

@@ -189,7 +189,11 @@ export default class App extends Component {
               onLastEscPress={this.finish}
               onPlusPress={this.addTermToVocabulary}
             />}
-          {this.state.showTermManager && <TermManager />}
+          {this.state.showTermManager &&
+            <TermManager
+              ref="termManager"
+              onNewTermSubmitted={this.newTermSubmitted}
+            />}
         </main>
         {this.state.showStartModal
           ? <StartModal

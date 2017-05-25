@@ -61,8 +61,11 @@ class TranslationInput extends Component {
     const correct_input_box_value =
       initial_value.substr(0, initial_value.length - 1) +
       this.special_letter_substitutions[specialKeyPairIndex][2];
-    event.target.value = correct_input_box_value;
 
+    event.target.value = correct_input_box_value;
+    // εδώ καλά κάναμε και αλλάξαμε τα περιεχόμενα του input αλλά αυτή η αλλαγή πρέπει
+    // να αποθηκευτεί κιόλας. Πρέπει συνεπώς να ενημερώσουμε και τον parent με κάποιο τρόπο:
+    this.handleOnChange(event);
     this.resetSpecialKeyPress();
     event.preventDefault();
   };

@@ -10,8 +10,8 @@ export default class TermManager extends Component {
   };
 
   handleTermManagerTranslationInputChange = event => {
-    console.info("setting TranslationInput to key:");
-    console.info(event.target.value);
+    console.debug("setting TranslationInput to:");
+    console.debug(event.target.value);
 
     this.setState({
       currentTermManagerTranslationInputValue: event.target.value
@@ -19,23 +19,33 @@ export default class TermManager extends Component {
   };
 
   handleTermManagerSourceInputChange = event => {
-    console.info("setting SourceInput to key:");
-    console.info(event.target.value);
+    console.debug("setting SourceInput to:");
+    console.debug(event.target.value);
     this.setState({
       currentTermManagerSourceInputValue: event.target.value
     });
   };
 
+  handleSubmit = event => {
+    let sourceTerm = this.state.currentTermManagerSourceInputValue;
+    let translatedTerm = this.state.currentTermManagerTranslationInputValue;
+    this.props.onNewEntrySubmitted(sourceTerm, translatedTerm);
+    event.preventDefault();
+  };
+  // todo: πρέπει το type="submit" να περνάει ως prop στο TranslationInput και μετά
+  // να δω αν με enter παίρνει τον νέο όρο
+
   render() {
     return (
       <div id="term-manager-div">
-
         <form className="term-manager-form" onSubmit={this.handleSubmit}>
 
           <TranslationInput
             ref="termManagerSourceInput"
             currentInputValue={this.state.currentTermManagerSourceInputValue}
             onChange={this.handleTermManagerSourceInputChange}
+            disableSpecialEscPress={true}
+            disableSpecialPlusPress={true}
           />
 
           <TranslationInput
@@ -44,6 +54,8 @@ export default class TermManager extends Component {
               this.state.currentTermManagerTranslationInputValue
             }
             onChange={this.handleTermManagerTranslationInputChange}
+            disableSpecialEscPress={true}
+            disableSpecialPlusPress={true}
           />
         </form>
 

@@ -55,4 +55,12 @@ export default class VocabularyFactory {
       return term_a.totalTimesSelected - term_b.totalTimesSelected;
     });
   };
+
+  addNewEntry = (sourceTerm, translatedTerm) => {
+    let newEntry = new VocabularyTerm([], [], 0);
+    newEntry.entries[0] = sourceTerm;
+    newEntry.translations[0] = translatedTerm;
+    GLOBAL_VOC.push(newEntry);
+    return GLOBAL_VOC;
+  };
 }

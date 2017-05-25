@@ -159,9 +159,17 @@ export default class App extends Component {
     });
   };
 
-  newTerm = () => {
+  openVocabularyManager = () => {
     console.info("------- opening term manager ----------");
     this.setState({ showTermManager: true });
+  };
+
+  newEntrySubmitted = (sourceTerm, translatedTerm) => {
+    let updatedGlobalVoc = this.vocabularyFactory.addNewEntry(
+      sourceTerm,
+      translatedTerm
+    );
+    this.traceVocabulary(updatedGlobalVoc);
   };
 
   render() {
@@ -192,7 +200,7 @@ export default class App extends Component {
           {this.state.showTermManager &&
             <TermManager
               ref="termManager"
-              onNewTermSubmitted={this.newTermSubmitted}
+              onNewEntrySubmitted={this.newEntrySubmitted}
             />}
         </main>
         {this.state.showStartModal
@@ -213,8 +221,11 @@ export default class App extends Component {
           <button className="new-session-button" onClick={this.start}>
             new session
           </button>
-          <button className="new-term-button" onClick={this.newTerm}>
-            add new term
+          <button
+            className="new-term-button"
+            onClick={this.openVocabularyManager}
+          >
+            vocabulary manager
           </button>
         </nav>
         <footer>

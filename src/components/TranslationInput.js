@@ -75,14 +75,18 @@ class TranslationInput extends Component {
   };
 
   handleEscPress = event => {
-    console.info("\nESC key pressed");
-    this.props.onEscPress();
+    if (!this.props.disableSpecialEscPress) {
+      console.info("\nESC key pressed");
+      this.props.onEscPress();
+    }
   };
 
   handlePlusPress = event => {
-    console.info("\n+ key pressed");
-    this.props.onPlusPress();
-    event.preventDefault();
+    if (!this.props.disableSpecialPlusPress) {
+      console.info("\n+ key pressed");
+      this.props.onPlusPress();
+      event.preventDefault();
+    }
   };
 
   render() {

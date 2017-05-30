@@ -3,18 +3,18 @@ import PropTypes from "prop-types";
 
 class Stats extends Component {
   static propTypes = {
-    totalTermsCount: PropTypes.number,
-    correctTranslatedTermsCount: PropTypes.number,
-    wrongTranslatedTermsCount: PropTypes.number
+    totalEntriesCount: PropTypes.number,
+    correctTranslationsCount: PropTypes.number,
+    wrongTranslationsCount: PropTypes.number
   };
 
   render() {
     return (
       <div>
         <ul>
-          <li>correct: {this.props.correctTranslatedTermsCount}</li>
-          <li>wrong: {this.props.wrongTranslatedTermsCount}</li>
-          <li>total: {this.props.totalTermsCount}</li>
+          <li>correct: {this.props.correctTranslationsCount}</li>
+          <li>wrong: {this.props.wrongTranslationsCount}</li>
+          <li>total: {this.props.totalEntriesCount}</li>
         </ul>
       </div>
     );

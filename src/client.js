@@ -45,27 +45,9 @@ window.client = (function() {
   //   }).then(checkStatus);
   // }
 
-  // function startTimer(data) {
-  //   return fetch('/api/timers/start', {
-  //     method: 'post',
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   }).then(checkStatus);
-  // }
 
-  // function stopTimer(data) {
-  //   return fetch('/api/timers/stop', {
-  //     method: 'post',
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   }).then(checkStatus);
-  // }
+
+
 
   function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {

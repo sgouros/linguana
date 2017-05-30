@@ -43,16 +43,16 @@ export default class Testarea extends Component {
   };
 
   handleSubmit = event => {
-    let term_index = this.state.current_voc_index;
+    let entry_index = this.state.current_voc_index;
 
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
       console.info("correct translation");
-      this.props.onSuccessfulTranslation(term_index);
-      this.loadNextTerm();
+      this.props.onSuccessfulTranslation(entry_index);
+      this.loadNextEntry();
     } else {
       console.info("wrong translation");
       this.showWordComparisonDialog();
-      this.props.onFailedTranslation(term_index);
+      this.props.onFailedTranslation(entry_index);
     }
     event.preventDefault();
   };
@@ -65,11 +65,11 @@ export default class Testarea extends Component {
     return translation_typed === this.getCorrectTranslation() ? true : false;
   };
 
-  loadNextTerm = () => {
+  loadNextEntry = () => {
     const currentIndex = this.state.current_voc_index;
     const lastVocIndex = this.props.vocabulary.length - 1;
     const nextIndex = currentIndex === lastVocIndex ? 0 : currentIndex + 1;
-    console.debug(`Advancing to next term (index ${nextIndex})`);
+    console.debug(`Advancing to next entry (index ${nextIndex})`);
     this.clearInput();
     this.setState({
       current_voc_index: nextIndex
@@ -83,17 +83,17 @@ export default class Testarea extends Component {
     });
   };
 
-  getSourceTerm = () => {
-    return this.props.vocabulary[this.state.current_voc_index].entries[0];
+  getTerm = () => {
+    return this.props.vocabulary[this.state.current_voc_index].term;
   };
 
   getCorrectTranslation = () => {
-    return this.props.vocabulary[this.state.current_voc_index].translations[0];
+    return this.props.vocabulary[this.state.current_voc_index].translation;
   };
 
   onEscPress = () => {
     if (this.props.vocabulary.length === 1) {
-      console.info("ignoring esc key because only one term remains");
+      console.info("ignoring esc key because only one entry remains");
       this.props.onLastEscPress();
     } else {
       const currentIndex = this.state.current_voc_index;
@@ -116,7 +116,7 @@ export default class Testarea extends Component {
         current_voc_index: newIndex
       });
       this.props.onEscPress(currentIndex);
-      console.info("vocabulary after term removal:");
+      console.info("vocabulary after entry removal:");
       console.info(this.props.vocabulary);
     }
   };
@@ -129,7 +129,7 @@ export default class Testarea extends Component {
 
   closeWordComparisonDialog = () => {
     this.setState({ showWordComparisonDialog: false });
-    this.loadNextTerm();
+    this.loadNextEntry();
     this.refs.translationInput.refs.theInput.focus();
   };
 
@@ -163,7 +163,7 @@ export default class Testarea extends Component {
             `\nshowing vocabulary index: ${this.state.current_voc_index}`
           )}
           <div id="source_word_div">
-            {this.getSourceTerm()}
+            {this.getTerm()}
           </div>
           <TranslationInput
             ref="translationInput"

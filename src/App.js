@@ -5,8 +5,7 @@ import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
-import TermManager from "./components/TermManager.js";
-import PouchDB from "pouchdb";
+import VocabularyManager from "./components/VocabularyManager.js";
 
 export default class App extends Component {
   state = {
@@ -14,13 +13,12 @@ export default class App extends Component {
     first_session: true,
     showStartModal: false,
     showFinishModal: false,
-    showTermManager: false
+    showVocabularyManager: false
   };
 
   vocabularyFactory = new VocabularyFactory();
   initialVocabularyLength = 10;
-  allSelectedTerms = [];
-  the_db = new PouchDB("todos");
+  allSelectedEntries = [];
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
@@ -29,16 +27,16 @@ export default class App extends Component {
 
   start = () => {
     console.info("\n\n-------------------- now STARTING -----------------");
-    console.info(this.the_db);
-
     const newConstructedVocabulary = this.vocabularyFactory.getNewVocabulary(
       this.initialVocabularyLength,
-      this.allSelectedTerms
+      this.allSelectedEntries
     );
-    this.allSelectedTerms = [...newConstructedVocabulary];
+    this.allSelectedEntries = [...newConstructedVocabulary];
 
-    console.info(`adding ${this.initialVocabularyLength} new terms to vocabulary array`);
-    this.traceVocabulary(newConstructedVocabulary);
+    console.info(
+      `adding ${this.initialVocabularyLength} new entries to vocabulary array`
+    );
+    // this.traceVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,
       first_session: false,
@@ -54,27 +52,29 @@ export default class App extends Component {
 
   traceVocabulary = voc => {
     console.info("------- tracing vocabulary ---------");
-    voc.map(item => {
-      console.info(`${item.entries[0]}: ${item.totalTimesSelected}`);
-      return item;
+    voc.map(entry => {
+      console.info(
+        `${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`
+      );
+      return entry;
     });
     console.info("----- end tracing vocabulary -------");
   };
 
-  recordSuccessfulTranslation = term_index => {
+  recordSuccessfulTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
-    new_voc[term_index].success();
+    new_voc[entry_index].success();
     this.setState({ vocabulary: new_voc });
   };
 
-  recordFailedTranslation = term_index => {
+  recordFailedTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
-    new_voc[term_index].failure();
+    new_voc[entry_index].failure();
     this.setState({ vocabulary: new_voc });
   };
 
-  removeTermFromVocabulary = currentIndex => {
-    console.info("removing term from vocabulary array");
+  removeEntryFromVocabulary = currentIndex => {
+    console.info("removing entry from vocabulary array");
     const new_voc = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...this.state.vocabulary.slice(
@@ -87,47 +87,47 @@ export default class App extends Component {
     });
   };
 
-  addTermToVocabulary = currentIndex => {
+  addEntryToVocabulary = currentIndex => {
     const vocabularyToAdd = this.vocabularyFactory.getNewVocabulary(
       1,
-      this.allSelectedTerms
+      this.allSelectedEntries
     );
-    console.info(`adding 1 new term to vocabulary array`);
+    console.info(`adding 1 new entry to vocabulary array`);
     this.traceVocabulary(vocabularyToAdd);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...vocabularyToAdd,
       ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
     ];
-    this.allSelectedTerms.push(...vocabularyToAdd);
-    console.info("+++++++++++++tracing allSelectedTerms");
-    this.traceVocabulary(this.allSelectedTerms);
+    this.allSelectedEntries.push(...vocabularyToAdd);
+    console.info("+++++++++++++tracing allSelectedEntries");
+    this.traceVocabulary(this.allSelectedEntries);
 
     this.setState({
       vocabulary: updatedVocabulary
     });
   };
 
-  getTotalTerms = () => {
+  getTotalEntries = () => {
     return this.state.vocabulary.length;
   };
 
-  getTotalCorrectTranslatedTerms = () => {
-    return this.state.vocabulary.reduce((totalCount, term) => {
-      return totalCount + (term.isCurrentlyCorrectlyTranslated === true);
+  getTotalCorrectTranslations = () => {
+    return this.state.vocabulary.reduce((totalCount, entry) => {
+      return totalCount + (entry.isCurrentlyCorrectlyTranslated === true);
     }, 0);
   };
 
-  getTotalWrongTranslatedTerms = () => {
-    return this.getTotalTerms() - this.getTotalCorrectTranslatedTerms();
+  getTotalWrongTranslations = () => {
+    return this.getTotalEntries() - this.getTotalCorrectTranslations();
   };
 
   constructStartingSummaryModalContent = () => {
-    const htmlTable = this.state.vocabulary.map(term => {
+    const htmlTable = this.state.vocabulary.map(entry => {
       return (
-        <tr key={term.entries[0]}>
-          <td>{term.entries[0]}</td>
-          <td>{term.translations[0]}</td>
+        <tr key={entry._id}>
+          <td>{entry.term}</td>
+          <td>{entry.translation}</td>
         </tr>
       );
     });
@@ -162,14 +162,14 @@ export default class App extends Component {
   };
 
   openVocabularyManager = () => {
-    console.info("------- opening term manager ----------");
-    this.setState({ showTermManager: true });
+    console.info("------- opening vocabulary manager ----------");
+    this.setState({ showVocabularyManager: true });
   };
 
-  newEntrySubmitted = (sourceTerm, translatedTerm) => {
+  newEntrySubmitted = (term, translation) => {
     let updatedGlobalVoc = this.vocabularyFactory.addNewEntry(
-      sourceTerm,
-      translatedTerm
+      term,
+      translation
     );
     this.traceVocabulary(updatedGlobalVoc);
   };
@@ -183,9 +183,9 @@ export default class App extends Component {
         <nav className="left-nav">
           {!this.state.first_session &&
             <Stats
-              totalTermsCount={this.getTotalTerms()}
-              correctTranslatedTermsCount={this.getTotalCorrectTranslatedTerms()}
-              wrongTranslatedTermsCount={this.getTotalWrongTranslatedTerms()}
+              totalEntriesCount={this.getTotalEntries()}
+              correctTranslationsCount={this.getTotalCorrectTranslations()}
+              wrongTranslationsCount={this.getTotalWrongTranslations()}
             />}
         </nav>
         <main>
@@ -195,13 +195,13 @@ export default class App extends Component {
               vocabulary={this.state.vocabulary}
               onSuccessfulTranslation={this.recordSuccessfulTranslation}
               onFailedTranslation={this.recordFailedTranslation}
-              onEscPress={this.removeTermFromVocabulary}
+              onEscPress={this.removeEntryFromVocabulary}
               onLastEscPress={this.finish}
-              onPlusPress={this.addTermToVocabulary}
+              onPlusPress={this.addEntryToVocabulary}
             />}
-          {this.state.showTermManager &&
-            <TermManager
-              ref="termManager"
+          {this.state.showVocabularyManager &&
+            <VocabularyManager
+              ref="vocabularyManager"
               onNewEntrySubmitted={this.newEntrySubmitted}
             />}
         </main>
@@ -224,7 +224,7 @@ export default class App extends Component {
             new session
           </button>
           <button
-            className="new-term-button"
+            className="open-vocabulary-manager-button"
             onClick={this.openVocabularyManager}
           >
             vocabulary manager

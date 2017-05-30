@@ -14,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "server": "babel-node server.js",
+        "server": "babel-node server.js",
+        
     "eject": "react-scripts eject"
   },
   "babel": {

@@ -63,6 +63,12 @@ body {
     border: none;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+#VocabularyManagerSubmitButton {
+    visibility: hidden;
 }
 
 #translation_input:focus {

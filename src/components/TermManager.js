@@ -27,13 +27,20 @@ export default class TermManager extends Component {
   };
 
   handleSubmit = event => {
+    console.debug("submit hitted");
     let sourceTerm = this.state.currentTermManagerSourceInputValue;
     let translatedTerm = this.state.currentTermManagerTranslationInputValue;
     this.props.onNewEntrySubmitted(sourceTerm, translatedTerm);
+    this.clearInputs();
     event.preventDefault();
   };
-  // todo: πρέπει το type="submit" να περνάει ως prop στο TranslationInput και μετά
-  // να δω αν με enter παίρνει τον νέο όρο
+
+  clearInputs = () => {
+    this.setState({
+      currentTermManagerSourceInputValue: "",
+      currentTermManagerTranslationInputValue: ""
+    });
+  };
 
   render() {
     return (
@@ -56,6 +63,11 @@ export default class TermManager extends Component {
             onChange={this.handleTermManagerTranslationInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
+          />
+          <input
+            type="submit"
+            id="VocabularyManagerSubmitButton"
+            value="submit"
           />
         </form>
 

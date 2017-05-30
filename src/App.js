@@ -6,6 +6,7 @@ import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import TermManager from "./components/TermManager.js";
+import PouchDB from "pouchdb";
 
 export default class App extends Component {
   state = {
@@ -19,6 +20,7 @@ export default class App extends Component {
   vocabularyFactory = new VocabularyFactory();
   initialVocabularyLength = 10;
   allSelectedTerms = [];
+  the_db = new PouchDB("todos");
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
@@ -27,15 +29,15 @@ export default class App extends Component {
 
   start = () => {
     console.info("\n\n-------------------- now STARTING -----------------");
+    console.info(this.the_db);
+
     const newConstructedVocabulary = this.vocabularyFactory.getNewVocabulary(
       this.initialVocabularyLength,
       this.allSelectedTerms
     );
     this.allSelectedTerms = [...newConstructedVocabulary];
 
-    console.info(
-      `adding ${this.initialVocabularyLength} new terms to vocabulary array`
-    );
+    console.info(`adding ${this.initialVocabularyLength} new terms to vocabulary array`);
     this.traceVocabulary(newConstructedVocabulary);
     this.setState({
       vocabulary: newConstructedVocabulary,

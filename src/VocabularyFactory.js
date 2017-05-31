@@ -34,9 +34,9 @@ export default class VocabularyFactory {
     // μετά πρέπει να μπορώ να την κάνω update όταν γίνεται selected ή correctly translated κλπ
     // μετά πρέπει να περάσω και τις 20 στη βάση
     // αντί να τις διαβάζει από το global dic, πρέπει να τις διαβάζει από την βάση κάθε φορά.
-    // Το global dic μάλλον δεν θα χρησιμοποιείται(γεμίζει). Απλώς κάθε φορά που ζητάμε λέξεις, θα κάνει
-    // request στην pouchdb
-    let entryForDb = new VocabularyEntry("Γιώργος", "geo", 2);
+    // Το global dic μάλλον δεν θα χρησιμοποιείται(γεμίζει). Απλώς κάθε φορά που ζητάμε λέξεις,
+    // θα κάνει request στην pouchdb
+    let entryForDb = new VocabularyEntry("Γιώργος", "geo1", 2);
     this.database.put(entryForDb, function callback(err, result) {
       if (!err) {
         console.info("Successfully added an entry:");

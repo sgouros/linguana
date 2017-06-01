@@ -50,6 +50,7 @@ export default class App extends Component {
     });
   };
 
+  // todo: αυτό πρέπει να διορθωθεί και να φύγει και από εδώ
   traceVocabulary = voc => {
     console.info("------- tracing vocabulary ---------");
     voc.map(entry => {
@@ -174,6 +175,14 @@ export default class App extends Component {
     this.traceVocabulary(updatedGlobalVoc);
   };
 
+  seedDatabase = () => {
+    this.vocabularyFactory.seedDatabase();
+  };
+
+  resetDatabase = () => {
+    this.vocabularyFactory.resetDatabase();
+  };
+
   render() {
     return (
       <div id="page">
@@ -228,6 +237,12 @@ export default class App extends Component {
             onClick={this.openVocabularyManager}
           >
             vocabulary manager
+          </button>
+          <button className="debug-button" onClick={this.seedDatabase}>
+            seed database
+          </button>
+          <button className="debug-button" onClick={this.resetDatabase}>
+            reset database
           </button>
         </nav>
         <footer>

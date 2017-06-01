@@ -181,10 +181,17 @@ body {
     outline: 1;
 }
 
-.new-term-button:hover {
+.open-vocabulary-manager-button:hover {
     background: #999;
     color: white;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.debug-button {
+    width: 140px;
+    margin-top: 15px;
+    padding: 3px;
     cursor: pointer;
 }
 

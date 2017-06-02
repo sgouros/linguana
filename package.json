@@ -9,7 +9,8 @@
     "body-parser": "1.14.1",
     "fs": "0.0.2",
     "path": "0.12.7",
-    "pouchdb": "^6.2.0"
+    "pouchdb": "^6.2.0",
+    "pouchdb-find": "^6.2.0"
   },
   "devDependencies": {
     "concurrently": "2.2.0"

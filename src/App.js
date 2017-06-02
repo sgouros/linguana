@@ -34,7 +34,7 @@ export default class App extends Component {
     this.allSelectedEntries = [...newConstructedVocabulary];
 
     console.info(
-      `adding ${this.initialVocabularyLength} new entries to vocabulary array`
+      `adding ${newConstructedVocabulary.length} new entries to vocabulary array`
     );
     // this.traceVocabulary(newConstructedVocabulary);
     this.setState({
@@ -93,6 +93,8 @@ export default class App extends Component {
       1,
       this.allSelectedEntries
     );
+
+    // todo ό,τι υπάρχει από εδώ και πέρα πρέπει να καλείται (callback) όταν έχουμε πλέον νέο vocabulary
     console.info(`adding 1 new entry to vocabulary array`);
     this.traceVocabulary(vocabularyToAdd);
     const updatedVocabulary = [
@@ -101,7 +103,7 @@ export default class App extends Component {
       ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
     ];
     this.allSelectedEntries.push(...vocabularyToAdd);
-    console.info("+++++++++++++tracing allSelectedEntries");
+    console.info("tracing allSelectedEntries");
     this.traceVocabulary(this.allSelectedEntries);
 
     this.setState({

@@ -1,10 +1,16 @@
 import VocabularyEntry from "./components/VocabularyEntry.js";
 import PouchDB from "pouchdb";
+PouchDB.plugin(require("pouchdb-find"));
 
 export default class VocabularyFactory {
   constructor() {
     this.database = new PouchDB("greek_german_db");
-    window.PouchDB = PouchDB;
+    window.PouchDB = PouchDB; // for dev tools
+    this.database.createIndex({
+      index: {
+        fields: ["totalTimesSelected"]
+      }
+    });
     console.info("greek_german database created");
     // μέχρι στιγμής μπόρεσα να αποθηκεύω στην pouchdb μία entry
     // μετά πρέπει να μπορώ να την κάνω update όταν γίνεται selected ή correctly translated κλπ
@@ -46,27 +52,39 @@ export default class VocabularyFactory {
   };
 
   getNewVocabulary = (numberOfEntries, allSelectedEntries = []) => {
-    // get first 10 entries from database sorted according to totalEntriesSelected.
-    // make an array of these 10 entries
-    // run selected() on each item
-    // return array
-    this.database.createIndex({
-      index: {
-        fields: ["totalTimesSelected"]
-      }
-    });
-
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
       return entry._id;
     });
 
-    this.database.find({
-      selector: {
-        _id: { $nin: allSelectedEntryIDs }
-      },
-      sort: ["totalTimesSelected"],
-      limit: numberOfEntries
-    });
+    let entriesFromDatabase = this.database
+      .find({
+        selector: {
+          _id: { $nin: allSelectedEntryIDs }
+        },
+        // sort: ["totalTimesSelected"],
+        limit: numberOfEntries
+      })
+      .then(result => {
+        // εδώ πρέπει να κατασκευάζεται το updated vocabulary και να καλείται callback στην App
+        // ώστε να γεμίσει το vocabulary όπως πρέπει
+        // EKTOΣ αν το κάνω synchronous και εδώ περιμένω να τελειώσει το promise
+        // αλλα μάλλον όχι. Μάλλον θα βάλω ένα loading dialog το οποίο θα γίνεται dismissed
+        // αυτομάτως μόλις τελειώσει η promise. (και σε κάποιο σημείο θα πρέπει να καλείται
+        // και η selected() από κάθε VocabularyEntry)
+        console.info(result.docs[0]);
+
+        // για να κάνουμε construct το καινούριο vocabulary πρέπει να δώ λίγο τί γίνεται
+        // με τα revs και τα ids και ΠΩΣ (και αν) αυτά θα χρησιμοποιηθούν στα vocabularyEntry
+        // objects.
+        // Αρα πρέπει να δω πως γίνεται το put, και το upate και μετά πρέπει να δω και τo link
+        // Can we cast a generic object to a custom object type in javascript?
+        // https://stackoverflow.com/questions/8736886/can-we-cast-a-generic-object-to-a-custom-object-type-in-javascript
+      });
+
+    return [
+      new VocabularyEntry("τρόφιμα", "das Lebensmittel", 8),
+      new VocabularyEntry("σύνδεση", "einloggen", 20)
+    ];
 
     // let totalEntriesSelected = 0;
     // let sortedVocabulary = this.sortGlobalVocabulary();
@@ -89,15 +107,9 @@ export default class VocabularyFactory {
     // return updatedVocabulary;
   };
 
-  sortGlobalVocabulary = () => {
-    return GLOBAL_VOC.sort(function(entry_a, entry_b) {
-      return entry_a.totalTimesSelected - entry_b.totalTimesSelected;
-    });
-  };
-
   addNewEntry = (term, translation) => {
-    let newEntry = new VocabularyEntry(term, translation, 0);
-    GLOBAL_VOC.push(newEntry);
-    return GLOBAL_VOC;
+    // let newEntry = new VocabularyEntry(term, translation, 0);
+    // GLOBAL_VOC.push(newEntry);
+    // return GLOBAL_VOC;
   };
 }

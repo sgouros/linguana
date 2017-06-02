@@ -3,7 +3,8 @@ import PouchDB from "pouchdb";
 PouchDB.plugin(require("pouchdb-find"));
 
 export default class VocabularyFactory {
-  constructor() {
+  constructor(app) {
+    this.app = app;
     this.database = new PouchDB("greek_german_db");
     window.PouchDB = PouchDB; // for dev tools
     this.database.createIndex({
@@ -51,7 +52,12 @@ export default class VocabularyFactory {
     console.info("database has been reset");
   };
 
-  getNewVocabulary = (numberOfEntries, allSelectedEntries = []) => {
+  getNewVocabulary = (
+    numberOfEntries,
+    allSelectedEntries = [],
+    appCallback = null,
+    currentIndex = 0
+  ) => {
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
       return entry._id;
     });
@@ -65,14 +71,19 @@ export default class VocabularyFactory {
         limit: numberOfEntries
       })
       .then(result => {
+        console.info("we got result");
         // εδώ πρέπει να κατασκευάζεται το updated vocabulary και να καλείται callback στην App
         // ώστε να γεμίσει το vocabulary όπως πρέπει
         // EKTOΣ αν το κάνω synchronous και εδώ περιμένω να τελειώσει το promise
         // αλλα μάλλον όχι. Μάλλον θα βάλω ένα loading dialog το οποίο θα γίνεται dismissed
         // αυτομάτως μόλις τελειώσει η promise. (και σε κάποιο σημείο θα πρέπει να καλείται
         // και η selected() από κάθε VocabularyEntry)
-        console.info(result.docs[0]);
+        let newVoc = [
+          new VocabularyEntry("01", "0001", 8),
+          new VocabularyEntry("02", "0002", 20)
+        ];
 
+        this.app.newVocArrived(newVoc, currentIndex);
         // για να κάνουμε construct το καινούριο vocabulary πρέπει να δώ λίγο τί γίνεται
         // με τα revs και τα ids και ΠΩΣ (και αν) αυτά θα χρησιμοποιηθούν στα vocabularyEntry
         // objects.
@@ -81,10 +92,8 @@ export default class VocabularyFactory {
         // https://stackoverflow.com/questions/8736886/can-we-cast-a-generic-object-to-a-custom-object-type-in-javascript
       });
 
-    return [
-      new VocabularyEntry("τρόφιμα", "das Lebensmittel", 8),
-      new VocabularyEntry("σύνδεση", "einloggen", 20)
-    ];
+    return [];
+    // ********* ένα error που βγαίνει οφείλεται στο ότι εδώ επιστρέφουμε κενό και αυτό ψάχνεται
 
     // let totalEntriesSelected = 0;
     // let sortedVocabulary = this.sortGlobalVocabulary();

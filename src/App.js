@@ -16,7 +16,7 @@ export default class App extends Component {
     showVocabularyManager: false
   };
 
-  vocabularyFactory = new VocabularyFactory();
+  vocabularyFactory = new VocabularyFactory(this);
   initialVocabularyLength = 10;
   allSelectedEntries = [];
 
@@ -91,20 +91,24 @@ export default class App extends Component {
   addEntryToVocabulary = currentIndex => {
     const vocabularyToAdd = this.vocabularyFactory.getNewVocabulary(
       1,
-      this.allSelectedEntries
+      this.allSelectedEntries,
+      this.newVocArrived,
+      currentIndex
     );
+  };
 
-    // todo ό,τι υπάρχει από εδώ και πέρα πρέπει να καλείται (callback) όταν έχουμε πλέον νέο vocabulary
-    console.info(`adding 1 new entry to vocabulary array`);
-    this.traceVocabulary(vocabularyToAdd);
+  newVocArrived = (newVoc, currentIndex) => {
+    console.info("new voc arrived");
+
+    this.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
-      ...vocabularyToAdd,
+      ...newVoc,
       ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
     ];
-    this.allSelectedEntries.push(...vocabularyToAdd);
-    console.info("tracing allSelectedEntries");
-    this.traceVocabulary(this.allSelectedEntries);
+    this.allSelectedEntries.push(...newVoc);
+    // console.info("tracing allSelectedEntries");
+    // this.traceVocabulary(this.allSelectedEntries);
 
     this.setState({
       vocabulary: updatedVocabulary

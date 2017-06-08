@@ -84,7 +84,11 @@ export default class Testarea extends Component {
   };
 
   getTerm = () => {
-    return this.props.vocabulary[this.state.current_voc_index].term;
+    if (this.props.vocabulary.length > 0) {
+      return this.props.vocabulary[this.state.current_voc_index].term;
+    } else {
+      return "";
+    }
   };
 
   getCorrectTranslation = () => {

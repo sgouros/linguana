@@ -1,16 +1,27 @@
 export default class VocabularyEntry {
-  constructor(term, translation, totalTimesSelected) {
-    this._id = `${term}-${translation}`;
+  constructor(
+    id,
+    rev,
+    term,
+    translation,
+    totalSuccesses,
+    totalFailures,
+    totalTimesSelected
+  ) {
+    // this._id = `${term}-${translation}`;
+    this._id = id;
+    this._rev = rev;
     this.term = term;
     this.translation = translation;
-    this.totalSuccesses = 0;
-    this.totalFailures = 0;
+    this.totalSuccesses = totalSuccesses;
+    this.totalFailures = totalFailures;
     this.totalTimesSelected = totalTimesSelected;
     this.isCurrentlyCorrectlyTranslated = false;
   }
 
   trace() {
     console.info(`tracing ${this._id}:`);
+    console.info(`  this._rev: ${this._rev}`);
     console.info(`  this.term: ${this.term}`);
     console.info(`  this.translation: ${this.translation}`);
     console.info(`  this.totalSuccesses: ${this.totalSuccesses}`);
@@ -20,6 +31,7 @@ export default class VocabularyEntry {
       `  this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`
     );
   }
+
   success() {
     this.totalSuccesses += 1;
     this.isCurrentlyCorrectlyTranslated = true;

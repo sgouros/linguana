@@ -31,14 +31,14 @@ export default class App extends Component {
       this.initialVocabularyLength,
       this.allSelectedEntries
     );
-    this.allSelectedEntries = [...newConstructedVocabulary];
+    // this.allSelectedEntries = [...newConstructedVocabulary];
 
-    console.info(
-      `adding ${newConstructedVocabulary.length} new entries to vocabulary array`
-    );
+    // console.info(
+    // `adding ${newConstructedVocabulary.length} new entries to vocabulary array`
+    // );
     // this.traceVocabulary(newConstructedVocabulary);
     this.setState({
-      vocabulary: newConstructedVocabulary,
+      // vocabulary: newConstructedVocabulary,
       first_session: false,
       showStartModal: true
     });
@@ -97,7 +97,7 @@ export default class App extends Component {
     );
   };
 
-  newVocArrived = (newVoc, currentIndex) => {
+  newVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
 
     this.traceVocabulary(newVoc);

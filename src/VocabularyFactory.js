@@ -9,16 +9,63 @@ export default class VocabularyFactory {
     window.PouchDB = PouchDB; // for dev tools
     this.database.createIndex({
       index: {
-        fields: ["totalTimesSelected"]
+        fields: ["totalTimesSelected", "totalSuccesses", "totalFailures"]
       }
     });
+    // .then(() => {this.database.getIndexes().then(function(result) {console.log(result);});});
     console.info("greek_german database created");
-    // μέχρι στιγμής μπόρεσα να αποθηκεύω στην pouchdb μία entry
-    // μετά πρέπει να μπορώ να την κάνω update όταν γίνεται selected ή correctly translated κλπ
-    // αντί να τις διαβάζει από το global dic, πρέπει να τις διαβάζει από την βάση κάθε φορά.
-    // Το global dic μάλλον δεν θα χρησιμοποιείται(γεμίζει). Απλώς κάθε φορά που ζητάμε λέξεις,
-    // θα κάνει request στην pouchdb
   }
+
+  getNewVocabulary = (
+    numberOfEntries,
+    allSelectedEntries = [],
+    appCallback = null,
+    currentIndex = 0
+  ) => {
+    let allSelectedEntryIDs = allSelectedEntries.map(entry => {
+      return entry._id;
+    });
+
+    let entriesFromDatabase = this.database
+      .find({
+        selector: {
+          _id: { $nin: allSelectedEntryIDs },
+          totalTimesSelected: { $gt: -1 }
+        },
+        sort: [{ totalTimesSelected: "asc" }],
+        limit: numberOfEntries
+      })
+      .then(result => {
+        let newVoc = this.constructNewVocabulary(result.docs);
+        newVoc.map(entry => entry.selected());
+        // todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
+
+        // todo: αυτή τη συνάρτηση δεν γίνεται να την περνάει η app ως callback?
+        this.app.newVocabularyArrived(newVoc, currentIndex);
+      });
+    return [];
+  };
+
+  constructNewVocabulary = vocFromDatabase => {
+    let newVoc = vocFromDatabase.map(item => {
+      return new VocabularyEntry(
+        item._id,
+        item._rev,
+        item.term,
+        item.translation,
+        item.totalSuccesses,
+        item.totalFailures,
+        item.totalTimesSelected
+      );
+    });
+    return newVoc;
+  };
+
+  addNewEntry = (term, translation) => {
+    // let newEntry = new VocabularyEntry(term, translation, 0);
+    // GLOBAL_VOC.push(newEntry);
+    // return GLOBAL_VOC;
+  };
 
   seedDatabase = () => {
     this.database.bulkDocs([
@@ -52,73 +99,14 @@ export default class VocabularyFactory {
     console.info("database has been reset");
   };
 
-  getNewVocabulary = (
-    numberOfEntries,
-    allSelectedEntries = [],
-    appCallback = null,
-    currentIndex = 0
-  ) => {
-    let allSelectedEntryIDs = allSelectedEntries.map(entry => {
-      return entry._id;
+  traceVocabulary = voc => {
+    console.info("------- tracing vocabulary ---------");
+    voc.map(entry => {
+      console.info(
+        `${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`
+      );
+      return entry;
     });
-
-    let entriesFromDatabase = this.database
-      .find({
-        selector: {
-          _id: { $nin: allSelectedEntryIDs }
-        },
-        // sort: ["totalTimesSelected"],
-        limit: numberOfEntries
-      })
-      .then(result => {
-        console.info("we got result");
-        // εδώ πρέπει να κατασκευάζεται το updated vocabulary και να καλείται callback στην App
-        // ώστε να γεμίσει το vocabulary όπως πρέπει
-        // EKTOΣ αν το κάνω synchronous και εδώ περιμένω να τελειώσει το promise
-        // αλλα μάλλον όχι. Μάλλον θα βάλω ένα loading dialog το οποίο θα γίνεται dismissed
-        // αυτομάτως μόλις τελειώσει η promise. (και σε κάποιο σημείο θα πρέπει να καλείται
-        // και η selected() από κάθε VocabularyEntry)
-        let newVoc = [
-          new VocabularyEntry("01", "0001", 8),
-          new VocabularyEntry("02", "0002", 20)
-        ];
-
-        this.app.newVocArrived(newVoc, currentIndex);
-        // για να κάνουμε construct το καινούριο vocabulary πρέπει να δώ λίγο τί γίνεται
-        // με τα revs και τα ids και ΠΩΣ (και αν) αυτά θα χρησιμοποιηθούν στα vocabularyEntry
-        // objects.
-        // Αρα πρέπει να δω πως γίνεται το put, και το upate και μετά πρέπει να δω και τo link
-        // Can we cast a generic object to a custom object type in javascript?
-        // https://stackoverflow.com/questions/8736886/can-we-cast-a-generic-object-to-a-custom-object-type-in-javascript
-      });
-
-    return [];
-    // ********* ένα error που βγαίνει οφείλεται στο ότι εδώ επιστρέφουμε κενό και αυτό ψάχνεται
-
-    // let totalEntriesSelected = 0;
-    // let sortedVocabulary = this.sortGlobalVocabulary();
-    // let filteredVocabulary = sortedVocabulary.filter(entry => {
-    //   if (allSelectedEntries.indexOf(entry) >= 0) {
-    //     return false;
-    //   } else {
-    //     if (totalEntriesSelected >= numberOfEntries) {
-    //       return false;
-    //     } else {
-    //       totalEntriesSelected += 1;
-    //       return true;
-    //     }
-    //   }
-    // });
-    // let updatedVocabulary = filteredVocabulary.map(entry => {
-    //   entry.selected();
-    //   return entry;
-    // });
-    // return updatedVocabulary;
-  };
-
-  addNewEntry = (term, translation) => {
-    // let newEntry = new VocabularyEntry(term, translation, 0);
-    // GLOBAL_VOC.push(newEntry);
-    // return GLOBAL_VOC;
+    console.info("----- end tracing vocabulary -------");
   };
 }

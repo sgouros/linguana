@@ -38,7 +38,8 @@ export default class VocabularyFactory {
       .then(result => {
         let newVoc = this.constructNewVocabulary(result.docs);
         newVoc.map(entry => entry.selected());
-        // todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
+
+        // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
 
         // todo: αυτή τη συνάρτηση δεν γίνεται να την περνάει η app ως callback?
         this.app.newVocabularyArrived(newVoc, currentIndex);

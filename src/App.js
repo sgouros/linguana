@@ -25,22 +25,36 @@ export default class App extends Component {
     this.refs.testArea.refs.translationInput.refs.theInput.focus();
   };
 
-  start = () => {
-    console.info("\n\n-------------------- now STARTING -----------------");
-    const newConstructedVocabulary = this.vocabularyFactory.getNewVocabulary(
+  newSession = () => {
+    console.info("\n\n-------- NEW SESSION:");
+    this.allSelectedEntries = [];
+    this.vocabularyFactory.getNewVocabulary(
       this.initialVocabularyLength,
       this.allSelectedEntries
     );
-    // this.allSelectedEntries = [...newConstructedVocabulary];
 
-    // console.info(
-    // `adding ${newConstructedVocabulary.length} new entries to vocabulary array`
-    // );
-    // this.traceVocabulary(newConstructedVocabulary);
     this.setState({
-      // vocabulary: newConstructedVocabulary,
+      vocabulary: [],
       first_session: false,
       showStartModal: true
+    });
+  };
+
+  newVocabularyArrived = (newVoc, currentIndex) => {
+    console.info("new voc arrived");
+
+    this.traceVocabulary(newVoc);
+    const updatedVocabulary = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...newVoc,
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+    ];
+    this.allSelectedEntries.push(...newVoc);
+    // console.info("tracing allSelectedEntries");
+    // this.traceVocabulary(this.allSelectedEntries);
+
+    this.setState({
+      vocabulary: updatedVocabulary
     });
   };
 
@@ -95,24 +109,6 @@ export default class App extends Component {
       this.newVocArrived,
       currentIndex
     );
-  };
-
-  newVocabularyArrived = (newVoc, currentIndex) => {
-    console.info("new voc arrived");
-
-    this.traceVocabulary(newVoc);
-    const updatedVocabulary = [
-      ...this.state.vocabulary.slice(0, currentIndex),
-      ...newVoc,
-      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
-    ];
-    this.allSelectedEntries.push(...newVoc);
-    // console.info("tracing allSelectedEntries");
-    // this.traceVocabulary(this.allSelectedEntries);
-
-    this.setState({
-      vocabulary: updatedVocabulary
-    });
   };
 
   getTotalEntries = () => {
@@ -235,14 +231,14 @@ export default class App extends Component {
             />
           : null}
         <nav className="right-nav">
-          <button className="new-session-button" onClick={this.start}>
-            new session
+          <button className="new-session-button" onClick={this.newSession}>
+            New session
           </button>
           <button
             className="open-vocabulary-manager-button"
             onClick={this.openVocabularyManager}
           >
-            vocabulary manager
+            Vocabulary manager
           </button>
           <button className="debug-button" onClick={this.seedDatabase}>
             seed database

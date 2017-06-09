@@ -7,17 +7,9 @@ export default class VocabularyFactory {
 
   constructor(app) {
     this.app = app;
-    this.databaseName = "greek_german_db_21";
+    this.databaseName = "greek_german_db_30";
     this.database = new PouchDB(this.databaseName);
     window.PouchDB = PouchDB; // for dev tools
-    this.database.createIndex({
-      // .then(() => {this.database.getIndexes().then(function(result) {console.log(result);});});
-      index: {
-        fields: ["totalTimesSelected", "totalSuccesses", "totalFailures"]
-      }
-    });
-
-    console.info(`${this.databaseName} database created`);
   }
 
   newVocabularyNeeded = (
@@ -32,13 +24,20 @@ export default class VocabularyFactory {
     let updatedVoc = [];
 
     this.database
-      .find({
-        selector: {
-          _id: { $nin: allSelectedEntryIDs },
-          totalTimesSelected: { $gt: -1 }
-        },
-        sort: [{ totalTimesSelected: "asc" }],
-        limit: numberOfEntries
+      .createIndex({
+        index: {
+          fields: ["totalTimesSelected", "totalSuccesses", "totalFailures"]
+        }
+      })
+      .then(() => {
+        return this.database.find({
+          selector: {
+            _id: { $nin: allSelectedEntryIDs },
+            totalTimesSelected: { $gt: -1 }
+          },
+          sort: [{ totalTimesSelected: "asc" }],
+          limit: numberOfEntries
+        });
       })
       .then(resultFromDb => {
         let newVoc = this.constructNewVocabulary(resultFromDb.docs);
@@ -55,8 +54,6 @@ export default class VocabularyFactory {
   };
 
   constructNewVocabulary = vocFromDatabase => {
-    // console.info("vocFromDatabase:");
-    // console.info(vocFromDatabase);
     let newVoc = vocFromDatabase.map(item => {
       return new VocabularyEntry(
         item._id,
@@ -85,7 +82,6 @@ export default class VocabularyFactory {
         }
       })
       .then(responseFromDb => {
-        // console.log(responseFromDb);
         let v = this.constructNewVocabulary(responseFromDb.docs);
         v.map(item => item.trace());
       })

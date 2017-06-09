@@ -101,8 +101,9 @@ export default class App extends Component {
     });
   };
 
+  // increase current Voc by 1
   addEntryToVocabulary = currentIndex => {
-    const vocabularyToAdd = this.vocabularyFactory.newVocabularyNeeded(
+    this.vocabularyFactory.newVocabularyNeeded(
       this.onNewVocabularyArrived,
       1,
       this.allSelectedEntries,

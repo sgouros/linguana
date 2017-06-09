@@ -26,6 +26,11 @@ export default class VocabularyManager extends Component {
     });
   };
 
+  //************todo να μπορώ να περνάω κατευθείαν στην βάση καινούριες λέξεις μέσω του vocabulary manager*/
+  // μετά να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
+  // μετά να μπορώ να τις κάνω και search
+  // μετά να μπορώ να τις κάνω και edit
+
   handleSubmit = event => {
     console.debug("submit hitted");
     let term = this.state.currentTermInputValue;

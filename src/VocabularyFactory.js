@@ -26,25 +26,29 @@ export default class VocabularyFactory {
       return entry._id;
     });
 
-    let entriesFromDatabase = this.database
-      .find({
-        selector: {
-          _id: { $nin: allSelectedEntryIDs },
-          totalTimesSelected: { $gt: -1 }
-        },
-        sort: [{ totalTimesSelected: "asc" }],
-        limit: numberOfEntries
-      })
-      .then(result => {
-        let newVoc = this.constructNewVocabulary(result.docs);
-        newVoc.map(entry => entry.selected());
+    this.database
+      .find(this.querySettingsForVocabularySelection)
+      .then(this.massageAndReturnVocabulary)
+      .catch(console.log.bind(console));
 
-        // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
-
-        // todo: αυτή τη συνάρτηση δεν γίνεται να την περνάει η app ως callback?
-        this.app.newVocabularyArrived(newVoc, currentIndex);
-      });
     return [];
+  };
+
+  querySettingsForVocabularySelection = {
+    selector: {
+      _id: { $nin: allSelectedEntryIDs },
+      totalTimesSelected: { $gt: -1 }
+    },
+    sort: [{ totalTimesSelected: "asc" }],
+    limit: numberOfEntries
+  };
+
+  massageAndReturnVocabulary = vocFromDb => {
+    let newVoc = this.constructNewVocabulary(vocFromDb.docs);
+    newVoc.map(entry => entry.selected());
+    // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
+    // todo: αυτή τη συνάρτηση δεν γίνεται να την περνάει η app ως callback?
+    this.app.newVocabularyArrived(newVoc, currentIndex);
   };
 
   constructNewVocabulary = vocFromDatabase => {

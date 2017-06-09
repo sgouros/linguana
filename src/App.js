@@ -13,7 +13,8 @@ export default class App extends Component {
     first_session: true,
     showStartModal: false,
     showFinishModal: false,
-    showVocabularyManager: false
+    showVocabularyManager: false,
+    isStartModalLoading: false
   };
 
   vocabularyFactory = new VocabularyFactory(this);
@@ -33,8 +34,8 @@ export default class App extends Component {
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
-      first_session: false,
-      showStartModal: true
+      showStartModal: true,
+      isStartModalLoading: true
     });
   };
 
@@ -50,6 +51,8 @@ export default class App extends Component {
     this.allSelectedEntries.push(...newVoc);
 
     this.setState({
+      first_session: false,
+      isStartModalLoading: false,
       vocabulary: updatedVocabulary
     });
   };
@@ -99,10 +102,10 @@ export default class App extends Component {
   };
 
   addEntryToVocabulary = currentIndex => {
-    const vocabularyToAdd = this.vocabularyFactory.getNewVocabulary(
+    const vocabularyToAdd = this.vocabularyFactory.newVocabularyNeeded(
+      this.onNewVocabularyArrived,
       1,
       this.allSelectedEntries,
-      this.newVocArrived,
       currentIndex
     );
   };
@@ -173,12 +176,16 @@ export default class App extends Component {
     this.traceVocabulary(updatedGlobalVoc);
   };
 
-  seedDatabase = () => {
+  seedDatabasePressed = () => {
     this.vocabularyFactory.seedDatabase();
   };
 
-  resetDatabase = () => {
+  resetDatabasePressed = () => {
     this.vocabularyFactory.resetDatabase();
+  };
+
+  traceVocabularyPressed = () => {
+    this.traceVocabulary(this.state.vocabulary);
   };
 
   render() {
@@ -212,13 +219,16 @@ export default class App extends Component {
               onNewEntrySubmitted={this.newEntrySubmitted}
             />}
         </main>
+
         {this.state.showStartModal
           ? <StartModal
               title="Welcome to Linguana! Here are your words for today:"
               content={this.constructStartingSummaryModalContent()}
+              isLoading={this.state.isStartModalLoading}
               onClose={this.closeStartingSummaryModal}
             />
           : null}
+
         {this.state.showFinishModal
           ? <FinishModal
               title=""
@@ -236,11 +246,17 @@ export default class App extends Component {
           >
             Vocabulary manager
           </button>
-          <button className="debug-button" onClick={this.seedDatabase}>
+          <button className="debug-button" onClick={this.seedDatabasePressed}>
             seed database
           </button>
-          <button className="debug-button" onClick={this.resetDatabase}>
+          <button className="debug-button" onClick={this.resetDatabasePressed}>
             reset database
+          </button>
+          <button
+            className="debug-button"
+            onClick={this.traceVocabularyPressed}
+          >
+            trace vocabulary
           </button>
         </nav>
         <footer>

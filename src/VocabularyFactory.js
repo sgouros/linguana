@@ -10,11 +10,12 @@ export default class VocabularyFactory {
     this.database = new PouchDB("greek_german_db");
     window.PouchDB = PouchDB; // for dev tools
     this.database.createIndex({
+      // .then(() => {this.database.getIndexes().then(function(result) {console.log(result);});});
       index: {
         fields: ["totalTimesSelected", "totalSuccesses", "totalFailures"]
       }
     });
-    // .then(() => {this.database.getIndexes().then(function(result) {console.log(result);});});
+
     console.info("greek_german database created");
   }
 
@@ -27,6 +28,7 @@ export default class VocabularyFactory {
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
       return entry._id;
     });
+    let updatedVoc = [];
 
     this.database
       .find({
@@ -39,14 +41,21 @@ export default class VocabularyFactory {
       })
       .then(resultFromDb => {
         let newVoc = this.constructNewVocabulary(resultFromDb.docs);
-        newVoc.map(entry => entry.selected());
-        // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
-        onSuccess(newVoc, currentIndex);
+        updatedVoc = newVoc.map(entry => {
+          entry.selected();
+          return entry;
+        });
+        return this.database.bulkDocs(updatedVoc);
+      })
+      .then(result => {
+        onSuccess(updatedVoc, currentIndex);
       })
       .catch(console.log.bind(console));
   };
 
   constructNewVocabulary = vocFromDatabase => {
+    console.info("vocFromDatabase:");
+    console.info(vocFromDatabase);
     let newVoc = vocFromDatabase.map(item => {
       return new VocabularyEntry(
         item._id,

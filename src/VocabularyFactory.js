@@ -3,6 +3,8 @@ import PouchDB from "pouchdb";
 PouchDB.plugin(require("pouchdb-find"));
 
 export default class VocabularyFactory {
+  initialVocabularyLength = 10;
+
   constructor(app) {
     this.app = app;
     this.database = new PouchDB("greek_german_db");
@@ -16,10 +18,10 @@ export default class VocabularyFactory {
     console.info("greek_german database created");
   }
 
-  getNewVocabulary = (
-    numberOfEntries,
+  newVocabularyNeeded = (
+    onSuccess,
+    numberOfEntries = this.initialVocabularyLength,
     allSelectedEntries = [],
-    appCallback = null,
     currentIndex = 0
   ) => {
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
@@ -27,28 +29,21 @@ export default class VocabularyFactory {
     });
 
     this.database
-      .find(this.querySettingsForVocabularySelection)
-      .then(this.massageAndReturnVocabulary)
+      .find({
+        selector: {
+          _id: { $nin: allSelectedEntryIDs },
+          totalTimesSelected: { $gt: -1 }
+        },
+        sort: [{ totalTimesSelected: "asc" }],
+        limit: numberOfEntries
+      })
+      .then(resultFromDb => {
+        let newVoc = this.constructNewVocabulary(resultFromDb.docs);
+        newVoc.map(entry => entry.selected());
+        // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
+        onSuccess(newVoc, currentIndex);
+      })
       .catch(console.log.bind(console));
-
-    return [];
-  };
-
-  querySettingsForVocabularySelection = {
-    selector: {
-      _id: { $nin: allSelectedEntryIDs },
-      totalTimesSelected: { $gt: -1 }
-    },
-    sort: [{ totalTimesSelected: "asc" }],
-    limit: numberOfEntries
-  };
-
-  massageAndReturnVocabulary = vocFromDb => {
-    let newVoc = this.constructNewVocabulary(vocFromDb.docs);
-    newVoc.map(entry => entry.selected());
-    // *****  todo εδώ πρέπει να ξαναγράφονται τα ανανεωμένα πλέον selected items πίσω στη db
-    // todo: αυτή τη συνάρτηση δεν γίνεται να την περνάει η app ως callback?
-    this.app.newVocabularyArrived(newVoc, currentIndex);
   };
 
   constructNewVocabulary = vocFromDatabase => {

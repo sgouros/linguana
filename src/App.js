@@ -17,7 +17,7 @@ export default class App extends Component {
   };
 
   vocabularyFactory = new VocabularyFactory(this);
-  initialVocabularyLength = 10;
+
   allSelectedEntries = [];
 
   closeStartingSummaryModal = () => {
@@ -27,12 +27,10 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- NEW SESSION:");
-    this.allSelectedEntries = [];
-    this.vocabularyFactory.getNewVocabulary(
-      this.initialVocabularyLength,
-      this.allSelectedEntries
-    );
 
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
+
+    this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
       first_session: false,
@@ -40,7 +38,7 @@ export default class App extends Component {
     });
   };
 
-  newVocabularyArrived = (newVoc, currentIndex) => {
+  onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
 
     this.traceVocabulary(newVoc);
@@ -50,8 +48,6 @@ export default class App extends Component {
       ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
     ];
     this.allSelectedEntries.push(...newVoc);
-    // console.info("tracing allSelectedEntries");
-    // this.traceVocabulary(this.allSelectedEntries);
 
     this.setState({
       vocabulary: updatedVocabulary

@@ -188,6 +188,10 @@ export default class App extends Component {
     this.traceVocabulary(this.state.vocabulary);
   };
 
+  traceDatabasePressed = () => {
+    this.vocabularyFactory.traceDatabase();
+  };
+
   render() {
     return (
       <div id="page">
@@ -257,6 +261,9 @@ export default class App extends Component {
             onClick={this.traceVocabularyPressed}
           >
             trace vocabulary
+          </button>
+          <button className="debug-button" onClick={this.traceDatabasePressed}>
+            trace database
           </button>
         </nav>
         <footer>

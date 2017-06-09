@@ -7,7 +7,8 @@ export default class VocabularyFactory {
 
   constructor(app) {
     this.app = app;
-    this.database = new PouchDB("greek_german_db");
+    this.databaseName = "greek_german_db_21";
+    this.database = new PouchDB(this.databaseName);
     window.PouchDB = PouchDB; // for dev tools
     this.database.createIndex({
       // .then(() => {this.database.getIndexes().then(function(result) {console.log(result);});});
@@ -16,7 +17,7 @@ export default class VocabularyFactory {
       }
     });
 
-    console.info("greek_german database created");
+    console.info(`${this.databaseName} database created`);
   }
 
   newVocabularyNeeded = (
@@ -54,8 +55,8 @@ export default class VocabularyFactory {
   };
 
   constructNewVocabulary = vocFromDatabase => {
-    console.info("vocFromDatabase:");
-    console.info(vocFromDatabase);
+    // console.info("vocFromDatabase:");
+    // console.info(vocFromDatabase);
     let newVoc = vocFromDatabase.map(item => {
       return new VocabularyEntry(
         item._id,
@@ -70,42 +71,207 @@ export default class VocabularyFactory {
     return newVoc;
   };
 
-  addNewEntry = (term, translation) => {
-    // let newEntry = new VocabularyEntry(term, translation, 0);
-    // GLOBAL_VOC.push(newEntry);
-    // return GLOBAL_VOC;
+  // addNewEntry = (term, translation) => {
+  // let newEntry = new VocabularyEntry(term, translation, 0);
+  // GLOBAL_VOC.push(newEntry);
+  // return GLOBAL_VOC;
+  // };
+
+  traceDatabase = () => {
+    this.database
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        // console.log(responseFromDb);
+        let v = this.constructNewVocabulary(responseFromDb.docs);
+        v.map(item => item.trace());
+      })
+      .catch(console.log.bind(console));
   };
 
   seedDatabase = () => {
-    this.database.bulkDocs([
-      new VocabularyEntry("εγκατάσταση", "installieren", 0),
-      new VocabularyEntry("ναι", "ja", 1),
-      new VocabularyEntry("οθόνη", "der Monitor", 1),
-      new VocabularyEntry("κατόπιν", "anschließend", 5),
-      new VocabularyEntry("ευγενικός", "nett", 7),
-      new VocabularyEntry("αυτοκίνητο", "das Auto", 12),
-      new VocabularyEntry("λάθος", "der Fehler", 5),
-      new VocabularyEntry("όχι", "nein", 3),
-      new VocabularyEntry("ηλεκτρονικός υπολογιστής", "der Rechner", 2),
-      new VocabularyEntry("hardly μετα βίας", "kaum", 7),
-      new VocabularyEntry("πόνος", "der Schmerz", 12),
-      new VocabularyEntry("ασφαλισμένος", "versichert", 17),
-      new VocabularyEntry("προφανώς", "offensichtlich", 8),
-      new VocabularyEntry("εκφράζω", "ausdrücken", 7),
-      new VocabularyEntry("αξία", "der Wert", 4),
-      new VocabularyEntry("διατήρηση", "die Erhaltung", 16),
-      new VocabularyEntry("μεταφόρτωση (download)", "runterladen", 7),
-      new VocabularyEntry("ανέκδοτο", "der Witz", 4),
-      new VocabularyEntry("τρόφιμα", "das Lebensmittel", 8),
-      new VocabularyEntry("σύνδεση", "einloggen", 20)
-    ]);
-    console.info("greek_german database populated");
+    this.database
+      .bulkDocs([
+        new VocabularyEntry(
+          "εγκατάσταση-installieren",
+          null,
+          "εγκατάσταση",
+          "installieren",
+          0,
+          0,
+          0
+        ),
+        new VocabularyEntry("ναι-ja", null, "ναι", "ja", 1, 1, 1),
+        new VocabularyEntry(
+          "οθόνη-der Monitor",
+          null,
+          "οθόνη",
+          "der Monitor",
+          1,
+          5,
+          6
+        ),
+        new VocabularyEntry(
+          "κατόπιν-anschließend",
+          null,
+          "κατόπιν",
+          "anschließend",
+          5,
+          2,
+          8
+        ),
+        new VocabularyEntry(
+          "ευγενικός-nett",
+          null,
+          "ευγενικός",
+          "nett",
+          2,
+          0,
+          7
+        ),
+        new VocabularyEntry(
+          "αυτοκίνητο-das Auto",
+          null,
+          "αυτοκίνητο",
+          "das Auto",
+          2,
+          0,
+          12
+        ),
+        new VocabularyEntry(
+          "λάθος-der Fehler",
+          null,
+          "λάθος",
+          "der Fehler",
+          2,
+          0,
+          5
+        ),
+        new VocabularyEntry("όχι-nein", null, "όχι", "nein", 2, 0, 3),
+        new VocabularyEntry(
+          "ηλεκτρονικός υπολογιστής-der Rechner",
+          null,
+          "ηλεκτρονικός υπολογιστής",
+          "der Rechner",
+          2,
+          0,
+          4
+        ),
+        new VocabularyEntry(
+          "μετα βίας-kaum",
+          null,
+          "μετα βίας",
+          "kaum",
+          7,
+          5,
+          20
+        ),
+        new VocabularyEntry(
+          "πόνος-der Schmerz",
+          null,
+          "πόνος",
+          "der Schmerz",
+          12
+        ),
+        new VocabularyEntry(
+          "ασφαλισμένος-versichert",
+          null,
+          "ασφαλισμένος",
+          "versichert",
+          17,
+          2,
+          23
+        ),
+        new VocabularyEntry(
+          "προφανώς-offensichtlich",
+          null,
+          "προφανώς",
+          "offensichtlich",
+          8,
+          6,
+          20
+        ),
+        new VocabularyEntry(
+          "εκφράζω-ausdrücken",
+          null,
+          "εκφράζω",
+          "ausdrücken",
+          7,
+          4,
+          12
+        ),
+        new VocabularyEntry(
+          "αξία-der Wert",
+          null,
+          "αξία",
+          "der Wert",
+          4,
+          6,
+          10
+        ),
+        new VocabularyEntry(
+          "διατήρηση-die Erhaltun",
+          null,
+          "διατήρηση",
+          "die Erhaltung",
+          2,
+          5,
+          16
+        ),
+        new VocabularyEntry(
+          "μεταφόρτωση-runterladen",
+          null,
+          "μεταφόρτωση",
+          "runterladen",
+          1,
+          0,
+          7
+        ),
+        new VocabularyEntry(
+          "ανέκδοτο-der Witz",
+          null,
+          "ανέκδοτο",
+          "der Witz",
+          2,
+          2,
+          4
+        ),
+        new VocabularyEntry(
+          "τρόφιμα-das Lebensmittel",
+          null,
+          "τρόφιμα",
+          "das Lebensmittel",
+          5,
+          3,
+          8
+        ),
+        new VocabularyEntry(
+          "σύνδεση-einloggen",
+          null,
+          "σύνδεση",
+          "einloggen",
+          11,
+          11,
+          26
+        )
+      ])
+      .then(() => console.info(`${this.databaseName} database seeded`));
   };
 
   resetDatabase = () => {
-    this.database.destroy();
-    this.database = new PouchDB("greek_german_db");
-    console.info("database has been reset");
+    this.database
+      .destroy()
+      .then(() => {
+        return new PouchDB(this.databaseName);
+      })
+      .then(newDb => {
+        this.database = newDb;
+        console.info(`${this.databaseName} database has been reset`);
+      })
+      .catch(console.log.bind(console));
   };
 
   traceVocabulary = voc => {

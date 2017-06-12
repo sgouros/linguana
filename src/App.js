@@ -6,6 +6,7 @@ import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
+import Notifications from "react-notification-system";
 
 export default class App extends Component {
   state = {
@@ -14,12 +15,57 @@ export default class App extends Component {
     showStartModal: false,
     showFinishModal: false,
     showVocabularyManager: false,
-    isStartModalLoading: false
+    isStartModalLoading: false,
+    showAddEntryLoading: false
+  };
+
+  notifications = null;
+
+  notificationsStyle = {
+    NotificationItem: {
+      DefaultStyle: {
+        width: 420
+      }
+    }
   };
 
   vocabularyFactory = new VocabularyFactory(this);
 
   allSelectedEntries = [];
+
+  addErrorNotification = (title, message, secondsToDismiss = 0) => {
+    this.notifications.addNotification({
+      title: title,
+      message: message,
+      level: "error",
+      position: "bl",
+      autoDismiss: secondsToDismiss
+    });
+  };
+
+  addInfoNotification = (title, message, secondsToDismiss) => {
+    this.notifications.addNotification({
+      title: title,
+      message: message,
+      level: "info",
+      position: "bl",
+      autoDismiss: secondsToDismiss
+    });
+  };
+
+  addSuccessNotification = (title, message, secondsToDismiss = 0) => {
+    this.notifications.addNotification({
+      title: title,
+      message: message,
+      level: "success",
+      position: "bl",
+      autoDismiss: secondsToDismiss
+    });
+  };
+
+  componentDidMount = () => {
+    this.notifications = this.refs.notifications;
+  };
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
@@ -28,7 +74,6 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- NEW SESSION:");
-
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
 
     this.allSelectedEntries = [];
@@ -67,9 +112,7 @@ export default class App extends Component {
   traceVocabulary = voc => {
     console.info("------- tracing vocabulary ---------");
     voc.map(entry => {
-      console.info(
-        `${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`
-      );
+      console.info(`${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`);
       return entry;
     });
     console.info("----- end tracing vocabulary -------");
@@ -91,10 +134,7 @@ export default class App extends Component {
     console.info("removing entry from vocabulary array");
     const new_voc = [
       ...this.state.vocabulary.slice(0, currentIndex),
-      ...this.state.vocabulary.slice(
-        currentIndex + 1,
-        this.state.vocabulary.length
-      )
+      ...this.state.vocabulary.slice(currentIndex + 1, this.state.vocabulary.length)
     ];
     this.setState({
       vocabulary: new_voc
@@ -149,11 +189,7 @@ export default class App extends Component {
 
   constructFinishModalContent = () => {
     return (
-      <img
-        className="css-congratulations-img"
-        src="/img/congratulations.jpg"
-        alt="congratulations"
-      />
+      <img className="css-congratulations-img" src="/img/congratulations.jpg" alt="congratulations" />
     );
   };
 
@@ -165,16 +201,33 @@ export default class App extends Component {
   };
 
   openVocabularyManager = () => {
-    console.info("------- opening vocabulary manager ----------");
     this.setState({ showVocabularyManager: true });
   };
 
-  newEntrySubmitted = (term, translation) => {
-    let updatedGlobalVoc = this.vocabularyFactory.addNewEntry(
+  newEntrySubmitted = (term, translation, newEntrySaveSucceeded, newEntrySaveFailed) => {
+    // console.debug(`submited ${term} with translation ${translation}`);
+    this.vocabularyFactory.addEntry(
       term,
-      translation
+      translation,
+      this.newEntrySaveToDbSucceeded,
+      this.newEntrySaveToDbFailed
     );
-    this.traceVocabulary(updatedGlobalVoc);
+  };
+
+  newEntrySaveToDbSucceeded = (term, translation, response) => {
+    console.info(`${term}-${translation} saved to DB. Response: ${JSON.stringify(response)}`);
+    this.addSuccessNotification(`Success!`, `Added ${term}-${translation} to database.`, 3);
+  };
+
+  newEntrySaveToDbFailed = (term, translation, error) => {
+    console.info(
+      `Failed to save ${term}-${translation} to DB. Error description: ${JSON.stringify(error)}`
+    );
+
+    this.addErrorNotification(
+      `Failed to save ${term}-${translation}`,
+      `Error: ${JSON.stringify(error)}`
+    );
   };
 
   seedDatabasePressed = () => {
@@ -208,6 +261,7 @@ export default class App extends Component {
             />}
         </nav>
         <main>
+          <Notifications ref="notifications" style={this.notificationsStyle} />
           {!this.state.first_session &&
             <TestArea
               ref="testArea"
@@ -219,10 +273,7 @@ export default class App extends Component {
               onPlusPress={this.addEntryToVocabulary}
             />}
           {this.state.showVocabularyManager &&
-            <VocabularyManager
-              ref="vocabularyManager"
-              onNewEntrySubmitted={this.newEntrySubmitted}
-            />}
+            <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
         </main>
 
         {this.state.showStartModal
@@ -245,10 +296,7 @@ export default class App extends Component {
           <button className="new-session-button" onClick={this.newSession}>
             New session
           </button>
-          <button
-            className="open-vocabulary-manager-button"
-            onClick={this.openVocabularyManager}
-          >
+          <button className="open-vocabulary-manager-button" onClick={this.openVocabularyManager}>
             Vocabulary manager
           </button>
           <button className="debug-button" onClick={this.seedDatabasePressed}>
@@ -257,10 +305,7 @@ export default class App extends Component {
           <button className="debug-button" onClick={this.resetDatabasePressed}>
             reset database
           </button>
-          <button
-            className="debug-button"
-            onClick={this.traceVocabularyPressed}
-          >
+          <button className="debug-button" onClick={this.traceVocabularyPressed}>
             trace vocabulary
           </button>
           <button className="debug-button" onClick={this.traceDatabasePressed}>

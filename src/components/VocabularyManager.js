@@ -10,34 +10,27 @@ export default class VocabularyManager extends Component {
   };
 
   handleTranslationInputChange = event => {
-    console.debug("setting Translation Input to:");
-    console.debug(event.target.value);
-
     this.setState({
       currentTranslationInputValue: event.target.value
     });
   };
 
   handleTermInputChange = event => {
-    console.debug("setting Term Input to:");
-    console.debug(event.target.value);
     this.setState({
       currentTermInputValue: event.target.value
     });
   };
 
-  //************todo να μπορώ να περνάω κατευθείαν στην βάση καινούριες λέξεις μέσω του vocabulary manager*/
-  // μετά να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
-  // μετά να μπορώ να τις κάνω και search
-  // μετά να μπορώ να τις κάνω και edit
+  // todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
+  // todo να μπορώ να τις κάνω και search
+  // todo να μπορώ να τις κάνω και edit
 
   handleSubmit = event => {
-    console.debug("submit hitted");
+    event.preventDefault();
     let term = this.state.currentTermInputValue;
     let translation = this.state.currentTranslationInputValue;
     this.props.onNewEntrySubmitted(term, translation);
     this.clearInputs();
-    event.preventDefault();
   };
 
   clearInputs = () => {
@@ -50,6 +43,7 @@ export default class VocabularyManager extends Component {
   render() {
     return (
       <div id="vocabulary-manager-div">
+
         <form className="vocabulary-manager-form" onSubmit={this.handleSubmit}>
 
           <TranslationInput
@@ -58,6 +52,7 @@ export default class VocabularyManager extends Component {
             onChange={this.handleTermInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
+            placeholder="Ελληνικά"
           />
 
           <TranslationInput
@@ -66,12 +61,9 @@ export default class VocabularyManager extends Component {
             onChange={this.handleTranslationInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
+            placeholder="Deutsch"
           />
-          <input
-            type="submit"
-            id="VocabularyManagerSubmitButton"
-            value="submit"
-          />
+          <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
         </form>
 
       </div>

@@ -46,7 +46,8 @@ class TranslationInput extends Component {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
     console.debug(
-      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`
+      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this
+        .s_Timeout}`
     );
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
@@ -103,6 +104,7 @@ class TranslationInput extends Component {
         value={this.props.currentInputValue}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleOnChange}
+        placeholder={this.props.placeholder}
       />
     );
   }

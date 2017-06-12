@@ -1,15 +1,11 @@
 export default class VocabularyEntry {
-  constructor(
-    id,
-    rev,
-    term,
-    translation,
-    totalSuccesses,
-    totalFailures,
-    totalTimesSelected
-  ) {
-    // this._id = `${term}-${translation}`;
-    this._id = id;
+  constructor(id, rev, term, translation, totalSuccesses, totalFailures, totalTimesSelected) {
+    if (id === null) {
+      this._id = `${term}-${translation}`;
+    } else {
+      this._id = id;
+    }
+
     this._rev = rev;
     this.term = term;
     this.translation = translation;
@@ -27,9 +23,7 @@ export default class VocabularyEntry {
     console.info(`  this.totalSuccesses: ${this.totalSuccesses}`);
     console.info(`  this.totalFailures: ${this.totalFailures}`);
     console.info(`  this.totalTimesSelected: ${this.totalTimesSelected}`);
-    console.info(
-      `  this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`
-    );
+    console.info(`  this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
   }
 
   success() {

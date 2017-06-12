@@ -21,9 +21,7 @@ export default class VocabularyManager extends Component {
     });
   };
 
-  // todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
-  // todo να μπορώ να τις κάνω και search
-  // todo να μπορώ να τις κάνω και edit
+  // ***todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
 
   handleSubmit = event => {
     event.preventDefault();

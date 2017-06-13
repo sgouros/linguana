@@ -21,6 +21,7 @@ export default class VocabularyManager extends Component {
     });
   };
 
+  // να μπορώ να κάνω εύκολα edit/replicate την database
   // ***todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
 
   handleSubmit = event => {

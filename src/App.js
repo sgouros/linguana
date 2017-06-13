@@ -293,15 +293,19 @@ export default class App extends Component {
             />
           : null}
         <nav className="right-nav">
+
           <button className="new-session-button" onClick={this.newSession}>
             New session
           </button>
+
           <button className="open-vocabulary-manager-button" onClick={this.openVocabularyManager}>
             Vocabulary manager
           </button>
+
           <button className="debug-button" onClick={this.seedDatabasePressed}>
             seed database
           </button>
+
           <button className="debug-button" onClick={this.resetDatabasePressed}>
             reset database
           </button>
@@ -311,6 +315,7 @@ export default class App extends Component {
           <button className="debug-button" onClick={this.traceDatabasePressed}>
             trace database
           </button>
+
         </nav>
         <footer>
           Διεύθυνση Αναπτυξιακού Προγραμματισμού Περιφέρειας ΑΜΘ

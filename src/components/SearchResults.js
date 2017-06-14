@@ -9,6 +9,11 @@ export default class SearchResults extends Component {
 
   onDelete = event => {
     console.log("deleting " + event.target.getAttribute("data-id"));
+    //** todo εδώ πρέπει να στέλνει μήνυμα κάπου στον parent ώστε να σβήνεται από τη βάση δεδομένων
+    // αλλά και από το searchResults που δεινεται αυτή τη στιγμή
+
+    // ** το search box όταν γίνει submit, να αδειάζει
+    // ** κάπου να δείχνεται: searching entries containing "searchTerm"
   };
 
   onEdit = event => {

@@ -7,6 +7,7 @@ import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
+import SearchResults from "./components/SearchResults.js";
 
 export default class App extends Component {
   state = {
@@ -16,7 +17,10 @@ export default class App extends Component {
     showFinishModal: false,
     showVocabularyManager: false,
     isStartModalLoading: false,
-    showAddEntryLoading: false
+    showAddEntryLoading: false,
+    currentSearchInputValue: "",
+    searchResults: [],
+    showSearchResults: false
   };
 
   notifications = null;
@@ -80,14 +84,15 @@ export default class App extends Component {
     this.setState({
       vocabulary: [],
       showStartModal: true,
-      isStartModalLoading: true
+      isStartModalLoading: true,
+      showSearchResults: false
     });
   };
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
 
-    this.traceVocabulary(newVoc);
+    this.vocabularyFactory.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...newVoc,
@@ -106,16 +111,6 @@ export default class App extends Component {
     this.setState({
       showFinishModal: true
     });
-  };
-
-  // todo: αυτό πρέπει να διορθωθεί και να φύγει και από εδώ
-  traceVocabulary = voc => {
-    console.info("------- tracing vocabulary ---------");
-    voc.map(entry => {
-      console.info(`${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`);
-      return entry;
-    });
-    console.info("----- end tracing vocabulary -------");
   };
 
   recordSuccessfulTranslation = entry_index => {
@@ -201,7 +196,10 @@ export default class App extends Component {
   };
 
   openVocabularyManager = () => {
-    this.setState({ showVocabularyManager: true });
+    this.setState({
+      showVocabularyManager: true,
+      showSearchResults: false
+    });
   };
 
   newEntrySubmitted = (term, translation, newEntrySaveSucceeded, newEntrySaveFailed) => {
@@ -239,18 +237,52 @@ export default class App extends Component {
   };
 
   traceVocabularyPressed = () => {
-    this.traceVocabulary(this.state.vocabulary);
+    this.vocabularyFactory.traceVocabulary(this.state.vocabulary);
   };
 
   traceDatabasePressed = () => {
     this.vocabularyFactory.traceDatabase();
   };
 
+  onSearchCompleted = voc => {
+    this.setState({
+      showSearchResults: true,
+      searchResults: voc
+    });
+  };
+
+  handleSearchInputOnChange = event => {
+    this.setState({ currentSearchInputValue: this.refs.searchInput.value });
+  };
+
+  handleSearchSubmit = event => {
+    event.preventDefault();
+    let searchTerm = this.state.currentSearchInputValue;
+    let callBack = this.onSearchCompleted;
+    this.vocabularyFactory.search(searchTerm, callBack);
+  };
+
   render() {
     return (
       <div id="page">
         <header>
-          Planner: ΟΠΣ Παρακολούθησης Αναπτυξιακών Εργων Περιφέρειας ΑΜΘ
+          <div id="logo">
+            Planner: ΟΠΣ Παρακολούθησης Αναπτυξιακών Εργων Περιφέρειας ΑΜΘ
+          </div>
+          <form id="searchForm" onSubmit={this.handleSearchSubmit}>
+            <input
+              ref="searchInput"
+              id="searchInput"
+              name="searchInput"
+              type="text"
+              autoCorrect="off"
+              spellCheck="off"
+              value={this.currentSearchInputValue}
+              placeholder="αναζήτηση..."
+              onChange={this.handleSearchInputOnChange}
+            />
+          </form>
+
         </header>
         <nav className="left-nav">
           {!this.state.first_session &&
@@ -262,6 +294,8 @@ export default class App extends Component {
         </nav>
         <main>
           <Notifications ref="notifications" style={this.notificationsStyle} />
+
+          {this.state.showSearchResults && <SearchResults searchResults={this.state.searchResults} />}
           {!this.state.first_session &&
             <TestArea
               ref="testArea"

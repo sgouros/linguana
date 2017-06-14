@@ -121,7 +121,7 @@ export default class VocabularyFactory {
       })
       .then(responseFromDb => {
         let v = this.constructNewVocabulary(responseFromDb.docs);
-        v.map(item => item.trace());
+        this.traceVocabulary(v);
       })
       .catch(console.log.bind(console));
   };
@@ -171,11 +171,28 @@ export default class VocabularyFactory {
   };
 
   traceVocabulary = voc => {
-    console.info("------- tracing vocabulary ---------");
-    voc.map(entry => {
-      console.info(`${entry.term} - ${entry.translation}: ${entry.totalTimesSelected} times selected`);
-      return entry;
-    });
-    console.info("----- end tracing vocabulary -------");
+    voc.map(entry => entry.trace());
+  };
+
+  search = (searchTerm, onSearchCompleted) => {
+    let searchTermRegex = searchTerm;
+    this.localDb
+      .createIndex({
+        index: {
+          fields: ["term", "translation"]
+        }
+      })
+      .then(() => {
+        return this.localDb.find({
+          selector: {
+            $or: [{ term: { $regex: searchTermRegex } }, { translation: { $regex: searchTermRegex } }]
+          },
+          limit: 50
+        });
+      })
+      .then(resultFromDb => {
+        onSearchCompleted(this.constructNewVocabulary(resultFromDb.docs));
+      })
+      .catch(console.log.bind(console));
   };
 }

@@ -4,16 +4,10 @@ PouchDB.plugin(require("pouchdb-find"));
 
 // ------ couchdb synchronization -------
 // sudo apt-get install couchdb
-// pouchdb-server --port 5984
+// couchdb-server --port 5984
 // curl localhost:5984
 // npm install -g add-cors-to-couchdb
 // add-cors-to-couchdb
-
-// ---------- backup database:
-// curl -X GET 'http://localhost:5984/l_01/_all_docs?include_docs=true' | jq '{"docs": [.rows[].doc]}' | jq 'del(.docs[]._rev)' > l_01.json
-
-// ------------ restore database:
-// curl -d @l_01.json -H "Content-Type: application/json" -X POST http://localhost:5984/l_01/_bulk_docs
 
 export default class VocabularyFactory {
   initialVocabularyLength = 10;
@@ -22,7 +16,7 @@ export default class VocabularyFactory {
     this.app = app;
     window.PouchDB = PouchDB; // for dev tools
 
-    this.localDbName = "l_01";
+    this.localDbName = "linguana";
     this.remoteDbName = "http://localhost:5984/" + this.localDbName;
 
     this.localDb = new PouchDB(this.localDbName);

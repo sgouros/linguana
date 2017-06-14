@@ -6,6 +6,15 @@ export default class SearchResults extends Component {
   static propTypes = {
     searchResults: PropTypes.array
   };
+
+  onDelete = event => {
+    console.log("deleting " + event.target.getAttribute("data-id"));
+  };
+
+  onEdit = event => {
+    console.log("editing " + event.target.getAttribute("data-id"));
+  };
+
   render() {
     const htmlTable = this.props.searchResults.map(entry => {
       return (
@@ -16,6 +25,8 @@ export default class SearchResults extends Component {
           <td>{entry.totalSuccesses}</td>
           <td>{entry.totalFailures}</td>
           <td>{entry.totalTimesSelected}</td>
+          <td className="td-delete" data-id={entry._id} onClick={this.onDelete}>delete</td>
+          <td className="td-edit" data-id={entry._id} onClick={this.onEdit}>edit</td>
         </tr>
       );
     });

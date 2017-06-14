@@ -153,12 +153,15 @@ body {
 .searchResultsTable td {
   width: 50%;
   height: 1.8em;
-  padding: 5px 5px 5px 15px;
+  padding: 5px 5px 5px 5px;
   font-size: 16px;
 }
 
 .searchResultsTable tr:nth-child(odd) {
   background: #EEE;
+}
+.searchResultsTable tr:nth-child(even) {
+  background: #CCF;
 }
 
 .new-session-button {
@@ -280,4 +283,18 @@ body {
 #searchInput {
   width: 100%;
   padding: 3px;
+}
+
+.td-delete {
+  text-align: center;
+  color: white;
+  background-color: red;
+  cursor: pointer;
+}
+
+.td-edit {
+  text-align: center;
+  color: white;
+  background-color: blue;
+  cursor: pointer;
 }

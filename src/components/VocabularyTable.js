@@ -2,26 +2,28 @@ import React, { Component } from "react";
 import { ModalContainer, ModalDialog } from "react-modal-dialog";
 import PropTypes from "prop-types";
 
-export default class SearchResults extends Component {
+export default class VocabularyTable extends Component {
   static propTypes = {
-    searchResults: PropTypes.array
+    vocabulary: PropTypes.array,
+    title: PropTypes.string,
+    onEdit: PropTypes.func,
+    onDelete: PropTypes.func
   };
 
   onDelete = event => {
-    console.log("deleting " + event.target.getAttribute("data-id"));
-    //** todo εδώ πρέπει να στέλνει μήνυμα κάπου στον parent ώστε να σβήνεται από τη βάση δεδομένων
-    // αλλά και από το searchResults που δεινεται αυτή τη στιγμή
-
-    // ** το search box όταν γίνει submit, να αδειάζει
-    // ** κάπου να δείχνεται: searching entries containing "searchTerm"
+    let id = event.target.getAttribute("data-id"); // this is the id in the database
+    let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
+    this.props.onDelete(this.props.vocabulary[index]);
   };
 
   onEdit = event => {
-    console.log("editing " + event.target.getAttribute("data-id"));
+    let id = event.target.getAttribute("data-id"); // this is the id in the database
+    let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
+    this.props.onEdit(this.props.vocabulary[index]);
   };
 
   render() {
-    const htmlTable = this.props.searchResults.map(entry => {
+    const htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
           <td>{entry._id}</td>
@@ -30,14 +32,17 @@ export default class SearchResults extends Component {
           <td>{entry.totalSuccesses}</td>
           <td>{entry.totalFailures}</td>
           <td>{entry.totalTimesSelected}</td>
-          <td className="td-delete" data-id={entry._id} onClick={this.onDelete}>delete</td>
-          <td className="td-edit" data-id={entry._id} onClick={this.onEdit}>edit</td>
+          <td className="td-delete" data-id={entry._id} data-index={index} onClick={this.onDelete}>
+            delete
+          </td>
+          <td className="td-edit" data-id={entry._id} data-index={index} onClick={this.onEdit}>edit</td>
         </tr>
       );
     });
 
     return (
       <div>
+        <p>{this.props.title}</p>
         <table className="searchResultsTable">
           <tbody>
             <tr>

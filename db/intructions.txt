@@ -1,0 +1,10 @@
+To export:
+1. cd db
+2. sh export.sh
+
+To import:
+1. Click reset DB inside application (this deletes all records from pouchdb)
+2. let pouchdb auto sync with couchdb
+3. open db/import.sh and select which input file you want to import
+4. cd db
+5. sh import.sh

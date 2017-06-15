@@ -29,7 +29,6 @@ export default class VocabularyFactory {
       })
       .on("change", function(change) {
         console.info("Vocabulary synced!");
-        // todo: να βγαίνει παραθυράκι vocabulary updated
       })
       .on("paused", function(info) {
         console.debug("replication was paused, usually because of a lost connection");
@@ -56,7 +55,7 @@ export default class VocabularyFactory {
     this.localDb
       .createIndex({
         index: {
-          fields: ["totalTimesSelected", "totalSuccesses", "totalFailures"]
+          fields: ["totalTimesSelected"]
         }
       })
       .then(() => {
@@ -170,7 +169,8 @@ export default class VocabularyFactory {
       .catch(console.log.bind(console));
   };
 
-  traceVocabulary = voc => {
+  traceVocabulary = (voc, logMessage = "tracing vocabulary:") => {
+    console.info(logMessage);
     voc.map(entry => entry.trace());
   };
 
@@ -192,6 +192,16 @@ export default class VocabularyFactory {
       })
       .then(resultFromDb => {
         onSearchCompleted(this.constructNewVocabulary(resultFromDb.docs));
+      })
+      .catch(console.log.bind(console));
+  };
+
+  deleteEntryFromDb = entry => {
+    this.localDb
+      .remove(entry)
+      .then(response => {
+        console.info("the following entry was removed from db:");
+        console.info(response);
       })
       .catch(console.log.bind(console));
   };

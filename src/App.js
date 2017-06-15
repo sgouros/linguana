@@ -7,7 +7,7 @@ import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
-import SearchResults from "./components/SearchResults.js";
+import VocabularyTable from "./components/VocabularyTable.js";
 
 export default class App extends Component {
   state = {
@@ -79,13 +79,14 @@ export default class App extends Component {
   newSession = () => {
     console.info("\n\n-------- NEW SESSION:");
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
-
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
       showStartModal: true,
       isStartModalLoading: true,
-      showSearchResults: false
+      showSearchResults: false,
+      currentSearchInputValue: "",
+      searchResults: []
     });
   };
 
@@ -262,6 +263,42 @@ export default class App extends Component {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
+  deleteEntry = vocabularyEntry => {
+    console.info(`------- deleting entry: ${vocabularyEntry._id}`);
+
+    // delete entry from db
+    this.vocabularyFactory.deleteEntryFromDb(vocabularyEntry);
+
+    // delete entry from allSelectedEntries
+    console.info("--- deleting from allSelectedEntries");
+    let a = this.allSelectedEntries.indexOf(vocabularyEntry);
+    let newSelectedEntries = this.allSelectedEntries.filter((entry, index) => index !== a);
+    this.allSelectedEntries = newSelectedEntries;
+    this.vocabularyFactory.traceVocabulary(this.allSelectedEntries, "tracing this.allSelectedEntries");
+
+    // delete entry from searchResults
+    console.info("--- deleting entry from searchResults");
+    let b = this.state.searchResults.indexOf(vocabularyEntry);
+    let newSearchResults = this.state.searchResults.filter((entry, index) => index !== b);
+    this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
+    this.setState({
+      searchResults: newSearchResults
+    });
+
+    // delete entry from state vocabulary
+    console.info("--- deleting term from state vocabulary");
+    let c = this.state.vocabulary.indexOf(vocabularyEntry);
+    let newVocabulary = this.state.vocabulary.filter((entry, index) => index !== c);
+    this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
+    this.setState({
+      vocabulary: newVocabulary
+    });
+  };
+
+  editEntry = entryId => {
+    console.info("App.entryEdit() not yet implemented");
+  };
+
   render() {
     return (
       <div id="page">
@@ -277,7 +314,7 @@ export default class App extends Component {
               type="text"
               autoCorrect="off"
               spellCheck="off"
-              value={this.currentSearchInputValue}
+              value={this.state.currentSearchInputValue}
               placeholder="αναζήτηση..."
               onChange={this.handleSearchInputOnChange}
             />
@@ -295,7 +332,13 @@ export default class App extends Component {
         <main>
           <Notifications ref="notifications" style={this.notificationsStyle} />
 
-          {this.state.showSearchResults && <SearchResults searchResults={this.state.searchResults} />}
+          {this.state.showSearchResults &&
+            <VocabularyTable
+              title="Search results:"
+              vocabulary={this.state.searchResults}
+              onEdit={this.editEntry}
+              onDelete={this.deleteEntry}
+            />}
           {!this.state.first_session &&
             <TestArea
               ref="testArea"

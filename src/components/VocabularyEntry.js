@@ -16,14 +16,14 @@ export default class VocabularyEntry {
   }
 
   trace() {
-    console.info(`tracing ${this._id}:`);
-    console.info(`  this._rev: ${this._rev}`);
-    console.info(`  this.term: ${this.term}`);
-    console.info(`  this.translation: ${this.translation}`);
-    console.info(`  this.totalSuccesses: ${this.totalSuccesses}`);
-    console.info(`  this.totalFailures: ${this.totalFailures}`);
-    console.info(`  this.totalTimesSelected: ${this.totalTimesSelected}`);
-    console.info(`  this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
+    console.info(`  tracing ${this._id}:`);
+    console.info(`    this._rev: ${this._rev}`);
+    console.info(`    this.term: ${this.term}`);
+    console.info(`    this.translation: ${this.translation}`);
+    console.info(`    this.totalSuccesses: ${this.totalSuccesses}`);
+    console.info(`    this.totalFailures: ${this.totalFailures}`);
+    console.info(`    this.totalTimesSelected: ${this.totalTimesSelected}`);
+    console.info(`    this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
   }
 
   success() {

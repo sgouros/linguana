@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import TranslationInput from "./TranslationInput.js";
 // import WordComparisonDialog from "./WordComparisonDialog.js";
 
+// *** todo Κάποτε πρέπει να κάνω ένα refactor στο οποίο να δημιουργήσω το Vocabulary ως class (τώρα έχω πίνακες)
+
 export default class VocabularyManager extends Component {
   state = {
     currentTermInputValue: "",
@@ -21,7 +23,6 @@ export default class VocabularyManager extends Component {
     });
   };
 
-  // να μπορώ να κάνω εύκολα edit/replicate την database
   // ***todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
 
   handleSubmit = event => {

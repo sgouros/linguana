@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { ModalContainer, ModalDialog } from "react-modal-dialog";
 import PropTypes from "prop-types";
 
 export default class VocabularyTable extends Component {
@@ -11,13 +10,13 @@ export default class VocabularyTable extends Component {
   };
 
   onDelete = event => {
-    let id = event.target.getAttribute("data-id"); // this is the id in the database
+    // let id = event.target.getAttribute("data-id"); // this is the id in the database
     let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
     this.props.onDelete(this.props.vocabulary[index]);
   };
 
   onEdit = event => {
-    let id = event.target.getAttribute("data-id"); // this is the id in the database
+    // let id = event.target.getAttribute("data-id"); // this is the id in the database
     let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
     this.props.onEdit(this.props.vocabulary[index]);
   };

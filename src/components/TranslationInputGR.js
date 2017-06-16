@@ -1,26 +1,16 @@
 import React, { Component } from "react";
 
-class TranslationInput extends Component {
+export default class TranslationInputGR extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
-  special_letter_substitutions = [
-    [83, "s", "ß"],
-    [65, "a", "ä"],
-    [85, "u", "ü"],
-    [79, "o", "ö"]
-  ];
+  special_letter_substitutions = [[83, "s", "ß"], [65, "a", "ä"], [85, "u", "ü"], [79, "o", "ö"]];
 
   handleOnChange = event => {
     this.props.onChange(event);
   };
 
   handleKeyDown = event => {
-    if (
-      event.keyCode === 65 ||
-      event.keyCode === 85 ||
-      event.keyCode === 79 ||
-      event.keyCode === 83
-    ) {
+    if (event.keyCode === 65 || event.keyCode === 85 || event.keyCode === 79 || event.keyCode === 83) {
       if (this.sameSpecialKeyPressed(event.keyCode)) {
         this.handleSameSpecialKeyPress(event);
       } else {
@@ -46,8 +36,7 @@ class TranslationInput extends Component {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
     console.debug(
-      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this
-        .s_Timeout}`
+      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`
     );
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
@@ -90,13 +79,17 @@ class TranslationInput extends Component {
     }
   };
 
+  getCssClass = () => {
+    return "translationInput " + this.props.cssBackgroundClassName;
+  };
+
   render() {
     return (
       <input
-        ref="theInput"
-        className={this.props.cssBackgroundClassName}
-        id="translation_input"
-        name="translation_input"
+        ref="input"
+        className={this.getCssClass()}
+        id="translationInputGR"
+        name="translationInputGR"
         type="text"
         autoComplete="off"
         autoCorrect="off"
@@ -109,5 +102,3 @@ class TranslationInput extends Component {
     );
   }
 }
-
-export default TranslationInput;

@@ -59,7 +59,7 @@ body {
   box-sizing: border-box;
 }
 
-#translation_input {
+.translationInput {
   font-size: 70px;
   padding: 20px;
   border: none;
@@ -69,13 +69,17 @@ body {
   margin-top: 30px;
 }
 
-#VocabularyManagerSubmitButton {
-  visibility: hidden;
-}
-
-#translation_input:focus {
+.translationInput:focus {
   border: none;
   outline: 0 none;
+}
+
+.translationInput.correctTranslation {
+  background-color: #2E2;
+}
+
+#VocabularyManagerSubmitButton {
+  visibility: hidden;
 }
 
 #source_word_div {
@@ -83,10 +87,6 @@ body {
   width: 100%;
   margin-bottom: 20px;
   padding: 20px;
-}
-
-.css_correct_translation_background {
-  background-color: #2E2;
 }
 
 #test-area-div {

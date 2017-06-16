@@ -12,7 +12,7 @@ import VocabularyTable from "./components/VocabularyTable.js";
 export default class App extends Component {
   state = {
     vocabulary: [],
-    first_session: true,
+    showTestArea: false,
     showStartModal: false,
     showFinishModal: false,
     showVocabularyManager: false,
@@ -73,7 +73,7 @@ export default class App extends Component {
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
-    this.refs.testArea.refs.translationInput.refs.theInput.focus();
+    this.refs.testArea.refs.translationInputDE.refs.input.focus();
   };
 
   newSession = () => {
@@ -92,8 +92,7 @@ export default class App extends Component {
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
-
-    this.vocabularyFactory.traceVocabulary(newVoc);
+    // this.vocabularyFactory.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...newVoc,
@@ -102,7 +101,7 @@ export default class App extends Component {
     this.allSelectedEntries.push(...newVoc);
 
     this.setState({
-      first_session: false,
+      showTestArea: true,
       isStartModalLoading: false,
       vocabulary: updatedVocabulary
     });
@@ -192,14 +191,15 @@ export default class App extends Component {
   closeFinishModal = () => {
     this.setState({
       showFinishModal: false,
-      first_session: true
+      showTestArea: false
     });
   };
 
   openVocabularyManager = () => {
     this.setState({
       showVocabularyManager: true,
-      showSearchResults: false
+      showSearchResults: false,
+      showTestArea: false
     });
   };
 
@@ -248,7 +248,9 @@ export default class App extends Component {
   onSearchCompleted = voc => {
     this.setState({
       showSearchResults: true,
-      searchResults: voc
+      searchResults: voc,
+      showVocabularyManager: false,
+      showTestArea: false
     });
   };
 
@@ -274,13 +276,13 @@ export default class App extends Component {
     let a = this.allSelectedEntries.indexOf(vocabularyEntry);
     let newSelectedEntries = this.allSelectedEntries.filter((entry, index) => index !== a);
     this.allSelectedEntries = newSelectedEntries;
-    this.vocabularyFactory.traceVocabulary(this.allSelectedEntries, "tracing this.allSelectedEntries");
+    // this.vocabularyFactory.traceVocabulary(this.allSelectedEntries, "tracing this.allSelectedEntries");
 
     // delete entry from searchResults
     console.info("--- deleting entry from searchResults");
     let b = this.state.searchResults.indexOf(vocabularyEntry);
     let newSearchResults = this.state.searchResults.filter((entry, index) => index !== b);
-    this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
+    // this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
     this.setState({
       searchResults: newSearchResults
     });
@@ -289,7 +291,7 @@ export default class App extends Component {
     console.info("--- deleting term from state vocabulary");
     let c = this.state.vocabulary.indexOf(vocabularyEntry);
     let newVocabulary = this.state.vocabulary.filter((entry, index) => index !== c);
-    this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
+    // this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
     this.setState({
       vocabulary: newVocabulary
     });
@@ -322,7 +324,7 @@ export default class App extends Component {
 
         </header>
         <nav className="left-nav">
-          {!this.state.first_session &&
+          {this.state.showTestArea &&
             <Stats
               totalEntriesCount={this.getTotalEntries()}
               correctTranslationsCount={this.getTotalCorrectTranslations()}
@@ -339,7 +341,7 @@ export default class App extends Component {
               onEdit={this.editEntry}
               onDelete={this.deleteEntry}
             />}
-          {!this.state.first_session &&
+          {this.state.showTestArea &&
             <TestArea
               ref="testArea"
               vocabulary={this.state.vocabulary}

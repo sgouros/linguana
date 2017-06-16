@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import TranslationInput from "./TranslationInput.js";
-// import WordComparisonDialog from "./WordComparisonDialog.js";
+import TranslationInputDE from "./TranslationInputDE.js";
+import TranslationInputGR from "./TranslationInputGR.js";
 
 // *** todo Κάποτε πρέπει να κάνω ένα refactor στο οποίο να δημιουργήσω το Vocabulary ως class (τώρα έχω πίνακες)
 
@@ -22,8 +22,6 @@ export default class VocabularyManager extends Component {
       currentTermInputValue: event.target.value
     });
   };
-
-  // ***todo να αλλάζει αυτόματα γλώσσα όταν περνάω λέξεις
 
   handleSubmit = event => {
     event.preventDefault();
@@ -46,7 +44,7 @@ export default class VocabularyManager extends Component {
 
         <form className="vocabulary-manager-form" onSubmit={this.handleSubmit}>
 
-          <TranslationInput
+          <TranslationInputGR
             ref="vocabularyManagerTermInput"
             currentInputValue={this.state.currentTermInputValue}
             onChange={this.handleTermInputChange}
@@ -55,7 +53,7 @@ export default class VocabularyManager extends Component {
             placeholder="Ελληνικά"
           />
 
-          <TranslationInput
+          <TranslationInputDE
             ref="vocabularyManagerTranslationInput"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}

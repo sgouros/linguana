@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TranslationInput from "./TranslationInput.js";
+import TranslationInput from "./TranslationInputDE.js";
 
 import WordComparisonDialog from "./WordComparisonDialog.js";
 
@@ -18,7 +18,7 @@ export default class Testarea extends Component {
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
-    cssBackground: "css_wrong_translation_background",
+    cssBackground: "wrongTranslation",
     showWordComparisonDialog: false
   };
 
@@ -35,11 +35,11 @@ export default class Testarea extends Component {
   };
 
   highlightCorrectAnswer = () => {
-    this.setState({ cssBackground: "css_correct_translation_background" });
+    this.setState({ cssBackground: "correctTranslation" });
   };
 
   highlightWrongAnswer = () => {
-    this.setState({ cssBackground: "css_wrong_translation_background" });
+    this.setState({ cssBackground: "wrongTranslation" });
   };
 
   handleSubmit = event => {
@@ -134,7 +134,7 @@ export default class Testarea extends Component {
   closeWordComparisonDialog = () => {
     this.setState({ showWordComparisonDialog: false });
     this.loadNextEntry();
-    this.refs.translationInput.refs.theInput.focus();
+    this.refs.translationInputDE.refs.input.focus();
   };
 
   getWordComparisonDialogContent = () => {
@@ -163,14 +163,12 @@ export default class Testarea extends Component {
       <div id="test-area-div" className={this.state.cssBackground}>
 
         <form className="translation_form" onSubmit={this.handleSubmit}>
-          {console.info(
-            `\nshowing vocabulary index: ${this.state.current_voc_index}`
-          )}
+          {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
           <div id="source_word_div">
             {this.getTerm()}
           </div>
           <TranslationInput
-            ref="translationInput"
+            ref="translationInputDE"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}

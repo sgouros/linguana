@@ -306,6 +306,7 @@ export default class App extends Component {
       <div id="page">
         <header>
           <div id="logo">
+            <img src="/img/logo.png" alt="linguana logo" />
             Linguana
           </div>
           <form id="searchForm" onSubmit={this.handleSearchSubmit}>
@@ -321,11 +322,9 @@ export default class App extends Component {
               onChange={this.handleSearchInputOnChange}
             />
           </form>
-
         </header>
 
         <nav>
-
           <button id="newSessionButton" className="navButton" onClick={this.newSession}>
             S T A R T
           </button>

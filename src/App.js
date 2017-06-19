@@ -326,14 +326,19 @@ export default class App extends Component {
 
         <nav>
 
-          <button className="new-session-button" onClick={this.newSession}>
-            New session
+          <button id="newSessionButton" className="navButton" onClick={this.newSession}>
+            S T A R T
           </button>
 
-          <button className="open-vocabulary-manager-button" onClick={this.openVocabularyManager}>
-            Vocabulary manager
+          <button
+            id="vocabularyManagerButton"
+            className="navButton"
+            onClick={this.openVocabularyManager}
+          >
+            open vocabulary manager
           </button>
 
+          {/*
           <button className="debug-button" onClick={this.seedDatabasePressed}>
             seed database
           </button>
@@ -346,7 +351,7 @@ export default class App extends Component {
           </button>
           <button className="debug-button" onClick={this.traceDatabasePressed}>
             trace database
-          </button>
+          </button>*/}
 
         </nav>
 

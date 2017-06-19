@@ -11,15 +11,23 @@ body {
 }
 
 #page > header {
+  display: flex;
+  justify-content: space-between;
   background-color: #ADB545;
+  min-height: 8vw;
   color: #FCFFDE;
-  font-size: 56px;
+  font-size: 5rem;
   font-weight: bold;
 }
 
 #page > nav {
+  display: flex;
+  min-height: 4vw;
+  justify-content: space-around;
   background-color: #FCFFDE;
   color: white;
+  height: 10%;
+  padding-top: 0.5rem;
 }
 
 #page > main {
@@ -31,6 +39,52 @@ body {
   background-color: #222;
   color: white;
   min-width: 50px;
+}
+
+.navButton {
+  width: 46%;
+  height: 90%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#newSessionButton {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  color: #FCFFDE;
+  background: #E79028;
+  border: solid #8b5c02 1px;
+  text-decoration: none;
+  outline: 1;
+}
+
+#newSessionButton:hover {
+  background: #fcc65d;
+  border: solid #8b5c02 1px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#vocabularyManagerButton {
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  background: #afb731;
+  color: #FCFFDE;
+  border: solid #494c14 1px;
+  text-decoration: none;
+  outline: 1;
+}
+
+#vocabularyManagerButton:hover {
+  background: #e4e8aa;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  border: solid #494c14 1px;
 }
 
 .translation_form {
@@ -140,51 +194,6 @@ body {
 }
 .searchResultsTable tr:nth-child(even) {
   background: #CCF;
-}
-
-.new-session-button {
-  margin-bottom: 20px;
-  -webkit-border-radius: 4;
-  -moz-border-radius: 4;
-  border-radius: 4px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 16px;
-  background: #3498db;
-  padding: 20px 20px 20px 20px;
-  border: solid #1f628d 1px;
-  text-decoration: none;
-  width: 140px;
-  outline: 1;
-}
-
-.new-session-button:hover {
-  background: #99cFfF;
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.open-vocabulary-manager-button {
-  width: 140px;
-  -webkit-border-radius: 4;
-  -moz-border-radius: 4;
-  border-radius: 4px;
-  font-family: Arial;
-  font-size: 16px;
-  background: #88d;
-  color: white;
-  padding: 10px 20px 10px 20px;
-  border: solid #aaa 1px;
-  text-decoration: none;
-  outline: 1;
-}
-
-.open-vocabulary-manager-button:hover {
-  background: #ddf;
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .debug-button {

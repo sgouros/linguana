@@ -306,7 +306,7 @@ export default class App extends Component {
       <div id="page">
         <header>
           <div id="logo">
-            Planner: ΟΠΣ Παρακολούθησης Αναπτυξιακών Εργων Περιφέρειας ΑΜΘ
+            Linguana
           </div>
           <form id="searchForm" onSubmit={this.handleSearchSubmit}>
             <input
@@ -323,14 +323,33 @@ export default class App extends Component {
           </form>
 
         </header>
-        <nav className="left-nav">
-          {this.state.showTestArea &&
-            <Stats
-              totalEntriesCount={this.getTotalEntries()}
-              correctTranslationsCount={this.getTotalCorrectTranslations()}
-              wrongTranslationsCount={this.getTotalWrongTranslations()}
-            />}
+
+        <nav>
+
+          <button className="new-session-button" onClick={this.newSession}>
+            New session
+          </button>
+
+          <button className="open-vocabulary-manager-button" onClick={this.openVocabularyManager}>
+            Vocabulary manager
+          </button>
+
+          <button className="debug-button" onClick={this.seedDatabasePressed}>
+            seed database
+          </button>
+
+          <button className="debug-button" onClick={this.resetDatabasePressed}>
+            reset database
+          </button>
+          <button className="debug-button" onClick={this.traceVocabularyPressed}>
+            trace vocabulary
+          </button>
+          <button className="debug-button" onClick={this.traceDatabasePressed}>
+            trace database
+          </button>
+
         </nav>
+
         <main>
           <Notifications ref="notifications" style={this.notificationsStyle} />
 
@@ -371,33 +390,15 @@ export default class App extends Component {
               onClose={this.closeFinishModal}
             />
           : null}
-        <nav className="right-nav">
 
-          <button className="new-session-button" onClick={this.newSession}>
-            New session
-          </button>
-
-          <button className="open-vocabulary-manager-button" onClick={this.openVocabularyManager}>
-            Vocabulary manager
-          </button>
-
-          <button className="debug-button" onClick={this.seedDatabasePressed}>
-            seed database
-          </button>
-
-          <button className="debug-button" onClick={this.resetDatabasePressed}>
-            reset database
-          </button>
-          <button className="debug-button" onClick={this.traceVocabularyPressed}>
-            trace vocabulary
-          </button>
-          <button className="debug-button" onClick={this.traceDatabasePressed}>
-            trace database
-          </button>
-
-        </nav>
         <footer>
-          Διεύθυνση Αναπτυξιακού Προγραμματισμού Περιφέρειας ΑΜΘ
+          footer
+          {this.state.showTestArea &&
+            <Stats
+              totalEntriesCount={this.getTotalEntries()}
+              correctTranslationsCount={this.getTotalCorrectTranslations()}
+              wrongTranslationsCount={this.getTotalWrongTranslations()}
+            />}
         </footer>
       </div>
     );

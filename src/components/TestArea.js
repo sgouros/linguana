@@ -160,14 +160,15 @@ export default class Testarea extends Component {
 
   render() {
     return (
-      <div id="test-area-div" className={this.state.cssBackground}>
+      <div id="testAreaDiv" className={this.state.cssBackground}>
 
-        <form className="translation_form" onSubmit={this.handleSubmit}>
+        <form id="translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
-          <div id="source_word_div">
+          <div id="sourceTermDiv">
             {this.getTerm()}
           </div>
           <TranslationInput
+            id="translationInputDiv"
             ref="translationInputDE"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}

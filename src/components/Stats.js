@@ -10,12 +10,10 @@ class Stats extends Component {
 
   render() {
     return (
-      <div>
-        <ul>
-          <li>correct: {this.props.correctTranslationsCount}</li>
-          <li>wrong: {this.props.wrongTranslationsCount}</li>
-          <li>total: {this.props.totalEntriesCount}</li>
-        </ul>
+      <div id="stats">
+        <div id="correctAnswers"> correct: {this.props.correctTranslationsCount}</div>
+        <div id="totalEntries"> total: {this.props.totalEntriesCount}</div>
+        <div id="wrongAnswers"> wrong: {this.props.wrongTranslationsCount}</div>
       </div>
     );
   }

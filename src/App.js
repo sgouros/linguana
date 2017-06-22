@@ -396,7 +396,6 @@ export default class App extends Component {
           : null}
 
         <footer>
-          footer
           {this.state.showTestArea &&
             <Stats
               totalEntriesCount={this.getTotalEntries()}

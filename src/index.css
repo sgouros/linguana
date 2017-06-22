@@ -145,46 +145,96 @@ body {
 }
 
 #testAreaDiv {
+  display: flex;
   height: 100%;
   padding: 1rem;
   width: auto;
+  justify-content: space-around;
+  /*background: red;*/
+}
+
+img.linguanaFaceImg {
+  padding-top: 11%;
+  max-width: 100%;
+  height: 38%;
+  width: auto;
+  align-self: center;
 }
 
 #translationForm {
+  width: 80%;
   padding-top: 3%;
   padding-bottom: 4%;
+  margin-left: -2%;
   display: flex;
   height: 75%;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   /*background: cyan;*/
 }
 
+.modalImg {
+  max-width: 80%;
+  height: 10%;
+  width: auto;
+}
+
+img.finishModalLinguanaFaceImg {
+  max-width: 100%;
+  height: auto;
+  width: 20%;
+  align-self: center;
+}
+
+.narcissus {
+  top: 100px;
+}
+
+.startModal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.finishModalImages {
+  display: flex;
+  width: 80%;
+}
+
 #sourceTermDiv {
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  text-align: center;
+  padding: 2rem 3rem 2rem 3rem;
   box-sizing: border-box;
-  width: 70%;
-  font-size: 8rem;
-  background: #d7d99e;
-  border: solid 1px #ADB545;
+  width: 95%;
+  font-size: 6rem;
+  background: #c3c59e;
+  border: solid 1px #ADB585;
+  color: #222;
+}
+
+#sourceTermDiv.correctTranslation {
+  color: #66ff00;
 }
 
 .translationInput {
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  text-align: center;
+  padding: 2rem 3rem 2rem 3rem;
   box-sizing: border-box;
-  width: 70%;
-  font-size: 8rem;
+  width: 95%;
+  font-size: 6rem;
   background: #d7d99e;
   border: solid 1px #ADB545;
 }
 .translationInput:focus {
-  border: none;
   outline: 0 none;
 }
 
 .translationInput.correctTranslation {
-  background-color: #2E2;
+  background-color: #99FF33;
 }
 
 #VocabularyManagerSubmitButton {

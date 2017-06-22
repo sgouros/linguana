@@ -18,6 +18,7 @@ export default class FinishModal extends Component {
           dismissOnBackgroundClick={true}
           width="60%"
         >
+          <img src={this.props.imageUrl} alt={this.props.title} className="modalImg" />
           <h1>{this.props.title}</h1>
           <div>{this.props.content}</div>
         </ModalDialog>

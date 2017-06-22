@@ -19,7 +19,8 @@ export default class Testarea extends Component {
     currentTranslationInputValue: "",
     current_voc_index: 0,
     cssBackground: "wrongTranslation",
-    showWordComparisonDialog: false
+    showWordComparisonDialog: false,
+    linguanaFaceImgUrl: "/img/wrong.png"
   };
 
   handleTranslationInputChange = event => {
@@ -35,11 +36,11 @@ export default class Testarea extends Component {
   };
 
   highlightCorrectAnswer = () => {
-    this.setState({ cssBackground: "correctTranslation" });
+    this.setState({ cssBackground: "correctTranslation", linguanaFaceImgUrl: "/img/correct.png" });
   };
 
   highlightWrongAnswer = () => {
-    this.setState({ cssBackground: "wrongTranslation" });
+    this.setState({ cssBackground: "wrongTranslation", linguanaFaceImgUrl: "/img/wrong.png" });
   };
 
   handleSubmit = event => {
@@ -79,7 +80,8 @@ export default class Testarea extends Component {
   clearInput = () => {
     this.setState({
       currentTranslationInputValue: "",
-      cssBackground: "css_wrong_translation_background"
+      cssBackground: "css_wrong_translation_background",
+      linguanaFaceImgUrl: "/img/wrong.png"
     });
   };
 
@@ -158,15 +160,22 @@ export default class Testarea extends Component {
     );
   };
 
+  // todo: να βάλω στο start dialog και στο finish dialog τον κύριο linguana
+  // todo: να κάνω το footer
+
   render() {
     return (
       <div id="testAreaDiv" className={this.state.cssBackground}>
 
+        <img className="linguanaFaceImg" src={this.state.linguanaFaceImgUrl} />
+
         <form id="translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
+
           <div id="sourceTermDiv">
             {this.getTerm()}
           </div>
+
           <TranslationInput
             id="translationInputDiv"
             ref="translationInputDE"

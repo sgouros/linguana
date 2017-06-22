@@ -18,10 +18,11 @@ export default class StartModal extends Component {
           ? <ReactSpinner />
           : <ModalDialog
               onClose={this.props.onClose}
-              className="start-modal"
+              className="startModal"
               dismissOnBackgroundClick={true}
               width="80%"
             >
+              <img src={this.props.imageUrl} alt={this.props.title} className="modalImg" />
               <h1>{this.props.title}</h1>
               <div>{this.props.content}</div>
             </ModalDialog>}

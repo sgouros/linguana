@@ -184,7 +184,17 @@ export default class App extends Component {
 
   constructFinishModalContent = () => {
     return (
-      <img className="css-congratulations-img" src="/img/congratulations.jpg" alt="congratulations" />
+      <div>
+        <div className="finishModalImages">
+          <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
+          <img
+            className="css-congratulations-img"
+            src="/img/congratulations.jpg"
+            alt="congratulations"
+          />
+        </div>
+        <h1> You have successfully finished a learning session!</h1>
+      </div>
     );
   };
 
@@ -384,15 +394,12 @@ export default class App extends Component {
               content={this.constructStartingSummaryModalContent()}
               isLoading={this.state.isStartModalLoading}
               onClose={this.closeStartingSummaryModal}
+              imageUrl="/img/start.png"
             />
           : null}
 
         {this.state.showFinishModal
-          ? <FinishModal
-              title=""
-              content={this.constructFinishModalContent()}
-              onClose={this.closeFinishModal}
-            />
+          ? <FinishModal content={this.constructFinishModalContent()} onClose={this.closeFinishModal} />
           : null}
 
         <footer>

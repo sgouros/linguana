@@ -11,7 +11,7 @@ export default class FinishModal extends Component {
 
   render() {
     return (
-      <ModalContainer onClose={this.props.onClose}>
+      <ModalContainer onClose={this.props.onClose} id="finishModal">
         <ModalDialog
           onClose={this.props.onClose}
           className="finish-modal"

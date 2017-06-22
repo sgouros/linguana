@@ -185,10 +185,7 @@ img.finishModalLinguanaFaceImg {
   height: auto;
   width: 20%;
   align-self: center;
-}
-
-.narcissus {
-  top: 100px;
+  padding-right: 2%;
 }
 
 .startModal {

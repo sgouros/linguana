@@ -11,32 +11,40 @@ body {
 }
 
 #page > header {
-  padding: 0.2rem 1rem 0.2rem 1rem;
+  padding: 0.2rem 0rem 0.2rem 0rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /*align-items: center;*/
   background-color: #ADB545;
-  height: 35%;
+  height: 12vh;
+  border: solid 1px #8d901d;
 }
 
 #logo {
   display: flex;
   align-items: center;
-  font-size: 6rem;
+}
+
+#logoText {
+  padding-top: 1rem;
+  font-size: 3.55rem;
   font-weight: bold;
   color: #FCFFDE;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
 
+#logoImage {
+  height: 5.4rem;
+}
+
 #page > nav {
   display: flex;
-  min-height: 4vw;
+  min-height: 3vw;
   justify-content: space-around;
   background-color: #FCFFDE;
   color: white;
-  height: 10%;
-  padding-top: 0.5rem;
+  padding-top: 0.3rem;
 }
 
 #page > main {
@@ -51,10 +59,10 @@ body {
 }
 
 .navButton {
-  width: 46%;
-  height: 90%;
-  padding: 1rem;
-  font-size: 1.5rem;
+  width: 25%;
+  height: 4.5vh;
+  padding: 0.2rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -75,6 +83,49 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#searchForm {
+  padding-right: 0.2rem;
+  display: flex;
+}
+
+#searchInput {
+  width: 13rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  height: 1.8rem;
+  padding-left: 0.6rem;
+  box-sizing: border-box;
+  border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  -webkit-border-radius: 0.4rem;
+  box-shadow: none;
+  border: solid 1px #8d901d;
+  transition: box-shadow 0.3s, border 0.3s;
+  background-color: #c9cb7b;
+  color: #FCFFDE;
+
+  /* todo: να κάνεις και τα υπόλοιπα emoticons να είναι οκ*/
+}
+
+#searchInput:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 6px 2px #e9ebAb;
+  outline: 0 none;
+}
+
+::-webkit-input-placeholder {
+  color: #FCFFDE;
+}
+::-moz-placeholder {
+  color: #FCFFDE;
+}
+:-ms-input-placeholder {
+  color: #FCFFDE;
+}
+:-moz-placeholder {
+  color: #FCFFDE;
 }
 
 #vocabularyManagerButton {
@@ -186,35 +237,6 @@ body {
   background: #EEE;
 }
 
-#searchForm {
-  padding: 1rem;
-  display: flex;
-}
-
-#searchInput {
-  width: 14rem;
-  height: 1.9rem;
-  padding-left: 0.3rem;
-  box-sizing: border-box;
-  border-radius: 0.3rem;
-  -moz-border-radius: 0.3rem;
-  -webkit-border-radius: 0.3rem;
-  box-shadow: none;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
-
-  /* todo: πιο ουδέτερο χρώμα στο search input 
-  πιο μεγάλα γράμματα και λίγο πιο γκρι
-  αλλη γραμματοσειρά στο start
-  να κάνεις και τα υπόλοιπα emoticons να είναι οκ*/
-}
-
-#searchInput:focus {
-  border: solid 1px #707070;
-  box-shadow: 0 0 6px 2px #969696;
-  outline: 0 none;
-}
-
 .searchResultsTable {
   table-layout: fixed;
   width: 100%;
@@ -285,19 +307,6 @@ body {
   max-width: 100%;
   max-height: 100%;
 }
-
-/*::-webkit-input-placeholder {
-  color: #BBB;
-}
-::-moz-placeholder {
-  color: #BBB;
-}
-:-ms-input-placeholder {
-  color: #BBB;
-}
-:-moz-placeholder {
-  color: #BBB;
-}*/
 
 .td-delete {
   text-align: center;

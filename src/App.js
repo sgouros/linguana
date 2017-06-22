@@ -306,8 +306,8 @@ export default class App extends Component {
       <div id="page">
         <header>
           <div id="logo">
-            <img src="/img/logo.png" alt="linguana logo" />
-            Linguana
+            <img id="logoImage" src="/img/logo.png" alt="linguana logo" />
+            <p id="logoText"> Linguana </p>
           </div>
           <form id="searchForm" onSubmit={this.handleSearchSubmit}>
             <input
@@ -326,7 +326,7 @@ export default class App extends Component {
 
         <nav>
           <button id="newSessionButton" className="navButton" onClick={this.newSession}>
-            S T A R T
+            start new session !
           </button>
 
           <button

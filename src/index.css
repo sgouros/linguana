@@ -22,6 +22,7 @@ body {
 #logo {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 #logoText {
@@ -37,13 +38,20 @@ body {
   height: 5.4rem;
 }
 
-#page > nav {
+nav {
   display: flex;
   height: 6vh;
   justify-content: space-around;
   background-color: #FCFFDE;
   color: white;
   padding-top: 1rem;
+}
+
+nav.startingNav {
+  background-color: #FCFFDE;
+  display: flex;
+  height: 26vh;
+  padding-top: 5rem;
 }
 
 #page > main {
@@ -57,16 +65,17 @@ body {
 }
 
 .navButton {
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem;
   width: 25%;
   padding: 0.5rem;
   font-size: 1.2rem;
   font-weight: bold;
+  height: 100%;
 }
 
 #newSessionButton {
-  -webkit-border-radius: 4;
-  -moz-border-radius: 4;
-  border-radius: 4px;
   color: #FCFFDE;
   background: #E79028;
   border: solid #8b5c02 1px;
@@ -111,6 +120,7 @@ body {
   outline: 0 none;
 }
 
+/*Για την αναζήτηση*/
 ::-webkit-input-placeholder {
   color: #FCFFDE;
 }
@@ -125,9 +135,6 @@ body {
 }
 
 #vocabularyManagerButton {
-  -webkit-border-radius: 4;
-  -moz-border-radius: 4;
-  border-radius: 4px;
   background: #afb731;
   color: #FCFFDE;
   border: solid 1px #8d901d;
@@ -174,7 +181,7 @@ img.linguanaFaceImg {
 
 .modalImg {
   max-width: 80%;
-  height: 10%;
+  height: 8rem;
   width: auto;
 }
 
@@ -340,9 +347,9 @@ img.finishModalLinguanaFaceImg {
 
 .modalDialogTable td {
   width: 50%;
-  height: 1.8em;
-  padding: 5px 5px 5px 15px;
-  font-size: 22px;
+  height: 1.5em;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+  font-size: 1.3rem;
 }
 
 .modalDialogTable tr:nth-child(odd) {
@@ -369,10 +376,10 @@ img.finishModalLinguanaFaceImg {
 }
 
 .debug-button {
-  width: 140px;
-  margin-top: 15px;
-  padding: 3px;
+  width: 60px;
+  height: 20px;
   cursor: pointer;
+  background-color: lightgrey;
 }
 
 .css-modal-dialog-ok-button {
@@ -432,4 +439,22 @@ img.finishModalLinguanaFaceImg {
   color: white;
   background-color: blue;
   cursor: pointer;
+}
+
+.td-correctTranslationsCount {
+  text-align: center;
+  font-weight: bold;
+  color: green;
+}
+
+.td-wrongTranslationsCount {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+
+.td-totalTimesSelected {
+  text-align: center;
+  font-weight: bold;
+  color: blue;
 }

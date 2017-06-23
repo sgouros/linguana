@@ -10,7 +10,7 @@ import PouchDB from "pouchdb";
 PouchDB.plugin(require("pouchdb-find"));
 
 export default class VocabularyFactory {
-  initialVocabularyLength = 2;
+  initialVocabularyLength = 10;
 
   constructor(app) {
     this.app = app;

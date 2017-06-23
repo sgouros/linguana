@@ -37,6 +37,22 @@ export default class App extends Component {
 
   allSelectedEntries = [];
 
+  goToStartPage = () => {
+    this.allSelectedEntries = [];
+    this.setState({
+      vocabulary: [],
+      showTestArea: false,
+      showStartModal: false,
+      showFinishModal: false,
+      showVocabularyManager: false,
+      isStartModalLoading: false,
+      showAddEntryLoading: false,
+      currentSearchInputValue: "",
+      searchResults: [],
+      showSearchResults: false
+    });
+  };
+
   addErrorNotification = (title, message, secondsToDismiss = 0) => {
     this.notifications.addNotification({
       title: title,
@@ -92,7 +108,7 @@ export default class App extends Component {
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
-    // this.vocabularyFactory.traceVocabulary(newVoc);
+    this.vocabularyFactory.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...newVoc,
@@ -166,6 +182,9 @@ export default class App extends Component {
         <tr key={entry._id}>
           <td>{entry.term}</td>
           <td>{entry.translation}</td>
+          <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
+          <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
+          <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
         </tr>
       );
     });
@@ -315,10 +334,14 @@ export default class App extends Component {
     return (
       <div id="page">
         <header>
-          <div id="logo">
+          <div id="logo" onClick={this.goToStartPage}>
             <img id="logoImage" src="/img/logo.png" alt="linguana logo" />
             <p id="logoText"> Linguana </p>
           </div>
+          <div title="seed DB" className="debug-button" onClick={this.seedDatabasePressed} />
+          <div title="reset DB" className="debug-button" onClick={this.resetDatabasePressed} />
+          <div title="trace vocabulary" className="debug-button" onClick={this.traceVocabularyPressed} />
+          <div title="trace DB" className="debug-button" onClick={this.traceDatabasePressed} />
           <form id="searchForm" onSubmit={this.handleSearchSubmit}>
             <input
               ref="searchInput"
@@ -334,7 +357,13 @@ export default class App extends Component {
           </form>
         </header>
 
-        <nav>
+        <nav
+          className={
+            this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager
+              ? ""
+              : "startingNav"
+          }
+        >
           <button id="newSessionButton" className="navButton" onClick={this.newSession}>
             start new session !
           </button>
@@ -346,22 +375,6 @@ export default class App extends Component {
           >
             open vocabulary manager
           </button>
-
-          {/*
-          <button className="debug-button" onClick={this.seedDatabasePressed}>
-            seed database
-          </button>
-
-          <button className="debug-button" onClick={this.resetDatabasePressed}>
-            reset database
-          </button>
-          <button className="debug-button" onClick={this.traceVocabularyPressed}>
-            trace vocabulary
-          </button>
-          <button className="debug-button" onClick={this.traceDatabasePressed}>
-            trace database
-          </button>*/}
-
         </nav>
 
         <main>
@@ -390,7 +403,7 @@ export default class App extends Component {
 
         {this.state.showStartModal
           ? <StartModal
-              title="Welcome to Linguana! Here are your words for today:"
+              title="Welcome to Linguana! Your words for today:"
               content={this.constructStartingSummaryModalContent()}
               isLoading={this.state.isStartModalLoading}
               onClose={this.closeStartingSummaryModal}

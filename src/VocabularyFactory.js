@@ -26,7 +26,7 @@ export default class VocabularyFactory {
       .sync(this.remoteDb, {
         live: true,
         retry: true
-      }) // todo: να δω τι γίνεται με τα conflicts όταν το ενεργοποιώ
+      })
       .on("change", function(change) {
         console.info("Vocabulary synced!");
       })

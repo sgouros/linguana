@@ -47,7 +47,7 @@ nav {
   color: white;
   padding-top: 1rem;
 }
-
+/*todo: να δω πως θα γίνεται να αυξομειώνεται η σελίδα ωστε πάντα να πιάνει το 100%*/
 nav.startingNav {
   background-color: #FCFFDE;
   display: flex;
@@ -59,6 +59,7 @@ nav.startingNav {
   background-color: #FCFFDE;
   flex: 1;
   height: 60vh;
+  min-height: 28rem;
 }
 
 #page > footer {

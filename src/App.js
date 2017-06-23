@@ -89,7 +89,7 @@ export default class App extends Component {
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
-    this.refs.testArea.refs.translationInputDE.refs.input.focus();
+    this.refs.testArea.refs.translationInputGR.refs.input.focus();
   };
 
   newSession = () => {
@@ -215,7 +215,6 @@ export default class App extends Component {
             alt="congratulations"
           />
         </div>
-        <h1> You have successfully finished a learning session!</h1>
       </div>
     );
   };
@@ -237,7 +236,7 @@ export default class App extends Component {
 
   newEntrySubmitted = (term, translation, newEntrySaveSucceeded, newEntrySaveFailed) => {
     // console.debug(`submited ${term} with translation ${translation}`);
-    this.refs.vocabularyManager.refs.vocabularyManagerTermInput.refs.input.focus();
+
     this.vocabularyFactory.addEntry(
       term,
       translation,
@@ -388,29 +387,30 @@ export default class App extends Component {
           </button>
         </nav>
 
-        <main>
-          <Notifications ref="notifications" style={this.notificationsStyle} />
+        {(this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager) &&
+          <main>
+            <Notifications ref="notifications" style={this.notificationsStyle} />
 
-          {this.state.showSearchResults &&
-            <VocabularyTable
-              title="Search results:"
-              vocabulary={this.state.searchResults}
-              onEdit={this.editEntry}
-              onDelete={this.deleteEntry}
-            />}
-          {this.state.showTestArea &&
-            <TestArea
-              ref="testArea"
-              vocabulary={this.state.vocabulary}
-              onSuccessfulTranslation={this.recordSuccessfulTranslation}
-              onFailedTranslation={this.recordFailedTranslation}
-              onEscPress={this.removeEntryFromVocabulary}
-              onLastEscPress={this.finish}
-              onPlusPress={this.addEntryToVocabulary}
-            />}
-          {this.state.showVocabularyManager &&
-            <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
-        </main>
+            {this.state.showSearchResults &&
+              <VocabularyTable
+                title="Search results:"
+                vocabulary={this.state.searchResults}
+                onEdit={this.editEntry}
+                onDelete={this.deleteEntry}
+              />}
+            {this.state.showTestArea &&
+              <TestArea
+                ref="testArea"
+                vocabulary={this.state.vocabulary}
+                onSuccessfulTranslation={this.recordSuccessfulTranslation}
+                onFailedTranslation={this.recordFailedTranslation}
+                onEscPress={this.removeEntryFromVocabulary}
+                onLastEscPress={this.finish}
+                onPlusPress={this.addEntryToVocabulary}
+              />}
+            {this.state.showVocabularyManager &&
+              <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
+          </main>}
 
         {this.state.showStartModal
           ? <StartModal
@@ -423,7 +423,11 @@ export default class App extends Component {
           : null}
 
         {this.state.showFinishModal
-          ? <FinishModal content={this.constructFinishModalContent()} onClose={this.closeFinishModal} />
+          ? <FinishModal
+              title="You have successfully finished a learning session!"
+              content={this.constructFinishModalContent()}
+              onClose={this.closeFinishModal}
+            />
           : null}
 
         <footer>

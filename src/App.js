@@ -237,6 +237,7 @@ export default class App extends Component {
 
   newEntrySubmitted = (term, translation, newEntrySaveSucceeded, newEntrySaveFailed) => {
     // console.debug(`submited ${term} with translation ${translation}`);
+    this.refs.vocabularyManager.refs.vocabularyManagerTermInput.refs.input.focus();
     this.vocabularyFactory.addEntry(
       term,
       translation,

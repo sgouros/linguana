@@ -29,6 +29,7 @@ export default class VocabularyManager extends Component {
     let translation = this.state.currentTranslationInputValue;
     this.props.onNewEntrySubmitted(term, translation);
     this.clearInputs();
+    this.refs.vocabularyManagerTermInput.refs.input.focus();
   };
 
   clearInputs = () => {
@@ -42,7 +43,7 @@ export default class VocabularyManager extends Component {
     return (
       <div id="vocabulary-manager-div">
 
-        <form className="vocabulary-manager-form" onSubmit={this.handleSubmit}>
+        <form id="vocabularyManagerForm" onSubmit={this.handleSubmit}>
 
           <TranslationInputGR
             ref="vocabularyManagerTermInput"
@@ -50,7 +51,7 @@ export default class VocabularyManager extends Component {
             onChange={this.handleTermInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            placeholder="Ελληνικά"
+            cssID="vocabularyManagerTranslationInputGR"
           />
 
           <TranslationInputDE
@@ -59,7 +60,7 @@ export default class VocabularyManager extends Component {
             onChange={this.handleTranslationInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            placeholder="Deutsch"
+            cssID="vocabularyManagerTranslationInputDE"
           />
           <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
         </form>

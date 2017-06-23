@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TranslationInput from "./TranslationInputDE.js";
+import TranslationInputGR from "./TranslationInputGR.js";
 
 import WordComparisonDialog from "./WordComparisonDialog.js";
 
@@ -136,7 +136,7 @@ export default class Testarea extends Component {
   closeWordComparisonDialog = () => {
     this.setState({ showWordComparisonDialog: false });
     this.loadNextEntry();
-    this.refs.translationInputDE.refs.input.focus();
+    this.refs.translationInputGR.refs.input.focus();
   };
 
   getWordComparisonDialogContent = () => {
@@ -173,14 +173,15 @@ export default class Testarea extends Component {
             {this.getTerm()}
           </div>
 
-          <TranslationInput
+          <TranslationInputGR
             id="translationInputDiv"
-            ref="translationInputDE"
+            ref="translationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}
             onPlusPress={this.onPlusPress}
             cssBackgroundClassName={this.state.cssBackground}
+            cssID="testAreaTranslationInputGR"
           />
         </form>
 

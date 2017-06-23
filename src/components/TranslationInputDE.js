@@ -140,7 +140,7 @@ export default class TranslationInputDE extends Component {
       <input
         ref="input"
         className={this.getCssClass()}
-        id="translationInputDE"
+        id={this.props.cssID}
         name="translationInputDE"
         type="text"
         autoComplete="off"

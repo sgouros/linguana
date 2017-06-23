@@ -63,6 +63,7 @@ nav.startingNav {
 
 #page > footer {
   height: 11vh;
+  background-color: #FCFFDE;
 }
 
 .navButton {
@@ -180,6 +181,49 @@ img.linguanaFaceImg {
   /*background: cyan;*/
 }
 
+#vocabularyManagerForm {
+  display: flex;
+  width: 100%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  /*background: cyan;*/
+}
+
+#vocabularyManagerTranslationInputGR {
+  text-align: center;
+  padding: 2rem 3rem 2rem 3rem;
+  margin: 2rem 3rem 2rem 3rem;
+  box-sizing: border-box;
+  width: 75%;
+  font-size: 5rem;
+  background: #45e url(/img/greekFlag.jpg) no-repeat;
+  background-size: 100% 140%;
+
+  border: solid 1px #333;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+#vocabularyManagerTranslationInputDE {
+  text-align: center;
+  padding: 2rem 3rem 2rem 3rem;
+  margin: 2rem 3rem 2rem 3rem;
+  box-sizing: border-box;
+  width: 75%;
+  font-size: 5rem;
+  background: #333 url(/img/germanFlag.jpg) no-repeat;
+  background-size: 100% 120%;
+  border: solid 1px #333;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
 .modalImg {
   max-width: 80%;
   height: 8rem;
@@ -220,14 +264,16 @@ img.finishModalLinguanaFaceImg {
   font-size: 6rem;
   background: #c3c59e;
   border: solid 1px #ADB585;
-  color: #222;
+  color: black;
+  /*-webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;*/
 }
 
 #sourceTermDiv.correctTranslation {
   color: #66ff00;
 }
 
-.translationInput {
+#testAreaTranslationInputGR {
   text-align: center;
   padding: 2rem 3rem 2rem 3rem;
   box-sizing: border-box;
@@ -235,12 +281,15 @@ img.finishModalLinguanaFaceImg {
   font-size: 6rem;
   background: #d7d99e;
   border: solid 1px #ADB545;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
-.translationInput:focus {
+#testAreaTranslationInputGR:focus {
   outline: 0 none;
 }
 
-.translationInput.correctTranslation {
+#testAreaTranslationInputGR.correctTranslation {
   background-color: #99FF33;
 }
 

@@ -88,7 +88,7 @@ export default class TranslationInputGR extends Component {
       <input
         ref="input"
         className={this.getCssClass()}
-        id="translationInputGR"
+        id={this.props.cssID}
         name="translationInputGR"
         type="text"
         autoComplete="off"

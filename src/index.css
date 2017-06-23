@@ -11,11 +11,11 @@ body {
 }
 
 #page > header {
-  padding: 0.2rem 0rem 0.2rem 0rem;
+  padding: 0.2rem 0rem 0.3rem 0rem;
   display: flex;
   justify-content: space-between;
   background-color: #ADB545;
-  height: 12vh;
+  height: 13vh;
   border: solid 1px #8d901d;
 }
 
@@ -53,9 +53,7 @@ body {
 }
 
 #page > footer {
-  background-color: #222;
-  color: white;
-  height: 10vh;
+  height: 11vh;
 }
 
 .navButton {
@@ -154,7 +152,7 @@ body {
 }
 
 img.linguanaFaceImg {
-  padding-top: 11%;
+  padding-top: 14%;
   max-width: 100%;
   height: 38%;
   width: auto;
@@ -162,12 +160,12 @@ img.linguanaFaceImg {
 }
 
 #translationForm {
-  width: 80%;
-  padding-top: 3%;
-  padding-bottom: 4%;
-  margin-left: -2%;
   display: flex;
-  height: 75%;
+  width: 80%;
+  padding-top: 1.5%;
+  padding-bottom: 2%;
+  margin-left: -2%;
+  height: 82%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
@@ -180,14 +178,6 @@ img.linguanaFaceImg {
   width: auto;
 }
 
-img.finishModalLinguanaFaceImg {
-  max-width: 100%;
-  height: auto;
-  width: 20%;
-  align-self: center;
-  padding-right: 2%;
-}
-
 .startModal {
   display: flex;
   flex-wrap: wrap;
@@ -197,6 +187,18 @@ img.finishModalLinguanaFaceImg {
 .finishModalImages {
   display: flex;
   width: 80%;
+}
+
+#finishModal {
+  top: 5% !important;
+}
+
+img.finishModalLinguanaFaceImg {
+  max-width: 100%;
+  height: auto;
+  width: 20%;
+  align-self: center;
+  padding-right: 2%;
 }
 
 #sourceTermDiv {
@@ -240,7 +242,63 @@ img.finishModalLinguanaFaceImg {
 
 #stats {
   display: flex;
+  height: 100%;
+  background-color: #edf4ce;
+  border-top: solid 1px #ADB545;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#correctAnswers {
+  display: flex;
+}
+
+#wrongAnswers {
+  display: flex;
+}
+
+#totalEntries {
+  display: flex;
+}
+
+.circledNumber {
+  display: flex;
+  margin: 0.5rem;
+  margin-left: 0rem;
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.4rem;
   font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  /*-webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;*/
+}
+
+.blueCircle {
+  background: #515efd;
+  border: 1px solid black;
+  color: #FCFFDE;
+}
+
+.greenCircle {
+  background: #9ace1e;
+  border: 1px solid black;
+  color: #FCFFDE;
+}
+
+.redCircle {
+  background: #f72a2a;
+  border: 1px solid black;
+  color: #FCFFDE;
+}
+
+.footerImg {
+  padding: 0.5rem;
+  align-self: center;
+  height: 3rem;
+  width: auto;
 }
 
 .wordComparisonTable {

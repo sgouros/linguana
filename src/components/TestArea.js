@@ -160,9 +160,6 @@ export default class Testarea extends Component {
     );
   };
 
-  // todo: να βάλω στο start dialog και στο finish dialog τον κύριο linguana
-  // todo: να κάνω το footer
-
   render() {
     return (
       <div id="testAreaDiv" className={this.state.cssBackground}>

@@ -14,7 +14,7 @@ export default class FinishModal extends Component {
       <ModalContainer onClose={this.props.onClose} id="finishModal">
         <ModalDialog
           onClose={this.props.onClose}
-          className="finish-modal"
+          id="finishModal"
           dismissOnBackgroundClick={true}
           width="60%"
         >

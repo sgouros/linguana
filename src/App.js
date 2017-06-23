@@ -182,8 +182,6 @@ export default class App extends Component {
     );
   };
 
-  // todo: να δείχνει το finish modal λίγο πιο πάνω
-  // todo: να κάνω το footer
   constructFinishModalContent = () => {
     return (
       <div>

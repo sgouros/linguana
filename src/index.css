@@ -15,7 +15,8 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: #ADB545;
-  height: 13vh;
+  height: 12vh;
+  min-height: 6rem;
   border: solid 1px #8d901d;
 }
 
@@ -376,8 +377,10 @@ img.finishModalLinguanaFaceImg {
 }
 
 .debug-button {
-  width: 60px;
-  height: 20px;
+  font-size: 0.7rem;
+  text-align: center;
+  width: 80px;
+  height: 1rem;
   cursor: pointer;
   background-color: lightgrey;
 }

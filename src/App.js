@@ -130,14 +130,17 @@ export default class App extends Component {
   };
 
   recordSuccessfulTranslation = entry_index => {
+    console.info("*** recording successful translation of entry_index: " + entry_index);
     const new_voc = this.state.vocabulary;
     new_voc[entry_index].success();
+    this.vocabularyFactory.updateEntry(new_voc[entry_index]);
     this.setState({ vocabulary: new_voc });
   };
 
   recordFailedTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
     new_voc[entry_index].failure();
+    this.vocabularyFactory.updateEntry(new_voc[entry_index]);
     this.setState({ vocabulary: new_voc });
   };
 
@@ -259,18 +262,22 @@ export default class App extends Component {
   };
 
   seedDatabasePressed = () => {
+    console.info("--------------- seedDatabasePressed");
     this.vocabularyFactory.seedDatabase();
   };
 
   resetDatabasePressed = () => {
+    console.info("--------------- resetDatabasePressed");
     this.vocabularyFactory.resetDatabase();
   };
 
   traceVocabularyPressed = () => {
+    console.info("--------------- traceVocabularyPressed");
     this.vocabularyFactory.traceVocabulary(this.state.vocabulary);
   };
 
   traceDatabasePressed = () => {
+    console.info("--------------- traceDatabasePressed");
     this.vocabularyFactory.traceDatabase();
   };
 
@@ -334,14 +341,17 @@ export default class App extends Component {
     return (
       <div id="page">
         <header>
+
           <div id="logo" onClick={this.goToStartPage}>
             <img id="logoImage" src="/img/logo.png" alt="linguana logo" />
             <p id="logoText"> Linguana </p>
           </div>
-          <div title="seed DB" className="debug-button" onClick={this.seedDatabasePressed} />
-          <div title="reset DB" className="debug-button" onClick={this.resetDatabasePressed} />
-          <div title="trace vocabulary" className="debug-button" onClick={this.traceVocabularyPressed} />
-          <div title="trace DB" className="debug-button" onClick={this.traceDatabasePressed} />
+
+          <div className="debug-button" onClick={this.seedDatabasePressed}>seed DB</div>
+          <div className="debug-button" onClick={this.resetDatabasePressed}>reset DB</div>
+          <div className="debug-button" onClick={this.traceVocabularyPressed}>trace voc</div>
+          <div className="debug-button" onClick={this.traceDatabasePressed}>trace db</div>
+
           <form id="searchForm" onSubmit={this.handleSearchSubmit}>
             <input
               ref="searchInput"

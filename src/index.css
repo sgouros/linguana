@@ -152,7 +152,7 @@ body {
 }
 
 img.linguanaFaceImg {
-  padding-top: 14%;
+  padding-top: 13.5%;
   max-width: 100%;
   height: 38%;
   width: auto;
@@ -277,13 +277,14 @@ img.finishModalLinguanaFaceImg {
 }
 
 .blueCircle {
-  background: #515efd;
+  background: #4587fe;
   border: 1px solid black;
   color: #FCFFDE;
 }
 
 .greenCircle {
-  background: #9ace1e;
+  /*background: #9ace1e;*/
+  background: #86ca00;
   border: 1px solid black;
   color: #FCFFDE;
 }

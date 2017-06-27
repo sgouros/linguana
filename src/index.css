@@ -1,5 +1,5 @@
 body {
-  min-height: 100%;
+  height: 100vh;
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -8,8 +8,9 @@ body {
 
 .app {
   display: grid;
-  min-height: 100%;
-  grid-template-rows: 0.1fr 0.1fr 0.5fr 0.2fr;
+  height: 98vh;
+  padding: 1vh;
+  grid-template-rows: 18vh 8vh 64vh 8vh;
 }
 
 .app__header {
@@ -36,7 +37,7 @@ div {
 }
 
 .app__header__logo__logoText {
-  padding-top: 5vh;
+  padding-top: 4.3vh;
   font-size: 10vh;
   font-weight: bold;
   color: #FCFFDE;
@@ -100,23 +101,21 @@ div {
   background-color: #c9cb7b;
   color: #FCFFDE;
   border: solid 1px #8d901d;
-
   border-radius: 0.4rem;
   -moz-border-radius: 0.4rem;
   -webkit-border-radius: 0.4rem;
   box-shadow: none;
   transition: box-shadow 0.3s, border 0.3s;
-
   /*border: solid 1px red;*/
 }
 
-#searchInput:focus {
+.app__header__searchForm__searchInput:focus {
   border: solid 1px #707070;
   box-shadow: 0 0 6px 2px #e9ebAb;
   outline: 0 none;
 }
 
-/*Για την αναζήτηση*/
+/*Για την placeholder του search */
 ::-webkit-input-placeholder {
   color: #FCFFDE;
 }
@@ -130,80 +129,69 @@ div {
   color: #FCFFDE;
 }
 
-nav {
+.app__nav {
   display: flex;
-  height: 6vh;
   justify-content: space-around;
   background-color: #FCFFDE;
   color: white;
-  padding-top: 1rem;
-}
-/*todo: να δω πως θα γίνεται να αυξομειώνεται η σελίδα ωστε πάντα να πιάνει το 100%*/
-nav.startingNav {
-  background-color: #FCFFDE;
-  display: flex;
-  height: 26vh;
-  padding-top: 5rem;
+  padding: 1.2vh;
+  /*background: red;*/
 }
 
-#page > main {
-  background-color: #FCFFDE;
-  flex: 1;
-  height: 60vh;
-  min-height: 28rem;
-}
-
-#page > footer {
-  height: 11vh;
-  background-color: #FCFFDE;
-}
-
-.navButton {
-  -webkit-border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  border-radius: 0.4rem;
-  width: 25%;
-  padding: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  height: 100%;
-}
-
-#newSessionButton {
+.app__nav__navButton--startNewSessionButton {
   color: #FCFFDE;
   background: #E79028;
   border: solid #8b5c02 1px;
+
+  width: 25%;
+  font-size: 2.4vh;
+  font-weight: bold;
+
+  cursor: pointer;
   text-decoration: none;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem;
   outline: 1;
 }
 
-#newSessionButton:hover {
+.app__nav__navButton--startNewSessionButton:hover {
   background: #fcc65d;
   border: solid #8b5c02 1px;
   color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 
-#vocabularyManagerButton {
+.app__nav__navButton--openVocabularyManagerButton {
+  width: 25%;
+  font-size: 2.4vh;
+  font-weight: bold;
+
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  border-radius: 0.4rem;
+  outline: 1;
+
   background: #afb731;
   color: #FCFFDE;
   border: solid 1px #8d901d;
-  text-decoration: none;
-  outline: 1;
 }
 
-#vocabularyManagerButton:hover {
+.app__nav__navButton--openVocabularyManagerButton:hover {
   background: #e4e8aa;
   color: black;
-  text-decoration: none;
-  cursor: pointer;
+}
+
+.app__main {
+  flex: 1;
+  background-color: #FCFFDE;
 }
 
 #testAreaDiv {
   display: flex;
   height: 100%;
-  padding: 1rem;
+  padding: 1.5vh 1vh 1vh 1vh;
   width: auto;
   justify-content: space-around;
   /*background: red;*/
@@ -355,11 +343,15 @@ img.finishModalLinguanaFaceImg {
   visibility: hidden;
 }
 
+.app__footer {
+  background-color: #FCFFDE;
+}
+
 #stats {
   display: flex;
   height: 100%;
-  background-color: #edf4ce;
-  border-top: solid 1px #ADB545;
+  /*background-color: #edf4ce;*/
+  /*border-top: solid 1px #ADB545;*/
   justify-content: space-between;
   align-items: center;
 }
@@ -374,21 +366,19 @@ img.finishModalLinguanaFaceImg {
 
 #totalEntries {
   display: flex;
+  /*background-color: red;*/
 }
 
 .circledNumber {
   display: flex;
-  margin: 0.5rem;
-  margin-left: 0rem;
+  margin-left: 0.8vh;
   border-radius: 50%;
-  width: 2.8rem;
-  height: 2.8rem;
-  font-size: 1.4rem;
+  width: 4vh;
+  height: 4vh;
+  font-size: 2vh;
   font-weight: bold;
   justify-content: center;
   align-items: center;
-  /*-webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;*/
 }
 
 .blueCircle {
@@ -398,7 +388,6 @@ img.finishModalLinguanaFaceImg {
 }
 
 .greenCircle {
-  /*background: #9ace1e;*/
   background: #86ca00;
   border: 1px solid black;
   color: #FCFFDE;
@@ -411,9 +400,8 @@ img.finishModalLinguanaFaceImg {
 }
 
 .footerImg {
-  padding: 0.5rem;
   align-self: center;
-  height: 3rem;
+  height: 9vh;
   width: auto;
 }
 

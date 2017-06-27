@@ -381,24 +381,21 @@ export default class App extends Component {
           </form>
         </header>
 
-        <nav
-          className={
-            this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager
-              ? "app__nav"
-              : "app__nav--bigButons"
-          }
-        >
-          <button className="app__nav__newSessionButton" onClick={this.newSession}>
+        <nav className="app__nav">
+          <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
             start new session !
           </button>
 
-          <button className="app__nav__openVocabularyMangerButton" onClick={this.openVocabularyManager}>
+          <button
+            className="app__nav__navButton--openVocabularyManagerButton"
+            onClick={this.openVocabularyManager}
+          >
             open vocabulary manager
           </button>
         </nav>
 
         {(this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager) &&
-          <main>
+          <main className="app__main">
             <Notifications ref="notifications" style={this.notificationsStyle} />
 
             {this.state.showSearchResults &&

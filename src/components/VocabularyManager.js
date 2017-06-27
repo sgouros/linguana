@@ -44,7 +44,7 @@ export default class VocabularyManager extends Component {
       <div id="vocabulary-manager-div">
 
         <form id="vocabularyManagerForm" onSubmit={this.handleSubmit}>
-
+          <img className="greekFlag" src="/img/greekFlag.jpg" alt="greek flag" />
           <TranslationInputGR
             ref="vocabularyManagerTermInput"
             currentInputValue={this.state.currentTermInputValue}
@@ -53,7 +53,7 @@ export default class VocabularyManager extends Component {
             disableSpecialPlusPress={true}
             cssID="vocabularyManagerTranslationInputGR"
           />
-
+          <img className="germanFlag" src="/img/germanFlag.jpg" alt="german flag" />
           <TranslationInputDE
             ref="vocabularyManagerTranslationInput"
             currentInputValue={this.state.currentTranslationInputValue}

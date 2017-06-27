@@ -339,23 +339,37 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id="page">
-        <header>
+      <div className="app">
+        <header className="app__header">
 
-          <div id="logo" onClick={this.goToStartPage}>
-            <img id="logoImage" src="/img/logo.png" alt="linguana logo" />
-            <p id="logoText"> Linguana </p>
+          <div className="app__header__logo" onClick={this.goToStartPage}>
+            <img className="app__header__logo__logoImage" src="/img/logo.png" alt="linguana logo" />
+            <div className="app__header__logo__logoText"> Linguana </div>
           </div>
 
-          <div className="debug-button" onClick={this.seedDatabasePressed}>seed DB</div>
-          <div className="debug-button" onClick={this.resetDatabasePressed}>reset DB</div>
-          <div className="debug-button" onClick={this.traceVocabularyPressed}>trace voc</div>
-          <div className="debug-button" onClick={this.traceDatabasePressed}>trace db</div>
+          <div className="app__header__debugButtons">
+            <div className="app__header__debugButtons__debugButton" onClick={this.seedDatabasePressed}>
+              seed DB
+            </div>
+            <div className="app__header__debugButtons__debugButton" onClick={this.resetDatabasePressed}>
+              reset DB
+            </div>
 
-          <form id="searchForm" onSubmit={this.handleSearchSubmit}>
+            <div
+              className="app__header__debugButtons__debugButton"
+              onClick={this.traceVocabularyPressed}
+            >
+              trace voc
+            </div>
+            <div className="app__header__debugButtons__debugButton" onClick={this.traceDatabasePressed}>
+              trace db
+            </div>
+          </div>
+
+          <form className="app__header__searchForm" onSubmit={this.handleSearchSubmit}>
             <input
               ref="searchInput"
-              id="searchInput"
+              className="app__header__searchForm__searchInput"
               name="searchInput"
               type="text"
               autoCorrect="off"
@@ -370,19 +384,15 @@ export default class App extends Component {
         <nav
           className={
             this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager
-              ? ""
-              : "startingNav"
+              ? "app__nav"
+              : "app__nav--bigButons"
           }
         >
-          <button id="newSessionButton" className="navButton" onClick={this.newSession}>
+          <button className="app__nav__newSessionButton" onClick={this.newSession}>
             start new session !
           </button>
 
-          <button
-            id="vocabularyManagerButton"
-            className="navButton"
-            onClick={this.openVocabularyManager}
-          >
+          <button className="app__nav__openVocabularyMangerButton" onClick={this.openVocabularyManager}>
             open vocabulary manager
           </button>
         </nav>
@@ -430,7 +440,7 @@ export default class App extends Component {
             />
           : null}
 
-        <footer>
+        <footer className="app__footer">
           {this.state.showTestArea &&
             <Stats
               totalEntriesCount={this.getTotalEntries()}

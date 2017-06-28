@@ -52,15 +52,19 @@ export default class VocabularyManager extends Component {
     return (
       <div className="app__vocabularyManagerComponent">
 
-        <form id="vocabularyManagerForm" onSubmit={this.handleSubmit}>
-          <img className="greekFlag" src="/img/greekFlag.jpg" alt="greek flag" />
-          <TranslationInputGR
-            ref="vocabularyManagerTermInput"
+        <form className="app__vocabularyManagerComponent__form" onSubmit={this.handleSubmit}>
+          <img
+            className="app__vocabularyManagerComponent__form__germanFlag"
+            src="/img/germanFlag.jpg"
+            alt="German flag"
+          />
+          <TranslationInputDE
+            ref="vocabularyManagerTermInputDE"
             currentInputValue={this.state.currentTermInputValue}
             onChange={this.handleTermInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            cssID="vocabularyManagerTranslationInputGR"
+            cssID="app__vocabularyManagerComponent__form__termInputDE"
           />
 
           <TranslationInputDE
@@ -69,16 +73,20 @@ export default class VocabularyManager extends Component {
             onChange={this.handleNotesInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            cssID="vocabularyManagerNotesInputDE"
+            cssID="app__vocabularyManagerComponent__form__notes"
           />
-
-          <TranslationInputDE
-            ref="vocabularyManagerTranslationInput"
+          <img
+            className="app__vocabularyManagerComponent__form__greekFlag"
+            src="/img/greekFlag.jpg"
+            alt="Greek flag"
+          />
+          <TranslationInputGR
+            ref="vocabularyManagerTranslationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            cssID="vocabularyManagerTranslationInputDE"
+            cssID="app__vocabularyManagerComponent__form__translationInputGR"
           />
           <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
         </form>

@@ -10,27 +10,31 @@ class Stats extends Component {
 
   render() {
     return (
-      <div id="stats">
+      <div className="stats__component">
         <div>
-          <div id="correctAnswers">
-            <img className="footerImg" src="/img/greenCheck.png" alt="correct answers" />
-            <div className="circledNumber greenCircle">
+          <div className="stats__component__totalCorrectAnswers">
+            <img
+              className="stats__component__footerImg"
+              src="/img/greenCheck.png"
+              alt="correct answers"
+            />
+            <div className="stats__component__circledNumber stats__component--greenCircle">
               {this.props.correctTranslationsCount}
             </div>
           </div>
         </div>
         <div>
-          <div id="totalEntries">
-            <img className="footerImg" src="/img/total.png" alt="total entries" />
-            <div className="circledNumber blueCircle">
+          <div className="stats__component__totalEntries">
+            <img className="stats__component__footerImg" src="/img/total.png" alt="total entries" />
+            <div className="stats__component__circledNumber stats__component--blueCircle">
               {this.props.totalEntriesCount}
             </div>
           </div>
         </div>
         <div>
-          <div id="wrongAnswers">
-            <img className="footerImg" src="/img/redCross.png" alt="wrong answers" />
-            <div className="circledNumber redCircle">
+          <div className="stats__component__totalWrongAnswers">
+            <img className="stats__component__footerImg" src="/img/redCross.png" alt="wrong answers" />
+            <div className="stats__component__circledNumber stats__component--redCircle">
               {this.props.wrongTranslationsCount}
             </div>
           </div>

@@ -162,9 +162,9 @@ export default class Testarea extends Component {
 
   render() {
     return (
-      <div id="testAreaDiv" className={this.state.cssBackground}>
+      <div className="testArea__component">
 
-        <img className="linguanaFaceImg" src={this.state.linguanaFaceImgUrl} alt="linguana" />
+        <img id="testArea__component__linguanaImg" src={this.state.linguanaFaceImgUrl} alt="linguana" />
 
         <form id="translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}

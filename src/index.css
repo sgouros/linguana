@@ -92,18 +92,18 @@ div {
 
 .app__header__searchForm__searchInput {
   box-sizing: border-box;
-  height: 1.8rem;
-  padding-left: 0.6rem;
+  height: 4.2vh;
+  padding-left: 1.6vh;
   width: 100%;
   flex-grow: 1;
-  font-size: 0.8rem;
+  font-size: 2vh;
   font-weight: bold;
   background-color: #c9cb7b;
   color: #FCFFDE;
   border: solid 1px #8d901d;
-  border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  -webkit-border-radius: 0.4rem;
+  border-radius: 0.8vh;
+  -moz-border-radius: 0.8vh;
+  -webkit-border-radius: 0.8vh;
   box-shadow: none;
   transition: box-shadow 0.3s, border 0.3s;
   /*border: solid 1px red;*/
@@ -188,7 +188,7 @@ div {
   background-color: #FCFFDE;
 }
 
-#testAreaDiv {
+.testArea__component {
   display: flex;
   height: 100%;
   padding: 1.5vh 1vh 1vh 1vh;
@@ -197,12 +197,13 @@ div {
   /*background: red;*/
 }
 
-img.linguanaFaceImg {
+.testArea__component__linguanaImg {
   padding-top: 13.5%;
   max-width: 100%;
   height: 38%;
   width: auto;
   align-self: center;
+  border: solid 1px #333;
 }
 
 #translationForm {
@@ -341,68 +342,6 @@ img.finishModalLinguanaFaceImg {
 
 #VocabularyManagerSubmitButton {
   visibility: hidden;
-}
-
-.app__footer {
-  background-color: #FCFFDE;
-}
-
-#stats {
-  display: flex;
-  height: 100%;
-  /*background-color: #edf4ce;*/
-  /*border-top: solid 1px #ADB545;*/
-  justify-content: space-between;
-  align-items: center;
-}
-
-#correctAnswers {
-  display: flex;
-}
-
-#wrongAnswers {
-  display: flex;
-}
-
-#totalEntries {
-  display: flex;
-  /*background-color: red;*/
-}
-
-.circledNumber {
-  display: flex;
-  margin-left: 0.8vh;
-  border-radius: 50%;
-  width: 4vh;
-  height: 4vh;
-  font-size: 2vh;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-}
-
-.blueCircle {
-  background: #4587fe;
-  border: 1px solid black;
-  color: #FCFFDE;
-}
-
-.greenCircle {
-  background: #86ca00;
-  border: 1px solid black;
-  color: #FCFFDE;
-}
-
-.redCircle {
-  background: #f72a2a;
-  border: 1px solid black;
-  color: #FCFFDE;
-}
-
-.footerImg {
-  align-self: center;
-  height: 9vh;
-  width: auto;
 }
 
 .wordComparisonTable {
@@ -546,4 +485,67 @@ img.finishModalLinguanaFaceImg {
   text-align: center;
   font-weight: bold;
   color: blue;
+}
+
+.app__footer {
+  background-color: #FCFFDE;
+}
+
+.stats__component {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /*background-color: #ADB545;*/
+  /*background: linear-gradient(0deg, #ADB585, #FCFFDE, #FCFFDE, #FCFFDE);*/
+  /*border-bottom: solid 10px #ADB545;*/
+}
+
+.stats__component__totalCorrectAnswers {
+  display: flex;
+}
+
+.stats__component__totalWrongAnswers {
+  display: flex;
+}
+
+.stats__component__totalEntries {
+  display: flex;
+}
+
+.stats__component__footerImg {
+  align-self: center;
+  height: 8vh;
+  width: auto;
+}
+
+.stats__component__circledNumber {
+  display: flex;
+  margin-top: 0.6vh;
+  margin-left: 0.4vh;
+  border-radius: 50%;
+  width: 4.4vh;
+  height: 4.4vh;
+  font-size: 2.1vh;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats__component--blueCircle {
+  background: #4587fe;
+  border: 1px solid black;
+  color: #FCFFDE;
+}
+
+.stats__component--greenCircle {
+  background: #86ca00;
+  border: 1px solid black;
+  color: #FCFFDE;
+}
+
+.stats__component--redCircle {
+  background: #f72a2a;
+  border: 1px solid black;
+  color: #FCFFDE;
 }

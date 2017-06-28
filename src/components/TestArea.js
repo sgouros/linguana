@@ -166,13 +166,12 @@ export default class Testarea extends Component {
 
         <img id="testArea__component__linguanaImg" src={this.state.linguanaFaceImgUrl} alt="linguana" />
 
-        <form id="translationForm" onSubmit={this.handleSubmit}>
+        <form className="testArea__component__translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
 
-          <div id="sourceTermDiv">
+          <div className="testArea__component__translationForm__sourceTerm">
             {this.getTerm()}
           </div>
-
           <TranslationInputGR
             id="translationInputDiv"
             ref="translationInputGR"

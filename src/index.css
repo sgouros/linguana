@@ -9,7 +9,7 @@ body {
 .app {
   display: grid;
   height: 98vh;
-  padding: 1vh;
+  padding: 1vh 1vh 1vh 1vh;
   grid-template-rows: 18vh 8vh 64vh 8vh;
 }
 
@@ -19,10 +19,6 @@ body {
   padding-bottom: 1vh;
   background-color: #ADB545;
   border: solid 1px #8d901d;
-}
-
-div {
-  /*border: solid 1px red;*/
 }
 
 .app__header__logo {
@@ -115,18 +111,17 @@ div {
   outline: 0 none;
 }
 
-/*Για την placeholder του search */
 ::-webkit-input-placeholder {
-  color: #FCFFDE;
+  color: #FCFFDE; /*Για την placeholder του search */
 }
 ::-moz-placeholder {
-  color: #FCFFDE;
+  color: #FCFFDE; /*Για την placeholder του search */
 }
 :-ms-input-placeholder {
-  color: #FCFFDE;
+  color: #FCFFDE; /*Για την placeholder του search */
 }
 :-moz-placeholder {
-  color: #FCFFDE;
+  color: #FCFFDE; /*Για την placeholder του search */
 }
 
 .app__nav {
@@ -267,13 +262,12 @@ div {
   -moz-border-bottom-left-radius: 2vh;
 }
 
-#testAreaTranslationInputGR {
+.testArea__component__translationForm__translationInputGR {
   text-align: center;
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
   width: 95%;
   font-size: 14vh;
-  /*margin-bottom: 1vh;*/
   color: white;
   background: #d7d99e;
   margin-top: 4vh;
@@ -286,11 +280,11 @@ div {
   -webkit-text-stroke-color: black;
 }
 
-#testAreaTranslationInputGR:focus {
+.testArea__component__translationForm__translationInputGR:focus {
   outline: 0 none;
 }
 
-#testAreaTranslationInputGR.correctTranslation {
+.translationInput--correctTranslation {
   background-color: #99FF33;
 }
 
@@ -305,30 +299,100 @@ div {
   justify-content: space-around;
   /*background: cyan;*/
 }
+
+.wordComparisonDialog {
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.wordComparisonDialog__Table {
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0.3rem 1.2rem;
+}
+
+.wordComparisonDialog__Table td {
+  width: 80%;
+  font-size: 2rem;
+  padding: 1rem;
+  padding-left: 1.8rem;
+  border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+}
+
+.wordComparisonDialog__Table td:first-child {
+  text-align: right;
+  width: 25%;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 10px 10px 10px 15px;
+}
+
+.wordComparisonDialog__Table tr:first-child td:last-child {
+  background: #c3c59e;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  border: solid 1px #ADB545;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.wordComparisonDialog__Table tr:last-child td:last-child {
+  background: #d7d99e;
+  font-size: 3rem;
+  font-weight: bold;
+  color: red;
+  border: solid 1px #ADB545;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.wordComparisonDialog__okButton {
+  display: block;
+  background: #ECECEC;
+  font-size: 22px;
+  border-radius: 15px;
+  padding: 15px 20px 15px 20px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #fff;
+  border: 1px solid #888;
+  width: 20rem;
+  margin: 0px auto;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+
+.wordComparisonDialog__okButton:focus {
+  outline: none;
+}
+
+.wordComparisonDialog__okButton:hover {
+  box-shadow: 0px 2px 1px white inset,
+    0px -2px 20px white,
+    0px 2px 5px rgba(0, 0, 0, 0.1),
+    0px 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wordComparisonDialog__okButton:active {
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset,
+    0px -2px 20px white,
+    0px 1px 5px rgba(0, 0, 0, 0.1),
+    0px 2px 10px rgba(0, 0, 0, 0.1);
+  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
+}
+
 img.greekFlag {
   padding-top: 13.5%;
   /*max-width: 100%;*/
   height: 8%;
   width: auto;
   align-self: center;
-}
-
-#vocabularyManagerTranslationInputGR {
-  text-align: center;
-  padding: 2rem 2rem 2rem 14rem;
-  margin: 2rem 3rem 2rem 3rem;
-  box-sizing: border-box;
-  width: 75%;
-  font-size: 5rem;
-  /*background: #c3c59e url(/img/greek22.png) no-repeat;
-  background-size: 10% 100%;
-  background-position: 1% 50%;*/
-
-  border: solid 1px #333;
-  color: white;
-  border: solid 1px #ADB585;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
 }
 
 #vocabularyManagerTranslationInputDE {
@@ -350,6 +414,7 @@ img.greekFlag {
   max-width: 80%;
   height: 8rem;
   width: auto;
+  margin-right: 2rem;
 }
 
 .startModal {
@@ -377,37 +442,6 @@ img.finishModalLinguanaFaceImg {
 
 #VocabularyManagerSubmitButton {
   visibility: hidden;
-}
-
-.wordComparisonTable {
-  table-layout: fixed;
-  width: 100%;
-  border-spacing: 10px;
-}
-
-.wordComparisonTable td {
-  width: 70%;
-  height: 1.8em;
-  font-size: 30px;
-  padding: 10px 10px 10px 15px;
-}
-
-.wordComparisonTable td:first-child {
-  text-align: right;
-  width: 30%;
-  height: 1.8em;
-  font-size: 30px;
-  padding: 10px 10px 10px 15px;
-}
-
-.wordComparisonTable tr:first-child td:last-child {
-  background: #43C;
-  color: white;
-}
-
-.wordComparisonTable tr:last-child td:last-child {
-  background: #D20;
-  color: white;
 }
 
 .modalDialogTable {
@@ -443,46 +477,6 @@ img.finishModalLinguanaFaceImg {
 }
 .searchResultsTable tr:nth-child(even) {
   background: #CCF;
-}
-
-.css-modal-dialog-ok-button {
-  background: #ECECEC;
-  border-radius: 15px;
-  padding: 10px 20px;
-  display: block;
-  font-family: arial;
-  font-weight: bold;
-  color: #7f7f7f;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #fff;
-  border: 1px solid #a7a7a7;
-  width: 145px;
-  margin: 0px auto;
-  margin-top: 100px;
-  box-shadow: 0px 2px 1px white inset,
-    0px -2px 8px white,
-    0px 2px 5px rgba(0, 0, 0, 0.1),
-    0px 8px 10px rgba(0, 0, 0, 0.1);
-  -webkit-transition: box-shadow 0.5s;
-}
-
-.css-modal-dialog-ok-button:hover {
-  box-shadow: 0px 2px 1px white inset,
-    0px -2px 20px white,
-    0px 2px 5px rgba(0, 0, 0, 0.1),
-    0px 8px 10px rgba(0, 0, 0, 0.1);
-}
-
-.css-modal-dialog-ok-button:active {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset,
-    0px -2px 20px white,
-    0px 1px 5px rgba(0, 0, 0, 0.1),
-    0px 2px 10px rgba(0, 0, 0, 0.1);
-  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
-}
-
-.css-modal-dialog-ok-button:focus {
-  outline: 0;
 }
 
 .css-congratulations-img {
@@ -524,11 +518,17 @@ img.finishModalLinguanaFaceImg {
 
 .app__footer {
   background-color: #FCFFDE;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2vh;
+  padding-left: 16vh;
+  /*background: red;*/
 }
 
 .stats__component {
   display: flex;
   height: 100%;
+  width: 48%;
   justify-content: space-between;
   align-items: center;
   /*background-color: #ADB545;*/

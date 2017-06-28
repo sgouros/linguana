@@ -15,7 +15,7 @@ export default class VocabularyEntry {
     this.totalTimesSelected = totalTimesSelected;
     this.isCurrentlyCorrectlyTranslated = false;
   }
-  // todo: να βάλω notes στην vocabulary entry και να τις κάνω retrieve από την DB καθώς και put
+
   // todo: να φιάξω λίγο το css του vocabulary manager ωστε να έχει σωστά τις σημαίες
 
   trace() {

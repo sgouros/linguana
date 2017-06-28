@@ -22,15 +22,16 @@ export default class WordComparisonDialog extends Component {
       <ModalContainer onClose={this.props.onClose}>
         <ModalDialog
           onClose={this.props.onClose}
-          className="start-modal"
+          className="wordComparisonDialog"
           dismissOnBackgroundClick={true}
-          width="70%"
+          width="85%"
         >
+          <img src="/img/redCross.png" alt="I don't think so" className="modalImg" />
           <h1>{this.props.title}</h1>
           <div>{this.props.content}</div>
           <button
             autoFocus
-            className="css-modal-dialog-ok-button"
+            className="wordComparisonDialog__okButton"
             onKeyDown={this.closeDialog}
             onClick={this.props.onClose}
           >

@@ -79,16 +79,17 @@ export default class TranslationInputGR extends Component {
     }
   };
 
-  getCssClass = () => {
-    return "translationInput " + this.props.cssBackgroundClassName;
+  constructCssClassName = () => {
+    let className = this.props.inputClassName;
+    let attribute = this.props.correctTranslation ? " translationInput--correctTranslation" : "";
+    return className + attribute;
   };
 
   render() {
     return (
       <input
         ref="input"
-        className={this.getCssClass()}
-        id={this.props.cssID}
+        className={this.constructCssClassName()}
         name="translationInputGR"
         type="text"
         autoComplete="off"

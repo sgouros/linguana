@@ -18,9 +18,8 @@ export default class Testarea extends Component {
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
-    cssBackground: "wrongTranslation",
-    showWordComparisonDialog: false,
-    linguanaFaceImgUrl: "/img/wrong.png"
+    correctTranslation: false,
+    showWordComparisonDialog: false
   };
 
   handleTranslationInputChange = event => {
@@ -36,11 +35,13 @@ export default class Testarea extends Component {
   };
 
   highlightCorrectAnswer = () => {
-    this.setState({ cssBackground: "correctTranslation", linguanaFaceImgUrl: "/img/correct.png" });
+    this.setState({ correctTranslation: true });
+    // ", linguanaFaceImgUrl: "/img/correct.png" });
   };
 
   highlightWrongAnswer = () => {
-    this.setState({ cssBackground: "wrongTranslation", linguanaFaceImgUrl: "/img/wrong.png" });
+    this.setState({ correctTranslation: false });
+    // this.setState({ cssBackground: "wrongTranslation", linguanaFaceImgUrl: "/img/wrong.png" });
   };
 
   handleSubmit = event => {
@@ -80,8 +81,7 @@ export default class Testarea extends Component {
   clearInput = () => {
     this.setState({
       currentTranslationInputValue: "",
-      cssBackground: "css_wrong_translation_background",
-      linguanaFaceImgUrl: "/img/wrong.png"
+      correctTranslation: false
     });
   };
 
@@ -152,7 +152,7 @@ export default class Testarea extends Component {
     let typed = this.state.currentTranslationInputValue;
     return (
       <div>
-        <table className="wordComparisonTable">
+        <table className="wordComparisonDialog__Table">
           <tbody>
             <tr>
               <td>Correct answer:</td>
@@ -172,7 +172,11 @@ export default class Testarea extends Component {
     return (
       <div className="testArea__component">
 
-        <img id="testArea__component__linguanaImg" src={this.state.linguanaFaceImgUrl} alt="linguana" />
+        <img
+          id="testArea__component__linguanaImg"
+          src={this.state.correctTranslation ? "/img/correct.png" : "/img/wrong.png"}
+          alt="linguana"
+        />
 
         <form className="testArea__component__translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
@@ -186,16 +190,14 @@ export default class Testarea extends Component {
           </div>
 
           <TranslationInputGR
-            id="translationInputDiv"
             ref="translationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             onEscPress={this.onEscPress}
             onPlusPress={this.onPlusPress}
-            cssBackgroundClassName={this.state.cssBackground}
-            cssID="testAreaTranslationInputGR"
+            correctTranslation={this.state.correctTranslation}
+            inputClassName="testArea__component__translationForm__translationInputGR"
           />
-
         </form>
 
         {this.state.showWordComparisonDialog

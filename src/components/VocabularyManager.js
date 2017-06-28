@@ -50,7 +50,7 @@ export default class VocabularyManager extends Component {
 
   render() {
     return (
-      <div id="vocabulary-manager-div">
+      <div className="app__vocabularyManagerComponent">
 
         <form id="vocabularyManagerForm" onSubmit={this.handleSubmit}>
           <img className="greekFlag" src="/img/greekFlag.jpg" alt="greek flag" />

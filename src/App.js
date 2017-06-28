@@ -185,6 +185,7 @@ export default class App extends Component {
         <tr key={entry._id}>
           <td>{entry.term}</td>
           <td>{entry.translation}</td>
+          <td>{entry.notes}</td>
           <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
           <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
           <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
@@ -234,12 +235,13 @@ export default class App extends Component {
     });
   };
 
-  newEntrySubmitted = (term, translation, newEntrySaveSucceeded, newEntrySaveFailed) => {
+  newEntrySubmitted = (term, translation, notes, newEntrySaveSucceeded, newEntrySaveFailed) => {
     // console.debug(`submited ${term} with translation ${translation}`);
 
     this.vocabularyFactory.addEntry(
       term,
       translation,
+      notes,
       this.newEntrySaveToDbSucceeded,
       this.newEntrySaveToDbFailed
     );

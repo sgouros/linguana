@@ -1,5 +1,5 @@
 export default class VocabularyEntry {
-  constructor(id, rev, term, translation, totalSuccesses, totalFailures, totalTimesSelected) {
+  constructor(id, rev, term, translation, notes, totalSuccesses, totalFailures, totalTimesSelected) {
     if (id === null) {
       this._id = `${term}-${translation}`;
     } else {
@@ -9,6 +9,7 @@ export default class VocabularyEntry {
     this._rev = rev;
     this.term = term;
     this.translation = translation;
+    this.notes = notes;
     this.totalSuccesses = totalSuccesses;
     this.totalFailures = totalFailures;
     this.totalTimesSelected = totalTimesSelected;
@@ -22,6 +23,7 @@ export default class VocabularyEntry {
     console.info(`    this._rev: ${this._rev}`);
     console.info(`    this.term: ${this.term}`);
     console.info(`    this.translation: ${this.translation}`);
+    console.info(`    this.notes: ${this.notes}`);
     console.info(`    this.totalFailures: ${this.totalFailures}`);
     console.info(`    this.totalSuccesses: ${this.totalSuccesses}`);
     console.info(`    this.totalTimesSelected: ${this.totalTimesSelected}`);

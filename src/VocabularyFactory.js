@@ -89,6 +89,7 @@ export default class VocabularyFactory {
         item._rev,
         item.term,
         item.translation,
+        item.notes,
         item.totalSuccesses,
         item.totalFailures,
         item.totalTimesSelected
@@ -97,8 +98,8 @@ export default class VocabularyFactory {
     return newVoc;
   };
 
-  addEntry = (term, translation, onSuccess, onFailure) => {
-    let newEntry = new VocabularyEntry(null, null, term, translation, 0, 0, 0);
+  addEntry = (term, translation, notes, onSuccess, onFailure) => {
+    let newEntry = new VocabularyEntry(null, null, term, translation, notes, 0, 0, 0);
     this.localDb
       .put(newEntry)
       .then(response => {
@@ -131,12 +132,21 @@ export default class VocabularyFactory {
   seedDatabase = () => {
     this.localDb
       .bulkDocs([
-        new VocabularyEntry("00εγκατάσταση-installieren", null, "εγκατάσταση", "installieren", 0, 0, 0),
-        new VocabularyEntry("01ναι-ja", null, "ναι", "ja", 1, 1, 1),
-        new VocabularyEntry("02οθόνη-der Monitor", null, "οθόνη", "der Monitor", 1, 5, 6),
-        new VocabularyEntry("03κατόπιν-anschließend", null, "κατόπιν", "anschließend", 5, 2, 8),
-        new VocabularyEntry("04ευγενικός-nett", null, "ευγενικός", "nett", 2, 0, 7),
-        new VocabularyEntry("05αυτοκίνητο-das Auto", null, "αυτοκίνητο", "das Auto", 2, 0, 12)
+        new VocabularyEntry(
+          "00εγκατάσταση-installieren",
+          null,
+          "εγκατάσταση",
+          "installieren",
+          "ρήμα",
+          0,
+          0,
+          0
+        ),
+        new VocabularyEntry("01ναι-ja", null, "ναι", "ja", null, 1, 1, 1),
+        new VocabularyEntry("02οθόνη-der Monitor", null, "οθόνη", "der Monitor", "", 1, 5, 6),
+        new VocabularyEntry("03κατόπιν-anschließend", null, "κατόπιν", "anschließend", "note", 5, 2, 8),
+        new VocabularyEntry("04ευγενικός-nett", null, "ευγενικός", "nett", "note2", 2, 0, 7),
+        new VocabularyEntry("05αυτοκίνητο-das Auto", null, "αυτοκίνητο", "das Auto", "note 3", 2, 0, 12)
         // new VocabularyEntry("λάθος-der Fehler", null, "λάθος", "der Fehler", 2, 0, 5),
         // new VocabularyEntry("όχι-nein", null, "όχι", "nein", 2, 0, 3),
         // new VocabularyEntry("μετα βίας-kaum", null, "μετα βίας", "kaum", 7, 5, 20),
@@ -190,13 +200,17 @@ export default class VocabularyFactory {
     this.localDb
       .createIndex({
         index: {
-          fields: ["term", "translation"]
+          fields: ["term", "translation", "notes"]
         }
       })
       .then(() => {
         return this.localDb.find({
           selector: {
-            $or: [{ term: { $regex: searchTermRegex } }, { translation: { $regex: searchTermRegex } }]
+            $or: [
+              { term: { $regex: searchTermRegex } },
+              { translation: { $regex: searchTermRegex } },
+              { notes: { $regex: searchTermRegex } }
+            ]
           },
           limit: 50
         });

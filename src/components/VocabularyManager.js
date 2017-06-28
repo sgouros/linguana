@@ -8,7 +8,8 @@ import TranslationInputGR from "./TranslationInputGR.js";
 export default class VocabularyManager extends Component {
   state = {
     currentTermInputValue: "",
-    currentTranslationInputValue: ""
+    currentTranslationInputValue: "",
+    currentNotesInputValue: ""
   };
 
   handleTranslationInputChange = event => {
@@ -23,11 +24,18 @@ export default class VocabularyManager extends Component {
     });
   };
 
+  handleNotesInputChange = event => {
+    this.setState({
+      currentNotesInputValue: event.target.value
+    });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     let term = this.state.currentTermInputValue;
     let translation = this.state.currentTranslationInputValue;
-    this.props.onNewEntrySubmitted(term, translation);
+    let notes = this.state.currentNotesInputValue;
+    this.props.onNewEntrySubmitted(term, translation, notes);
     this.clearInputs();
     this.refs.vocabularyManagerTermInput.refs.input.focus();
   };
@@ -35,7 +43,8 @@ export default class VocabularyManager extends Component {
   clearInputs = () => {
     this.setState({
       currentTermInputValue: "",
-      currentTranslationInputValue: ""
+      currentTranslationInputValue: "",
+      currentNotesInputValue: ""
     });
   };
 
@@ -53,7 +62,16 @@ export default class VocabularyManager extends Component {
             disableSpecialPlusPress={true}
             cssID="vocabularyManagerTranslationInputGR"
           />
-          <img className="germanFlag" src="/img/germanFlag.jpg" alt="german flag" />
+
+          <TranslationInputDE
+            ref="vocabularyManagerNotesInput"
+            currentInputValue={this.state.currentNotesInputValue}
+            onChange={this.handleNotesInputChange}
+            disableSpecialEscPress={true}
+            disableSpecialPlusPress={true}
+            cssID="vocabularyManagerNotesInputDE"
+          />
+
           <TranslationInputDE
             ref="vocabularyManagerTranslationInput"
             currentInputValue={this.state.currentTranslationInputValue}

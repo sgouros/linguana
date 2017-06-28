@@ -48,6 +48,7 @@ export default class VocabularyTable extends Component {
               <th>id</th>
               <th>Ελληνικά</th>
               <th>Γερμανικά</th>
+              <th>Παρατηρήσεις</th>
               <th>Επιτυχίες</th>
               <th>Αποτυχίες</th>
               <th>Επιλέχθηκε</th>

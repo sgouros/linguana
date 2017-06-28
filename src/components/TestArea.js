@@ -93,6 +93,14 @@ export default class Testarea extends Component {
     }
   };
 
+  getNotes = () => {
+    if (this.props.vocabulary.length > 0) {
+      return this.props.vocabulary[this.state.current_voc_index].notes;
+    } else {
+      return "";
+    }
+  };
+
   getCorrectTranslation = () => {
     return this.props.vocabulary[this.state.current_voc_index].translation;
   };
@@ -172,8 +180,9 @@ export default class Testarea extends Component {
           <div className="testArea__component__translationForm__sourceTerm">
             {this.getTerm()}
           </div>
+
           <div className="testArea__component__translationForm__notes">
-            {this.getTerm()}
+            {this.getNotes()}
           </div>
 
           <TranslationInputGR

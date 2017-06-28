@@ -172,6 +172,10 @@ export default class Testarea extends Component {
           <div className="testArea__component__translationForm__sourceTerm">
             {this.getTerm()}
           </div>
+          <div className="testArea__component__translationForm__notes">
+            {this.getTerm()}
+          </div>
+
           <TranslationInputGR
             id="translationInputDiv"
             ref="translationInputGR"
@@ -182,6 +186,7 @@ export default class Testarea extends Component {
             cssBackgroundClassName={this.state.cssBackground}
             cssID="testAreaTranslationInputGR"
           />
+
         </form>
 
         {this.state.showWordComparisonDialog

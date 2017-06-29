@@ -24,7 +24,6 @@ export default class App extends Component {
   };
 
   // todo να κάνω παραπλανητικό skin
-  // todo να διορθώσω search results
 
   notifications = null;
 

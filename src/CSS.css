@@ -748,3 +748,58 @@ img.finishModalLinguanaFaceImg {
   color: #fcffde;
   margin-right: -1.5vh;
 }
+
+.ReactConfirmLink {
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.react-confirm-dialog-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-weight: bold;
+  width: 40% !important;
+  font-size: 3.5vh;
+  background: #eee !important;
+  border-radius: 2vh !important;
+  -webkit-border-radius: 2vh !important;
+  -moz-border-radius: 2vh !important;
+}
+
+.react-confirm-dialog-button.confirm {
+  background: #d46656;
+  color: white;
+  height: 8vh;
+  font-weight: bold;
+  font-size: 3vh;
+  width: 40%;
+  padding: 1vh;
+  margin-right: 3%;
+  cursor: pointer;
+  border: solid 1px #b24434;
+
+  border-radius: 1vh;
+  -webkit-border-radius: 1vh;
+  -moz-border-radius: 1vh;
+}
+
+.react-confirm-dialog-button.cancel {
+  background: #c0c0c0;
+  color: white;
+  font-weight: bold;
+  font-size: 3vh;
+  width: 40%;
+  padding: 1vh;
+  height: 8vh;
+  margin-left: 3%;
+  cursor: pointer;
+  border: solid 1px #999;
+
+  border-radius: 1vh;
+  -webkit-border-radius: 1vh;
+  -moz-border-radius: 1vh;
+}

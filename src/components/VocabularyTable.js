@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import ConfirmDialog from "react-confirm-dialog";
 
 export default class VocabularyTable extends Component {
   static propTypes = {
@@ -8,14 +9,18 @@ export default class VocabularyTable extends Component {
     onDelete: PropTypes.func
   };
 
-  onDelete = event => {
-    // let id = event.target.getAttribute("data-id"); // this is the id in the database
-    let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
-    this.props.onDelete(this.props.vocabulary[index]);
+  // onDelete = event => {
+  //   // let id = event.target.getAttribute("data-id"); // this is the id in the database
+  //   let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
+  //   this.props.onDelete(this.props.vocabulary[index]);
+  // };
+
+  onDelete = args => {
+    this.props.onDelete(this.props.vocabulary[args.indexInVocabulary]);
   };
 
-  render() {
-    const htmlTable = this.props.vocabulary.map((entry, index) => {
+  getHtmlTable = () => {
+    let htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
           {/*<td className="app__searchResults__table--tdID">
@@ -44,17 +49,23 @@ export default class VocabularyTable extends Component {
               {entry.totalTimesSelected}
             </div>
           </td>
-          <td
-            className="app__searchResults__table--tdDelete"
-            data-id={entry._id}
-            data-index={index}
-            onClick={this.onDelete}
-            title="DELETE from database!"
-          />
+          <td className="app__searchResults__table--tdDelete">
+            <ConfirmDialog
+              confirmMessage="This will delete the entry PERMANENTLY from the database. Are you sure?"
+              confirmText="Yes, delete it!"
+              cancelText="Cancel"
+              action={this.onDelete}
+              actionArgs={{ indexInVocabulary: index }}
+            />
+          </td>
         </tr>
       );
     });
 
+    return htmlTable;
+  };
+
+  render() {
     return (
       <div className="app__searchResults">
         <p>
@@ -62,7 +73,7 @@ export default class VocabularyTable extends Component {
         </p>
         <table className="app__searchResults__table">
           <tbody>
-            {htmlTable}
+            {this.getHtmlTable()}
           </tbody>
         </table>
       </div>

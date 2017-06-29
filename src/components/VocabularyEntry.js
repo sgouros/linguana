@@ -16,8 +16,6 @@ export default class VocabularyEntry {
     this.isCurrentlyCorrectlyTranslated = false;
   }
 
-  // todo: να φιάξω λίγο το css του vocabulary manager ωστε να έχει σωστά τις σημαίες
-
   trace() {
     console.info(`  tracing ${this._id}:`);
     console.info(`    this._rev: ${this._rev}`);

@@ -173,6 +173,10 @@ body {
   color: black;
 }
 
+.app__nav__navButton--openVocabularyManagerButton:focus {
+  outline: 0 none;
+}
+
 .app__main {
   flex: 1;
   background-color: #fcffde;
@@ -380,48 +384,117 @@ body {
 }
 
 .app__vocabularyManagerComponent {
+  height: 100%;
+  width: 100%;
   display: flex;
+  padding-top: 5vh;
   justify-content: center;
   /*background: red;*/
 }
-/* todo να το κάνω display grid*/
+
 .app__vocabularyManagerComponent__form {
-  display: flex;
+  display: grid;
+  grid-template-rows: 40% 35% 30%;
+  grid-template-columns: 20% 80%;
+  grid-row-gap: 5vh;
   width: 90%;
-  padding-top: 1.5%;
-  padding-bottom: 2%;
-  flex-direction: column;
-  align-items: flex-start;
-  background: cyan;
+
+  /*background: cyan;*/
 }
 
 .app__vocabularyManagerComponent__form__greekFlag {
-  padding-top: 13.5%;
-  height: 15vh;
-  width: auto;
+  height: 16vh;
+  width: 23vh;
+  background-image: url("/img/greekFlag3.jpg");
   align-self: center;
+  background-size: cover;
+  background-position: center;
+
+  border-radius: 2vh;
+  -webkit-border-radius: 2vh;
+  -moz-border-radius: 2vh;
 }
 
 .app__vocabularyManagerComponent__form__germanFlag {
-  padding-top: 13.5%;
-  height: 15vh;
-  width: auto;
+  height: 16vh;
+  width: 23vh;
+  background-image: url("/img/germanFlag3.jpg");
   align-self: center;
+  background-size: cover;
+  background-position: center;
+
+  border-radius: 2vh;
+  -webkit-border-radius: 2vh;
+  -moz-border-radius: 2vh;
 }
 
-#vocabularyManagerTranslationInputDE {
-  text-align: center;
-  padding: 2rem 3rem 2rem 3rem;
-  margin: 2rem 3rem 2rem 3rem;
+.app__vocabularyManagerComponent__form__termInputDE {
   box-sizing: border-box;
-  width: 75%;
-  font-size: 5rem;
-  /*background: #333 url(/img/german2.png) no-repeat;
-  background-size: 10 % 100%;*/
-  border: solid 1px #333;
+  width: 100%;
+  padding: 1vh 1vh 1vh 5vh;
+  font-size: 10vh;
   color: white;
+  background: #c3c59e;
+  border: solid 1px #adb585;
+  border-radius: 2vh 2vh 0vh 0vh;
+  -webkit-border-radius: 2vh 2vh 0vh 0vh;
+  -moz-border-radius: 2vh 2vh 0vh 0vh;
+
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+}
+
+.app__vocabularyManagerComponent__form__termInputDE:focus {
+  outline: 0 none;
+}
+
+.app__vocabularyManagerComponent__form__translationInputGR {
+  padding: 1vh 1vh 1vh 5vh;
+  box-sizing: border-box;
+  font-size: 10vh;
+  color: white;
+  background: #c3c59e;
+  border: solid 1px #adb545;
+  border-radius: 2vh;
+  -webkit-border-radius: 2vh;
+  -moz-border-radius: 2vh;
+
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.app__vocabularyManagerComponent__form__translationInputGR:focus {
+  outline: 0 none;
+}
+
+.app__vocabularyManagerComponent__form__notes {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1vh 1vh 1vh 5vh;
+  font-size: 4vh;
+  min-height: 8vh;
+  color: white;
+  margin: 0;
+  font-weight: bold;
+
+  background: #c3c59e;
+  border: solid 1px #adb585;
+  border-top: none;
+
+  border-bottom-right-radius: 2vh;
+  -webkit-border-bottom-right-radius: 2vh;
+  -moz-border-bottom-right-radius: 2vh;
+
+  border-bottom-left-radius: 2vh;
+  -webkit-border-bottom-left-radius: 2vh;
+  -moz-border-bottom-left-radius: 2vh;
+
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.app__vocabularyManagerComponent__form__notes:focus {
+  outline: 0 none;
 }
 
 .modalImg {

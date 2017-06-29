@@ -51,46 +51,41 @@ export default class VocabularyManager extends Component {
   render() {
     return (
       <div className="app__vocabularyManagerComponent">
-
         <form className="app__vocabularyManagerComponent__form" onSubmit={this.handleSubmit}>
-          <img
-            className="app__vocabularyManagerComponent__form__germanFlag"
-            src="/img/germanFlag.jpg"
-            alt="German flag"
-          />
-          <TranslationInputDE
-            ref="vocabularyManagerTermInputDE"
-            currentInputValue={this.state.currentTermInputValue}
-            onChange={this.handleTermInputChange}
-            disableSpecialEscPress={true}
-            disableSpecialPlusPress={true}
-            cssID="app__vocabularyManagerComponent__form__termInputDE"
-          />
+          <div className="app__vocabularyManagerComponent__form__germanFlag" />
 
-          <TranslationInputDE
-            ref="vocabularyManagerNotesInput"
-            currentInputValue={this.state.currentNotesInputValue}
-            onChange={this.handleNotesInputChange}
-            disableSpecialEscPress={true}
-            disableSpecialPlusPress={true}
-            cssID="app__vocabularyManagerComponent__form__notes"
-          />
-          <img
-            className="app__vocabularyManagerComponent__form__greekFlag"
-            src="/img/greekFlag.jpg"
-            alt="Greek flag"
-          />
+          <div>
+            <TranslationInputDE
+              ref="vocabularyManagerTermInputDE"
+              currentInputValue={this.state.currentTermInputValue}
+              onChange={this.handleTermInputChange}
+              disableSpecialEscPress={true}
+              disableSpecialPlusPress={true}
+              inputClassName="app__vocabularyManagerComponent__form__termInputDE"
+            />
+
+            {
+              <TranslationInputGR
+                ref="vocabularyManagerNotesInput"
+                currentInputValue={this.state.currentNotesInputValue}
+                onChange={this.handleNotesInputChange}
+                disableSpecialEscPress={true}
+                disableSpecialPlusPress={true}
+                inputClassName="app__vocabularyManagerComponent__form__notes"
+              />
+            }
+          </div>
+          <div className="app__vocabularyManagerComponent__form__greekFlag" />
           <TranslationInputGR
             ref="vocabularyManagerTranslationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}
             onChange={this.handleTranslationInputChange}
             disableSpecialEscPress={true}
             disableSpecialPlusPress={true}
-            cssID="app__vocabularyManagerComponent__form__translationInputGR"
+            inputClassName="app__vocabularyManagerComponent__form__translationInputGR"
           />
           <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
         </form>
-
       </div>
     );
   }

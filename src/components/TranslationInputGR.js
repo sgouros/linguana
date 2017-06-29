@@ -82,6 +82,7 @@ export default class TranslationInputGR extends Component {
   constructCssClassName = () => {
     let className = this.props.inputClassName;
     let attribute = this.props.correctTranslation ? " translationInput--correctTranslation" : "";
+
     return className + attribute;
   };
 

@@ -37,7 +37,7 @@ export default class VocabularyManager extends Component {
     let notes = this.state.currentNotesInputValue;
     this.props.onNewEntrySubmitted(term, translation, notes);
     this.clearInputs();
-    this.refs.vocabularyManagerTermInput.refs.input.focus();
+    this.refs.vocabularyManagerTermInputDE.refs.input.focus();
   };
 
   clearInputs = () => {
@@ -63,9 +63,8 @@ export default class VocabularyManager extends Component {
               disableSpecialPlusPress={true}
               inputClassName="app__vocabularyManagerComponent__form__termInputDE"
             />
-
             {
-              <TranslationInputGR
+              <TranslationInputDE
                 ref="vocabularyManagerNotesInput"
                 currentInputValue={this.state.currentNotesInputValue}
                 onChange={this.handleNotesInputChange}
@@ -75,6 +74,7 @@ export default class VocabularyManager extends Component {
               />
             }
           </div>
+
           <div className="app__vocabularyManagerComponent__form__greekFlag" />
           <TranslationInputGR
             ref="vocabularyManagerTranslationInputGR"

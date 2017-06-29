@@ -547,23 +547,46 @@ img.finishModalLinguanaFaceImg {
   background: #eee;
 }
 
-.searchResultsTable {
+.app__searchResults {
+  margin: 1vh;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
+  display: flex;
+  justify-content: center;
+}
+
+.app__searchResults__table {
   table-layout: fixed;
-  width: 100%;
+  border-spacing: 0.5vh 0.8vh;
 }
 
-.searchResultsTable td {
-  width: 50%;
-  height: 1.8em;
-  padding: 5px 5px 5px 5px;
-  font-size: 16px;
+.app__searchResults__table__titles th {
+  background: #888844;
+  height: 4.8vh;
+  padding: 0.8vh;
+  font-size: 2.2vh;
+  font-weight: bold;
+  border: solid 1px black;
+  color: #fcffde;
+  border-radius: 1vh;
+  -webkit-border-radius: 1vh;
+  -moz-border-radius: 1vh;
 }
 
-.searchResultsTable tr:nth-child(odd) {
-  background: #eee;
+.app__searchResults__table td {
+  height: 4.8vh;
+  padding: 0.8vh;
+  font-size: 2.2vh;
+  font-weight: bold;
+  border: solid 1px #bbb;
+  text-align: center;
 }
-.searchResultsTable tr:nth-child(even) {
-  background: #ccf;
+
+.app__searchResults__table tr:nth-child(odd) {
+  background: #e5e5cc;
+}
+.app__searchResults__table tr:nth-child(even) {
+  background: #eeffcc;
 }
 
 .css-congratulations-img {
@@ -571,18 +594,71 @@ img.finishModalLinguanaFaceImg {
   max-height: 100%;
 }
 
-.td-delete {
-  text-align: center;
-  color: white;
-  background-color: red;
-  cursor: pointer;
+.app__searchResults__table--tdID {
+  width: 20vh;
 }
 
-.td-edit {
-  text-align: center;
-  color: white;
-  background-color: blue;
+.app__searchResults__table--tdTerm {
+  min-width: 30vh;
+}
+
+.app__searchResults__table--tdTranslation {
+  min-width: 30vh;
+}
+
+.app__searchResults__table--tdNotes {
+  min-width: 30vh;
+  font-weight: normal !important;
+}
+
+.app__searchResults__table--tdDelete {
   cursor: pointer;
+  background-image: url("/img/deleteFromDb3.png");
+  background-size: 5.2vh 5.2vh;
+  width: 5vh;
+  background-repeat: no-repeat;
+  background-color: #fcffde;
+  background-position: 1.5vh 0.7vh;
+  border: none !important;
+}
+
+.app__searchResults__table__totalTimesSelected__circle {
+  border: 1px solid black;
+  color: white;
+  background: #505dfa;
+  padding: 1.2vh;
+  width: 4vh;
+  border-radius: 1vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app__searchResults__table__totalSuccesses__circle {
+  border: 1px solid black;
+  color: white;
+  background: #86ca00;
+  padding: 1.2vh;
+  width: 4vh;
+  border-radius: 1vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app__searchResults__table__totalFailures__circle {
+  border: 1px solid black;
+  color: white;
+  background: #f72a2a;
+  padding: 1.2vh;
+  width: 4vh;
+  border-radius: 1vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app__searchResults__table--tdNumber {
+  background-color: #fcffde;
+  border: none !important;
+  width: 15vh;
 }
 
 .td-correctTranslationsCount {

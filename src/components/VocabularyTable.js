@@ -5,7 +5,6 @@ export default class VocabularyTable extends Component {
   static propTypes = {
     vocabulary: PropTypes.array,
     title: PropTypes.string,
-    onEdit: PropTypes.func,
     onDelete: PropTypes.func
   };
 
@@ -15,48 +14,57 @@ export default class VocabularyTable extends Component {
     this.props.onDelete(this.props.vocabulary[index]);
   };
 
-  onEdit = event => {
-    // let id = event.target.getAttribute("data-id"); // this is the id in the database
-    let index = event.target.getAttribute("data-index"); //this is the index in props.vocabulary
-    this.props.onEdit(this.props.vocabulary[index]);
-  };
-
   render() {
     const htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
-          <td>{entry._id}</td>
-          <td>{entry.term}</td>
-          <td>{entry.translation}</td>
-          <td>{entry.totalSuccesses}</td>
-          <td>{entry.totalFailures}</td>
-          <td>{entry.totalTimesSelected}</td>
-          <td className="td-delete" data-id={entry._id} data-index={index} onClick={this.onDelete}>
-            delete
+          {/*<td className="app__searchResults__table--tdID">
+            {entry._id}
+          </td>*/}
+          <td className="app__searchResults__table--tdTranslation">
+            {entry.translation}
           </td>
-          <td className="td-edit" data-id={entry._id} data-index={index} onClick={this.onEdit}>edit</td>
+          <td className="app__searchResults__table--tdTerm">
+            {entry.term}
+          </td>
+
+          <td className="app__searchResults__table--tdNotes">
+            {entry.notes}
+          </td>
+          <td className="app__searchResults__table--tdNumber" title="total successes">
+            <div className="app__searchResults__table__totalSuccesses__circle">115</div>
+          </td>
+          <td className="app__searchResults__table--tdNumber" title="total failures">
+            <div className="app__searchResults__table__totalFailures__circle">
+              {entry.totalFailures}
+            </div>
+          </td>
+          <td className="app__searchResults__table--tdNumber" title="total times selected">
+            <div className="app__searchResults__table__totalTimesSelected__circle">
+              {entry.totalTimesSelected}
+            </div>
+          </td>
+          <td
+            className="app__searchResults__table--tdDelete"
+            data-id={entry._id}
+            data-index={index}
+            onClick={this.onDelete}
+            title="DELETE from database!"
+          />
         </tr>
       );
     });
 
     return (
-      <div>
-        <p>{this.props.title}</p>
-        <table className="searchResultsTable">
+      <div className="app__searchResults">
+        <p>
+          {this.props.title}
+        </p>
+        <table className="app__searchResults__table">
           <tbody>
-            <tr>
-              <th>id</th>
-              <th>Ελληνικά</th>
-              <th>Γερμανικά</th>
-              <th>Παρατηρήσεις</th>
-              <th>Επιτυχίες</th>
-              <th>Αποτυχίες</th>
-              <th>Επιλέχθηκε</th>
-            </tr>
             {htmlTable}
           </tbody>
         </table>
-
       </div>
     );
   }

@@ -212,7 +212,7 @@ export default class VocabularyFactory {
               { notes: { $regex: searchTermRegex } }
             ]
           },
-          limit: 50
+          limit: 20
         });
       })
       .then(resultFromDb => {

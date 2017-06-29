@@ -23,6 +23,9 @@ export default class App extends Component {
     showSearchResults: false
   };
 
+  // todo να κάνω παραπλανητικό skin
+  // todo να διορθώσω search results
+
   notifications = null;
 
   notificationsStyle = {
@@ -347,10 +350,6 @@ export default class App extends Component {
     });
   };
 
-  editEntry = entryId => {
-    console.info("App.entryEdit() not yet implemented");
-  };
-
   render() {
     return (
       <div className="app">
@@ -407,30 +406,24 @@ export default class App extends Component {
           </button>
         </nav>
 
-        {(this.state.showSearchResults || this.state.showTestArea || this.state.showVocabularyManager) &&
-          <main className="app__main">
-            <Notifications ref="notifications" style={this.notificationsStyle} />
+        <main className="app__main">
+          <Notifications ref="notifications" style={this.notificationsStyle} />
 
-            {this.state.showSearchResults &&
-              <VocabularyTable
-                title="Search results:"
-                vocabulary={this.state.searchResults}
-                onEdit={this.editEntry}
-                onDelete={this.deleteEntry}
-              />}
-            {this.state.showTestArea &&
-              <TestArea
-                ref="testArea"
-                vocabulary={this.state.vocabulary}
-                onSuccessfulTranslation={this.recordSuccessfulTranslation}
-                onFailedTranslation={this.recordFailedTranslation}
-                onEscPress={this.removeEntryFromVocabulary}
-                onLastEscPress={this.finish}
-                onPlusPress={this.addEntryToVocabulary}
-              />}
-            {this.state.showVocabularyManager &&
-              <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
-          </main>}
+          {this.state.showSearchResults &&
+            <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />}
+          {this.state.showTestArea &&
+            <TestArea
+              ref="testArea"
+              vocabulary={this.state.vocabulary}
+              onSuccessfulTranslation={this.recordSuccessfulTranslation}
+              onFailedTranslation={this.recordFailedTranslation}
+              onEscPress={this.removeEntryFromVocabulary}
+              onLastEscPress={this.finish}
+              onPlusPress={this.addEntryToVocabulary}
+            />}
+          {this.state.showVocabularyManager &&
+            <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
+        </main>
 
         {this.state.showStartModal
           ? <StartModal
@@ -450,14 +443,14 @@ export default class App extends Component {
             />
           : null}
 
-        <footer className="app__footer">
-          {this.state.showTestArea &&
+        {this.state.showTestArea &&
+          <footer className="app__footer">
             <Stats
               totalEntriesCount={this.getTotalEntries()}
               correctTranslationsCount={this.getTotalCorrectTranslations()}
               wrongTranslationsCount={this.getTotalWrongTranslations()}
-            />}
-        </footer>
+            />
+          </footer>}
       </div>
     );
   }

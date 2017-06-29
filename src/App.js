@@ -101,6 +101,7 @@ export default class App extends Component {
       showStartModal: true,
       isStartModalLoading: true,
       showSearchResults: false,
+      showVocabularyManager: false,
       currentSearchInputValue: "",
       searchResults: []
     });
@@ -183,12 +184,24 @@ export default class App extends Component {
     const htmlTable = this.state.vocabulary.map(entry => {
       return (
         <tr key={entry._id}>
-          <td>{entry.term}</td>
-          <td>{entry.translation}</td>
-          <td>{entry.notes}</td>
-          <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
-          <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
-          <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
+          <td>
+            {entry.term}
+          </td>
+          <td>
+            {entry.translation}
+          </td>
+          <td>
+            {entry.notes}
+          </td>
+          <td className="td-correctTranslationsCount">
+            {entry.totalSuccesses}
+          </td>
+          <td className="td-wrongTranslationsCount">
+            {entry.totalFailures}
+          </td>
+          <td className="td-totalTimesSelected">
+            {entry.totalTimesSelected}
+          </td>
         </tr>
       );
     });
@@ -200,7 +213,6 @@ export default class App extends Component {
             {htmlTable}
           </tbody>
         </table>
-
       </div>
     );
   };
@@ -343,7 +355,6 @@ export default class App extends Component {
     return (
       <div className="app">
         <header className="app__header">
-
           <div className="app__header__logo" onClick={this.goToStartPage}>
             <img className="app__header__logo__logoImage" src="/img/logo.png" alt="linguana logo" />
             <div className="app__header__logo__logoText"> Linguana </div>

@@ -3,21 +3,20 @@ body {
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #FCFFDE;
+  background-color: #fcffde;
 }
 
 .app {
   display: grid;
-  height: 98vh;
-  padding: 1vh 1vh 1vh 1vh;
-  grid-template-rows: 18vh 8vh 64vh 8vh;
+  height: 100vh;
+  grid-template-rows: 18vh 8vh 61vh 12vh;
 }
 
 .app__header {
   display: grid;
   grid-template-columns: 40% 30% 30%;
   padding-bottom: 1vh;
-  background-color: #ADB545;
+  background-color: #adb545;
   border: solid 1px #8d901d;
 }
 
@@ -36,7 +35,7 @@ body {
   padding-top: 4.3vh;
   font-size: 10vh;
   font-weight: bold;
-  color: #FCFFDE;
+  color: #fcffde;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
   /*border: solid 1px cyan;*/
@@ -57,7 +56,7 @@ body {
   width: 10vh;
   height: 2.3vh;
   cursor: pointer;
-  background: #ECECEC;
+  background: #ececec;
   border-radius: 15px;
   display: block;
   color: #7f7f7f;
@@ -66,18 +65,14 @@ body {
 }
 
 .app__header__debugButtons__debugButton:hover {
-  box-shadow: 0px 2px 1px white inset,
-    0px -2px 6px white,
-    0px 2px 5px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 2px 1px white inset, 0px -2px 6px white, 0px 2px 5px rgba(0, 0, 0, 0.1),
     0px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
 .app__header__debugButtons__debugButton:active {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset,
-    0px -2px 20px white,
-    0px 1px 5px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1),
     0px 2px 10px rgba(0, 0, 0, 0.1);
-  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
+  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ececec 100%);
 }
 
 .app__header__searchForm {
@@ -95,7 +90,7 @@ body {
   font-size: 2vh;
   font-weight: bold;
   background-color: #c9cb7b;
-  color: #FCFFDE;
+  color: #fcffde;
   border: solid 1px #8d901d;
   border-radius: 0.8vh;
   -moz-border-radius: 0.8vh;
@@ -107,35 +102,35 @@ body {
 
 .app__header__searchForm__searchInput:focus {
   border: solid 1px #707070;
-  box-shadow: 0 0 6px 2px #e9ebAb;
+  box-shadow: 0 0 6px 2px #e9ebab;
   outline: 0 none;
 }
 
 ::-webkit-input-placeholder {
-  color: #FCFFDE; /*Για την placeholder του search */
+  color: #fcffde; /*Για την placeholder του search */
 }
 ::-moz-placeholder {
-  color: #FCFFDE; /*Για την placeholder του search */
+  color: #fcffde; /*Για την placeholder του search */
 }
 :-ms-input-placeholder {
-  color: #FCFFDE; /*Για την placeholder του search */
+  color: #fcffde; /*Για την placeholder του search */
 }
 :-moz-placeholder {
-  color: #FCFFDE; /*Για την placeholder του search */
+  color: #fcffde; /*Για την placeholder του search */
 }
 
 .app__nav {
   display: flex;
   justify-content: space-around;
-  background-color: #FCFFDE;
+  background-color: #fcffde;
   color: white;
   padding: 1.2vh;
   /*background: red;*/
 }
 
 .app__nav__navButton--startNewSessionButton {
-  color: #FCFFDE;
-  background: #E79028;
+  color: #fcffde;
+  background: #e79028;
   border: solid #8b5c02 1px;
 
   width: 25%;
@@ -169,7 +164,7 @@ body {
   outline: 1;
 
   background: #afb731;
-  color: #FCFFDE;
+  color: #fcffde;
   border: solid 1px #8d901d;
 }
 
@@ -180,7 +175,7 @@ body {
 
 .app__main {
   flex: 1;
-  background-color: #FCFFDE;
+  background-color: #fcffde;
 }
 
 .testArea__component {
@@ -228,7 +223,7 @@ body {
   text-align: center;
 
   background: #c3c59e;
-  border: solid 1px #ADB585;
+  border: solid 1px #adb585;
 
   border-top-left-radius: 2vh;
   -webkit-border-top-left-radius: 2vh;
@@ -250,7 +245,7 @@ body {
   text-align: center;
 
   background: #c3c59e;
-  border: solid 1px #ADB585;
+  border: solid 1px #adb585;
   border-top: none;
 
   border-bottom-right-radius: 2vh;
@@ -271,7 +266,7 @@ body {
   color: white;
   background: #d7d99e;
   margin-top: 4vh;
-  border: solid 1px #ADB545;
+  border: solid 1px #adb545;
   border-radius: 2vh;
   -webkit-border-radius: 2vh;
   -moz-border-radius: 2vh;
@@ -285,7 +280,7 @@ body {
 }
 
 .translationInput--correctTranslation {
-  background-color: #99FF33;
+  background-color: #99ff33;
 }
 
 #vocabularyManagerForm {
@@ -336,7 +331,7 @@ body {
   font-size: 3rem;
   font-weight: bold;
   color: white;
-  border: solid 1px #ADB545;
+  border: solid 1px #adb545;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
@@ -344,16 +339,17 @@ body {
 .wordComparisonDialog__Table tr:last-child td:last-child {
   background: #d7d99e;
   font-size: 3rem;
+  height: 3.2rem;
   font-weight: bold;
   color: red;
-  border: solid 1px #ADB545;
+  border: solid 1px #adb545;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
 
 .wordComparisonDialog__okButton {
   display: block;
-  background: #ECECEC;
+  background: #ececec;
   font-size: 22px;
   border-radius: 15px;
   padding: 15px 20px 15px 20px;
@@ -373,18 +369,14 @@ body {
 }
 
 .wordComparisonDialog__okButton:hover {
-  box-shadow: 0px 2px 1px white inset,
-    0px -2px 20px white,
-    0px 2px 5px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1),
     0px 8px 10px rgba(0, 0, 0, 0.1);
 }
 
 .wordComparisonDialog__okButton:active {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset,
-    0px -2px 20px white,
-    0px 1px 5px rgba(0, 0, 0, 0.1),
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1),
     0px 2px 10px rgba(0, 0, 0, 0.1);
-  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
+  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ececec 100%);
 }
 
 .app__vocabularyManagerComponent {
@@ -479,7 +471,7 @@ img.finishModalLinguanaFaceImg {
 }
 
 .modalDialogTable tr:nth-child(odd) {
-  background: #EEE;
+  background: #eee;
 }
 
 .searchResultsTable {
@@ -495,10 +487,10 @@ img.finishModalLinguanaFaceImg {
 }
 
 .searchResultsTable tr:nth-child(odd) {
-  background: #EEE;
+  background: #eee;
 }
 .searchResultsTable tr:nth-child(even) {
-  background: #CCF;
+  background: #ccf;
 }
 
 .css-congratulations-img {
@@ -539,23 +531,20 @@ img.finishModalLinguanaFaceImg {
 }
 
 .app__footer {
-  background-color: #FCFFDE;
+  background-color: #fcffde;
   display: flex;
   justify-content: center;
-  padding-bottom: 2vh;
-  padding-left: 16vh;
   /*background: red;*/
 }
 
 .stats__component {
   display: flex;
   height: 100%;
-  width: 48%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  /*background-color: #ADB545;*/
-  /*background: linear-gradient(0deg, #ADB585, #FCFFDE, #FCFFDE, #FCFFDE);*/
-  /*border-bottom: solid 10px #ADB545;*/
+  background-color: #edf4ce;
+  border-top: solid 1px #adb545;
 }
 
 .stats__component__totalCorrectAnswers {
@@ -572,37 +561,41 @@ img.finishModalLinguanaFaceImg {
 
 .stats__component__footerImg {
   align-self: center;
-  height: 8vh;
+  height: 6vh;
+  margin: 2.2vh;
+
   width: auto;
 }
 
 .stats__component__circledNumber {
   display: flex;
-  margin-top: 0.6vh;
-  margin-left: 0.4vh;
   border-radius: 50%;
-  width: 4.4vh;
-  height: 4.4vh;
-  font-size: 2.1vh;
-  font-weight: bold;
+  margin-top: 1.2vh;
+  width: 8vh;
+  height: 8vh;
+  font-size: 3vh;
+  /*font-weight: bold;*/
   justify-content: center;
   align-items: center;
 }
 
 .stats__component--blueCircle {
-  background: #4587fe;
+  background: #515efd;
   border: 1px solid black;
-  color: #FCFFDE;
+  color: #fcffde;
+  margin-top: -0.15vh;
 }
 
 .stats__component--greenCircle {
   background: #86ca00;
   border: 1px solid black;
-  color: #FCFFDE;
+  color: #fcffde;
+  margin-left: -1vh;
 }
 
 .stats__component--redCircle {
   background: #f72a2a;
   border: 1px solid black;
-  color: #FCFFDE;
+  color: #fcffde;
+  margin-right: -1.5vh;
 }

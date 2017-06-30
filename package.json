@@ -12,6 +12,7 @@
     "path": "0.12.7",
     "pouchdb": "^6.2.0",
     "pouchdb-find": "^6.2.0",
+    "react-calendar-heatmap": "^1.1.0",
     "react-confirm-dialog": "^1.0.5",
     "react-notification-system": "^0.2.14",
     "react-spinjs": "^3.0.0"
@@ -30,6 +31,8 @@
     "deploy": "gh-pages -d build"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   }
 }

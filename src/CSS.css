@@ -447,12 +447,15 @@ body {
 }
 
 .app__vocabularyManagerComponent__form__translationInputGR {
-  padding: 1vh 1vh 1vh 5vh;
   box-sizing: border-box;
+  width: 100%;
+  min-height: 21vh;
+  padding: 1vh 1vh 1.5vh 5vh;
   font-size: 10vh;
   color: white;
   background: #c3c59e;
   border: solid 1px #adb545;
+
   border-radius: 2vh;
   -webkit-border-radius: 2vh;
   -moz-border-radius: 2vh;

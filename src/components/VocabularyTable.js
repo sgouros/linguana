@@ -37,7 +37,9 @@ export default class VocabularyTable extends Component {
             {entry.notes}
           </td>
           <td className="app__searchResults__table--tdNumber" title="total successes">
-            <div className="app__searchResults__table__totalSuccesses__circle">115</div>
+            <div className="app__searchResults__table__totalSuccesses__circle">
+              {entry.totalSuccesses}
+            </div>
           </td>
           <td className="app__searchResults__table--tdNumber" title="total failures">
             <div className="app__searchResults__table__totalFailures__circle">

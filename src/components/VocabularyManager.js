@@ -76,14 +76,16 @@ export default class VocabularyManager extends Component {
           </div>
 
           <div className="app__vocabularyManagerComponent__form__greekFlag" />
-          <TranslationInputGR
-            ref="vocabularyManagerTranslationInputGR"
-            currentInputValue={this.state.currentTranslationInputValue}
-            onChange={this.handleTranslationInputChange}
-            disableSpecialEscPress={true}
-            disableSpecialPlusPress={true}
-            inputClassName="app__vocabularyManagerComponent__form__translationInputGR"
-          />
+          <div>
+            <TranslationInputGR
+              ref="vocabularyManagerTranslationInputGR"
+              currentInputValue={this.state.currentTranslationInputValue}
+              onChange={this.handleTranslationInputChange}
+              disableSpecialEscPress={true}
+              disableSpecialPlusPress={true}
+              inputClassName="app__vocabularyManagerComponent__form__translationInputGR"
+            />
+          </div>
           <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
         </form>
       </div>

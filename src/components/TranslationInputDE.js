@@ -122,7 +122,7 @@ export default class TranslationInputDE extends Component {
       this.props.onEscPress();
     }
   };
-
+  // todo: κάποτε αντί για esc να κάνω να αφαιρειται η λέξη με το -
   handlePlusPress = event => {
     if (!this.props.disableSpecialPlusPress) {
       console.info("\n+ key pressed");

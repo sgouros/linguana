@@ -1,5 +1,6 @@
 {
   "name": "linguana",
+  "homepage": "https://sgouros.github.io/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,18 +17,19 @@
     "react-spinjs": "^3.0.0"
   },
   "devDependencies": {
-    "concurrently": "2.2.0"
+    "concurrently": "2.2.0",
+    "gh-pages": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "server": "babel-node server.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   }
 }

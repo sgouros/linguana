@@ -347,6 +347,10 @@ export default class App extends Component {
     });
   };
 
+
+// todo: θα κάνεις ένα contribution history στην αρχική σελίδα όπου θα απεικονίζει πόσες λέξεις βρήκες κάθε μέρα
+
+Ανάλογα με το πόσες λέξεις βρήκες ΣΩΣΤΑ εκείνη την ημέρα, θα πρασινίζει
   render() {
     return (
       <div className="app">
@@ -355,23 +359,22 @@ export default class App extends Component {
             <img className="app__header__logo__logoImage" src="/img/logo.png" alt="linguana logo" />
             <div className="app__header__logo__logoText"> Linguana </div>
           </div>
-
           <div className="app__header__debugButtons">
-            <div className="app__header__debugButtons__debugButton" onClick={this.seedDatabasePressed}>
-              seed DB
-            </div>
             <div className="app__header__debugButtons__debugButton" onClick={this.resetDatabasePressed}>
               reset DB
             </div>
 
+            <div className="app__header__debugButtons__debugButton" onClick={this.seedDatabasePressed}>
+              seed DB
+            </div>
+            <div className="app__header__debugButtons__debugButton" onClick={this.traceDatabasePressed}>
+              trace db
+            </div>
             <div
               className="app__header__debugButtons__debugButton"
               onClick={this.traceVocabularyPressed}
             >
               trace voc
-            </div>
-            <div className="app__header__debugButtons__debugButton" onClick={this.traceDatabasePressed}>
-              trace db
             </div>
           </div>
 

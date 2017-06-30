@@ -394,12 +394,10 @@ body {
 
 .app__vocabularyManagerComponent__form {
   display: grid;
-  grid-template-rows: 40% 35% 30%;
+  grid-template-rows: 40% 35% 15%;
   grid-template-columns: 20% 80%;
   grid-row-gap: 5vh;
   width: 90%;
-
-  /*background: cyan;*/
 }
 
 .app__vocabularyManagerComponent__form__greekFlag {

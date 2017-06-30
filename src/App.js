@@ -23,8 +23,6 @@ export default class App extends Component {
     showSearchResults: false
   };
 
-  // todo να κάνω παραπλανητικό skin
-
   notifications = null;
 
   notificationsStyle = {

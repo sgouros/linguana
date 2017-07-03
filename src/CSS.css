@@ -876,7 +876,13 @@ img.finishModalLinguanaFaceImg {
   fill: #254e77;
 }
 
-.app_main_statistics {
-  width: 80%;
-  height: 50%;
+.app__main__calendarHeatmap {
+  width: 60%;
+  height: 40%;
+}
+
+.calendar__heatmap__tooltip {
+  font-size: 1rem !important;
+  padding: 1rem !important;
+  opacity: 0.75 !important;
 }

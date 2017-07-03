@@ -8,7 +8,7 @@ import VocabularyFactory from "./VocabularyFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
-import CalendarHeatmap from "react-calendar-heatmap";
+import CH from "./components/CH/CalendarHeatmap.js";
 
 export default class App extends Component {
   state = {
@@ -349,12 +349,18 @@ export default class App extends Component {
     });
   };
 
-  calendarTitleForValue = value => {
+  handleCalendarHeatmapClick = value => {
     this.setState({ calendarDate: value.date, calendarValue: value.count });
   };
 
-  // todo: θα κάνεις ένα contribution history στην αρχική σελίδα όπου θα απεικονίζει πόσες λέξεις βρήκες κάθε μέρα
-  // Ανάλογα με το πόσες λέξεις βρήκες ΣΩΣΤΑ εκείνη την ημέρα, θα πρασινίζει
+  constructHeatmapCalendarTooltip = value => {
+    if (value) {
+      return `${value.count} correct answers on ${value.date}`;
+    } else {
+      return "no activity";
+    }
+  };
+
   render() {
     return (
       <div className="app">
@@ -413,20 +419,20 @@ export default class App extends Component {
         <main className="app__main">
           <Notifications ref="notifications" style={this.notificationsStyle} />
           {this.state.showStatistics &&
-            <div className="app_main_statistics">
-              <CalendarHeatmap
+            <div className="app__main__calendarHeatmap">
+              <CH
                 endDate={new Date("2017-06-30")}
                 numDays={300}
                 values={[
-                  { date: "2017-06-29", count: 10 },
-                  { date: "2017-06-22", count: 22 },
+                  { date: "2017-06-29", count: 2 },
+                  { date: "2017-06-22", count: 52 },
                   { date: "2017-06-21", count: 12 }
                 ]}
-                onClick={this.calendarTitleForValue}
+                onClick={this.handleCalendarHeatmapClick}
+                titleForValue={this.constructHeatmapCalendarTooltip}
               />
-              hello {this.state.calendarValue} hi {this.state.calendarDate}
             </div>}
-          //todo: να κάνω custom tooltips on hover
+
           {this.state.showSearchResults &&
             <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />}
           {this.state.showTestArea &&

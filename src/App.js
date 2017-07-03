@@ -409,7 +409,6 @@ export default class App extends Component {
             />
           </form>
         </header>
-
         <nav className="app__nav">
           <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
             start new session !
@@ -422,7 +421,8 @@ export default class App extends Component {
             open vocabulary manager
           </button>
         </nav>
-
+        // todo: να μοιράζει τις values ομοιόμορφα ανάμεσα στα χρώματα. το άκρα: το 1 και το max value.
+        και διαιρείται ομοιόμορφα
         <main className="app__main">
           <Notifications ref="notifications" style={this.notificationsStyle} />
           {this.state.showStatistics &&
@@ -459,7 +459,6 @@ export default class App extends Component {
           {this.state.showVocabularyManager &&
             <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
         </main>
-
         {this.state.showStartModal
           ? <StartModal
               title="Welcome to Linguana! Your words for today:"
@@ -469,7 +468,6 @@ export default class App extends Component {
               imageUrl="/img/start.png"
             />
           : null}
-
         {this.state.showFinishModal
           ? <FinishModal
               title="You have successfully finished a learning session!"
@@ -477,7 +475,6 @@ export default class App extends Component {
               onClose={this.closeFinishModal}
             />
           : null}
-
         {this.state.showTestArea &&
           <footer className="app__footer">
             <Stats

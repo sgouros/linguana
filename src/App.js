@@ -357,8 +357,15 @@ export default class App extends Component {
     if (value) {
       return `${value.count} correct answers on ${value.date}`;
     } else {
-      return "no activity";
+      return null;
     }
+  };
+
+  githubClassForValue = value => {
+    if (!value) {
+      return "color-empty";
+    }
+    return `color-github-${value.count}`;
   };
 
   render() {
@@ -421,15 +428,19 @@ export default class App extends Component {
           {this.state.showStatistics &&
             <div className="app__main__calendarHeatmap">
               <CH
-                endDate={new Date("2017-06-30")}
+                endDate={Date.now()}
                 numDays={300}
                 values={[
-                  { date: "2017-06-29", count: 2 },
-                  { date: "2017-06-22", count: 52 },
-                  { date: "2017-06-21", count: 12 }
+                  { date: "2017-06-25", count: 1 },
+                  { date: "2017-06-26", count: 2 },
+                  { date: "2017-06-27", count: 3 },
+                  { date: "2017-06-28", count: 4 },
+                  { date: "2017-06-29", count: 1 },
+                  { date: "2017-03-30", count: 2 }
                 ]}
                 onClick={this.handleCalendarHeatmapClick}
                 titleForValue={this.constructHeatmapCalendarTooltip}
+                classForValue={this.githubClassForValue}
               />
             </div>}
 

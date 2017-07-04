@@ -11,19 +11,50 @@ import VocabularyTable from "./components/VocabularyTable.js";
 import CH from "./components/CH/CalendarHeatmap.js";
 
 export default class App extends Component {
-  state = {
-    vocabulary: [],
-    showTestArea: false,
-    showStartModal: false,
-    showFinishModal: false,
-    showVocabularyManager: false,
-    isStartModalLoading: false,
-    showAddEntryLoading: false,
-    currentSearchInputValue: "",
-    searchResults: [],
-    showSearchResults: false,
-    showStatistics: true
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      vocabulary: [],
+      showTestArea: false,
+      showStartModal: false,
+      showFinishModal: false,
+      showVocabularyManager: false,
+      isStartModalLoading: false,
+      showAddEntryLoading: false,
+      currentSearchInputValue: "",
+      searchResults: [],
+      showSearchResults: false,
+      showStatistics: true,
+      correctAnswersPerDay: this.CORRECT_ANSWERS_PER_DAY
+    };
+
+    this.maxCorectAnswersCount = this.countMaxCorrectAnswers(this.CORRECT_ANSWERS_PER_DAY);
+  }
+
+  CORRECT_ANSWERS_PER_DAY = [
+    { date: "2017-06-1", count: 1 },
+    { date: "2017-06-2", count: 9 },
+    { date: "2017-06-3", count: 16 },
+    { date: "2017-06-6", count: 9 },
+    { date: "2017-06-7", count: 3 },
+    { date: "2017-06-8", count: 10 },
+    { date: "2017-06-9", count: 10 },
+    { date: "2017-06-10", count: 10 },
+    { date: "2017-06-12", count: 7 },
+    { date: "2017-06-13", count: 8 },
+    { date: "2017-06-14", count: 20 },
+    { date: "2017-06-15", count: 5 },
+    { date: "2017-06-17", count: 23 },
+    { date: "2017-06-18", count: 2 },
+    { date: "2017-06-19", count: 4 },
+    { date: "2017-06-20", count: 20 },
+    { date: "2017-06-21", count: 2 },
+    { date: "2017-06-24", count: 15 },
+    { date: "2017-06-25", count: 22 },
+    { date: "2017-06-29", count: 7 },
+    { date: "2017-06-30", count: 6 }
+  ];
 
   notifications = null;
 
@@ -360,12 +391,37 @@ export default class App extends Component {
       return null;
     }
   };
+  // todo να κάνεις το max count
+  // todo να δείχνεις σωστά την ημερομηνία στο tooltip
+  countMaxCorrectAnswers = correctAnswersPerDay => {
+    // find max number of correct answers
+    return 16;
+  };
 
-  githubClassForValue = value => {
-    if (!value) {
+  getCSSClass = value => {
+    if (!value || value.count === 0) {
       return "color-empty";
     }
-    return `color-github-${value.count}`;
+
+    let maxCount = this.maxCorectAnswersCount;
+
+    let threshold_1 = maxCount / 4;
+    let threshold_2 = maxCount / 4 * 2;
+    let threshold_3 = maxCount / 4 * 3;
+
+    if (value.count > threshold_3) {
+      return "color-github-4";
+    }
+
+    if (value.count > threshold_2) {
+      return "color-github-3";
+    }
+
+    if (value.count > threshold_1) {
+      return "color-github-2";
+    }
+
+    return "color-github-1";
   };
 
   render() {
@@ -421,8 +477,7 @@ export default class App extends Component {
             open vocabulary manager
           </button>
         </nav>
-        // todo: να μοιράζει τις values ομοιόμορφα ανάμεσα στα χρώματα. το άκρα: το 1 και το max value.
-        και διαιρείται ομοιόμορφα
+
         <main className="app__main">
           <Notifications ref="notifications" style={this.notificationsStyle} />
           {this.state.showStatistics &&
@@ -430,17 +485,10 @@ export default class App extends Component {
               <CH
                 endDate={Date.now()}
                 numDays={300}
-                values={[
-                  { date: "2017-06-25", count: 1 },
-                  { date: "2017-06-26", count: 2 },
-                  { date: "2017-06-27", count: 3 },
-                  { date: "2017-06-28", count: 4 },
-                  { date: "2017-06-29", count: 1 },
-                  { date: "2017-03-30", count: 2 }
-                ]}
+                values={this.state.correctAnswersPerDay}
                 onClick={this.handleCalendarHeatmapClick}
                 titleForValue={this.constructHeatmapCalendarTooltip}
-                classForValue={this.githubClassForValue}
+                classForValue={this.getCSSClass}
               />
             </div>}
 

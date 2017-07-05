@@ -380,22 +380,20 @@ export default class App extends Component {
     });
   };
 
-  handleCalendarHeatmapClick = value => {
-    this.setState({ calendarDate: value.date, calendarValue: value.count });
-  };
-
   constructHeatmapCalendarTooltip = value => {
     if (value) {
-      return `${value.count} correct answers on ${value.date}`;
+      let date = value.date.split("-").reverse().join(".");
+      return `On ${date} you've learned ${value.count} new words!`;
     } else {
       return null;
     }
   };
-  // todo να κάνεις το max count
-  // todo να δείχνεις σωστά την ημερομηνία στο tooltip
+
   countMaxCorrectAnswers = correctAnswersPerDay => {
-    // find max number of correct answers
-    return 16;
+    let maxCorrectAnswers = correctAnswersPerDay.reduce((maxItem, currentItem) => {
+      return maxItem.count > currentItem.count ? maxItem : currentItem;
+    });
+    return maxCorrectAnswers.count;
   };
 
   getCSSClass = value => {
@@ -486,7 +484,6 @@ export default class App extends Component {
                 endDate={Date.now()}
                 numDays={300}
                 values={this.state.correctAnswersPerDay}
-                onClick={this.handleCalendarHeatmapClick}
                 titleForValue={this.constructHeatmapCalendarTooltip}
                 classForValue={this.getCSSClass}
               />

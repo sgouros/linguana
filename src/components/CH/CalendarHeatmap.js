@@ -87,7 +87,6 @@ export default class CalendarHeatmap extends React.Component {
           title: this.props.titleForValue ? this.props.titleForValue(value) : null,
           tooltipDataAttrs: this.getTooltipDataAttrsForValue(value)
         };
-        console.info(memo);
 
         return memo;
       },

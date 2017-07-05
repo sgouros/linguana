@@ -109,6 +109,9 @@ export default class StatsFactory {
       });
   };
 
+  // todo να μπορώ να διαβάζω τα stats από τη βάση και να τα αποθηκεύω στο state
+  // todo μετά να ενημερώνω το heatmap από το state
+
   seedDatabase = () => {
     this.localStatsDb
       .bulkDocs([

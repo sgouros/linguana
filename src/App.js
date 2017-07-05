@@ -5,10 +5,11 @@ import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
+import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
-import CH from "./components/CH/CalendarHeatmap.js";
+import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 
 export default class App extends Component {
   constructor() {
@@ -30,6 +31,8 @@ export default class App extends Component {
     };
 
     this.maxCorectAnswersCount = this.countMaxCorrectAnswers(this.CORRECT_ANSWERS_PER_DAY);
+
+    this.totalWordsLearnedForToday = [];
   }
 
   CORRECT_ANSWERS_PER_DAY = [
@@ -67,6 +70,7 @@ export default class App extends Component {
   };
 
   vocabularyFactory = new VocabularyFactory(this);
+  statsFactory = new StatsFactory(this);
 
   allSelectedEntries = [];
 
@@ -82,7 +86,8 @@ export default class App extends Component {
       showAddEntryLoading: false,
       currentSearchInputValue: "",
       searchResults: [],
-      showSearchResults: false
+      showSearchResults: false,
+      showStatistics: true
     });
   };
 
@@ -116,6 +121,8 @@ export default class App extends Component {
     });
   };
 
+  // todo: in before mount get stats from db
+
   componentDidMount = () => {
     this.notifications = this.refs.notifications;
   };
@@ -136,13 +143,22 @@ export default class App extends Component {
       showSearchResults: false,
       showVocabularyManager: false,
       currentSearchInputValue: "",
+      showStatistics: false,
       searchResults: []
+    });
+  };
+
+  traceTotalWordsLearnedForToday = () => {
+    console.info("total words learned for today: " + this.totalWordsLearnedForToday.length);
+    this.totalWordsLearnedForToday.map(item => {
+      console.info("  " + item.id);
+      return item;
     });
   };
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
-    this.vocabularyFactory.traceVocabulary(newVoc);
+    // this.vocabularyFactory.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...newVoc,
@@ -157,15 +173,9 @@ export default class App extends Component {
     });
   };
 
-  finish = () => {
-    this.setState({
-      showFinishModal: true
-    });
-  };
-
   recordSuccessfulTranslation = entry_index => {
-    console.info("*** recording successful translation of entry_index: " + entry_index);
     const new_voc = this.state.vocabulary;
+    console.info("RECORDING successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
     this.vocabularyFactory.updateEntry(new_voc[entry_index]);
     this.setState({ vocabulary: new_voc });
@@ -178,8 +188,50 @@ export default class App extends Component {
     this.setState({ vocabulary: new_voc });
   };
 
+  handleEscPress = currentIndex => {
+    let entry = this.state.vocabulary[currentIndex];
+    let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
+
+    if (entry.isCurrentlyCorrectlyTranslated) {
+      console.debug(`esc pressed and ${entry._id} is correctly translated`);
+
+      let wordLearned = {
+        id: entry._id,
+        term: entry.term,
+        translation: entry.translation
+      };
+
+      if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForToday, wordLearned)) {
+        this.totalWordsLearnedForToday.push(wordLearned);
+      }
+      // todo this.StatsFactory.saveTotalWordsLearnedTodayToDB(this.totalWordsLearnedForToday);
+    } else {
+      console.debug(`esc pressed and ${entry._id} is NOT correctly translated`);
+    }
+    this.removeEntryFromVocabulary(currentIndex);
+
+    if (thisIsTheLastVocWord) {
+      this.setState({
+        showFinishModal: true
+      });
+    }
+  };
+
+  arrayIncludesWordLearned = (theArray, wordLearned) => {
+    let theResult = false;
+
+    theArray.map(item => {
+      if (item.id === wordLearned.id) {
+        theResult = true;
+        return item;
+      }
+    });
+    return theResult;
+  };
+
   removeEntryFromVocabulary = currentIndex => {
-    console.info("removing entry from vocabulary array");
+    let entry = this.state.vocabulary[currentIndex];
+    console.info(`removing entry ${entry._id} from vocabulary array`);
     const new_voc = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...this.state.vocabulary.slice(currentIndex + 1, this.state.vocabulary.length)
@@ -264,11 +316,12 @@ export default class App extends Component {
       </div>
     );
   };
-
+  // todo κάθε φορά που πατάω esc να αποθηκεύεται η λέξη ως σωστή
   closeFinishModal = () => {
     this.setState({
       showFinishModal: false,
-      showTestArea: false
+      showTestArea: false,
+      showStatistics: true
     });
   };
 
@@ -276,7 +329,8 @@ export default class App extends Component {
     this.setState({
       showVocabularyManager: true,
       showSearchResults: false,
-      showTestArea: false
+      showTestArea: false,
+      showStatistics: false
     });
   };
 
@@ -328,12 +382,28 @@ export default class App extends Component {
     this.vocabularyFactory.traceDatabase();
   };
 
+  traceStatsDatabasePressed = () => {
+    console.info("--------------- traceStatsDatabasePressed");
+    this.statsFactory.traceDatabase();
+  };
+
+  seedStatsDatabasePressed = () => {
+    console.info("--------------- seedStatsDatabasePressed");
+    this.statsFactory.seedDatabase();
+  };
+
+  resetStatsDatabasePressed = () => {
+    console.info("--------------- resetStatsDatabasePressed");
+    this.statsFactory.resetDatabase();
+  };
+
   onSearchCompleted = voc => {
     this.setState({
       showSearchResults: true,
       searchResults: voc,
       showVocabularyManager: false,
-      showTestArea: false
+      showTestArea: false,
+      showStatistics: false
     });
   };
 
@@ -434,7 +504,6 @@ export default class App extends Component {
             <div className="app__header__debugButtons__debugButton" onClick={this.resetDatabasePressed}>
               reset DB
             </div>
-
             <div className="app__header__debugButtons__debugButton" onClick={this.seedDatabasePressed}>
               seed DB
             </div>
@@ -446,6 +515,33 @@ export default class App extends Component {
               onClick={this.traceVocabularyPressed}
             >
               trace voc
+            </div>
+            <div
+              className="app__header__debugButtons__debugButton"
+              onClick={this.traceTotalWordsLearnedForToday}
+            >
+              trace total words
+            </div>
+
+            <div
+              className="app__header__debugButtons__debugButton"
+              onClick={this.resetStatsDatabasePressed}
+            >
+              reset Stats DB
+            </div>
+
+            <div
+              className="app__header__debugButtons__debugButton"
+              onClick={this.seedStatsDatabasePressed}
+            >
+              seed Stats
+            </div>
+
+            <div
+              className="app__header__debugButtons__debugButton"
+              onClick={this.traceStatsDatabasePressed}
+            >
+              trace Stats
             </div>
           </div>
 
@@ -480,7 +576,7 @@ export default class App extends Component {
           <Notifications ref="notifications" style={this.notificationsStyle} />
           {this.state.showStatistics &&
             <div className="app__main__calendarHeatmap">
-              <CH
+              <CalendarHeatmap
                 endDate={Date.now()}
                 numDays={300}
                 values={this.state.correctAnswersPerDay}
@@ -497,8 +593,7 @@ export default class App extends Component {
               vocabulary={this.state.vocabulary}
               onSuccessfulTranslation={this.recordSuccessfulTranslation}
               onFailedTranslation={this.recordFailedTranslation}
-              onEscPress={this.removeEntryFromVocabulary}
-              onLastEscPress={this.finish}
+              onEscPress={this.handleEscPress}
               onPlusPress={this.addEntryToVocabulary}
             />}
           {this.state.showVocabularyManager &&

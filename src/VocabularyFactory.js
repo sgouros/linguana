@@ -16,28 +16,27 @@ export default class VocabularyFactory {
     this.app = app;
     window.PouchDB = PouchDB; // for dev tools
 
-    this.localDbName = "linguana";
-    this.remoteDbName = "http://localhost:5984/" + this.localDbName;
+    this.localVocDbName = "linguanaVocabulary";
+    this.remoteVocDbName = "http://localhost:5984/" + this.localVocDbName;
+    this.localVocDb = new PouchDB(this.localVocDbName);
+    this.remoteVocDb = new PouchDB(this.remoteVocDbName);
 
-    this.localDb = new PouchDB(this.localDbName);
-    this.remoteDb = new PouchDB(this.remoteDbName);
-
-    this.localDb
-      .sync(this.remoteDb, {
+    this.localVocDb
+      .sync(this.remoteVocDb, {
         live: true,
         retry: true
       })
       .on("change", function(change) {
-        console.info("Vocabulary synced!");
+        console.debug("Vocabulary synced!");
       })
       .on("paused", function(info) {
-        console.debug("replication was paused, usually because of a lost connection");
+        console.debug("Vocabulary replication was paused, usually because of a lost connection");
       })
       .on("active", function(info) {
-        console.info("replication resumed");
+        console.debug("Vocabulary replication resumed");
       })
       .on("error", function(err) {
-        console.info("totally unhandeld replication error");
+        console.debug("Vocabulary totally unhandeld replication error");
       });
   }
 
@@ -52,14 +51,14 @@ export default class VocabularyFactory {
     });
     let updatedVoc = [];
 
-    this.localDb
+    this.localVocDb
       .createIndex({
         index: {
           fields: ["totalTimesSelected"]
         }
       })
       .then(() => {
-        return this.localDb.find({
+        return this.localVocDb.find({
           selector: {
             _id: { $nin: allSelectedEntryIDs },
             totalTimesSelected: { $gt: -1 }
@@ -74,7 +73,7 @@ export default class VocabularyFactory {
           entry.selected();
           return entry;
         });
-        return this.localDb.bulkDocs(updatedVoc);
+        return this.localVocDb.bulkDocs(updatedVoc);
       })
       .then(result => {
         onSuccess(updatedVoc, currentIndex);
@@ -100,7 +99,7 @@ export default class VocabularyFactory {
 
   addEntry = (term, translation, notes, onSuccess, onFailure) => {
     let newEntry = new VocabularyEntry(null, null, term, translation, notes, 0, 0, 0);
-    this.localDb
+    this.localVocDb
       .put(newEntry)
       .then(response => {
         onSuccess(term, translation, response);
@@ -113,7 +112,7 @@ export default class VocabularyFactory {
   traceDatabase = () => {
     console.info("tracing database:");
 
-    this.localDb
+    this.localVocDb
       .find({
         selector: {
           _id: { $exists: "true" }
@@ -130,7 +129,7 @@ export default class VocabularyFactory {
   };
 
   seedDatabase = () => {
-    this.localDb
+    this.localVocDb
       .bulkDocs([
         new VocabularyEntry(
           "00εγκατάσταση-installieren",
@@ -161,7 +160,7 @@ export default class VocabularyFactory {
         // new VocabularyEntry("τρόφιμα-das Lebensmittel", null, "τρόφιμα", "das Lebensmittel", 5, 3, 8),
         // new VocabularyEntry("σύνδεση-einloggen", null, "σύνδεση", "einloggen", 11, 11, 26)
       ])
-      .then(() => console.info(`${this.localDbName} database seeded`))
+      .then(() => console.info(`${this.localVocDbName} database seeded`))
       .catch(err => {
         console.error("error inside seed Database");
         console.error(err);
@@ -169,7 +168,7 @@ export default class VocabularyFactory {
   };
 
   resetDatabase = () => {
-    let theDB = this.localDb;
+    let theDB = this.localVocDb;
     theDB
       .allDocs()
       .then(result => {
@@ -180,31 +179,31 @@ export default class VocabularyFactory {
         );
       })
       .then(() => {
-        console.info(`${this.localDbName} database has been reset`);
+        console.info(`${this.localVocDbName} database has been reset`);
       })
       .catch(err => {
-        console.error("error inside seed Database");
+        console.error("error inside reset Database");
         console.error(err);
       });
   };
 
   // .catch(console.log.bind(console));
 
-  traceVocabulary = (voc, logMessage = "tracing vocabulary:") => {
+  traceVocabulary = (voc, logMessage = `tracing vocabulary (length: ${voc.length})`) => {
     console.info(logMessage);
     voc.map(entry => entry.trace());
   };
 
   search = (searchTerm, onSearchCompleted) => {
     let searchTermRegex = searchTerm;
-    this.localDb
+    this.localVocDb
       .createIndex({
         index: {
           fields: ["term", "translation", "notes"]
         }
       })
       .then(() => {
-        return this.localDb.find({
+        return this.localVocDb.find({
           selector: {
             $or: [
               { term: { $regex: searchTermRegex } },
@@ -225,11 +224,11 @@ export default class VocabularyFactory {
   };
 
   deleteEntryFromDb = entry => {
-    this.localDb
+    this.localVocDb
       .remove(entry)
       .then(response => {
-        console.info("the following entry was removed from db:");
-        console.info(response);
+        console.debug("the following entry was removed from db:");
+        console.debug(response);
       })
       .catch(err => {
         console.error("error inside deleteEntryFromDb");
@@ -238,11 +237,13 @@ export default class VocabularyFactory {
   };
 
   updateEntry = entry => {
-    this.localDb
+    this.localVocDb
       .put(entry)
       .then(response => {
-        console.info("the following entry was updated to db:");
-        console.info(response);
+        console.debug("the following entry was updated to db:");
+        console.debug(entry);
+        console.debug("response:");
+        console.debug(response);
       })
       .catch(err => {
         console.error("error inside updateEntry");

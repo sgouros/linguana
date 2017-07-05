@@ -48,11 +48,11 @@ export default class Testarea extends Component {
     let entry_index = this.state.current_voc_index;
 
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
-      console.info("correct translation");
+      console.debug("correct translation");
       this.props.onSuccessfulTranslation(entry_index);
       this.loadNextEntry();
     } else {
-      console.info("wrong translation");
+      console.debug("wrong translation");
       this.showWordComparisonDialog();
       this.props.onFailedTranslation(entry_index);
     }
@@ -106,33 +106,26 @@ export default class Testarea extends Component {
   };
 
   onEscPress = () => {
-    if (this.props.vocabulary.length === 1) {
-      console.info("ignoring esc key because only one entry remains");
-      this.props.onLastEscPress();
+    const currentIndex = this.state.current_voc_index;
+    const lastVocIndex = this.props.vocabulary.length - 1;
+    console.debug("currentIndex:" + currentIndex);
+    console.debug("lastVocIndex index:" + lastVocIndex);
+
+    let newIndex = -1;
+
+    if (lastVocIndex === 0) {
+      newIndex = 0;
+    } else if (currentIndex === lastVocIndex) {
+      newIndex = lastVocIndex - 1;
     } else {
-      const currentIndex = this.state.current_voc_index;
-      const lastVocIndex = this.props.vocabulary.length - 1;
-      console.info("currentIndex:" + currentIndex);
-      console.info("lastVocIndex index:" + lastVocIndex);
-
-      let newIndex = -1;
-
-      if (lastVocIndex === 0) {
-        newIndex = 0;
-      } else if (currentIndex === lastVocIndex) {
-        newIndex = lastVocIndex - 1;
-      } else {
-        newIndex = currentIndex;
-      }
-      console.info("new index:" + newIndex);
-      this.clearInput();
-      this.setState({
-        current_voc_index: newIndex
-      });
-      this.props.onEscPress(currentIndex);
-      console.info("vocabulary after entry removal:");
-      console.info(this.props.vocabulary);
+      newIndex = currentIndex;
     }
+    console.debug("new index:" + newIndex);
+    this.clearInput();
+    this.setState({
+      current_voc_index: newIndex
+    });
+    this.props.onEscPress(currentIndex);
   };
 
   onPlusPress = () => {
@@ -156,11 +149,15 @@ export default class Testarea extends Component {
           <tbody>
             <tr>
               <td>Correct answer:</td>
-              <td>{correct}</td>
+              <td>
+                {correct}
+              </td>
             </tr>
             <tr>
               <td>You typed:</td>
-              <td>{typed}</td>
+              <td>
+                {typed}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -171,7 +168,6 @@ export default class Testarea extends Component {
   render() {
     return (
       <div className="testArea__component">
-
         <img
           id="testArea__component__linguanaImg"
           src={this.state.correctTranslation ? "/img/correct.png" : "/img/wrong.png"}
@@ -207,7 +203,6 @@ export default class Testarea extends Component {
               onClose={this.closeWordComparisonDialog}
             />
           : null}
-
       </div>
     );
   }

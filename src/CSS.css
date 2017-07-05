@@ -50,11 +50,11 @@ body {
 }
 
 .app__header__debugButtons__debugButton {
-  font-size: 1.8vh;
-  padding: 0.8vh;
+  font-size: 1.6vh;
+  padding: 0.4vh;
   text-align: center;
-  width: 10vh;
-  height: 2.3vh;
+  width: 14vh;
+  height: 1.8vh;
   cursor: pointer;
   background: #ececec;
   border-radius: 15px;

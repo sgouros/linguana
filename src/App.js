@@ -121,8 +121,6 @@ export default class App extends Component {
     });
   };
 
-  // todo: in before mount get stats from db
-
   componentDidMount = () => {
     this.notifications = this.refs.notifications;
   };
@@ -316,7 +314,10 @@ export default class App extends Component {
       </div>
     );
   };
-  // todo κάθε φορά που πατάω esc να αποθηκεύεται η λέξη ως σωστή
+  // todo να εμφανίζεται ένα μικρό check πανω δεξιά κάθε φορά που ΤΗΝ ΠΡΟΗΓΟΥΜΕΝΗ ΦΟΡΑ
+  // η λέξη είχε μεταφραστεί σωστα
+  // εναλλακτικά αν θέλω να έιμαι σίγουρος, ας κάνω να είμαι αναγκασμένος να πρασινίζω την λέξη
+  // πριν πατήσω esc αν θέλω να καταγραφεί ως learned word
   closeFinishModal = () => {
     this.setState({
       showFinishModal: false,

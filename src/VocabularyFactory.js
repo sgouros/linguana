@@ -16,7 +16,7 @@ export default class VocabularyFactory {
     this.app = app;
     window.PouchDB = PouchDB; // for dev tools
 
-    this.localVocDbName = "linguanaVocabulary";
+    this.localVocDbName = "linguana_vocabulary";
     this.remoteVocDbName = "http://localhost:5984/" + this.localVocDbName;
     this.localVocDb = new PouchDB(this.localVocDbName);
     this.remoteVocDb = new PouchDB(this.remoteVocDbName);

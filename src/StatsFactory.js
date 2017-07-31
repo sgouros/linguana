@@ -7,7 +7,7 @@ export default class StatsFactory {
     this.app = app;
     window.PouchDB = PouchDB; // for dev tools
 
-    this.localStatsDbName = "linguanaStats";
+    this.localStatsDbName = "linguana_stats";
     this.remoteStatsDbName = "http://localhost:5984/" + this.localStatsDbName;
     this.localStatsDb = new PouchDB(this.localStatsDbName);
     this.remoteStatsDb = new PouchDB(this.remoteStatsDbName);

@@ -221,8 +221,8 @@ export default class App extends Component {
     theArray.map(item => {
       if (item.id === wordLearned.id) {
         theResult = true;
-        return item;
       }
+      return item;
     });
     return theResult;
   };
@@ -398,6 +398,10 @@ export default class App extends Component {
     this.statsFactory.resetDatabase();
   };
 
+  traceStatsPressed = () => {
+    console.info("--------------- traceStatsDatabasePressed");
+  };
+
   onSearchCompleted = voc => {
     this.setState({
       showSearchResults: true,
@@ -524,6 +528,10 @@ export default class App extends Component {
               trace total words
             </div>
 
+            <div className="app__header__debugButtons__debugButton" onClick={this.traceStatsPressed}>
+              trace stats
+            </div>
+
             <div
               className="app__header__debugButtons__debugButton"
               onClick={this.resetStatsDatabasePressed}
@@ -535,14 +543,14 @@ export default class App extends Component {
               className="app__header__debugButtons__debugButton"
               onClick={this.seedStatsDatabasePressed}
             >
-              seed Stats
+              seed Stats DB
             </div>
 
             <div
               className="app__header__debugButtons__debugButton"
               onClick={this.traceStatsDatabasePressed}
             >
-              trace Stats
+              trace Stats DB
             </div>
           </div>
 

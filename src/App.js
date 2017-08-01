@@ -10,7 +10,7 @@ import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
-
+// todo το πόσες μέρες θα δείχνει το calendar να ορίζεται σε ένα μόνο σημείο και να περνάει στο <HeatmapCalendar>
 export default class App extends Component {
   constructor() {
     super();
@@ -27,37 +27,11 @@ export default class App extends Component {
       searchResults: [],
       showSearchResults: false,
       showStatistics: true,
-      correctAnswersPerDay: this.CORRECT_ANSWERS_PER_DAY
+      heatmapStats: []
     };
-
-    this.maxCorectAnswersCount = this.countMaxCorrectAnswers(this.CORRECT_ANSWERS_PER_DAY);
 
     this.totalWordsLearnedForToday = [];
   }
-
-  CORRECT_ANSWERS_PER_DAY = [
-    { date: "2017-06-1", count: 1 },
-    { date: "2017-06-2", count: 9 },
-    { date: "2017-06-3", count: 16 },
-    { date: "2017-06-6", count: 9 },
-    { date: "2017-06-7", count: 3 },
-    { date: "2017-06-8", count: 10 },
-    { date: "2017-06-9", count: 10 },
-    { date: "2017-06-10", count: 10 },
-    { date: "2017-06-12", count: 7 },
-    { date: "2017-06-13", count: 8 },
-    { date: "2017-06-14", count: 20 },
-    { date: "2017-06-15", count: 5 },
-    { date: "2017-06-17", count: 23 },
-    { date: "2017-06-18", count: 2 },
-    { date: "2017-06-19", count: 4 },
-    { date: "2017-06-20", count: 20 },
-    { date: "2017-06-21", count: 2 },
-    { date: "2017-06-24", count: 15 },
-    { date: "2017-06-25", count: 22 },
-    { date: "2017-06-29", count: 7 },
-    { date: "2017-06-30", count: 6 }
-  ];
 
   notifications = null;
 
@@ -122,7 +96,10 @@ export default class App extends Component {
   };
 
   componentDidMount = () => {
+    console.info("App.componentDidMount called!");
     this.notifications = this.refs.notifications;
+    let noOfDays = 260;
+    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
   };
 
   closeStartingSummaryModal = () => {
@@ -169,6 +146,11 @@ export default class App extends Component {
       isStartModalLoading: false,
       vocabulary: updatedVocabulary
     });
+  };
+
+  onStatsForCalendarHeatmapArrived = statsArray => {
+    console.info("new stats for heatmap arrived");
+    this.setState({ heatmapStats: statsArray });
   };
 
   recordSuccessfulTranslation = entry_index => {
@@ -391,15 +373,20 @@ export default class App extends Component {
   seedStatsDatabasePressed = () => {
     console.info("--------------- seedStatsDatabasePressed");
     this.statsFactory.seedDatabase();
+    let noOfDays = 260;
+    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
   };
 
   resetStatsDatabasePressed = () => {
     console.info("--------------- resetStatsDatabasePressed");
     this.statsFactory.resetDatabase();
+    let noOfDays = 260;
+    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
   };
 
   traceStatsPressed = () => {
     console.info("--------------- traceStatsDatabasePressed");
+    console.info(this.state.heatmapStats);
   };
 
   onSearchCompleted = voc => {
@@ -460,14 +447,14 @@ export default class App extends Component {
       let date = value.date.split("-").reverse().join(".");
       return `On ${date} you've learned ${value.count} new words!`;
     } else {
-      return null;
+      return "";
     }
   };
 
-  countMaxCorrectAnswers = correctAnswersPerDay => {
-    let maxCorrectAnswers = correctAnswersPerDay.reduce((maxItem, currentItem) => {
+  countMaxCorrectAnswers = correctAnswersPerDayArray => {
+    let maxCorrectAnswers = correctAnswersPerDayArray.reduce((maxItem, currentItem) => {
       return maxItem.count > currentItem.count ? maxItem : currentItem;
-    });
+    }, 0);
     return maxCorrectAnswers.count;
   };
 
@@ -476,7 +463,7 @@ export default class App extends Component {
       return "color-empty";
     }
 
-    let maxCount = this.maxCorectAnswersCount;
+    let maxCount = this.countMaxCorrectAnswers(this.state.heatmapStats);
 
     let threshold_1 = maxCount / 4;
     let threshold_2 = maxCount / 4 * 2;
@@ -588,7 +575,7 @@ export default class App extends Component {
               <CalendarHeatmap
                 endDate={Date.now()}
                 numDays={300}
-                values={this.state.correctAnswersPerDay}
+                values={this.state.heatmapStats}
                 titleForValue={this.constructHeatmapCalendarTooltip}
                 classForValue={this.getCSSClass}
               />

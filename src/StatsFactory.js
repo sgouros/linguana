@@ -64,6 +64,63 @@ export default class StatsFactory {
     return newStats;
   };
 
+  requestStatsForCalendarHeatmap = (noOfDaysRequested, onSuccessCallback) => {
+    this.localStatsDb
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
+        // this.traceStats(statsArray);
+        onSuccessCallback(statsArray);
+      })
+      .catch(err => {
+        console.error("error inside requestStatsForCalendarHeatmap:");
+        console.error(err);
+        console.error("(end of error trace)");
+      });
+  };
+
+  massageStatsForCalendarHeatmap = dbDocs => {
+    console.info("inside massageStatsForCalendarHeatmap");
+    // console.info("tracing stats docs from db");
+    // console.info(dbDocs);
+
+    let the = dbDocs.map(doc => {
+      return { date: doc._id, count: doc.totalWordsLearned };
+    });
+    console.info("tracing the");
+    console.info(the);
+    return the;
+
+    // let theArray = [
+    //   { date: "2017-06-1", count: 1 },
+    //   { date: "2017-06-2", count: 9 },
+    //   { date: "2017-06-3", count: 16 },
+    //   { date: "2017-06-6", count: 9 },
+    //   { date: "2017-06-7", count: 3 },
+    //   { date: "2017-06-8", count: 10 },
+    //   { date: "2017-06-9", count: 10 },
+    //   { date: "2017-06-10", count: 10 },
+    //   { date: "2017-06-12", count: 7 },
+    //   { date: "2017-06-13", count: 8 },
+    //   { date: "2017-06-14", count: 20 },
+    //   { date: "2017-06-15", count: 5 },
+    //   { date: "2017-06-17", count: 23 },
+    //   { date: "2017-06-18", count: 2 },
+    //   { date: "2017-06-19", count: 4 },
+    //   { date: "2017-06-20", count: 20 },
+    //   { date: "2017-06-21", count: 2 },
+    //   { date: "2017-06-24", count: 15 },
+    //   { date: "2017-06-25", count: 22 },
+    //   { date: "2017-06-29", count: 7 },
+    //   { date: "2017-06-30", count: 6 }
+    // ];
+    // return theArray;
+  };
+
   // addStat = totalWordsLearned => {
   //   let newStat = new StatsEntry(null, null, totalWordsLearned);
   //   this.localVocDb

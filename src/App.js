@@ -10,7 +10,8 @@ import VocabularyManager from "./components/VocabularyManager.js";
 import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
-// todo το πόσες μέρες θα δείχνει το calendar να ορίζεται σε ένα μόνο σημείο και να περνάει στο <HeatmapCalendar>
+import { getDateString } from "./components/helpers.js";
+
 export default class App extends Component {
   constructor() {
     super();
@@ -43,10 +44,11 @@ export default class App extends Component {
     }
   };
 
+  daysInHeatmap = 300; // how many days will the heatmap show
   vocabularyFactory = new VocabularyFactory(this);
   statsFactory = new StatsFactory(this);
 
-  allSelectedEntries = [];
+  allSelectedEntries = []; // the selected vocabulary entries for the current session
 
   goToStartPage = () => {
     this.allSelectedEntries = [];
@@ -98,8 +100,10 @@ export default class App extends Component {
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
     this.notifications = this.refs.notifications;
-    let noOfDays = 260;
-    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
+    this.statsFactory.requestStatsForCalendarHeatmap(
+      this.daysInHeatmap,
+      this.onStatsForCalendarHeatmapArrived
+    );
   };
 
   closeStartingSummaryModal = () => {
@@ -124,7 +128,7 @@ export default class App extends Component {
   };
 
   traceTotalWordsLearnedForToday = () => {
-    console.info("total words learned for today: " + this.totalWordsLearnedForToday.length);
+    console.info(`total words learned for today length: ${this.totalWordsLearnedForToday.length}`);
     this.totalWordsLearnedForToday.map(item => {
       console.info("  " + item.id);
       return item;
@@ -172,8 +176,9 @@ export default class App extends Component {
     let entry = this.state.vocabulary[currentIndex];
     let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
 
+    // αυτό είναι true ακόμη και αν ο όρος είχε μεταφραστεί σωστά την ΠΡΟΗΓΟΥΜΕΝΗ φορά
     if (entry.isCurrentlyCorrectlyTranslated) {
-      console.debug(`esc pressed and ${entry._id} is correctly translated`);
+      console.info(`esc pressed and ${entry._id} is correctly translated`);
 
       let wordLearned = {
         id: entry._id,
@@ -184,7 +189,6 @@ export default class App extends Component {
       if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForToday, wordLearned)) {
         this.totalWordsLearnedForToday.push(wordLearned);
       }
-      // todo this.StatsFactory.saveTotalWordsLearnedTodayToDB(this.totalWordsLearnedForToday);
     } else {
       console.debug(`esc pressed and ${entry._id} is NOT correctly translated`);
     }
@@ -296,10 +300,7 @@ export default class App extends Component {
       </div>
     );
   };
-  // todo να εμφανίζεται ένα μικρό check πανω δεξιά κάθε φορά που ΤΗΝ ΠΡΟΗΓΟΥΜΕΝΗ ΦΟΡΑ
-  // η λέξη είχε μεταφραστεί σωστα
-  // εναλλακτικά αν θέλω να έιμαι σίγουρος, ας κάνω να είμαι αναγκασμένος να πρασινίζω την λέξη
-  // πριν πατήσω esc αν θέλω να καταγραφεί ως learned word
+
   closeFinishModal = () => {
     this.setState({
       showFinishModal: false,
@@ -373,15 +374,19 @@ export default class App extends Component {
   seedStatsDatabasePressed = () => {
     console.info("--------------- seedStatsDatabasePressed");
     this.statsFactory.seedDatabase();
-    let noOfDays = 260;
-    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
+    this.statsFactory.requestStatsForCalendarHeatmap(
+      this.daysInHeatmap,
+      this.onStatsForCalendarHeatmapArrived
+    );
   };
 
   resetStatsDatabasePressed = () => {
     console.info("--------------- resetStatsDatabasePressed");
     this.statsFactory.resetDatabase();
-    let noOfDays = 260;
-    this.statsFactory.requestStatsForCalendarHeatmap(noOfDays, this.onStatsForCalendarHeatmapArrived);
+    this.statsFactory.requestStatsForCalendarHeatmap(
+      this.daysInHeatmap,
+      this.onStatsForCalendarHeatmapArrived
+    );
   };
 
   traceStatsPressed = () => {
@@ -444,8 +449,8 @@ export default class App extends Component {
 
   constructHeatmapCalendarTooltip = value => {
     if (value) {
-      let date = value.date.split("-").reverse().join(".");
-      return `On ${date} you've learned ${value.count} new words!`;
+      let dateString = getDateString(value.date, true);
+      return `${dateString} έμαθες ${value.count} λέξεις!`;
     } else {
       return "";
     }
@@ -574,7 +579,7 @@ export default class App extends Component {
             <div className="app__main__calendarHeatmap">
               <CalendarHeatmap
                 endDate={Date.now()}
-                numDays={300}
+                numDays={this.daysInHeatmap}
                 values={this.state.heatmapStats}
                 titleForValue={this.constructHeatmapCalendarTooltip}
                 classForValue={this.getCSSClass}

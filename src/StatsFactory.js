@@ -84,41 +84,9 @@ export default class StatsFactory {
   };
 
   massageStatsForCalendarHeatmap = dbDocs => {
-    console.info("inside massageStatsForCalendarHeatmap");
-    // console.info("tracing stats docs from db");
-    // console.info(dbDocs);
-
-    let the = dbDocs.map(doc => {
+    return dbDocs.map(doc => {
       return { date: doc._id, count: doc.totalWordsLearned };
     });
-    console.info("tracing the");
-    console.info(the);
-    return the;
-
-    // let theArray = [
-    //   { date: "2017-06-1", count: 1 },
-    //   { date: "2017-06-2", count: 9 },
-    //   { date: "2017-06-3", count: 16 },
-    //   { date: "2017-06-6", count: 9 },
-    //   { date: "2017-06-7", count: 3 },
-    //   { date: "2017-06-8", count: 10 },
-    //   { date: "2017-06-9", count: 10 },
-    //   { date: "2017-06-10", count: 10 },
-    //   { date: "2017-06-12", count: 7 },
-    //   { date: "2017-06-13", count: 8 },
-    //   { date: "2017-06-14", count: 20 },
-    //   { date: "2017-06-15", count: 5 },
-    //   { date: "2017-06-17", count: 23 },
-    //   { date: "2017-06-18", count: 2 },
-    //   { date: "2017-06-19", count: 4 },
-    //   { date: "2017-06-20", count: 20 },
-    //   { date: "2017-06-21", count: 2 },
-    //   { date: "2017-06-24", count: 15 },
-    //   { date: "2017-06-25", count: 22 },
-    //   { date: "2017-06-29", count: 7 },
-    //   { date: "2017-06-30", count: 6 }
-    // ];
-    // return theArray;
   };
 
   // addStat = totalWordsLearned => {
@@ -136,7 +104,7 @@ export default class StatsFactory {
   // saveTotalWordsLearnedTodayToDB = wordsArray => {
   //   let stats = new StatsEntry();
   //   stats.wordsArray = wordsArray;
-  //   stats.total; // todo: construct stats object
+  //   stats.total;
 
   //   this.localStatsDb
   //     .put(stats)
@@ -166,21 +134,22 @@ export default class StatsFactory {
       });
   };
 
-  // todo: Μετά από διακοπές δες αυτό
-  // αυτή τη στιγμή γίνονται σωστά seed τα stats στη βάση δεδομένων. Δεν έχουν συνδεθεί όμως
-  // με το heatmap component (για την ώρα το component
-  // τροφοδοτείται από μία const μεταβλητή πίνακα μέσα στην app. Χρειάζεται
-  // να μπορώ να διαβάζω όλα τα stats από τη βάση δεδομένων στην αρχή της εφαρμογής
-  // και να σετάρω με αυτά το state της app (σημ: έτοιμος κώδικας για το διάβασμα όλων
-  // υπάρχει στην StatsFactory.traceDatabase)
-  // Κατόπιν πρέπει κάθε φορά που έχουμε μία learned word (όταν πατιέται esc)
-  // να αυξάνεται κατά ένα το count της υπάρχουσας date και να προποποιείται η statentry
+  // todo 1. να είμαι αναγκασμένος να πρασινίζω την λέξη πριν πατήσω esc αν θέλω να καταγραφεί
+  // ως learned word
+  // 2. πρέπει κάθε φορά που έχουμε μία learned word (όταν πατιέται esc)
+  // να αυξάνεται κατά ένα το count της υπάρχουσας date και να τροποποιείται η entry
   // στη βάση δεδομένων
-  // σε δεύτερο στάδιο ίσως θα ήταν καλό να αποθηκεύεται όχι μόνο ο αριθμός των learned words
+  // 3. σε δεύτερο στάδιο ίσως θα ήταν καλό να αποθηκεύεται όχι μόνο ο αριθμός των learned words
   // αλλά και το ποιές είναι αυτές (τα ids) και αντί για μεταβλητή count στη βάση δεδομένων
-  // να επιστρέφεται το length του πινακα που περιέχει τα ids των learned words
-  // ίσως αυτή η προσέγγιση να είναι και η καλύτερη γιατί μετά στο onclick του heatmap
-  // μπορείς σε ένα παραθυράκι να εμφανίζει ποιές λέξεις έμαθες κάθε μέρα
+  // να επιστρέφεται το length του πινακα που περιέχει τα ids των learned words. Μετά στο onclick
+  // του heatmap να μπορείς σε ένα παραθυράκι να εμφανίζει ποιές λέξεις έμαθες κάθε μέρα
+  // 4. Να τραβάει από τη βάση stats για όσες μέρες του λέμε
+
+  // * να έχει ένα ταμπελάκι πράσινο ή κόκκινο κάθε λέξη ανάλογα με το αν είχε μεταφραστεί
+  //   σωστά ή όχι την προηγούμενη φορά
+  // * να δείχνει το finished modal πόσες λέξεις έχει μάθει μέχρι σήμερα
+  // * κάποτε αντί για esc να κάνω να αφαιρειται η λέξη με το -
+  // * Κάποτε πρέπει να κάνω ένα refactor στο οποίο να δημιουργήσω το Vocabulary ως class (τώρα έχω πίνακες)
 
   seedDatabase = () => {
     this.localStatsDb

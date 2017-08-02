@@ -110,9 +110,7 @@ export default class Testarea extends Component {
     const lastVocIndex = this.props.vocabulary.length - 1;
     console.debug("currentIndex:" + currentIndex);
     console.debug("lastVocIndex index:" + lastVocIndex);
-
     let newIndex = -1;
-
     if (lastVocIndex === 0) {
       newIndex = 0;
     } else if (currentIndex === lastVocIndex) {

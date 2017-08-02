@@ -192,6 +192,8 @@ export default class CalendarHeatmap extends React.Component {
     }
     const [x, y] = this.getSquareCoordinates(dayIndex);
     const value = this.getValueForIndex(index);
+    // let onDate = shiftDate(this.getStartDateWithEmptyDays(), index);
+    // let date = new Date(onDate.getFullYear(), onDate.getMonth(), onDate.getDate());
     return (
       <rect
         key={index}

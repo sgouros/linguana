@@ -82,7 +82,10 @@ export default class StatsFactory {
   };
 
   increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
-    let id = "2017-08-3";
+    let today = new Date();
+    let id = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+    console.info("id=" + id);
+
     let total = 0;
     this.localStatsDb
       .upsert(id, doc => {

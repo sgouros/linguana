@@ -40,6 +40,7 @@ export default class App extends Component {
     };
 
     this.totalWordsLearnedForTodayArray = [];
+    this.submittedEntriesFromVocabularyManager = [];
   }
 
   notifications = null;
@@ -47,7 +48,7 @@ export default class App extends Component {
   notificationsStyle = {
     NotificationItem: {
       DefaultStyle: {
-        width: 420
+        width: 350
       }
     }
   };
@@ -344,6 +345,8 @@ export default class App extends Component {
       this.newEntrySaveToDbSucceeded,
       this.newEntrySaveToDbFailed
     );
+
+    this.submittedEntriesFromVocabularyManager.push(`${term}-${translation}`);
   };
 
   newEntrySaveToDbSucceeded = (term, translation, response) => {
@@ -614,7 +617,11 @@ export default class App extends Component {
               onPlusPress={this.addEntryToVocabulary}
             />}
           {this.state.showVocabularyManager &&
-            <VocabularyManager ref="vocabularyManager" onNewEntrySubmitted={this.newEntrySubmitted} />}
+            <VocabularyManager
+              ref="vocabularyManager"
+              onNewEntrySubmitted={this.newEntrySubmitted}
+              alreadySubmittedEntries={this.submittedEntriesFromVocabularyManager}
+            />}
         </main>
         {this.state.showStartModal
           ? <StartModal

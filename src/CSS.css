@@ -528,6 +528,22 @@ body {
   outline: 0 none;
 }
 
+.app__vocabularyManagerComponent__form__alreadySubmittedEntries {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 14vh;
+  padding: 1vh;
+  font-size: 2.3vh;
+  font-family: "Courier New", "Courier", "monospace";
+  color: #5aff12;
+  background: #2c2c2c;
+  border: solid 1px black;
+
+  border-radius: 0.7vh;
+  -webkit-border-radius: 0.7vh;
+  -moz-border-radius: 0.7vh;
+}
+
 .modalImg {
   max-width: 80%;
   height: 8rem;

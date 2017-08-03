@@ -84,7 +84,11 @@ export default class VocabularyManager extends Component {
               inputClassName="app__vocabularyManagerComponent__form__translationInputGR"
             />
           </div>
+
           <input type="submit" id="VocabularyManagerSubmitButton" value="submit" />
+          <div className="app__vocabularyManagerComponent__form__alreadySubmittedEntries">
+            {this.props.alreadySubmittedEntries.join(" | ")}
+          </div>
         </form>
       </div>
     );

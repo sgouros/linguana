@@ -164,7 +164,11 @@ export default class Testarea extends Component {
   };
 
   isSourceTermAlreadyCorrectlyTranslated = () => {
-    return this.props.vocabulary[this.state.current_voc_index].isCurrentlyCorrectlyTranslated;
+    if (typeof this.props.vocabulary[this.state.current_voc_index] != "undefined") {
+      return this.props.vocabulary[this.state.current_voc_index].isCurrentlyCorrectlyTranslated;
+    } else {
+      return false;
+    }
   };
 
   render() {

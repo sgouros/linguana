@@ -16,7 +16,7 @@ export default class TranslationInputGR extends Component {
       } else {
         this.handleSpecialKeyPress(event);
       }
-    } else if (event.keyCode === 27) {
+    } else if (event.keyCode === 27 || event.keyCode === 109) {
       this.handleEscPress(event);
     } else if (event.keyCode === 107) {
       this.handlePlusPress(event);
@@ -68,6 +68,7 @@ export default class TranslationInputGR extends Component {
     if (!this.props.disableSpecialEscPress) {
       console.info("\nESC key pressed");
       this.props.onEscPress();
+      event.preventDefault();
     }
   };
 

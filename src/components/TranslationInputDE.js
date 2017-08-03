@@ -51,7 +51,7 @@ export default class TranslationInputDE extends Component {
       uppercase = true;
     }
 
-    if (event.keyCode === 27) {
+    if (event.keyCode === 27 || event.keyCode === 109) {
       console.debug("esc press: " + event.keyCode);
       this.handleEscPress(event);
     } else if (event.keyCode === 107) {
@@ -120,6 +120,7 @@ export default class TranslationInputDE extends Component {
     if (!this.props.disableSpecialEscPress) {
       console.info("\nESC key pressed");
       this.props.onEscPress();
+      event.preventDefault();
     }
   };
 

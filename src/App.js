@@ -13,8 +13,6 @@ import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString } from "./components/helpers.js";
 
 // todo
-// * να βάζεις correct date στο heatmap
-// * μετά το session δεν γίνεται update το heatmap
 // * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
 //   και να έχει από ελληνικά σε γερμανικά. Tότε θα θεωρείται τελειωμένη μία session
 

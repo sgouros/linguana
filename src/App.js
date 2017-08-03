@@ -12,6 +12,14 @@ import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString } from "./components/helpers.js";
 
+// todo
+// * να έχει ένα ταμπελάκι πράσινο ή κόκκινο κάθε λέξη ανάλογα με το αν είχε μεταφραστεί
+//   σωστά ή όχι την προηγούμενη φορά
+// * κάποτε αντί για esc να κάνω να αφαιρειται η λέξη με το -
+// * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
+//   και να έχει από ελληνικά σε γερμανικά. Tότε θα θεωρείται τελειωμένη μία session
+// * όταν περνάς καινούρια λέξη να βγαίνει παραθυράκι που να λέει "4 λέξεις περάστηκαν ως τώρα"
+
 export default class App extends Component {
   constructor() {
     super();
@@ -28,10 +36,12 @@ export default class App extends Component {
       searchResults: [],
       showSearchResults: false,
       showStatistics: true,
-      heatmapStats: []
+      heatmapStats: [],
+      // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
+      totalWordsLearnedForTodayCount: 0
     };
 
-    this.totalWordsLearnedForToday = [];
+    this.totalWordsLearnedForTodayArray = [];
   }
 
   notifications = null;
@@ -44,7 +54,7 @@ export default class App extends Component {
     }
   };
 
-  daysInHeatmap = 300; // how many days will the heatmap show
+  daysInHeatmap = 280; // how many days will the heatmap show
   vocabularyFactory = new VocabularyFactory(this);
   statsFactory = new StatsFactory(this);
 
@@ -128,8 +138,8 @@ export default class App extends Component {
   };
 
   traceTotalWordsLearnedForToday = () => {
-    console.info(`total words learned for today length: ${this.totalWordsLearnedForToday.length}`);
-    this.totalWordsLearnedForToday.map(item => {
+    console.info(`total words learned for today length: ${this.totalWordsLearnedForTodayArray.length}`);
+    this.totalWordsLearnedForTodayArray.map(item => {
       console.info("  " + item.id);
       return item;
     });
@@ -186,8 +196,11 @@ export default class App extends Component {
         translation: entry.translation
       };
 
-      if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForToday, wordLearned)) {
-        this.totalWordsLearnedForToday.push(wordLearned);
+      if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
+        this.totalWordsLearnedForTodayArray.push(wordLearned);
+        this.statsFactory.increaseTotalWordsLearnedForTodayCount(
+          this.totalWordsLearnedForTodayCountUpdated
+        );
       }
     } else {
       console.debug(`esc pressed and ${entry._id} is NOT correctly translated`);
@@ -199,6 +212,11 @@ export default class App extends Component {
         showFinishModal: true
       });
     }
+  };
+
+  totalWordsLearnedForTodayCountUpdated = count => {
+    console.info("increasing totalWordsLearnedForTodayCount to " + count);
+    this.setState({ totalWordsLearnedForTodayCount: count });
   };
 
   arrayIncludesWordLearned = (theArray, wordLearned) => {
@@ -611,7 +629,7 @@ export default class App extends Component {
           : null}
         {this.state.showFinishModal
           ? <FinishModal
-              title="You have successfully finished a learning session!"
+              title={`Today you 've learned ${this.state.totalWordsLearnedForTodayCount} words today!`}
               content={this.constructFinishModalContent()}
               onClose={this.closeFinishModal}
             />

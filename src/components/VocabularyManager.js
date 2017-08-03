@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import TranslationInputDE from "./TranslationInputDE.js";
 import TranslationInputGR from "./TranslationInputGR.js";
 
-// *** todo Κάποτε πρέπει να κάνω ένα refactor στο οποίο να δημιουργήσω το Vocabulary ως class (τώρα έχω πίνακες)
-
 export default class VocabularyManager extends Component {
   state = {
     currentTermInputValue: "",

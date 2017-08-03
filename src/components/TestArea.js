@@ -163,6 +163,10 @@ export default class Testarea extends Component {
     );
   };
 
+  isSourceTermAlreadyCorrectlyTranslated = () => {
+    return this.props.vocabulary[this.state.current_voc_index].isCurrentlyCorrectlyTranslated;
+  };
+
   render() {
     return (
       <div className="testArea__component">
@@ -174,15 +178,18 @@ export default class Testarea extends Component {
 
         <form className="testArea__component__translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
-
-          <div className="testArea__component__translationForm__sourceTerm">
+          <div
+            className={
+              "testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__" +
+              this.isSourceTermAlreadyCorrectlyTranslated()
+            }
+          >
             {this.getTerm()}
           </div>
 
           <div className="testArea__component__translationForm__notes">
             {this.getNotes()}
           </div>
-
           <TranslationInputGR
             ref="translationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}

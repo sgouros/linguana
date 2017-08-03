@@ -1,6 +1,7 @@
 import StatsEntry from "./components/StatsEntry.js";
 import PouchDB from "pouchdb";
 PouchDB.plugin(require("pouchdb-find"));
+PouchDB.plugin(require("pouchdb-upsert"));
 
 export default class StatsFactory {
   constructor(app) {
@@ -31,32 +32,6 @@ export default class StatsFactory {
       });
   }
 
-  // loadStats = numberOfDaysNeeded => {
-  //   this.localStatsDb
-  //     .createIndex({
-  //       index: {
-  //         fields: ["date"]
-  //       }
-  //     })
-  //     .then(() => {
-  //       return this.localVocDb.find({
-  //         selector: {
-  //           date: { $between: "specific dates" }
-  //         },
-  //         sort: [{ date: "asc" }],
-  //         limit: numberOfDaysNeeded
-  //       });
-  //     })
-  //     .then(resultFromDb => {
-  //       let newStats = this.constructStats(resultFromDb.docs);
-  //       return newStats;
-  //     })
-  //     .then(result => {
-  //       onSuccess(newStats);
-  //     })
-  //     .catch(console.log.bind(console));
-  // };
-
   constructStats = statsFromDatabase => {
     let newStats = statsFromDatabase.map(item => {
       return new StatsEntry(item._id, item._rev, item.totalWordsLearned);
@@ -69,11 +44,11 @@ export default class StatsFactory {
       .find({
         selector: {
           _id: { $exists: "true" }
-        }
+        },
+        limit: noOfDaysRequested
       })
       .then(responseFromDb => {
         let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
-        // this.traceStats(statsArray);
         onSuccessCallback(statsArray);
       })
       .catch(err => {
@@ -88,34 +63,6 @@ export default class StatsFactory {
       return { date: doc._id, count: doc.totalWordsLearned };
     });
   };
-
-  // addStat = totalWordsLearned => {
-  //   let newStat = new StatsEntry(null, null, totalWordsLearned);
-  //   this.localVocDb
-  //     .put(newStat)
-  //     .then(response => {
-  //       onSuccess(newStats);
-  //     })
-  //     .catch(error => {
-  //       onFailure(newStats, error);
-  //     });
-  // };
-
-  // saveTotalWordsLearnedTodayToDB = wordsArray => {
-  //   let stats = new StatsEntry();
-  //   stats.wordsArray = wordsArray;
-  //   stats.total;
-
-  //   this.localStatsDb
-  //     .put(stats)
-  //     .then(response => {
-  //       console.debug("stats saved");
-  //     })
-  //     .catch(err => {
-  //       console.error("error updating words stat");
-  //       console.error(err);
-  //     });
-  // };
 
   traceDatabase = () => {
     this.localStatsDb
@@ -134,22 +81,36 @@ export default class StatsFactory {
       });
   };
 
-  // todo 1. να είμαι αναγκασμένος να πρασινίζω την λέξη πριν πατήσω esc αν θέλω να καταγραφεί
-  // ως learned word
-  // 2. πρέπει κάθε φορά που έχουμε μία learned word (όταν πατιέται esc)
-  // να αυξάνεται κατά ένα το count της υπάρχουσας date και να τροποποιείται η entry
-  // στη βάση δεδομένων
-  // 3. σε δεύτερο στάδιο ίσως θα ήταν καλό να αποθηκεύεται όχι μόνο ο αριθμός των learned words
-  // αλλά και το ποιές είναι αυτές (τα ids) και αντί για μεταβλητή count στη βάση δεδομένων
-  // να επιστρέφεται το length του πινακα που περιέχει τα ids των learned words. Μετά στο onclick
-  // του heatmap να μπορείς σε ένα παραθυράκι να εμφανίζει ποιές λέξεις έμαθες κάθε μέρα
-  // 4. Να τραβάει από τη βάση stats για όσες μέρες του λέμε
+  increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
+    let id = "2017-08-3";
+    let total = 0;
 
+    this.localStatsDb
+      .upsert(id, doc => {
+        if (!doc.totalWordsLearned) {
+          doc.totalWordsLearned = 0;
+        }
+        doc.totalWordsLearned++;
+        total = doc.totalWordsLearned;
+        return doc;
+      })
+      .then(res => {
+        onSuccessCallback(total);
+      })
+      .catch(err => {
+        console.error("error inside increaseTotalWordsLearnedForTodayCount");
+        console.info(total);
+        console.error(err);
+      });
+  };
+
+  // todo
   // * να έχει ένα ταμπελάκι πράσινο ή κόκκινο κάθε λέξη ανάλογα με το αν είχε μεταφραστεί
   //   σωστά ή όχι την προηγούμενη φορά
-  // * να δείχνει το finished modal πόσες λέξεις έχει μάθει μέχρι σήμερα
   // * κάποτε αντί για esc να κάνω να αφαιρειται η λέξη με το -
-  // * Κάποτε πρέπει να κάνω ένα refactor στο οποίο να δημιουργήσω το Vocabulary ως class (τώρα έχω πίνακες)
+  // * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
+  //   και να έχει από ελληνικά σε γερμανικά. Tότε θα θεωρείται τελειωμένη μία session
+  // * όταν περνάς καινούρια λέξη να βγαίνει παραθυράκι που να λέει "4 λέξεις περάστηκαν ως τώρα"
 
   seedDatabase = () => {
     this.localStatsDb

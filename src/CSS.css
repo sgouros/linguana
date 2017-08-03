@@ -217,13 +217,14 @@ body {
   /*background: cyan;*/
 }
 
-.testArea__component__translationForm__sourceTerm {
+.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__true,
+.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__false {
+  position: relative;
   box-sizing: border-box;
   width: 95%;
   padding: 1vh 1vh 2.5vh 1vh;
   font-size: 12vh;
   margin-top: 1vh;
-  /*margin-bottom: 2vh;*/
   color: black;
 
   text-align: center;
@@ -234,10 +235,37 @@ body {
   border-top-left-radius: 2vh;
   -webkit-border-top-left-radius: 2vh;
   -moz-border-top-left-radius: 2vh;
+}
 
-  border-top-right-radius: 2vh;
-  -webkit-border-top-right-radius: 2vh;
-  -moz-border-top-right-radius: 2vh;
+.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__true:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 0.4em 0.4em 0;
+  border-style: solid;
+  border-color: #c3c59e #86ca00;
+}
+
+.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__false:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 0.4em 0.4em 0;
+  border-style: solid;
+  border-color: #c3c59e #f72a2a;
+}
+
+.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslatedLabel {
+  display: float;
+  top: 0px;
+  right: 0px;
+  align-self: right;
+  width: 50px;
+  height: 10px;
+  background-color: greenyellow;
+  right: 0px;
 }
 
 .testArea__component__translationForm__notes {
@@ -516,14 +544,17 @@ body {
 .finishModalImages {
   display: flex;
   width: 80%;
+  margin-top: -1em;
 }
 
 #finishModal {
   top: 5% !important;
+  padding: 0 1em 0 1em;
 }
 
 img.finishModalLinguanaFaceImg {
   max-width: 100%;
+  margin-top: -1em;
   height: auto;
   width: 20%;
   align-self: center;
@@ -593,8 +624,8 @@ img.finishModalLinguanaFaceImg {
 }
 
 .css-congratulations-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .app__searchResults__table--tdID {

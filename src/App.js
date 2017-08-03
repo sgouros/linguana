@@ -13,10 +13,10 @@ import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString } from "./components/helpers.js";
 
 // todo
-// * κάποτε αντί για esc να κάνω να αφαιρειται η λέξη με το -
+// * να βάζεις correct date στο heatmap
+// * μετά το session δεν γίνεται update το heatmap
 // * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
 //   και να έχει από ελληνικά σε γερμανικά. Tότε θα θεωρείται τελειωμένη μία session
-// * όταν περνάς καινούρια λέξη να βγαίνει παραθυράκι που να λέει "4 λέξεις περάστηκαν ως τώρα"
 
 export default class App extends Component {
   constructor() {
@@ -198,7 +198,7 @@ export default class App extends Component {
       if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
         this.totalWordsLearnedForTodayArray.push(wordLearned);
         this.statsFactory.increaseTotalWordsLearnedForTodayCount(
-          this.totalWordsLearnedForTodayCountUpdated
+          this.onTotalWordsLearnedForTodayCountUpdated
         );
       }
     } else {
@@ -213,9 +213,15 @@ export default class App extends Component {
     }
   };
 
-  totalWordsLearnedForTodayCountUpdated = count => {
-    console.info("increasing totalWordsLearnedForTodayCount to " + count);
-    this.setState({ totalWordsLearnedForTodayCount: count });
+  onTotalWordsLearnedForTodayCountUpdated = totalWordsLearned => {
+    this.statsFactory.requestStatsForCalendarHeatmap(
+      this.daysInHeatmap,
+      this.onStatsForCalendarHeatmapArrived
+    );
+
+    this.setState({
+      totalWordsLearnedForTodayCount: totalWordsLearned
+    });
   };
 
   arrayIncludesWordLearned = (theArray, wordLearned) => {
@@ -634,7 +640,7 @@ export default class App extends Component {
           : null}
         {this.state.showFinishModal
           ? <FinishModal
-              title={`Today you 've learned ${this.state.totalWordsLearnedForTodayCount} words today!`}
+              title={`You 've learned ${this.state.totalWordsLearnedForTodayCount} words today!`}
               content={this.constructFinishModalContent()}
               onClose={this.closeFinishModal}
             />

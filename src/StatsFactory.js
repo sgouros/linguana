@@ -84,7 +84,6 @@ export default class StatsFactory {
   increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
     let id = "2017-08-3";
     let total = 0;
-
     this.localStatsDb
       .upsert(id, doc => {
         if (!doc.totalWordsLearned) {
@@ -99,7 +98,6 @@ export default class StatsFactory {
       })
       .catch(err => {
         console.error("error inside increaseTotalWordsLearnedForTodayCount");
-        console.info(total);
         console.error(err);
       });
   };

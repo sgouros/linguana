@@ -164,7 +164,7 @@ export default class Testarea extends Component {
   };
 
   isSourceTermAlreadyCorrectlyTranslated = () => {
-    if (typeof this.props.vocabulary[this.state.current_voc_index] != "undefined") {
+    if (typeof this.props.vocabulary[this.state.current_voc_index] !== "undefined") {
       return this.props.vocabulary[this.state.current_voc_index].isCurrentlyCorrectlyTranslated;
     } else {
       return false;

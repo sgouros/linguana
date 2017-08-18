@@ -27,14 +27,14 @@ export default class VocabularyTable extends Component {
             {entry._id}
           </td>*/}
           <td className="app__searchResults__table--tdTranslation">
-            {entry.translation}
+            {entry.foreignTerm}
           </td>
           <td className="app__searchResults__table--tdTerm">
-            {entry.term}
+            {entry.nativeTerm}
           </td>
 
           <td className="app__searchResults__table--tdNotes">
-            {entry.notes}
+            {entry.foreignTermNotes}
           </td>
           <td className="app__searchResults__table--tdNumber" title="total successes">
             <div className="app__searchResults__table__totalSuccesses__circle">

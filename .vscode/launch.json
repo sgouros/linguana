@@ -4,21 +4,14 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Launch Chrome",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceRoot}/src"
-    },
-    {
-      "type": "chrome",
-      "request": "launch",
-      "name": "Launch Chrome against localhost",
+      "name": "Chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceRoot}/src"
     },
     {
       "type": "chrome",
       "request": "attach",
-      "name": "Attach to Chrome",
+      "name": "Debug in Chrome",
       "port": 9222,
       "webRoot": "${workspaceRoot}/src"
     }

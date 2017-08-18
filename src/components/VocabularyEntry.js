@@ -1,15 +1,24 @@
 export default class VocabularyEntry {
-  constructor(id, rev, term, translation, notes, totalSuccesses, totalFailures, totalTimesSelected) {
+  constructor(
+    id,
+    rev,
+    nativeTerm,
+    foreignTerm,
+    foreignTermNotes,
+    totalSuccesses,
+    totalFailures,
+    totalTimesSelected
+  ) {
     if (id === null) {
-      this._id = `${term}-${translation}`;
+      this._id = `${nativeTerm}-${foreignTerm}`;
     } else {
       this._id = id;
     }
 
     this._rev = rev;
-    this.term = term;
-    this.translation = translation;
-    this.notes = notes;
+    this.nativeTerm = nativeTerm;
+    this.foreignTerm = foreignTerm;
+    this.foreignTermNotes = foreignTermNotes;
     this.totalSuccesses = totalSuccesses;
     this.totalFailures = totalFailures;
     this.totalTimesSelected = totalTimesSelected;
@@ -19,9 +28,9 @@ export default class VocabularyEntry {
   trace() {
     console.info(`  tracing ${this._id}:`);
     console.info(`    this._rev: ${this._rev}`);
-    console.info(`    this.term: ${this.term}`);
-    console.info(`    this.translation: ${this.translation}`);
-    console.info(`    this.notes: ${this.notes}`);
+    console.info(`    this.nativeTerm: ${this.nativeTerm}`);
+    console.info(`    this.foreignTerm: ${this.foreignTerm}`);
+    console.info(`    this.foreignTermNotes: ${this.foreignTermNotes}`);
     console.info(`    this.totalFailures: ${this.totalFailures}`);
     console.info(`    this.totalSuccesses: ${this.totalSuccesses}`);
     console.info(`    this.totalTimesSelected: ${this.totalTimesSelected}`);

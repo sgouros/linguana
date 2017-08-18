@@ -5,44 +5,44 @@ import TranslationInputGR from "./TranslationInputGR.js";
 
 export default class VocabularyManager extends Component {
   state = {
-    currentTermInputValue: "",
-    currentTranslationInputValue: "",
-    currentNotesInputValue: ""
+    currentNativeTermInputValue: "",
+    currentForeignTermInputValue: "",
+    currentForeignTermNotesInputValue: ""
   };
 
-  handleTranslationInputChange = event => {
+  handleForeignTermInputChange = event => {
     this.setState({
-      currentTranslationInputValue: event.target.value
+      currentForeignTermInputValue: event.target.value
     });
   };
 
-  handleTermInputChange = event => {
+  handleNativeTermInputChange = event => {
     this.setState({
-      currentTermInputValue: event.target.value
+      currentNativeTermInputValue: event.target.value
     });
   };
 
-  handleNotesInputChange = event => {
+  handleForeignTermNotesInputChange = event => {
     this.setState({
-      currentNotesInputValue: event.target.value
+      currentForeignTermNotesInputValue: event.target.value
     });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    let term = this.state.currentTermInputValue;
-    let translation = this.state.currentTranslationInputValue;
-    let notes = this.state.currentNotesInputValue;
-    this.props.onNewEntrySubmitted(term, translation, notes);
+    let nativeTerm = this.state.currentNativeTermInputValue;
+    let foreignTerm = this.state.currentForeignTermInputValue;
+    let foreignTermNotes = this.state.currentForeignTermNotesInputValue;
+    this.props.onNewEntrySubmitted(nativeTerm, foreignTerm, foreignTermNotes);
     this.clearInputs();
     this.refs.vocabularyManagerTermInputDE.refs.input.focus();
   };
 
   clearInputs = () => {
     this.setState({
-      currentTermInputValue: "",
-      currentTranslationInputValue: "",
-      currentNotesInputValue: ""
+      currentNativeTermInputValue: "",
+      currentForeignTermInputValue: "",
+      currentForeignTermNotesInputValue: ""
     });
   };
 
@@ -55,8 +55,8 @@ export default class VocabularyManager extends Component {
           <div>
             <TranslationInputDE
               ref="vocabularyManagerTermInputDE"
-              currentInputValue={this.state.currentTermInputValue}
-              onChange={this.handleTermInputChange}
+              currentInputValue={this.state.currentForeignTermInputValue}
+              onChange={this.handleForeignTermInputChange}
               disableSpecialEscPress={true}
               disableSpecialPlusPress={true}
               inputClassName="app__vocabularyManagerComponent__form__termInputDE"
@@ -64,8 +64,8 @@ export default class VocabularyManager extends Component {
             {
               <TranslationInputDE
                 ref="vocabularyManagerNotesInput"
-                currentInputValue={this.state.currentNotesInputValue}
-                onChange={this.handleNotesInputChange}
+                currentInputValue={this.state.currentForeignTermNotesInputValue}
+                onChange={this.handleForeignTermNotesInputChange}
                 disableSpecialEscPress={true}
                 disableSpecialPlusPress={true}
                 inputClassName="app__vocabularyManagerComponent__form__notes"
@@ -77,8 +77,8 @@ export default class VocabularyManager extends Component {
           <div>
             <TranslationInputGR
               ref="vocabularyManagerTranslationInputGR"
-              currentInputValue={this.state.currentTranslationInputValue}
-              onChange={this.handleTranslationInputChange}
+              currentInputValue={this.state.currentNativeTermInputValue}
+              onChange={this.handleNativeTermInputChange}
               disableSpecialEscPress={true}
               disableSpecialPlusPress={true}
               inputClassName="app__vocabularyManagerComponent__form__translationInputGR"

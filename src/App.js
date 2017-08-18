@@ -11,6 +11,9 @@ import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString } from "./components/helpers.js";
+import DebugButtons from "./components/DebugButtons.js";
+import SearchForm from "./components/SearchForm.js";
+import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo
 // * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
@@ -134,7 +137,7 @@ export default class App extends Component {
     });
   };
 
-  traceTotalWordsLearnedForToday = () => {
+  traceTotalWordsLearnedForTodayPressed = () => {
     console.info(`total words learned for today length: ${this.totalWordsLearnedForTodayArray.length}`);
     this.totalWordsLearnedForTodayArray.map(item => {
       console.info("  " + item.id);
@@ -189,8 +192,8 @@ export default class App extends Component {
 
       let wordLearned = {
         id: entry._id,
-        term: entry.term,
-        translation: entry.translation
+        nativeTerm: entry.nativeTerm,
+        foreignTerm: entry.foreignTerm
       };
 
       if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
@@ -275,13 +278,13 @@ export default class App extends Component {
       return (
         <tr key={entry._id}>
           <td>
-            {entry.term}
+            {entry.nativeTerm}
           </td>
           <td>
-            {entry.translation}
+            {entry.foreignTerm}
           </td>
           <td>
-            {entry.notes}
+            {entry.foreignTermNotes}
           </td>
           <td className="td-correctTranslationsCount">
             {entry.totalSuccesses}
@@ -339,32 +342,38 @@ export default class App extends Component {
     });
   };
 
-  newEntrySubmitted = (term, translation, notes, newEntrySaveSucceeded, newEntrySaveFailed) => {
-    // console.debug(`submited ${term} with translation ${translation}`);
+  newEntrySubmitted = (
+    nativeTerm,
+    foreignTerm,
+    foreignTermNotes,
+    newEntrySaveSucceeded,
+    newEntrySaveFailed
+  ) => {
+    // console.debug(`submited ${nativeTerm} with translation ${foreignTerm}`);
 
     this.vocabularyFactory.addEntry(
-      term,
-      translation,
-      notes,
+      nativeTerm,
+      foreignTerm,
+      foreignTermNotes,
       this.newEntrySaveToDbSucceeded,
       this.newEntrySaveToDbFailed
     );
 
-    this.submittedEntriesFromVocabularyManager.push(`${term}-${translation}`);
+    this.submittedEntriesFromVocabularyManager.push(`${nativeTerm}-${foreignTerm}`);
   };
 
-  newEntrySaveToDbSucceeded = (term, translation, response) => {
-    console.info(`${term}-${translation} saved to DB. Response: ${JSON.stringify(response)}`);
-    this.addSuccessNotification(`Success!`, `Added ${term}-${translation} to database.`, 3);
+  newEntrySaveToDbSucceeded = (nativeTerm, foreignTerm, response) => {
+    console.info(`${nativeTerm}-${foreignTerm} saved to DB. Response: ${JSON.stringify(response)}`);
+    this.addSuccessNotification(`Success!`, `Added ${nativeTerm}-${foreignTerm} to database.`, 3);
   };
 
-  newEntrySaveToDbFailed = (term, translation, error) => {
+  newEntrySaveToDbFailed = (nativeTerm, foreignTerm, error) => {
     console.info(
-      `Failed to save ${term}-${translation} to DB. Error description: ${JSON.stringify(error)}`
+      `Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`
     );
 
     this.addErrorNotification(
-      `Failed to save ${term}-${translation}`,
+      `Failed to save ${nativeTerm}-${foreignTerm}`,
       `Error: ${JSON.stringify(error)}`
     );
   };
@@ -428,6 +437,7 @@ export default class App extends Component {
   };
 
   handleSearchInputOnChange = event => {
+    // todo: εδώ πρέπει να μπορεί να βρεί το refs του search input (το έχασε γιατί έκανα extract component)
     this.setState({ currentSearchInputValue: this.refs.searchInput.value });
   };
 
@@ -461,7 +471,7 @@ export default class App extends Component {
     });
 
     // delete entry from state vocabulary
-    console.info("--- deleting term from state vocabulary");
+    console.info("--- deleting entry from state vocabulary");
     let c = this.state.vocabulary.indexOf(vocabularyEntry);
     let newVocabulary = this.state.vocabulary.filter((entry, index) => index !== c);
     // this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
@@ -516,73 +526,26 @@ export default class App extends Component {
     return (
       <div className="app">
         <header className="app__header">
-          <div className="app__header__logo" onClick={this.goToStartPage}>
-            <img className="app__header__logo__logoImage" src="/img/logo.png" alt="linguana logo" />
-            <div className="app__header__logo__logoText"> Linguana </div>
-          </div>
-          <div className="app__header__debugButtons">
-            <div className="app__header__debugButtons__debugButton" onClick={this.resetDatabasePressed}>
-              reset DB
-            </div>
-            <div className="app__header__debugButtons__debugButton" onClick={this.seedDatabasePressed}>
-              seed DB
-            </div>
-            <div className="app__header__debugButtons__debugButton" onClick={this.traceDatabasePressed}>
-              trace db
-            </div>
-            <div
-              className="app__header__debugButtons__debugButton"
-              onClick={this.traceVocabularyPressed}
-            >
-              trace voc
-            </div>
-            <div
-              className="app__header__debugButtons__debugButton"
-              onClick={this.traceTotalWordsLearnedForToday}
-            >
-              trace total words
-            </div>
+          <HeaderLogo ifClicked={this.goToStartPage} />
 
-            <div className="app__header__debugButtons__debugButton" onClick={this.traceStatsPressed}>
-              trace stats
-            </div>
+          <DebugButtons
+            onResetDatabasePressed={this.resetDatabasePressed}
+            onSeedDatabasePressed={this.seedDatabasePressed}
+            onTraceDatabasePressed={this.traceDatabasePressed}
+            onTraceVocabularyPressed={this.traceVocabularyPressed}
+            onTraceTotalWordsLearnedForTodayPressed={this.traceTotalWordsLearnedForTodayPressed}
+            onResetStatsDatabasePressed={this.resetStatsDatabasePressed}
+            onSeedStatsDatabasePressed={this.seedStatsDatabasePressed}
+            onTraceStatsDatabasePressed={this.traceStatsDatabasePressed}
+          />
 
-            <div
-              className="app__header__debugButtons__debugButton"
-              onClick={this.resetStatsDatabasePressed}
-            >
-              reset Stats DB
-            </div>
-
-            <div
-              className="app__header__debugButtons__debugButton"
-              onClick={this.seedStatsDatabasePressed}
-            >
-              seed Stats DB
-            </div>
-
-            <div
-              className="app__header__debugButtons__debugButton"
-              onClick={this.traceStatsDatabasePressed}
-            >
-              trace Stats DB
-            </div>
-          </div>
-
-          <form className="app__header__searchForm" onSubmit={this.handleSearchSubmit}>
-            <input
-              ref="searchInput"
-              className="app__header__searchForm__searchInput"
-              name="searchInput"
-              type="text"
-              autoCorrect="off"
-              spellCheck="off"
-              value={this.state.currentSearchInputValue}
-              placeholder="αναζήτηση..."
-              onChange={this.handleSearchInputOnChange}
-            />
-          </form>
+          <SearchForm
+            currentSearchInputValue={this.state.currentSearchInputValue}
+            onInputChange={this.handleSearchInputOnChange}
+            onSubmitPressed={this.handleSearchSubmit}
+          />
         </header>
+
         <nav className="app__nav">
           <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
             start new session !

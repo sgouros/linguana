@@ -64,7 +64,7 @@ export default class Testarea extends Component {
   };
 
   translationIsCorrect = translation_typed => {
-    return translation_typed === this.getCorrectTranslation() ? true : false;
+    return translation_typed === this.getCorrectForeignTerm() ? true : false;
   };
 
   loadNextEntry = () => {
@@ -85,24 +85,24 @@ export default class Testarea extends Component {
     });
   };
 
-  getTerm = () => {
+  getNativeTerm = () => {
     if (this.props.vocabulary.length > 0) {
-      return this.props.vocabulary[this.state.current_voc_index].term;
+      return this.props.vocabulary[this.state.current_voc_index].nativeTerm;
     } else {
       return "";
     }
   };
 
-  getNotes = () => {
+  getForeignTermNotes = () => {
     if (this.props.vocabulary.length > 0) {
-      return this.props.vocabulary[this.state.current_voc_index].notes;
+      return this.props.vocabulary[this.state.current_voc_index].foreignTermNotes;
     } else {
       return "";
     }
   };
 
-  getCorrectTranslation = () => {
-    return this.props.vocabulary[this.state.current_voc_index].translation;
+  getCorrectForeignTerm = () => {
+    return this.props.vocabulary[this.state.current_voc_index].foreignTerm;
   };
 
   onEscPress = () => {
@@ -139,7 +139,7 @@ export default class Testarea extends Component {
   };
 
   getWordComparisonDialogContent = () => {
-    let correct = this.getCorrectTranslation();
+    let correct = this.getCorrectForeignTerm();
     let typed = this.state.currentTranslationInputValue;
     return (
       <div>
@@ -163,7 +163,7 @@ export default class Testarea extends Component {
     );
   };
 
-  isSourceTermAlreadyCorrectlyTranslated = () => {
+  isEntryAlreadyCorrectlyTranslated = () => {
     if (typeof this.props.vocabulary[this.state.current_voc_index] !== "undefined") {
       return this.props.vocabulary[this.state.current_voc_index].isCurrentlyCorrectlyTranslated;
     } else {
@@ -182,18 +182,20 @@ export default class Testarea extends Component {
 
         <form className="testArea__component__translationForm" onSubmit={this.handleSubmit}>
           {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
+
           <div
             className={
               "testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__" +
-              this.isSourceTermAlreadyCorrectlyTranslated()
+              this.isEntryAlreadyCorrectlyTranslated()
             }
           >
-            {this.getTerm()}
+            {this.getNativeTerm()}
           </div>
 
           <div className="testArea__component__translationForm__notes">
-            {this.getNotes()}
+            {this.getForeignTermNotes()}
           </div>
+
           <TranslationInputGR
             ref="translationInputGR"
             currentInputValue={this.state.currentTranslationInputValue}

@@ -86,9 +86,9 @@ export default class VocabularyFactory {
       return new VocabularyEntry(
         item._id,
         item._rev,
-        item.term,
-        item.translation,
-        item.notes,
+        item.nativeTerm,
+        item.foreignTerm,
+        item.foreignTermNotes,
         item.totalSuccesses,
         item.totalFailures,
         item.totalTimesSelected
@@ -97,15 +97,15 @@ export default class VocabularyFactory {
     return newVoc;
   };
 
-  addEntry = (term, translation, notes, onSuccess, onFailure) => {
-    let newEntry = new VocabularyEntry(null, null, term, translation, notes, 0, 0, 0);
+  addEntry = (nativeTerm, foreignTerm, foreignTermNotes, onSuccess, onFailure) => {
+    let newEntry = new VocabularyEntry(null, null, nativeTerm, foreignTerm, foreignTermNotes, 0, 0, 0);
     this.localVocDb
       .put(newEntry)
       .then(response => {
-        onSuccess(term, translation, response);
+        onSuccess(nativeTerm, foreignTerm, response);
       })
       .catch(error => {
-        onFailure(term, translation, error);
+        onFailure(nativeTerm, foreignTerm, error);
       });
   };
 
@@ -141,7 +141,7 @@ export default class VocabularyFactory {
           0,
           0
         ),
-        new VocabularyEntry("01ναι-ja", null, "ναι", "ja", null, 1, 1, 1),
+        new VocabularyEntry("01ναι-ja", null, "ναι", "ja", "", 1, 1, 1),
         new VocabularyEntry("02οθόνη-der Monitor", null, "οθόνη", "der Monitor", "", 1, 5, 6),
         new VocabularyEntry("03κατόπιν-anschließend", null, "κατόπιν", "anschließend", "note", 5, 2, 8),
         new VocabularyEntry("04ευγενικός-nett", null, "ευγενικός", "nett", "note2", 2, 0, 7),
@@ -199,16 +199,16 @@ export default class VocabularyFactory {
     this.localVocDb
       .createIndex({
         index: {
-          fields: ["term", "translation", "notes"]
+          fields: ["nativeTerm", "foreignTerm", "foreignTermNotes"]
         }
       })
       .then(() => {
         return this.localVocDb.find({
           selector: {
             $or: [
-              { term: { $regex: searchTermRegex } },
-              { translation: { $regex: searchTermRegex } },
-              { notes: { $regex: searchTermRegex } }
+              { nativeTerm: { $regex: searchTermRegex } },
+              { foreignTerm: { $regex: searchTermRegex } },
+              { foreignTermNotes: { $regex: searchTermRegex } }
             ]
           },
           limit: 20

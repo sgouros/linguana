@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-import TranslationInputGR from "./TranslationInputGR.js";
-
 import WordComparisonDialog from "./WordComparisonDialog.js";
+import TranslationForm from "./TranslationForm.js";
 
 export default class Testarea extends Component {
   static propTypes = {
@@ -48,7 +46,7 @@ export default class Testarea extends Component {
     let entry_index = this.state.current_voc_index;
 
     if (this.translationIsCorrect(this.state.currentTranslationInputValue)) {
-      console.debug("correct translation");
+      console.info("correct translation");
       this.props.onSuccessfulTranslation(entry_index);
       this.loadNextEntry();
     } else {
@@ -135,7 +133,7 @@ export default class Testarea extends Component {
   closeWordComparisonDialog = () => {
     this.setState({ showWordComparisonDialog: false });
     this.loadNextEntry();
-    this.refs.translationInputGR.refs.input.focus();
+    this.refs.translationForm.refs.translationInputGR.refs.input.focus();
   };
 
   getWordComparisonDialogContent = () => {
@@ -179,33 +177,18 @@ export default class Testarea extends Component {
           src={this.state.correctTranslation ? "/img/correct.png" : "/img/wrong.png"}
           alt="linguana"
         />
-
-        <form className="testArea__component__translationForm" onSubmit={this.handleSubmit}>
-          {console.debug(`\nshowing vocabulary index: ${this.state.current_voc_index}`)}
-
-          <div
-            className={
-              "testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__" +
-              this.isEntryAlreadyCorrectlyTranslated()
-            }
-          >
-            {this.getNativeTerm()}
-          </div>
-
-          <div className="testArea__component__translationForm__notes">
-            {this.getForeignTermNotes()}
-          </div>
-
-          <TranslationInputGR
-            ref="translationInputGR"
-            currentInputValue={this.state.currentTranslationInputValue}
-            onChange={this.handleTranslationInputChange}
-            onEscPress={this.onEscPress}
-            onPlusPress={this.onPlusPress}
-            correctTranslation={this.state.correctTranslation}
-            inputClassName="testArea__component__translationForm__translationInputGR"
-          />
-        </form>
+        <TranslationForm
+          ref="translationForm"
+          onSubmit={this.handleSubmit}
+          isEntryAlreadyCorrectlyTranslated={this.isEntryAlreadyCorrectlyTranslated()}
+          nativeTerm={this.getNativeTerm()}
+          foreignTermNotes={this.getForeignTermNotes()}
+          currentInputValue={this.state.currentTranslationInputValue}
+          onTranslationInputChange={this.handleTranslationInputChange}
+          onEscPress={this.onEscPress}
+          onPlusPress={this.onPlusPress}
+          correctTranslation={this.state.correctTranslation}
+        />
 
         {this.state.showWordComparisonDialog
           ? <WordComparisonDialog

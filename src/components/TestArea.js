@@ -69,7 +69,7 @@ export default class Testarea extends Component {
     const currentIndex = this.state.current_voc_index;
     const lastVocIndex = this.props.vocabulary.length - 1;
     const nextIndex = currentIndex === lastVocIndex ? 0 : currentIndex + 1;
-    console.debug(`Advancing to next entry (index ${nextIndex})`);
+    console.debug(`inside loadNextEntry: Advancing to next entry (index ${nextIndex})`);
     this.clearInput();
     this.setState({
       current_voc_index: nextIndex

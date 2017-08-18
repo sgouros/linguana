@@ -204,7 +204,7 @@ body {
   margin-left: -4vh;
 }
 
-.testArea__component__translationForm {
+.translationForm {
   display: flex;
   width: 82%;
   padding-top: 1.5%;
@@ -217,8 +217,8 @@ body {
   /*background: cyan;*/
 }
 
-.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__true,
-.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__false {
+.translationForm__entryAlreadyCorrectlyTranslated__true,
+.translationForm__entryAlreadyCorrectlyTranslated__false {
   position: relative;
   box-sizing: border-box;
   width: 95%;
@@ -237,7 +237,7 @@ body {
   -moz-border-top-left-radius: 2vh;
 }
 
-.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__true:before {
+.translationForm__entryAlreadyCorrectlyTranslated__true:before {
   content: "";
   position: absolute;
   top: 0;
@@ -247,7 +247,7 @@ body {
   border-color: #c3c59e #86ca00;
 }
 
-.testArea__component__translationForm__sourceTerm__alreadyCorrectlyTranslated__false:before {
+.translationForm__entryAlreadyCorrectlyTranslated__false:before {
   content: "";
   position: absolute;
   top: 0;
@@ -268,7 +268,7 @@ body {
   right: 0px;
 }
 
-.testArea__component__translationForm__notes {
+.translationForm__foreignTermNotes {
   box-sizing: border-box;
   width: 95%;
   padding: 1.5vh 0.5vh 1.5vh 0.5vh;
@@ -291,7 +291,7 @@ body {
   -moz-border-bottom-left-radius: 2vh;
 }
 
-.testArea__component__translationForm__translationInputGR {
+.translationForm__translationInputGR {
   text-align: center;
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
@@ -309,7 +309,7 @@ body {
   -webkit-text-stroke-color: black;
 }
 
-.testArea__component__translationForm__translationInputGR:focus {
+.translationForm__translationInputGR:focus {
   outline: 0 none;
 }
 

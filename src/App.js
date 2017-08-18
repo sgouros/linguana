@@ -118,7 +118,7 @@ export default class App extends Component {
 
   closeStartingSummaryModal = () => {
     this.setState({ showStartModal: false });
-    this.refs.testArea.refs.translationInputGR.refs.input.focus();
+    this.refs.testArea.refs.translationForm.refs.translationInputGR.refs.input.focus();
   };
 
   newSession = () => {

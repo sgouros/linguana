@@ -10,14 +10,16 @@ export default class Testarea extends Component {
     onFailedTranslation: PropTypes.func,
     onEscPress: PropTypes.func,
     onLastEscPress: PropTypes.func,
-    onPlusPress: PropTypes.func
+    onPlusPress: PropTypes.func,
+    fromNativeToForeign: PropTypes.bool
   };
 
   state = {
     currentTranslationInputValue: "",
     current_voc_index: 0,
     correctTranslation: false,
-    showWordComparisonDialog: false
+    showWordComparisonDialog: false,
+    fromNativeToForeign: false
   };
 
   handleTranslationInputChange = event => {
@@ -62,7 +64,11 @@ export default class Testarea extends Component {
   };
 
   translationIsCorrect = translation_typed => {
-    return translation_typed === this.getCorrectForeignTerm() ? true : false;
+    if (this.state.fromNativeToForeign) {
+      return translation_typed === this.getCorrectForeignTerm() ? true : false;
+    } else {
+      return translation_typed === this.getCorrectNativeTerm() ? true : false;
+    }
   };
 
   loadNextEntry = () => {
@@ -91,6 +97,14 @@ export default class Testarea extends Component {
     }
   };
 
+  getForeignTerm = () => {
+    if (this.props.vocabulary.length > 0) {
+      return this.props.vocabulary[this.state.current_voc_index].foreignTerm;
+    } else {
+      return "";
+    }
+  };
+
   getForeignTermNotes = () => {
     if (this.props.vocabulary.length > 0) {
       return this.props.vocabulary[this.state.current_voc_index].foreignTermNotes;
@@ -101,6 +115,10 @@ export default class Testarea extends Component {
 
   getCorrectForeignTerm = () => {
     return this.props.vocabulary[this.state.current_voc_index].foreignTerm;
+  };
+
+  getCorrectNativeTerm = () => {
+    return this.props.vocabulary[this.state.current_voc_index].nativeTerm;
   };
 
   onEscPress = () => {
@@ -133,11 +151,13 @@ export default class Testarea extends Component {
   closeWordComparisonDialog = () => {
     this.setState({ showWordComparisonDialog: false });
     this.loadNextEntry();
-    this.refs.translationForm.refs.translationInputGR.refs.input.focus();
+    this.refs.translationForm.refs.translationInput.refs.input.focus();
   };
 
   getWordComparisonDialogContent = () => {
-    let correct = this.getCorrectForeignTerm();
+    let correct = this.state.fromNativeToForeign
+      ? this.getCorrectForeignTerm()
+      : this.getCorrectNativeTerm();
     let typed = this.state.currentTranslationInputValue;
     return (
       <div>
@@ -182,12 +202,14 @@ export default class Testarea extends Component {
           onSubmit={this.handleSubmit}
           isEntryAlreadyCorrectlyTranslated={this.isEntryAlreadyCorrectlyTranslated()}
           nativeTerm={this.getNativeTerm()}
+          foreignTerm={this.getForeignTerm()}
           foreignTermNotes={this.getForeignTermNotes()}
           currentInputValue={this.state.currentTranslationInputValue}
           onTranslationInputChange={this.handleTranslationInputChange}
           onEscPress={this.onEscPress}
           onPlusPress={this.onPlusPress}
           correctTranslation={this.state.correctTranslation}
+          fromNativeToForeign={this.state.fromNativeToForeign}
         />
 
         {this.state.showWordComparisonDialog

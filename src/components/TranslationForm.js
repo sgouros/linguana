@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TranslationInputGR from "./TranslationInputGR.js";
+import TranslationInputDE from "./TranslationInputDE.js";
 
 export default class TranslationForm extends Component {
   // todo: να διορθωθούν τα css class names
@@ -11,26 +12,53 @@ export default class TranslationForm extends Component {
   };
 
   render() {
-    return (
-      <form className="translationForm" onSubmit={this.props.onSubmit}>
-        <div className={this.getCssClassForSourceTerm()}>
-          {this.props.nativeTerm}
-        </div>
+    let form;
+    if (this.props.fromNativeToForeign) {
+      form = (
+        <form className="translationForm" onSubmit={this.props.onSubmit}>
+          <div className={this.getCssClassForSourceTerm()}>
+            {this.props.nativeTerm}
+          </div>
 
-        <div className="translationForm__foreignTermNotes">
-          {this.props.foreignTermNotes}
-        </div>
+          <div className="translationForm__foreignTermNotes">
+            {this.props.foreignTermNotes}
+          </div>
 
-        <TranslationInputGR
-          ref="translationInputGR"
-          currentInputValue={this.props.currentInputValue}
-          onChange={this.props.onTranslationInputChange}
-          onEscPress={this.props.onEscPress}
-          onPlusPress={this.props.onPlusPress}
-          correctTranslation={this.props.correctTranslation}
-          inputClassName="translationForm__translationInputGR"
-        />
-      </form>
-    );
+          <TranslationInputDE
+            ref="translationInput"
+            currentInputValue={this.props.currentInputValue}
+            onChange={this.props.onTranslationInputChange}
+            onEscPress={this.props.onEscPress}
+            onPlusPress={this.props.onPlusPress}
+            correctTranslation={this.props.correctTranslation}
+            inputClassName="translationForm__translationInput"
+          />
+        </form>
+      );
+    } else {
+      form = (
+        <form className="translationForm" onSubmit={this.props.onSubmit}>
+          <div className={this.getCssClassForSourceTerm()}>
+            {this.props.foreignTerm}
+          </div>
+
+          <div className="translationForm__foreignTermNotes">
+            {this.props.foreignTermNotes}
+          </div>
+
+          <TranslationInputGR
+            ref="translationInput"
+            currentInputValue={this.props.currentInputValue}
+            onChange={this.props.onTranslationInputChange}
+            onEscPress={this.props.onEscPress}
+            onPlusPress={this.props.onPlusPress}
+            correctTranslation={this.props.correctTranslation}
+            inputClassName="translationForm__translationInput"
+          />
+        </form>
+      );
+    }
+
+    return form;
   }
 }

@@ -291,7 +291,7 @@ body {
   -moz-border-bottom-left-radius: 2vh;
 }
 
-.translationForm__translationInputGR {
+.translationForm__translationInput {
   text-align: center;
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
@@ -309,7 +309,7 @@ body {
   -webkit-text-stroke-color: black;
 }
 
-.translationForm__translationInputGR:focus {
+.translationForm__translationInput:focus {
   outline: 0 none;
 }
 

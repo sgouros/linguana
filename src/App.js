@@ -185,6 +185,10 @@ export default class App extends Component {
   handleEscPress = currentIndex => {
     let entry = this.state.vocabulary[currentIndex];
     let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
+    // todo: αρχικά να πηγαίνει fromForeignToNative αλλά να ΜΗΝ αποθηκεύει stats
+    // όταν τελειώνουν αυτές οι λέξεις να βγαινει παράθυρο που να λέει ΟΚ και τώρα ανάποδα
+    // σε αυτή τη φάση όταν πατάμε esc οι λέξεις θα αποθηκεύονται ως stats
+    // όταν τελειώσουν πάλι όλες οι λέξεις, τότε τελειώνει ολοκληρωτικά και το session
 
     // αυτό είναι true ακόμη και αν ο όρος είχε μεταφραστεί σωστά την ΠΡΟΗΓΟΥΜΕΝΗ φορά
     if (entry.isCurrentlyCorrectlyTranslated) {
@@ -437,8 +441,7 @@ export default class App extends Component {
   };
 
   handleSearchInputOnChange = event => {
-    // todo: εδώ πρέπει να μπορεί να βρεί το refs του search input (το έχασε γιατί έκανα extract component)
-    this.setState({ currentSearchInputValue: this.refs.searchInput.value });
+    this.setState({ currentSearchInputValue: this.refs.searchForm.refs.searchInput.value });
   };
 
   handleSearchSubmit = event => {
@@ -540,6 +543,7 @@ export default class App extends Component {
           />
 
           <SearchForm
+            ref="searchForm"
             currentSearchInputValue={this.state.currentSearchInputValue}
             onInputChange={this.handleSearchInputOnChange}
             onSubmitPressed={this.handleSearchSubmit}

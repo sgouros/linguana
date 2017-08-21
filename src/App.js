@@ -16,10 +16,6 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
-// todo
-// * αρχίζει η session από γερμανικά σε ελληνικά. Mόλις τελειώσουν τα ελληνικά να αλλάζει
-//   και να έχει από ελληνικά σε γερμανικά. Tότε θα θεωρείται τελειωμένη μία session
-
 export default class App extends Component {
   constructor() {
     super();
@@ -144,7 +140,7 @@ export default class App extends Component {
   newSemiSession = () => {
     console.info("\n\n-------- new SEMI Session:");
     this.setState({
-      vocabulary: this.allSelectedEntries,
+      vocabulary: this.filterSuccessfullSelectedEntries(),
       showStartModal: false,
       showSemiFinishModal: false,
       showTestArea: true,
@@ -157,6 +153,13 @@ export default class App extends Component {
       searchResults: []
     });
     this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
+  };
+
+  filterSuccessfullSelectedEntries = () => {
+    let filteredEntries = this.allSelectedEntries.filter(entry => entry.isCurrentlyCorrectlyTranslated);
+    filteredEntries.map(entry => entry.failure());
+    console.info(filteredEntries);
+    return filteredEntries;
   };
 
   traceTotalWordsLearnedForTodayPressed = () => {
@@ -191,9 +194,11 @@ export default class App extends Component {
 
   recordSuccessfulTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
-    console.info("RECORDING successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
-    this.vocabularyFactory.updateEntry(new_voc[entry_index]);
+    if (this.state.fromNativeToForeign) {
+      console.info("RECORDING successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
+      this.vocabularyFactory.updateEntry(new_voc[entry_index]);
+    }
     this.setState({ vocabulary: new_voc });
   };
 
@@ -207,10 +212,6 @@ export default class App extends Component {
   handleEscPress = currentIndex => {
     let entry = this.state.vocabulary[currentIndex];
     let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
-    // todo: αρχικά να πηγαίνει fromForeignToNative αλλά να ΜΗΝ αποθηκεύει stats
-    // όταν τελειώνουν αυτές οι λέξεις να βγαινει παράθυρο που να λέει ΟΚ και τώρα ανάποδα
-    // σε αυτή τη φάση όταν πατάμε esc οι λέξεις θα αποθηκεύονται ως stats
-    // όταν τελειώσουν πάλι όλες οι λέξεις, τότε τελειώνει ολοκληρωτικά και το session
 
     // αυτό είναι true ακόμη και αν ο όρος είχε μεταφραστεί σωστά την ΠΡΟΗΓΟΥΜΕΝΗ φορά
     if (entry.isCurrentlyCorrectlyTranslated) {
@@ -246,9 +247,7 @@ export default class App extends Component {
 
     if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
       this.totalWordsLearnedForTodayArray.push(wordLearned);
-      this.statsFactory.increaseTotalWordsLearnedForTodayCount(
-        this.onTotalWordsLearnedForTodayCountUpdated
-      );
+      this.statsFactory.increaseTotalWordsLearnedForTodayCount(this.onTotalWordsLearnedForTodayCountUpdated);
     }
   };
 
@@ -353,11 +352,7 @@ export default class App extends Component {
       <div>
         <div className="finishModalImages">
           <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
-          <img
-            className="css-congratulations-img"
-            src="/img/congratulations.jpg"
-            alt="congratulations"
-          />
+          <img className="css-congratulations-img" src="/img/congratulations.jpg" alt="congratulations" />
         </div>
       </div>
     );
@@ -651,7 +646,7 @@ export default class App extends Component {
           : null}
         {this.state.showFinishModal
           ? <FinishModal
-              title={`You 've learned ${this.state.totalWordsLearnedForTodayCount} words today!`}
+              title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
               content={this.constructFinishModalContent()}
               onClose={this.closeFinishModal}
             />

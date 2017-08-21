@@ -18,11 +18,11 @@ export default class SemiFinishModal extends Component {
           dismissOnBackgroundClick={true}
           width="60%"
         >
-          <h1>
-            {this.props.title}
-          </h1>
-          <div>
-            {this.props.content}
+          <div className="semiFinishModal">
+            <img className="semiFinishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
+            <h1>
+              {this.props.title}
+            </h1>
           </div>
         </ModalDialog>
       </ModalContainer>

@@ -3,8 +3,6 @@ import TranslationInputGR from "./TranslationInputGR.js";
 import TranslationInputDE from "./TranslationInputDE.js";
 
 export default class TranslationForm extends Component {
-  // todo: να διορθωθούν τα css class names
-
   getCssClassForSourceTerm = () => {
     return (
       "translationForm__entryAlreadyCorrectlyTranslated__" + this.props.isEntryAlreadyCorrectlyTranslated

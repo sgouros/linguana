@@ -25,7 +25,6 @@ export default class App extends Component {
       showTestArea: false,
       showStartModal: false,
       showFinishModal: false,
-      showSemiFihishModalModal: false,
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
@@ -65,7 +64,6 @@ export default class App extends Component {
       showTestArea: false,
       showStartModal: false,
       showFinishModal: false,
-      showSemiFinishModal: false,
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
@@ -121,6 +119,11 @@ export default class App extends Component {
     this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
   };
 
+  closeSemiFinishModal = () => {
+    this.setState({ showSemiFinishModal: false });
+    this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
+  };
+
   newSession = () => {
     console.info("\n\n-------- new Session:");
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
@@ -139,26 +142,39 @@ export default class App extends Component {
 
   newSemiSession = () => {
     console.info("\n\n-------- new SEMI Session:");
+    let correctWordsFromPreviousSemiSession = this.filterSuccessfullSelectedEntries();
+
     this.setState({
-      vocabulary: this.filterSuccessfullSelectedEntries(),
       showStartModal: false,
-      showSemiFinishModal: false,
-      showTestArea: true,
       isStartModalLoading: false,
       showSearchResults: false,
       showVocabularyManager: false,
       currentSearchInputValue: "",
-      showStatistics: false,
       fromNativeToForeign: true,
       searchResults: []
     });
-    this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
+
+    if (correctWordsFromPreviousSemiSession.length > 0) {
+      this.setState({
+        vocabulary: correctWordsFromPreviousSemiSession,
+        showSemiFinishModal: true,
+        showTestArea: true,
+        showStatistics: false,
+        showFinishModal: false
+      });
+    } else {
+      this.setState({
+        vocabulary: [],
+        showTestArea: false,
+        showStatistics: true,
+        showFinishModal: true
+      });
+    }
   };
 
   filterSuccessfullSelectedEntries = () => {
     let filteredEntries = this.allSelectedEntries.filter(entry => entry.isCurrentlyCorrectlyTranslated);
     filteredEntries.map(entry => entry.failure());
-    console.info(filteredEntries);
     return filteredEntries;
   };
 
@@ -194,16 +210,15 @@ export default class App extends Component {
 
   recordSuccessfulTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
+    console.info("Recording successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
-    if (this.state.fromNativeToForeign) {
-      console.info("RECORDING successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
-      this.vocabularyFactory.updateEntry(new_voc[entry_index]);
-    }
+    this.vocabularyFactory.updateEntry(new_voc[entry_index]);
     this.setState({ vocabulary: new_voc });
   };
 
   recordFailedTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
+    console.info("Recording failed translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].failure();
     this.vocabularyFactory.updateEntry(new_voc[entry_index]);
     this.setState({ vocabulary: new_voc });
@@ -221,7 +236,7 @@ export default class App extends Component {
         this.saveStatsOfLearnedWord(entry);
       }
     } else {
-      console.debug(`esc pressed and ${entry._id} is NOT correctly translated`);
+      console.info(`esc pressed and ${entry._id} is NOT correctly translated`);
     }
     this.removeEntryFromVocabulary(currentIndex);
 
@@ -231,9 +246,7 @@ export default class App extends Component {
           showFinishModal: true
         });
       } else {
-        this.setState({
-          showSemiFinishModal: true
-        });
+        this.newSemiSession();
       }
     }
   };
@@ -353,16 +366,6 @@ export default class App extends Component {
         <div className="finishModalImages">
           <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
           <img className="css-congratulations-img" src="/img/congratulations.jpg" alt="congratulations" />
-        </div>
-      </div>
-    );
-  };
-
-  constructSemiFinishModalContent = () => {
-    return (
-      <div>
-        <div className="finishModalImages">
-          <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
         </div>
       </div>
     );
@@ -651,14 +654,14 @@ export default class App extends Component {
               onClose={this.closeFinishModal}
             />
           : null}
-
         {this.state.showSemiFinishModal
           ? <SemiFinishModal
-              title={`Very good! Now let's try the oposite.`}
-              content={this.constructSemiFinishModalContent()}
-              onClose={this.newSemiSession}
+              title={`Ok now let's try the oposite!`}
+              content=""
+              onClose={this.closeSemiFinishModal}
             />
           : null}
+
         {this.state.showTestArea &&
           <footer className="app__footer">
             <Stats

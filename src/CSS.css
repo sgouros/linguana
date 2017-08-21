@@ -577,6 +577,19 @@ img.finishModalLinguanaFaceImg {
   padding-right: 2%;
 }
 
+.semiFinishModal {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.semiFinishModalLinguanaFaceImg {
+  width: 65%;
+}
+
+.semiFinishModal > h1 {
+  align-self: center;
+}
+
 #VocabularyManagerSubmitButton {
   visibility: hidden;
 }

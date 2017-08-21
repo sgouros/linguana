@@ -154,9 +154,7 @@ export default class Testarea extends Component {
   };
 
   getWordComparisonDialogContent = () => {
-    let correct = this.props.fromNativeToForeign
-      ? this.getCorrectForeignTerm()
-      : this.getCorrectNativeTerm();
+    let correct = this.props.fromNativeToForeign ? this.getCorrectForeignTerm() : this.getCorrectNativeTerm();
     let typed = this.state.currentTranslationInputValue;
     return (
       <div>

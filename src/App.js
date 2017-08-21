@@ -4,6 +4,7 @@ import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
 import FinishModal from "./components/FinishModal.js";
+import SemiFinishModal from "./components/SemiFinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
@@ -28,6 +29,7 @@ export default class App extends Component {
       showTestArea: false,
       showStartModal: false,
       showFinishModal: false,
+      showSemiFihishModalModal: false,
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
@@ -67,13 +69,15 @@ export default class App extends Component {
       showTestArea: false,
       showStartModal: false,
       showFinishModal: false,
+      showSemiFinishModal: false,
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
       currentSearchInputValue: "",
       searchResults: [],
       showSearchResults: false,
-      showStatistics: true
+      showStatistics: true,
+      fromNativeToForeign: false
     });
   };
 
@@ -122,7 +126,7 @@ export default class App extends Component {
   };
 
   newSession = () => {
-    console.info("\n\n-------- NEW SESSION:");
+    console.info("\n\n-------- new Session:");
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
     this.allSelectedEntries = [];
     this.setState({
@@ -135,6 +139,24 @@ export default class App extends Component {
       showStatistics: false,
       searchResults: []
     });
+  };
+
+  newSemiSession = () => {
+    console.info("\n\n-------- new SEMI Session:");
+    this.setState({
+      vocabulary: this.allSelectedEntries,
+      showStartModal: false,
+      showSemiFinishModal: false,
+      showTestArea: true,
+      isStartModalLoading: false,
+      showSearchResults: false,
+      showVocabularyManager: false,
+      currentSearchInputValue: "",
+      showStatistics: false,
+      fromNativeToForeign: true,
+      searchResults: []
+    });
+    this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
   };
 
   traceTotalWordsLearnedForTodayPressed = () => {
@@ -194,17 +216,8 @@ export default class App extends Component {
     if (entry.isCurrentlyCorrectlyTranslated) {
       console.info(`esc pressed and ${entry._id} is correctly translated`);
 
-      let wordLearned = {
-        id: entry._id,
-        nativeTerm: entry.nativeTerm,
-        foreignTerm: entry.foreignTerm
-      };
-
-      if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
-        this.totalWordsLearnedForTodayArray.push(wordLearned);
-        this.statsFactory.increaseTotalWordsLearnedForTodayCount(
-          this.onTotalWordsLearnedForTodayCountUpdated
-        );
+      if (this.state.fromNativeToForeign) {
+        this.saveStatsOfLearnedWord(entry);
       }
     } else {
       console.debug(`esc pressed and ${entry._id} is NOT correctly translated`);
@@ -212,9 +225,30 @@ export default class App extends Component {
     this.removeEntryFromVocabulary(currentIndex);
 
     if (thisIsTheLastVocWord) {
-      this.setState({
-        showFinishModal: true
-      });
+      if (this.state.fromNativeToForeign) {
+        this.setState({
+          showFinishModal: true
+        });
+      } else {
+        this.setState({
+          showSemiFinishModal: true
+        });
+      }
+    }
+  };
+
+  saveStatsOfLearnedWord = entry => {
+    let wordLearned = {
+      id: entry._id,
+      nativeTerm: entry.nativeTerm,
+      foreignTerm: entry.foreignTerm
+    };
+
+    if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
+      this.totalWordsLearnedForTodayArray.push(wordLearned);
+      this.statsFactory.increaseTotalWordsLearnedForTodayCount(
+        this.onTotalWordsLearnedForTodayCountUpdated
+      );
     }
   };
 
@@ -329,11 +363,22 @@ export default class App extends Component {
     );
   };
 
+  constructSemiFinishModalContent = () => {
+    return (
+      <div>
+        <div className="finishModalImages">
+          <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
+        </div>
+      </div>
+    );
+  };
+
   closeFinishModal = () => {
     this.setState({
       showFinishModal: false,
       showTestArea: false,
-      showStatistics: true
+      showStatistics: true,
+      fromNativeToForeign: false
     });
   };
 
@@ -586,6 +631,7 @@ export default class App extends Component {
               onFailedTranslation={this.recordFailedTranslation}
               onEscPress={this.handleEscPress}
               onPlusPress={this.addEntryToVocabulary}
+              fromNativeToForeign={this.state.fromNativeToForeign}
             />}
           {this.state.showVocabularyManager &&
             <VocabularyManager
@@ -608,6 +654,14 @@ export default class App extends Component {
               title={`You 've learned ${this.state.totalWordsLearnedForTodayCount} words today!`}
               content={this.constructFinishModalContent()}
               onClose={this.closeFinishModal}
+            />
+          : null}
+
+        {this.state.showSemiFinishModal
+          ? <SemiFinishModal
+              title={`Very good! Now let's try the oposite.`}
+              content={this.constructSemiFinishModalContent()}
+              onClose={this.newSemiSession}
             />
           : null}
         {this.state.showTestArea &&

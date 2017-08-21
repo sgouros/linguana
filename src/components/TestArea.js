@@ -18,8 +18,7 @@ export default class Testarea extends Component {
     currentTranslationInputValue: "",
     current_voc_index: 0,
     correctTranslation: false,
-    showWordComparisonDialog: false,
-    fromNativeToForeign: false
+    showWordComparisonDialog: false
   };
 
   handleTranslationInputChange = event => {
@@ -64,7 +63,7 @@ export default class Testarea extends Component {
   };
 
   translationIsCorrect = translation_typed => {
-    if (this.state.fromNativeToForeign) {
+    if (this.props.fromNativeToForeign) {
       return translation_typed === this.getCorrectForeignTerm() ? true : false;
     } else {
       return translation_typed === this.getCorrectNativeTerm() ? true : false;
@@ -155,7 +154,7 @@ export default class Testarea extends Component {
   };
 
   getWordComparisonDialogContent = () => {
-    let correct = this.state.fromNativeToForeign
+    let correct = this.props.fromNativeToForeign
       ? this.getCorrectForeignTerm()
       : this.getCorrectNativeTerm();
     let typed = this.state.currentTranslationInputValue;
@@ -209,7 +208,7 @@ export default class Testarea extends Component {
           onEscPress={this.onEscPress}
           onPlusPress={this.onPlusPress}
           correctTranslation={this.state.correctTranslation}
-          fromNativeToForeign={this.state.fromNativeToForeign}
+          fromNativeToForeign={this.props.fromNativeToForeign}
         />
 
         {this.state.showWordComparisonDialog

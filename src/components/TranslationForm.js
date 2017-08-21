@@ -32,6 +32,7 @@ export default class TranslationForm extends Component {
             onPlusPress={this.props.onPlusPress}
             correctTranslation={this.props.correctTranslation}
             inputClassName="translationForm__translationInput"
+            disableSpecialPlusPress={this.props.fromNativeToForeign}
           />
         </form>
       );
@@ -54,6 +55,7 @@ export default class TranslationForm extends Component {
             onPlusPress={this.props.onPlusPress}
             correctTranslation={this.props.correctTranslation}
             inputClassName="translationForm__translationInput"
+            disableSpecialPlusPress={this.props.fromNativeToForeign}
           />
         </form>
       );

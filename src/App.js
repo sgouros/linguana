@@ -17,8 +17,8 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//        * να δω αν συγχρονίζουν οι βάσεις δεδομένων
 //        * να ανεβεί στο επίσημο site
+//        * να δω αν συγχρονίζουν οι βάσεις δεδομένων
 //        * να έχω διαφορετικούς users?
 //        * να κάνω refactor σε display components + layout components
 //        * να βάλω στο παιχνίδι τις routes
@@ -43,7 +43,8 @@ export default class App extends Component {
       showStatistics: true,
       heatmapStats: [],
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
-      totalWordsLearnedForTodayCount: 0
+      totalWordsLearnedForTodayCount: 0,
+      pageNotFound: true
     };
 
     this.totalWordsLearnedForTodayArray = [];
@@ -51,6 +52,9 @@ export default class App extends Component {
   }
 
   notifications = null;
+
+  passKeyAlreadyPressed = false;
+  passKeyTimeout = 0;
 
   notificationsStyle = {
     NotificationItem: {
@@ -577,109 +581,139 @@ export default class App extends Component {
     return "color-github-1";
   };
 
+  handlePassKeyDown = event => {
+    if (event.keyCode === 71) {
+      console.info("pressed");
+      if (this.passKeyAlreadyPressed) {
+        this.resetPassKeyPress();
+        this.setState({ pageNotFound: false });
+      } else {
+        this.passKeyAlreadyPressed = true;
+        this.passKeyTimeout = setTimeout(this.resetPassKeyPress, 190);
+      }
+    }
+  };
+
+  resetPassKeyPress = () => {
+    clearTimeout(this.passKeyTimeout);
+    this.passKeyTimeout = 0;
+    this.passKeyAlreadyPressed = false;
+  };
+
   render() {
-    return (
-      <div className="app">
-        <header className="app__header">
-          <HeaderLogo ifClicked={this.goToStartPage} />
+    if (this.state.pageNotFound) {
+      return (
+        <div>
+          <h1> Under Costruction!</h1>
+          <img src="/img/construction.png" alt="page under construction" />
+          <p>Page is under construction. Please leave us your email and we will get back to you!</p>
+          <input type="text" onKeyDown={this.handlePassKeyDown} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="app">
+          <header className="app__header">
+            <HeaderLogo ifClicked={this.goToStartPage} />
 
-          <DebugButtons
-            onResetDatabasePressed={this.resetDatabasePressed}
-            onSeedDatabasePressed={this.seedDatabasePressed}
-            onTraceDatabasePressed={this.traceDatabasePressed}
-            onTraceVocabularyPressed={this.traceVocabularyPressed}
-            onTraceTotalWordsLearnedForTodayPressed={this.traceTotalWordsLearnedForTodayPressed}
-            onResetStatsDatabasePressed={this.resetStatsDatabasePressed}
-            onSeedStatsDatabasePressed={this.seedStatsDatabasePressed}
-            onTraceStatsDatabasePressed={this.traceStatsDatabasePressed}
-          />
+            <DebugButtons
+              onResetDatabasePressed={this.resetDatabasePressed}
+              onSeedDatabasePressed={this.seedDatabasePressed}
+              onTraceDatabasePressed={this.traceDatabasePressed}
+              onTraceVocabularyPressed={this.traceVocabularyPressed}
+              onTraceTotalWordsLearnedForTodayPressed={this.traceTotalWordsLearnedForTodayPressed}
+              onResetStatsDatabasePressed={this.resetStatsDatabasePressed}
+              onSeedStatsDatabasePressed={this.seedStatsDatabasePressed}
+              onTraceStatsDatabasePressed={this.traceStatsDatabasePressed}
+            />
 
-          <SearchForm
-            ref="searchForm"
-            currentSearchInputValue={this.state.currentSearchInputValue}
-            onInputChange={this.handleSearchInputOnChange}
-            onSubmitPressed={this.handleSearchSubmit}
-          />
-        </header>
+            <SearchForm
+              ref="searchForm"
+              currentSearchInputValue={this.state.currentSearchInputValue}
+              onInputChange={this.handleSearchInputOnChange}
+              onSubmitPressed={this.handleSearchSubmit}
+            />
+          </header>
 
-        <nav className="app__nav">
-          <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
-            start new session !
-          </button>
+          <nav className="app__nav">
+            <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
+              start new session !
+            </button>
 
-          <button
-            className="app__nav__navButton--openVocabularyManagerButton"
-            onClick={this.openVocabularyManager}
-          >
-            open vocabulary manager
-          </button>
-        </nav>
+            <button
+              className="app__nav__navButton--openVocabularyManagerButton"
+              onClick={this.openVocabularyManager}
+            >
+              open vocabulary manager
+            </button>
+          </nav>
 
-        <main className="app__main">
-          <Notifications ref="notifications" style={this.notificationsStyle} />
-          {this.state.showStatistics &&
-            <div className="app__main__calendarHeatmap">
-              <CalendarHeatmap
-                endDate={Date.now()}
-                numDays={this.daysInHeatmap}
-                values={this.state.heatmapStats}
-                titleForValue={this.constructHeatmapCalendarTooltip}
-                classForValue={this.getCSSClass}
+          <main className="app__main">
+            <Notifications ref="notifications" style={this.notificationsStyle} />
+            {this.state.showStatistics &&
+              <div className="app__main__calendarHeatmap">
+                <CalendarHeatmap
+                  endDate={Date.now()}
+                  numDays={this.daysInHeatmap}
+                  values={this.state.heatmapStats}
+                  titleForValue={this.constructHeatmapCalendarTooltip}
+                  classForValue={this.getCSSClass}
+                />
+              </div>}
+
+            {this.state.showSearchResults &&
+              <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />}
+            {this.state.showTestArea &&
+              <TestArea
+                ref="testArea"
+                vocabulary={this.state.vocabulary}
+                onSuccessfulTranslation={this.recordSuccessfulTranslation}
+                onFailedTranslation={this.recordFailedTranslation}
+                onEscPress={this.handleEscPress}
+                onPlusPress={this.addEntryToVocabulary}
+                fromNativeToForeign={this.state.fromNativeToForeign}
+              />}
+            {this.state.showVocabularyManager &&
+              <VocabularyManager
+                ref="vocabularyManager"
+                onNewEntrySubmitted={this.newEntrySubmitted}
+                alreadySubmittedEntries={this.submittedEntriesFromVocabularyManager}
+              />}
+          </main>
+          {this.state.showStartModal
+            ? <StartModal
+                title="Welcome to Linguana! Your words for today:"
+                content={this.constructStartingSummaryModalContent()}
+                isLoading={this.state.isStartModalLoading}
+                onClose={this.closeStartingSummaryModal}
+                imageUrl="/img/start.png"
               />
-            </div>}
+            : null}
+          {this.state.showFinishModal
+            ? <FinishModal
+                title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
+                content={this.constructFinishModalContent()}
+                onClose={this.closeFinishModal}
+              />
+            : null}
+          {this.state.showSemiFinishModal
+            ? <SemiFinishModal
+                title={`Ok now let's try the oposite!`}
+                content=""
+                onClose={this.closeSemiFinishModal}
+              />
+            : null}
 
-          {this.state.showSearchResults &&
-            <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />}
           {this.state.showTestArea &&
-            <TestArea
-              ref="testArea"
-              vocabulary={this.state.vocabulary}
-              onSuccessfulTranslation={this.recordSuccessfulTranslation}
-              onFailedTranslation={this.recordFailedTranslation}
-              onEscPress={this.handleEscPress}
-              onPlusPress={this.addEntryToVocabulary}
-              fromNativeToForeign={this.state.fromNativeToForeign}
-            />}
-          {this.state.showVocabularyManager &&
-            <VocabularyManager
-              ref="vocabularyManager"
-              onNewEntrySubmitted={this.newEntrySubmitted}
-              alreadySubmittedEntries={this.submittedEntriesFromVocabularyManager}
-            />}
-        </main>
-        {this.state.showStartModal
-          ? <StartModal
-              title="Welcome to Linguana! Your words for today:"
-              content={this.constructStartingSummaryModalContent()}
-              isLoading={this.state.isStartModalLoading}
-              onClose={this.closeStartingSummaryModal}
-              imageUrl="/img/start.png"
-            />
-          : null}
-        {this.state.showFinishModal
-          ? <FinishModal
-              title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
-              content={this.constructFinishModalContent()}
-              onClose={this.closeFinishModal}
-            />
-          : null}
-        {this.state.showSemiFinishModal
-          ? <SemiFinishModal
-              title={`Ok now let's try the oposite!`}
-              content=""
-              onClose={this.closeSemiFinishModal}
-            />
-          : null}
-
-        {this.state.showTestArea &&
-          <footer className="app__footer">
-            <Stats
-              totalEntriesCount={this.getTotalEntries()}
-              correctTranslationsCount={this.getTotalCorrectTranslations()}
-              wrongTranslationsCount={this.getTotalWrongTranslations()}
-            />
-          </footer>}
-      </div>
-    );
+            <footer className="app__footer">
+              <Stats
+                totalEntriesCount={this.getTotalEntries()}
+                correctTranslationsCount={this.getTotalCorrectTranslations()}
+                wrongTranslationsCount={this.getTotalWrongTranslations()}
+              />
+            </footer>}
+        </div>
+      );
+    }
   }
 }

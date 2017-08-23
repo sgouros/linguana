@@ -1,10 +1,3 @@
-// ------ couchdb synchronization -------
-// sudo apt-get install couchdb
-// couchdb-server --port 5984
-// curl localhost:5984
-// npm install -g add-cors-to-couchdb
-// add-cors-to-couchdb
-
 import VocabularyEntry from "./components/VocabularyEntry.js";
 import PouchDB from "pouchdb";
 PouchDB.plugin(require("pouchdb-find"));

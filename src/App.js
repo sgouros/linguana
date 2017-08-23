@@ -16,6 +16,15 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
+// todo:
+//        * να δω αν συγχρονίζουν οι βάσεις δεδομένων
+//        * να ανεβεί στο επίσημο site
+//        * να έχω διαφορετικούς users?
+//        * να κάνω refactor σε display components + layout components
+//        * να βάλω στο παιχνίδι τις routes
+//        * να χρησιμοποιήσω immutability
+//        * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
+
 export default class App extends Component {
   constructor() {
     super();

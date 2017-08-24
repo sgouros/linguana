@@ -1,5 +1,5 @@
 echo -n "Stopping linguana\n"
-cd /home/george/code/linguana/
+cd /home/user/code/linguana/
 echo -n "1. git status\n"
 git status -s
 echo -n "2. git add .\n"

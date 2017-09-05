@@ -1,9 +1,10 @@
-import React, { PropTypes } from "react";
+import React from "react";
 import range from "lodash.range";
 import reduce from "lodash.reduce";
 import { DAYS_IN_WEEK, MILLISECONDS_IN_ONE_DAY, MONTH_LABELS } from "./constants.js";
 import { shiftDate, getBeginningTimeForDate, convertToDate } from "./dateHelpers.js";
 import ReactTooltip from "react-tooltip";
+import PropTypes from "prop-types";
 
 const SQUARE_SIZE = 10;
 const MONTH_LABEL_GUTTER_SIZE = 4;
@@ -168,10 +169,7 @@ export default class CalendarHeatmap extends React.Component {
 
   getMonthLabelCoordinates(weekIndex) {
     if (this.props.horizontal) {
-      return [
-        weekIndex * this.getSquareSizeWithGutter(),
-        this.getMonthLabelSize() - MONTH_LABEL_GUTTER_SIZE
-      ];
+      return [weekIndex * this.getSquareSizeWithGutter(), this.getMonthLabelSize() - MONTH_LABEL_GUTTER_SIZE];
     }
     const verticalOffset = -2;
     return [0, (weekIndex + 1) * this.getSquareSizeWithGutter() + verticalOffset];
@@ -185,8 +183,7 @@ export default class CalendarHeatmap extends React.Component {
 
   renderSquare(dayIndex, index, weekIndex) {
     const indexOutOfRange =
-      index < this.getNumEmptyDaysAtStart() ||
-      index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
+      index < this.getNumEmptyDaysAtStart() || index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
     if (indexOutOfRange && !this.props.showOutOfRangeDays) {
       return null;
     }
@@ -261,8 +258,7 @@ CalendarHeatmap.propTypes = {
   values: PropTypes.arrayOf(
     // array of objects with date and arbitrary metadata
     PropTypes.shape({
-      date: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
-        .isRequired
+      date: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)]).isRequired
     }).isRequired
   ).isRequired,
   numDays: PropTypes.number, // number of days back from endDate to show

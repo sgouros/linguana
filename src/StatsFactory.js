@@ -1,6 +1,7 @@
 import StatsEntry from "./components/StatsEntry.js";
 import PouchDB from "pouchdb";
-PouchDB.plugin(require("pouchdb-find"));
+import PouchFind from "pouchdb-find";
+PouchDB.plugin(PouchFind);
 PouchDB.plugin(require("pouchdb-upsert"));
 
 export default class StatsFactory {

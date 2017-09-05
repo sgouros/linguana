@@ -1,7 +1,16 @@
-DATE="$(date +"%Y.%m.%d_%H.%M")"
-DB_NAME="linguana"
-OUTPUT_FILE="$DATE.json"
+# προσοχή αυτό πρέπει να τρέχει μόνο στον κεντρικο server. Στους άλλους Η/Υ δεν έχει νόημα
 
-echo -n "Exporting $DB_NAME to $OUTPUT_FILE\n"
-curl -X GET 'http://localhost:5984/linguana/_all_docs?include_docs=true' | jq '{"docs": [.rows[].doc]}' | jq 'del(.docs[]._rev)' > $OUTPUT_FILE
-echo -n "Done!\n"
+DATE="$(date +"%Y.%m.%d_%H.%M")"
+
+
+VOC_DB_NAME="linguana_vocabulary"
+VOC_OUTPUT_FILE="$VOC_DB_NAME"_"$DATE"
+echo -n "Exporting $VOC_DB_NAME\n"
+sudo cp /var/lib/couchdb/$VOC_DB_NAME.couch  /home/george/code/linguana/db/$VOC_OUTPUT_FILE.couch
+
+STATS_DB_NAME="linguana_stats"
+STATS_OUTPUT_FILE="$STATS_DB_NAME"_"$DATE"
+echo -n "Exporting $STATS_DB_NAME\n"
+sudo cp /var/lib/couchdb/$STATS_DB_NAME.couch  /home/george/code/linguana/db/$STATS_OUTPUT_FILE.couch
+
+echo -n "done\n"

@@ -17,8 +17,6 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//        * να ανεβεί στο επίσημο site
-//        * να δω αν συγχρονίζουν οι βάσεις δεδομένων
 //        * να κάνω refactor σε display components + layout components
 //        * να βάλω στο παιχνίδι τις routes
 //        * να χρησιμοποιήσω immutability

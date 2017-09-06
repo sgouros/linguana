@@ -86,38 +86,43 @@ export default class App extends Component {
   };
 
   addErrorNotification = (title, message, secondsToDismiss = 0) => {
-    this.notifications.addNotification({
-      title: title,
-      message: message,
-      level: "error",
-      position: "bl",
-      autoDismiss: secondsToDismiss
-    });
+    // remove to notif
+        // this.notifications.addNotification({
+    //   title: title,
+    //   message: message,
+    //   level: "error",
+    //   position: "bl",
+    //   autoDismiss: secondsToDismiss
+    // });
   };
 
   addInfoNotification = (title, message, secondsToDismiss) => {
-    this.notifications.addNotification({
-      title: title,
-      message: message,
-      level: "info",
-      position: "bl",
-      autoDismiss: secondsToDismiss
-    });
+    // remove to notif
+    // this.notifications.addNotification({
+    //   title: title,
+    //   message: message,
+    //   level: "info",
+    //   position: "bl",
+    //   autoDismiss: secondsToDismiss
+    // });
   };
 
   addSuccessNotification = (title, message, secondsToDismiss = 0) => {
-    this.notifications.addNotification({
-      title: title,
-      message: message,
-      level: "success",
-      position: "bl",
-      autoDismiss: secondsToDismiss
-    });
+    // remove to notif
+    // this.notifications.addNotification({
+    //   title: title,
+    //   message: message,
+    //   level: "success",
+    //   position: "bl",
+    //   autoDismiss: secondsToDismiss
+    // });
   };
 
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
     this.notifications = this.refs.notifications;
+    console.log("notifications");
+    console.log(this.notifications);
     this.statsFactory.requestStatsForCalendarHeatmap(
       this.daysInHeatmap,
       this.onStatsForCalendarHeatmapArrived

@@ -8,7 +8,6 @@ import SemiFinishModal from "./components/SemiFinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
-import Notifications from "react-notification-system";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString } from "./components/helpers.js";
@@ -48,18 +47,8 @@ export default class App extends Component {
     this.submittedEntriesFromVocabularyManager = [];
   }
 
-  notifications = null;
-
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
-
-  notificationsStyle = {
-    NotificationItem: {
-      DefaultStyle: {
-        width: 350
-      }
-    }
-  };
 
   daysInHeatmap = 280; // how many days will the heatmap show
   vocabularyFactory = new VocabularyFactory(this);
@@ -85,44 +74,9 @@ export default class App extends Component {
     });
   };
 
-  addErrorNotification = (title, message, secondsToDismiss = 0) => {
-    // remove to notif
-        // this.notifications.addNotification({
-    //   title: title,
-    //   message: message,
-    //   level: "error",
-    //   position: "bl",
-    //   autoDismiss: secondsToDismiss
-    // });
-  };
-
-  addInfoNotification = (title, message, secondsToDismiss) => {
-    // remove to notif
-    // this.notifications.addNotification({
-    //   title: title,
-    //   message: message,
-    //   level: "info",
-    //   position: "bl",
-    //   autoDismiss: secondsToDismiss
-    // });
-  };
-
-  addSuccessNotification = (title, message, secondsToDismiss = 0) => {
-    // remove to notif
-    // this.notifications.addNotification({
-    //   title: title,
-    //   message: message,
-    //   level: "success",
-    //   position: "bl",
-    //   autoDismiss: secondsToDismiss
-    // });
-  };
-
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
-    this.notifications = this.refs.notifications;
-    console.log("notifications");
-    console.log(this.notifications);
+
     this.statsFactory.requestStatsForCalendarHeatmap(
       this.daysInHeatmap,
       this.onStatsForCalendarHeatmapArrived
@@ -342,24 +296,12 @@ export default class App extends Component {
     const htmlTable = this.state.vocabulary.map(entry => {
       return (
         <tr key={entry._id}>
-          <td>
-            {entry.nativeTerm}
-          </td>
-          <td>
-            {entry.foreignTerm}
-          </td>
-          <td>
-            {entry.foreignTermNotes}
-          </td>
-          <td className="td-correctTranslationsCount">
-            {entry.totalSuccesses}
-          </td>
-          <td className="td-wrongTranslationsCount">
-            {entry.totalFailures}
-          </td>
-          <td className="td-totalTimesSelected">
-            {entry.totalTimesSelected}
-          </td>
+          <td>{entry.nativeTerm}</td>
+          <td>{entry.foreignTerm}</td>
+          <td>{entry.foreignTermNotes}</td>
+          <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
+          <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
+          <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
         </tr>
       );
     });
@@ -367,9 +309,7 @@ export default class App extends Component {
     return (
       <div>
         <table className="modalDialogTable">
-          <tbody>
-            {htmlTable}
-          </tbody>
+          <tbody>{htmlTable}</tbody>
         </table>
       </div>
     );
@@ -426,17 +366,11 @@ export default class App extends Component {
 
   newEntrySaveToDbSucceeded = (nativeTerm, foreignTerm, response) => {
     console.info(`${nativeTerm}-${foreignTerm} saved to DB. Response: ${JSON.stringify(response)}`);
-    this.addSuccessNotification(`Success!`, `Added ${nativeTerm}-${foreignTerm} to database.`, 3);
   };
 
   newEntrySaveToDbFailed = (nativeTerm, foreignTerm, error) => {
     console.info(
       `Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`
-    );
-
-    this.addErrorNotification(
-      `Failed to save ${nativeTerm}-${foreignTerm}`,
-      `Error: ${JSON.stringify(error)}`
     );
   };
 
@@ -651,8 +585,7 @@ export default class App extends Component {
           </nav>
 
           <main className="app__main">
-            <Notifications ref="notifications" style={this.notificationsStyle} />
-            {this.state.showStatistics &&
+            {this.state.showStatistics && (
               <div className="app__main__calendarHeatmap">
                 <CalendarHeatmap
                   endDate={Date.now()}
@@ -661,11 +594,13 @@ export default class App extends Component {
                   titleForValue={this.constructHeatmapCalendarTooltip}
                   classForValue={this.getCSSClass}
                 />
-              </div>}
+              </div>
+            )}
 
-            {this.state.showSearchResults &&
-              <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />}
-            {this.state.showTestArea &&
+            {this.state.showSearchResults && (
+              <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />
+            )}
+            {this.state.showTestArea && (
               <TestArea
                 ref="testArea"
                 vocabulary={this.state.vocabulary}
@@ -674,46 +609,49 @@ export default class App extends Component {
                 onEscPress={this.handleEscPress}
                 onPlusPress={this.addEntryToVocabulary}
                 fromNativeToForeign={this.state.fromNativeToForeign}
-              />}
-            {this.state.showVocabularyManager &&
+              />
+            )}
+            {this.state.showVocabularyManager && (
               <VocabularyManager
                 ref="vocabularyManager"
                 onNewEntrySubmitted={this.newEntrySubmitted}
                 alreadySubmittedEntries={this.submittedEntriesFromVocabularyManager}
-              />}
+              />
+            )}
           </main>
-          {this.state.showStartModal
-            ? <StartModal
-                title="Welcome to Linguana! Your words for today:"
-                content={this.constructStartingSummaryModalContent()}
-                isLoading={this.state.isStartModalLoading}
-                onClose={this.closeStartingSummaryModal}
-                imageUrl="/img/start.png"
-              />
-            : null}
-          {this.state.showFinishModal
-            ? <FinishModal
-                title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
-                content={this.constructFinishModalContent()}
-                onClose={this.closeFinishModal}
-              />
-            : null}
-          {this.state.showSemiFinishModal
-            ? <SemiFinishModal
-                title={`Ok now let's try the oposite!`}
-                content=""
-                onClose={this.closeSemiFinishModal}
-              />
-            : null}
+          {this.state.showStartModal ? (
+            <StartModal
+              title="Welcome to Linguana! Your words for today:"
+              content={this.constructStartingSummaryModalContent()}
+              isLoading={this.state.isStartModalLoading}
+              onClose={this.closeStartingSummaryModal}
+              imageUrl="/img/start.png"
+            />
+          ) : null}
+          {this.state.showFinishModal ? (
+            <FinishModal
+              title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
+              content={this.constructFinishModalContent()}
+              onClose={this.closeFinishModal}
+            />
+          ) : null}
+          {this.state.showSemiFinishModal ? (
+            <SemiFinishModal
+              title={`Ok now let's try the oposite!`}
+              content=""
+              onClose={this.closeSemiFinishModal}
+            />
+          ) : null}
 
-          {this.state.showTestArea &&
+          {this.state.showTestArea && (
             <footer className="app__footer">
               <Stats
                 totalEntriesCount={this.getTotalEntries()}
                 correctTranslationsCount={this.getTotalCorrectTranslations()}
                 wrongTranslationsCount={this.getTotalWrongTranslations()}
               />
-            </footer>}
+            </footer>
+          )}
         </div>
       );
     }

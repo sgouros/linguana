@@ -125,34 +125,11 @@ export default class VocabularyFactory {
   seedDatabase = () => {
     this.localVocDb
       .bulkDocs([
-        new VocabularyEntry(
-          "00εγκατάσταση-installieren",
-          null,
-          "εγκατάσταση",
-          "installieren",
-          "ρήμα",
-          0,
-          0,
-          0
-        ),
         new VocabularyEntry("01ναι-ja", null, "ναι", "ja", "", 1, 1, 1),
         new VocabularyEntry("02οθόνη-der Monitor", null, "οθόνη", "der Monitor", "", 1, 5, 6),
         new VocabularyEntry("03κατόπιν-anschließend", null, "κατόπιν", "anschließend", "note", 5, 2, 8),
         new VocabularyEntry("04ευγενικός-nett", null, "ευγενικός", "nett", "note2", 2, 0, 7),
         new VocabularyEntry("05αυτοκίνητο-das Auto", null, "αυτοκίνητο", "das Auto", "note 3", 2, 0, 12)
-        // new VocabularyEntry("λάθος-der Fehler", null, "λάθος", "der Fehler", 2, 0, 5),
-        // new VocabularyEntry("όχι-nein", null, "όχι", "nein", 2, 0, 3),
-        // new VocabularyEntry("μετα βίας-kaum", null, "μετα βίας", "kaum", 7, 5, 20),
-        // new VocabularyEntry("πόνος-der Schmerz", null, "πόνος", "der Schmerz", 12),
-        // new VocabularyEntry("ασφαλισμένος-versichert", null, "ασφαλισμένος", "versichert", 17, 2, 23),
-        // new VocabularyEntry("προφανώς-offensichtlich", null, "προφανώς", "offensichtlich", 8, 6, 20),
-        // new VocabularyEntry("εκφράζω-ausdrücken", null, "εκφράζω", "ausdrücken", 7, 4, 12),
-        // new VocabularyEntry("αξία-der Wert", null, "αξία", "der Wert", 4, 6, 10),
-        // new VocabularyEntry("διατήρηση-die Erhaltun", null, "διατήρηση", "die Erhaltung", 2, 5, 16),
-        // new VocabularyEntry("μεταφόρτωση-runterladen", null, "μεταφόρτωση", "runterladen", 1, 0, 7),
-        // new VocabularyEntry("ανέκδοτο-der Witz", null, "ανέκδοτο", "der Witz", 2, 2, 4),
-        // new VocabularyEntry("τρόφιμα-das Lebensmittel", null, "τρόφιμα", "das Lebensmittel", 5, 3, 8),
-        // new VocabularyEntry("σύνδεση-einloggen", null, "σύνδεση", "einloggen", 11, 11, 26)
       ])
       .then(() => console.info(`${this.localVocDbName} database seeded`))
       .catch(err => {

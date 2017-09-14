@@ -16,10 +16,16 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//        * να κάνω refactor σε display components + layout components
-//        * να βάλω στο παιχνίδι τις routes
-//        * να χρησιμοποιήσω immutability
-//        * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
+//      * να κάνω refactor σε display components + layout components
+//      * να βάλω στο παιχνίδι τις routes
+//      * να χρησιμοποιήσω immutability
+//      * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
+//      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
+//      * όταν περνάς παρατήρηση σε λέξη, να μπορείς να έχεις οποιαδήποτε γλώσσα εκεί
+//      * να μπορείς να κάνεις edit
+//      * να διαλέγει πρώτα αυτές με τις 0 σωστές φορές ή κάτι τέτοιο
+//      * να διαλέγει με hash_tag
+//      * όταν πατάς τέλος με μία τελευταί λέξη αφού πρώτα την έχεις βρεί πετάει error
 
 export default class App extends Component {
   constructor() {

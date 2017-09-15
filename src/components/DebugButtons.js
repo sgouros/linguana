@@ -6,26 +6,28 @@ export default class Debugbuttons extends Component {
       <div className="app__header__debugButtons">
         <div
           className="app__header__debugButtons__debugButton"
-          onClick={this.props.onResetDatabasePressed}
+          onClick={this.props.onExtractVocDatabasePressed}
+        >
+          extract DB
+        </div>
+
+        <div
+          className="app__header__debugButtons__debugButton"
+          onClick={this.props.onResetVocDatabasePressed}
         >
           reset DB
         </div>
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onSeedDatabasePressed}
-        >
+
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onSeedVocDatabasePressed}>
           seed DB
         </div>
         <div
           className="app__header__debugButtons__debugButton"
-          onClick={this.props.onTraceDatabasePressed}
+          onClick={this.props.onTraceVocDatabasePressed}
         >
           trace db
         </div>
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onTraceVocabularyPressed}
-        >
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocabularyPressed}>
           trace voc
         </div>
         <div

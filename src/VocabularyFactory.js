@@ -103,8 +103,31 @@ export default class VocabularyFactory {
       });
   };
 
-  traceDatabase = () => {
-    console.info("tracing database:");
+  extractVocDatabase = () => {
+    this.localVocDb
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        let v = this.constructNewVocabulary(responseFromDb.docs);
+        this.extractVocabulary(v);
+      })
+      .catch(err => {
+        console.error("error inside extractVocDatabase");
+        console.error(err);
+      });
+  };
+
+  extractVocabulary = voc => {
+    console.info("************** extracting Vocabulary Database ****************");
+    voc.map(entry => entry.extract());
+    console.info("************** end of Vocabulary Database extraction ****************");
+  };
+
+  traceVocDatabase = () => {
+    console.info("tracing vocabulary database:");
 
     this.localVocDb
       .find({
@@ -122,7 +145,7 @@ export default class VocabularyFactory {
       });
   };
 
-  seedDatabase = () => {
+  seedVocDatabase = () => {
     this.localVocDb
       .bulkDocs([
         new VocabularyEntry("01ναι-ja", null, "ναι", "ja", "", 1, 1, 1),
@@ -138,7 +161,7 @@ export default class VocabularyFactory {
       });
   };
 
-  resetDatabase = () => {
+  resetVocDatabase = () => {
     let theDB = this.localVocDb;
     theDB
       .allDocs()

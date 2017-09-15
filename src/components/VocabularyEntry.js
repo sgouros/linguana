@@ -37,6 +37,13 @@ export default class VocabularyEntry {
     console.info(`    this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
   }
 
+  extract() {
+    console.info(
+      `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
+        .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}),`
+    );
+  }
+
   success() {
     this.totalSuccesses += 1;
     this.isCurrentlyCorrectlyTranslated = true;

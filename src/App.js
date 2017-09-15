@@ -16,13 +16,21 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
+//      * να κάνεις μία function extractDB η οποία θα τυπώνει στην console την DB έτοιμη όπως
+//        θα είναι για να γίνει μετά seed
+//      * να μπορείς να κάνεις edit
+//      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess
+//        όταν διαλέγεις λέξεις θα παίρνει αρχικά τις 5 με τις πιο λίγες totalTimesSelected αρκεί
+//        αυτές να μην ξεπερνανε τις 10timesSelected  οι υπόλοιπες θα διαλέγονται ανάλογα
+//        με το dateOfLastSuccess. Στην ουσία θα παίρνει αυτές με το πιο παλιό dateOfLastSuccess
+//        Αν από τις πρώτες 5, επιστραφούν λιγότερες, οι υπόλοιπες ως τις 5
+//        θα επιλέγονται random (και οι υπόλοιπες πάλι ανάλογα με το dateOfLastSuccess)
 //      * να κάνω refactor σε display components + layout components
 //      * να βάλω στο παιχνίδι τις routes
 //      * να χρησιμοποιήσω immutability
 //      * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * όταν περνάς παρατήρηση σε λέξη, να μπορείς να έχεις οποιαδήποτε γλώσσα εκεί
-//      * να μπορείς να κάνεις edit
 //      * να διαλέγει πρώτα αυτές με τις 0 σωστές φορές ή κάτι τέτοιο
 //      * να διαλέγει με hash_tag
 //      * όταν πατάς τέλος με μία τελευταί λέξη αφού πρώτα την έχεις βρεί πετάει error
@@ -380,12 +388,16 @@ export default class App extends Component {
     );
   };
 
-  seedDatabasePressed = () => {
+  extractVocDatabasePressed = () => {
+    this.vocabularyFactory.extractVocDatabase();
+  };
+
+  seedVocDatabasePressed = () => {
     console.info("--------------- seedDatabasePressed");
     this.vocabularyFactory.seedDatabase();
   };
 
-  resetDatabasePressed = () => {
+  resetVocDatabasePressed = () => {
     console.info("--------------- resetDatabasePressed");
     this.vocabularyFactory.resetDatabase();
   };
@@ -557,11 +569,10 @@ export default class App extends Component {
         <div className="app">
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
-
             <DebugButtons
-              onResetDatabasePressed={this.resetDatabasePressed}
-              onSeedDatabasePressed={this.seedDatabasePressed}
-              onTraceDatabasePressed={this.traceDatabasePressed}
+              onExtractVocDatabasePressed={this.extractVocDatabasePressed}
+              onSeedVocDatabasePressed={this.seedVocDatabasePressed}
+              onTraceVocDatabasePressed={this.traceVocDatabasePressed}
               onTraceVocabularyPressed={this.traceVocabularyPressed}
               onTraceTotalWordsLearnedForTodayPressed={this.traceTotalWordsLearnedForTodayPressed}
               onResetStatsDatabasePressed={this.resetStatsDatabasePressed}

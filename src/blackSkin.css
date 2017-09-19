@@ -1,0 +1,152 @@
+body {
+  background-image: url("/img/blackSkin.png");
+  color: #aaa;
+  padding-top: 45vh;
+  margin-top: -5vh;
+  background-size: contain;
+}
+
+.app {
+}
+
+.app__header__logo__logoImage,
+#testArea__component__linguanaImg,
+.app__header__logo__logoText,
+.stats__component__footerImg {
+  display: none;
+}
+
+.stats__component--greenCircle {
+  color: greenyellow;
+}
+
+.stats__component--redCircle {
+  color: red;
+}
+
+.stats__component--blueCircle {
+  color: #4444ff;
+}
+
+.app__footer {
+  padding-top: 1vh;
+  padding-bottom: 20vh;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wordComparisonDialog > img {
+  display: none;
+}
+
+.wordComparisonDialog > h1 {
+  display: none;
+}
+
+.wordComparisonDialog {
+  background: #333 !important;
+  color: #666 !important;
+  width: 30% !important;
+  top: 40% !important;
+  left: 60% !important;
+  font-weight: normal !important;
+}
+
+.wordComparisonDialog__okButton {
+  color: #999;
+  background: #333;
+  border: none;
+}
+
+.wordComparisonDialog__okButton:focus {
+  outline: 0 none;
+}
+
+.wordComparisonDialog__Table > td {
+  color: red;
+}
+
+.app__nav__navButton--openVocabularyManagerButton {
+  color: #999;
+  background: #333;
+  border: none;
+}
+
+.app__nav__navButton--startNewSessionButton {
+  color: #999;
+  background: #333;
+  border: none;
+}
+
+.app__header,
+.app__nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.app__main {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.testArea__component__translationForm__translationInputGR:focus {
+  outline: 0 none;
+}
+
+.startModal > img {
+  display: none;
+}
+
+.startModal > h1 {
+  display: none;
+}
+
+.startModal {
+  background: #14212f !important;
+  color: #666 !important;
+}
+
+.app__header__searchForm__searchInput {
+  background: #14212f !important;
+  color: #666 !important;
+  border: none;
+}
+
+.testArea__component__translationForm {
+  display: flex;
+  flex-wrap: wrap;
+  width: 69vh;
+}
+
+.testArea__component__translationForm__sourceTerm {
+  color: #555;
+  padding-right: 1rem;
+}
+
+.testArea__component__translationForm__notes {
+  color: #555;
+  padding-left: 1rem;
+}
+
+.testArea__component__translationForm__translationInputGR {
+  background: #3d2003;
+  color: #666;
+  border: solid 1px #3d200f;
+  height: 2rem;
+  width: 80vh;
+}
+
+.translationInput--correctTranslation {
+  color: green !important;
+}
+
+.app__vocabularyManagerComponent__form__translationInputGR {
+  color: blue;
+}
+
+.app__vocabularyManagerComponent__form__notes {
+  background: #3d2003;
+  border: solid 1px #3d200f;
+}

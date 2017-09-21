@@ -16,8 +16,6 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//      * να κάνεις μία function extractDB η οποία θα τυπώνει στην console την DB έτοιμη όπως
-//        θα είναι για να γίνει μετά seed
 //      * να μπορείς να κάνεις edit
 //      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess
 //        όταν διαλέγεις λέξεις θα παίρνει αρχικά τις 5 με τις πιο λίγες totalTimesSelected αρκεί
@@ -91,10 +89,7 @@ export default class App extends Component {
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
 
-    this.statsFactory.requestStatsForCalendarHeatmap(
-      this.daysInHeatmap,
-      this.onStatsForCalendarHeatmapArrived
-    );
+    this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 
   closeStartingSummaryModal = () => {
@@ -248,10 +243,7 @@ export default class App extends Component {
   };
 
   onTotalWordsLearnedForTodayCountUpdated = totalWordsLearned => {
-    this.statsFactory.requestStatsForCalendarHeatmap(
-      this.daysInHeatmap,
-      this.onStatsForCalendarHeatmapArrived
-    );
+    this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
 
     this.setState({
       totalWordsLearnedForTodayCount: totalWordsLearned
@@ -284,12 +276,7 @@ export default class App extends Component {
 
   // increase current Voc by 1
   addEntryToVocabulary = currentIndex => {
-    this.vocabularyFactory.newVocabularyNeeded(
-      this.onNewVocabularyArrived,
-      1,
-      this.allSelectedEntries,
-      currentIndex
-    );
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1, this.allSelectedEntries, currentIndex);
   };
 
   getTotalEntries = () => {
@@ -358,13 +345,7 @@ export default class App extends Component {
     });
   };
 
-  newEntrySubmitted = (
-    nativeTerm,
-    foreignTerm,
-    foreignTermNotes,
-    newEntrySaveSucceeded,
-    newEntrySaveFailed
-  ) => {
+  newEntrySubmitted = (nativeTerm, foreignTerm, foreignTermNotes, newEntrySaveSucceeded, newEntrySaveFailed) => {
     // console.debug(`submited ${nativeTerm} with translation ${foreignTerm}`);
 
     this.vocabularyFactory.addEntry(
@@ -383,23 +364,49 @@ export default class App extends Component {
   };
 
   newEntrySaveToDbFailed = (nativeTerm, foreignTerm, error) => {
-    console.info(
-      `Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`
-    );
+    console.info(`Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`);
   };
 
-  extractVocDatabasePressed = () => {
-    this.vocabularyFactory.extractVocDatabase();
+  extractVocDBPressed = () => {
+    console.info("--------------- extractVocDBPressed");
+    this.vocabularyFactory.extractVocDB();
   };
 
-  seedVocDatabasePressed = () => {
-    console.info("--------------- seedDatabasePressed");
-    this.vocabularyFactory.seedDatabase();
+  seedVocDBPressed = () => {
+    console.info("--------------- seedVocDBPressed");
+    this.vocabularyFactory.seedVocDB();
   };
 
-  resetVocDatabasePressed = () => {
-    console.info("--------------- resetDatabasePressed");
-    this.vocabularyFactory.resetDatabase();
+  resetVocDBPressed = () => {
+    console.info("--------------- resetVocDBPressed");
+    this.vocabularyFactory.resetVocDB();
+  };
+
+  traceVocDBPressed = () => {
+    console.info("--------------- traceVocDBPressed");
+    this.vocabularyFactory.traceVocDB();
+  };
+
+  traceStatsDBPressed = () => {
+    console.info("--------------- traceStatsDBPressed");
+    this.statsFactory.traceStatsDB();
+  };
+
+  extractStatsDBPressed = () => {
+    console.info("--------------- extractStatsDBPressed");
+    this.statsFactory.extractStatsDB();
+  };
+
+  resetStatsDBPressed = () => {
+    console.info("--------------- resetStatsDBPressed");
+    this.statsFactory.resetStatsDB();
+    this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
+  };
+
+  seedStatsDBPressed = () => {
+    console.info("--------------- seedStatsDBPressed");
+    this.statsFactory.seedStatsDB();
+    this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 
   traceVocabularyPressed = () => {
@@ -407,36 +414,8 @@ export default class App extends Component {
     this.vocabularyFactory.traceVocabulary(this.state.vocabulary);
   };
 
-  traceDatabasePressed = () => {
-    console.info("--------------- traceDatabasePressed");
-    this.vocabularyFactory.traceDatabase();
-  };
-
-  traceStatsDatabasePressed = () => {
-    console.info("--------------- traceStatsDatabasePressed");
-    this.statsFactory.traceDatabase();
-  };
-
-  seedStatsDatabasePressed = () => {
-    console.info("--------------- seedStatsDatabasePressed");
-    this.statsFactory.seedDatabase();
-    this.statsFactory.requestStatsForCalendarHeatmap(
-      this.daysInHeatmap,
-      this.onStatsForCalendarHeatmapArrived
-    );
-  };
-
-  resetStatsDatabasePressed = () => {
-    console.info("--------------- resetStatsDatabasePressed");
-    this.statsFactory.resetDatabase();
-    this.statsFactory.requestStatsForCalendarHeatmap(
-      this.daysInHeatmap,
-      this.onStatsForCalendarHeatmapArrived
-    );
-  };
-
   traceStatsPressed = () => {
-    console.info("--------------- traceStatsDatabasePressed");
+    console.info("--------------- traceStatsDBPressed");
     console.info(this.state.heatmapStats);
   };
 
@@ -503,18 +482,22 @@ export default class App extends Component {
   };
 
   countMaxCorrectAnswers = correctAnswersPerDayArray => {
-    let maxCorrectAnswers = correctAnswersPerDayArray.reduce((maxItem, currentItem) => {
-      return maxItem.count > currentItem.count ? maxItem : currentItem;
+    let maxCorrectAnswers = correctAnswersPerDayArray.reduce((max, currentItem) => {
+      console.info(`max = ${max}`);
+      console.info(`currentItem.count = ${currentItem.count}`);
+      return max > currentItem.count ? max : currentItem.count;
     }, 0);
-    return maxCorrectAnswers.count;
+    return maxCorrectAnswers;
   };
 
   getCSSClass = value => {
     if (!value || value.count === 0) {
       return "color-empty";
     }
-
+    console.info(`this.state.heatmapStats = `);
+    console.info(this.state.heatmapStats);
     let maxCount = this.countMaxCorrectAnswers(this.state.heatmapStats);
+    console.info(`maxcount = ${maxCount}`);
 
     let threshold_1 = maxCount / 4;
     let threshold_2 = maxCount / 4 * 2;
@@ -570,14 +553,15 @@ export default class App extends Component {
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
             <DebugButtons
-              onExtractVocDatabasePressed={this.extractVocDatabasePressed}
-              onSeedVocDatabasePressed={this.seedVocDatabasePressed}
-              onTraceVocDatabasePressed={this.traceVocDatabasePressed}
+              onExtractVocDBPressed={this.extractVocDBPressed}
+              onResetVocDBPressed={this.resetVocDBPressed}
+              onSeedVocDBPressed={this.seedVocDBPressed}
+              onTraceVocDBPressed={this.traceVocDBPressed}
+              onExtractStatsDBPressed={this.extractStatsDBPressed}
+              onResetStatsDBPressed={this.resetStatsDBPressed}
+              onSeedStatsDBPressed={this.seedStatsDBPressed}
+              onTraceStatsDBPressed={this.traceStatsDBPressed}
               onTraceVocabularyPressed={this.traceVocabularyPressed}
-              onTraceTotalWordsLearnedForTodayPressed={this.traceTotalWordsLearnedForTodayPressed}
-              onResetStatsDatabasePressed={this.resetStatsDatabasePressed}
-              onSeedStatsDatabasePressed={this.seedStatsDatabasePressed}
-              onTraceStatsDatabasePressed={this.traceStatsDatabasePressed}
             />
 
             <SearchForm
@@ -593,10 +577,7 @@ export default class App extends Component {
               start new session !
             </button>
 
-            <button
-              className="app__nav__navButton--openVocabularyManagerButton"
-              onClick={this.openVocabularyManager}
-            >
+            <button className="app__nav__navButton--openVocabularyManagerButton" onClick={this.openVocabularyManager}>
               open vocabulary manager
             </button>
           </nav>
@@ -653,11 +634,7 @@ export default class App extends Component {
             />
           ) : null}
           {this.state.showSemiFinishModal ? (
-            <SemiFinishModal
-              title={`Ok now let's try the oposite!`}
-              content=""
-              onClose={this.closeSemiFinishModal}
-            />
+            <SemiFinishModal title={`Ok now let's try the oposite!`} content="" onClose={this.closeSemiFinishModal} />
           ) : null}
 
           {this.state.showTestArea && (

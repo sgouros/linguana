@@ -4,62 +4,37 @@ export default class Debugbuttons extends Component {
   render() {
     return (
       <div className="app__header__debugButtons">
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onExtractVocDatabasePressed}
-        >
-          extract DB
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onExtractVocDBPressed}>
+          extract Voc DB
+        </div>
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onResetVocDBPressed}>
+          reset Voc DB
+        </div>
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onSeedVocDBPressed}>
+          seed Voc DB
+        </div>
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocDBPressed}>
+          trace Voc DB
         </div>
 
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onResetVocDatabasePressed}
-        >
-          reset DB
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onExtractStatsDBPressed}>
+          extract Stats DB
         </div>
 
-        <div className="app__header__debugButtons__debugButton" onClick={this.props.onSeedVocDatabasePressed}>
-          seed DB
-        </div>
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onTraceVocDatabasePressed}
-        >
-          trace db
-        </div>
-        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocabularyPressed}>
-          trace voc
-        </div>
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onTraceTotalWordsLearnedForTodayPressed}
-        >
-          trace total words
-        </div>
-
-        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceStatsPressed}>
-          trace stats
-        </div>
-
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onResetStatsDatabasePressed}
-        >
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onResetStatsDBPressed}>
           reset Stats DB
         </div>
 
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onSeedStatsDatabasePressed}
-        >
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onSeedStatsDBPressed}>
           seed Stats DB
         </div>
 
-        <div
-          className="app__header__debugButtons__debugButton"
-          onClick={this.props.onTraceStatsDatabasePressed}
-        >
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceStatsDBPressed}>
           trace Stats DB
+        </div>
+
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocabularyPressed}>
+          trace voc
         </div>
       </div>
     );

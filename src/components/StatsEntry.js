@@ -20,6 +20,10 @@ export default class StatsEntry {
     return today;
   }
 
+  extract() {
+    console.info(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
+  }
+
   trace() {
     console.info(`  tracing STATS for date: ${this._id}:`);
     console.info(`    this._rev: ${this._rev}`);

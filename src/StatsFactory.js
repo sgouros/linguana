@@ -34,8 +34,8 @@ export default class StatsFactory {
       });
   }
 
-  constructStats = statsFromDatabase => {
-    let newStats = statsFromDatabase.map(item => {
+  constructStats = statsFromDB => {
+    let newStats = statsFromDB.map(item => {
       return new StatsEntry(item._id, item._rev, item.totalWordsLearned);
     });
     return newStats;
@@ -66,7 +66,7 @@ export default class StatsFactory {
     });
   };
 
-  traceDatabase = () => {
+  traceStatsDB = () => {
     this.localStatsDb
       .find({
         selector: {
@@ -74,13 +74,43 @@ export default class StatsFactory {
         }
       })
       .then(responseFromDb => {
-        let s = this.constructStats(responseFromDb.docs);
+        let s = this.constructNewStats(responseFromDb.docs);
         this.traceStats(s);
       })
       .catch(err => {
-        console.error("error inside traceStatsDatabase");
+        console.error("error inside traceStatsDB");
         console.error(err);
       });
+  };
+
+  constructNewStats = statsFromDB => {
+    let newStats = statsFromDB.map(item => {
+      return new StatsEntry(item._id, item._rev, item.totalWordsLearned);
+    });
+    return newStats;
+  };
+
+  extractStatsDB = () => {
+    this.localStatsDb
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        let s = this.constructNewStats(responseFromDb.docs);
+        this.extractStats(s);
+      })
+      .catch(err => {
+        console.error("error inside extractStatsDB");
+        console.error(err);
+      });
+  };
+
+  extractStats = stats => {
+    console.info("************** extracting Stats DB ****************");
+    stats.map(entry => entry.extract());
+    console.info("************** end of Stats DB extraction ****************");
   };
 
   increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
@@ -107,28 +137,7 @@ export default class StatsFactory {
       });
   };
 
-  seedDatabase = () => {
-    this.localStatsDb
-      .bulkDocs([
-        new StatsEntry("2017-06-1", null, 1),
-        new StatsEntry("2017-06-1", null, 1),
-        new StatsEntry("2017-06-2", null, 13),
-        new StatsEntry("2017-06-3", null, 12),
-        new StatsEntry("2017-06-4", null, 8),
-        new StatsEntry("2017-06-5", null, 1),
-        new StatsEntry("2017-06-6", null, 4),
-        new StatsEntry("2017-06-8", null, 1),
-        new StatsEntry("2017-06-11", null, 2),
-        new StatsEntry("2017-06-15", null, 5)
-      ])
-      .then(() => console.info(`${this.localStatsDbName} database seeded`))
-      .catch(err => {
-        console.error("error inside Stats seed Database");
-        console.error(err);
-      });
-  };
-
-  resetDatabase = () => {
+  resetStatsDB = () => {
     let theDB = this.localStatsDb;
     theDB
       .allDocs()
@@ -140,10 +149,10 @@ export default class StatsFactory {
         );
       })
       .then(() => {
-        console.info(`${this.localStatsDbName} database has been reset`);
+        console.info(`${this.localStatsDbName} DB has been reset`);
       })
       .catch(err => {
-        console.error("error inside Stats reset Database");
+        console.error("error inside Stats reset DB");
         console.error(err);
       });
   };
@@ -164,6 +173,28 @@ export default class StatsFactory {
       })
       .catch(err => {
         console.error("error inside updateStat");
+        console.error(err);
+      });
+  };
+
+  seedStatsDB = () => {
+    this.localStatsDb
+      .bulkDocs([
+        new StatsEntry("2017-9-11", null, 30),
+        new StatsEntry("2017-9-12", null, 9),
+        new StatsEntry("2017-9-13", null, 35),
+        new StatsEntry("2017-9-14", null, 29),
+        new StatsEntry("2017-9-15", null, 10),
+        new StatsEntry("2017-9-19", null, 51),
+        new StatsEntry("2017-9-20", null, 20),
+        new StatsEntry("2017-9-21", null, 37),
+        new StatsEntry("2017-9-6", null, 28),
+        new StatsEntry("2017-9-7", null, 21),
+        new StatsEntry("2017-9-8", null, 19)
+      ])
+      .then(() => console.info(`${this.localStatsDbName} DB seeded`))
+      .catch(err => {
+        console.error("error inside Stats seed DB");
         console.error(err);
       });
   };

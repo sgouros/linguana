@@ -45,6 +45,12 @@ export default class VocabularyFactory {
     });
     let updatedVoc = [];
 
+    //     getTheFirstZeroVocs  = () => { return find(zero) };
+    //     getTheMostRarelyUsedVocs = (zerofounddocs) => {return find(raredocs).then(function(raredocsfound) {
+    //       return το ένωμα των zerofounddocs kai των raredocsfound
+    //     })}
+    // getTheFirstZeroVocs().then(getTheMostRarelyUsedVocs).then(you now have all the vocabulary)
+
     this.localVocDb
       .createIndex({
         index: {
@@ -52,6 +58,7 @@ export default class VocabularyFactory {
         }
       })
       .then(() => {
+        // todo εδώ μπορείς να βάλεις πολλά find μέσα σε ένα promise.all
         return this.localVocDb.find({
           selector: {
             _id: { $nin: allSelectedEntryIDs },

@@ -16,6 +16,8 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
+//      * αυτή τη στιγμή δεν αλλάζει η ημερομηνία όταν κάνεις σωστή μετάφραση. Σε περίπτωση που την
+//        αλλάζει σωστά, πρέπει να δεις αν τελικά επιλέγονται με σωστό τρόπο οι λέξεις
 //      * να μπορείς να κάνεις edit
 //      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess
 //        όταν διαλέγεις λέξεις θα παίρνει αρχικά τις 5 με τις πιο λίγες totalTimesSelected αρκεί
@@ -104,7 +106,7 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
-    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived);
+    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, 1);
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
@@ -179,6 +181,22 @@ export default class App extends Component {
       isStartModalLoading: false,
       vocabulary: updatedVocabulary
     });
+  };
+
+  onOldVocabularyArrived = (oldVoc, currentIndex) => {
+    console.info("old voc arrived");
+    // this.vocabularyFactory.traceVocabulary(oldVoc);
+    const updatedVocabulary = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...oldVoc,
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+    ];
+    this.allSelectedEntries.push(...oldVoc);
+
+    this.setState({
+      vocabulary: updatedVocabulary
+    });
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1);
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {
@@ -303,6 +321,7 @@ export default class App extends Component {
           <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
           <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
           <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
+          <td className="td-lastDateCorrectlyTranslated">{entry.lastDateCorrectlyTranslated}</td>
         </tr>
       );
     });
@@ -483,8 +502,8 @@ export default class App extends Component {
 
   countMaxCorrectAnswers = correctAnswersPerDayArray => {
     let maxCorrectAnswers = correctAnswersPerDayArray.reduce((max, currentItem) => {
-      console.info(`max = ${max}`);
-      console.info(`currentItem.count = ${currentItem.count}`);
+      // console.info(`max = ${max}`);
+      // console.info(`currentItem.count = ${currentItem.count}`);
       return max > currentItem.count ? max : currentItem.count;
     }, 0);
     return maxCorrectAnswers;
@@ -494,10 +513,7 @@ export default class App extends Component {
     if (!value || value.count === 0) {
       return "color-empty";
     }
-    console.info(`this.state.heatmapStats = `);
-    console.info(this.state.heatmapStats);
     let maxCount = this.countMaxCorrectAnswers(this.state.heatmapStats);
-    console.info(`maxcount = ${maxCount}`);
 
     let threshold_1 = maxCount / 4;
     let threshold_2 = maxCount / 4 * 2;
@@ -520,7 +536,6 @@ export default class App extends Component {
 
   handlePassKeyDown = event => {
     if (event.keyCode === 71) {
-      console.info("pressed");
       if (this.passKeyAlreadyPressed) {
         this.resetPassKeyPress();
         this.setState({ pageNotFound: false });

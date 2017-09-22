@@ -35,9 +35,7 @@ export default class TranslationInputGR extends Component {
   handleSpecialKeyPress = event => {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
-    console.debug(
-      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`
-    );
+    console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
 
@@ -45,12 +43,9 @@ export default class TranslationInputGR extends Component {
     console.debug("SAME special key pressed AGAIN");
 
     const initial_value = event.target.value;
-    const specialKeyPairIndex = this.special_letter_substitutions.findIndex(
-      item => item[0] === event.keyCode
-    );
+    const specialKeyPairIndex = this.special_letter_substitutions.findIndex(item => item[0] === event.keyCode);
     const correct_input_box_value =
-      initial_value.substr(0, initial_value.length - 1) +
-      this.special_letter_substitutions[specialKeyPairIndex][2];
+      initial_value.substr(0, initial_value.length - 1) + this.special_letter_substitutions[specialKeyPairIndex][2];
 
     event.target.value = correct_input_box_value;
     // εδώ καλά κάναμε και αλλάξαμε τα περιεχόμενα του input αλλά αυτή η αλλαγή πρέπει
@@ -66,7 +61,7 @@ export default class TranslationInputGR extends Component {
 
   handleEscPress = event => {
     if (!this.props.disableSpecialEscPress) {
-      console.info("\nESC key pressed");
+      // console.info("\nESC key pressed");
       this.props.onEscPress();
       event.preventDefault();
     }
@@ -74,7 +69,6 @@ export default class TranslationInputGR extends Component {
 
   handlePlusPress = event => {
     if (!this.props.disableSpecialPlusPress) {
-      console.info("\n+ key pressed");
       this.props.onPlusPress();
       event.preventDefault();
     }

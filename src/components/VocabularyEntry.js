@@ -7,7 +7,8 @@ export default class VocabularyEntry {
     foreignTermNotes,
     totalSuccesses,
     totalFailures,
-    totalTimesSelected
+    totalTimesSelected,
+    lastDateCorrectlyTranslated = this.getOldestDate()
   ) {
     if (id === null) {
       this._id = `${nativeTerm}-${foreignTerm}`;
@@ -22,6 +23,7 @@ export default class VocabularyEntry {
     this.totalSuccesses = totalSuccesses;
     this.totalFailures = totalFailures;
     this.totalTimesSelected = totalTimesSelected;
+    this.lastDateCorrectlyTranslated = lastDateCorrectlyTranslated;
     this.isCurrentlyCorrectlyTranslated = false;
   }
 
@@ -34,19 +36,21 @@ export default class VocabularyEntry {
     console.info(`    this.totalFailures: ${this.totalFailures}`);
     console.info(`    this.totalSuccesses: ${this.totalSuccesses}`);
     console.info(`    this.totalTimesSelected: ${this.totalTimesSelected}`);
+    console.info(`    this.lastDateCorrectlyTranslated: ${this.lastDateCorrectlyTranslated}`);
     console.info(`    this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
   }
 
   extract() {
     console.info(
-      `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
-        .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}),`
+      `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this.foreignTermNotes}", ${this
+        .totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this.lastDateCorrectlyTranslated}"),`
     );
   }
 
   success() {
     this.totalSuccesses += 1;
     this.isCurrentlyCorrectlyTranslated = true;
+    this.lastDateCorrectlyTranslated = this.getToday();
   }
 
   failure() {
@@ -56,6 +60,14 @@ export default class VocabularyEntry {
 
   selected() {
     this.totalTimesSelected += 1;
+  }
+
+  getToday() {
+    return new Date().toISOString();
+  }
+
+  getOldestDate() {
+    return new Date("2000-01-01T00:00:00.000Z").toISOString();
   }
 
   // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript

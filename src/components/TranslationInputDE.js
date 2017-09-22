@@ -93,9 +93,7 @@ export default class TranslationInputDE extends Component {
   handleSpecialKeyPress = event => {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
-    console.debug(
-      `Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`
-    );
+    console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
 
@@ -118,7 +116,6 @@ export default class TranslationInputDE extends Component {
 
   handleEscPress = event => {
     if (!this.props.disableSpecialEscPress) {
-      console.info("\nESC key pressed");
       this.props.onEscPress();
       event.preventDefault();
     }
@@ -126,7 +123,6 @@ export default class TranslationInputDE extends Component {
 
   handlePlusPress = event => {
     if (!this.props.disableSpecialPlusPress) {
-      console.info("\n+ key pressed");
       this.props.onPlusPress();
       event.preventDefault();
     }

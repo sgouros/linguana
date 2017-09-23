@@ -742,8 +742,9 @@ img.finishModalLinguanaFaceImg {
 
 .td-lastDateCorrectlyTranslated {
   text-align: center;
-  font-weight: bold;
-  color: purple;
+  font-weight: normal;
+  color: darkgrey;
+  
 }
 
 .app__footer {

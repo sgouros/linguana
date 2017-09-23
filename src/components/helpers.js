@@ -65,3 +65,16 @@ export function getDateString(requestedDate, article = false) {
   dateString += date.getFullYear();
   return dateString;
 }
+
+export function getShortDateString(requestedDate) {
+  let date = new Date(requestedDate);
+
+  let dateString = "";
+  dateString += date.getDate();
+  dateString += ".";
+  dateString += (date.getMonth()+1);
+  dateString += ".";
+  dateString += date.getYear().toString().substr(-2);
+  return dateString;
+}
+

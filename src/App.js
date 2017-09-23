@@ -10,7 +10,7 @@ import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
-import { getDateString } from "./components/helpers.js";
+import { getDateString, getShortDateString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
@@ -326,7 +326,7 @@ export default class App extends Component {
           <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
           <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
           <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
-          <td className="td-lastDateCorrectlyTranslated">{entry.lastDateCorrectlyTranslated}</td>
+          <td className="td-lastDateCorrectlyTranslated">{getShortDateString(entry.lastDateCorrectlyTranslated)}</td>
         </tr>
       );
     });

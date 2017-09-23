@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default class SemiFinishModal extends Component {
   static propTypes = {
     title: PropTypes.string,
-    content: PropTypes.object,
+  
     onClose: PropTypes.func
   };
 

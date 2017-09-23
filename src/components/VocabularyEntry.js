@@ -25,6 +25,7 @@ export default class VocabularyEntry {
     this.totalTimesSelected = totalTimesSelected;
     this.lastDateCorrectlyTranslated = lastDateCorrectlyTranslated;
     this.isCurrentlyCorrectlyTranslated = false;
+
   }
 
   trace() {

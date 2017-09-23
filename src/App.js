@@ -16,8 +16,8 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//      * αυτή τη στιγμή δεν αλλάζει η ημερομηνία όταν κάνεις σωστή μετάφραση. Σε περίπτωση που την
-//        αλλάζει σωστά, πρέπει να δεις αν τελικά επιλέγονται με σωστό τρόπο οι λέξεις
+//      * όταν είναι στο πρώτο semi session ΔΕΝ πρέπει να γράφεται στη βάση οτι βρήκες σωστά τη λέξη 
+//      * σωστή ρύθμιση ώρας της couch db
 //      * να μπορείς να κάνεις edit
 //      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess
 //        όταν διαλέγεις λέξεις θα παίρνει αρχικά τις 5 με τις πιο λίγες totalTimesSelected αρκεί
@@ -168,7 +168,7 @@ export default class App extends Component {
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
     console.info("new voc arrived");
-    // this.vocabularyFactory.traceVocabulary(newVoc);
+    this.vocabularyFactory.traceVocabulary(newVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...newVoc,
@@ -185,7 +185,7 @@ export default class App extends Component {
 
   onOldVocabularyArrived = (oldVoc, currentIndex) => {
     console.info("old voc arrived");
-    // this.vocabularyFactory.traceVocabulary(oldVoc);
+    this.vocabularyFactory.traceVocabulary(oldVoc);
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...oldVoc,
@@ -196,7 +196,7 @@ export default class App extends Component {
     this.setState({
       vocabulary: updatedVocabulary
     });
-    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1);
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1, this.allSelectedEntries,);
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {
@@ -649,7 +649,7 @@ export default class App extends Component {
             />
           ) : null}
           {this.state.showSemiFinishModal ? (
-            <SemiFinishModal title={`Ok now let's try the oposite!`} content="" onClose={this.closeSemiFinishModal} />
+            <SemiFinishModal title={`Ok now let's try the oposite!`} onClose={this.closeSemiFinishModal} />
           ) : null}
 
           {this.state.showTestArea && (

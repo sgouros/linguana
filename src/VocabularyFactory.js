@@ -41,7 +41,7 @@ export default class VocabularyFactory {
     this.localVocDb
       .createIndex({
         index: {
-          fields: ["totalTimesSelected"]
+          fields: ["totalTimesSelected","lastDateCorrectlyTranslated"]
         }
       })
       .then(() => {
@@ -50,7 +50,7 @@ export default class VocabularyFactory {
             _id: { $nin: allSelectedEntryIDs },
             totalTimesSelected: { $gt: -1 }
           },
-          sort: [{ totalTimesSelected: "asc" }],
+          sort: [{ totalTimesSelected: "asc" },{ lastDateCorrectlyTranslated: "asc" }],
           limit: numberOfEntries
         });
       })
@@ -86,7 +86,7 @@ export default class VocabularyFactory {
             _id: { $nin: allSelectedEntryIDs },
             lastDateCorrectlyTranslated: { $gt: -1 }
           },
-          sort: [{ lastDateCorrectlyTranslated: "desc" }],
+          sort: [{ lastDateCorrectlyTranslated: "asc" }],
           limit: numberOfEntries
         });
       })
@@ -114,7 +114,8 @@ export default class VocabularyFactory {
         item.foreignTermNotes,
         item.totalSuccesses,
         item.totalFailures,
-        item.totalTimesSelected
+        item.totalTimesSelected,
+        item.lastDateCorrectlyTranslated
       );
     });
     return newVoc;
@@ -261,16 +262,16 @@ export default class VocabularyFactory {
   seedVocDB = () => {
     this.localVocDb
       .bulkDocs([
-        new VocabularyEntry("Ιουδαϊσμός-das Judentum", null, "Ιουδαϊσμός", "das Judentum", "", 5, 5, 5),
-        new VocabularyEntry("Ισλάμ-der Islam", null, "Ισλάμ", "der Islam", "", 3, 1, 5),
-        new VocabularyEntry("Χριστιανισμός-das Christentum", null, "Χριστιανισμός", "das Christentum", "", 4, 2, 5),
-        new VocabularyEntry("άγνοια-das Unwissen", null, "άγνοια", "das Unwissen", "", 13, 6, 5),
+        // new VocabularyEntry("Ιουδαϊσμός-das Judentum", null, "Ιουδαϊσμός", "das Judentum", "", 5, 5, 5),
+        // new VocabularyEntry("Ισλάμ-der Islam", null, "Ισλάμ", "der Islam", "", 3, 1, 5),
+        // new VocabularyEntry("Χριστιανισμός-das Christentum", null, "Χριστιανισμός", "das Christentum", "", 4, 2, 5),
+        // new VocabularyEntry("άγνοια-das Unwissen", null, "άγνοια", "das Unwissen", "", 13, 6, 5),
         new VocabularyEntry("άγνοια-die Ignoranz", null, "άγνοια", "die Ignoranz", "adiaforia", 4, 5, 5),
         new VocabularyEntry("άνετος-bequem", null, "άνετος", "bequem", "", 13, 2, 2),
-        new VocabularyEntry("άνοιξη-der Frühling", null, "άνοιξη", "der Frühling", "", 12, 3, 2),
+        // new VocabularyEntry("άνοιξη-der Frühling", null, "άνοιξη", "der Frühling", "", 12, 3, 2),
         new VocabularyEntry("έντονα-intensiv", null, "έντονα", "intensiv", "hart", 0, 2, 4),
         new VocabularyEntry("αγχωτικό-stressig", null, "αγχωτικό", "stressig", "", 4, 1, 5),
-        new VocabularyEntry("αμέτρητος-unzählig", null, "αμέτρητος", "unzählig", "", 11, 2, 2),
+        // new VocabularyEntry("αμέτρητος-unzählig", null, "αμέτρητος", "unzählig", "", 11, 2, 2),
         new VocabularyEntry("αμελητέος-unwichtig", null, "αμελητέος", "unwichtig", "", 12, 3, 5)
         // new VocabularyEntry(
         //   "αν έχεις την καλοσύνη-sei so lieb und",

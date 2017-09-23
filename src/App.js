@@ -56,7 +56,7 @@ export default class App extends Component {
       totalWordsLearnedForTodayCount: 0,
       pageNotFound: true
     };
-
+    this.fromNativeToForeign = false;
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
   }
@@ -83,9 +83,9 @@ export default class App extends Component {
       currentSearchInputValue: "",
       searchResults: [],
       showSearchResults: false,
-      showStatistics: true,
-      fromNativeToForeign: false
+      showStatistics: true
     });
+    this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
   };
 
   componentDidMount = () => {
@@ -106,7 +106,7 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
-    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, 1);
+    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, 4);
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
@@ -118,6 +118,7 @@ export default class App extends Component {
       showStatistics: false,
       searchResults: []
     });
+    this.fromNativeToForeign = false;
   };
 
   newSemiSession = () => {
@@ -130,9 +131,10 @@ export default class App extends Component {
       showSearchResults: false,
       showVocabularyManager: false,
       currentSearchInputValue: "",
-      fromNativeToForeign: true,
+      
       searchResults: []
     });
+    this.fromNativeToForeign = true;
 
     if (correctWordsFromPreviousSemiSession.length > 0) {
       this.setState({
@@ -196,7 +198,7 @@ export default class App extends Component {
     this.setState({
       vocabulary: updatedVocabulary
     });
-    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1, this.allSelectedEntries,);
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 6, this.allSelectedEntries,);
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {
@@ -204,11 +206,14 @@ export default class App extends Component {
     this.setState({ heatmapStats: statsArray });
   };
 
-  recordSuccessfulTranslation = entry_index => {
+  recordSuccessfulTranslation = entry_index => { 
     const new_voc = this.state.vocabulary;
-    console.info("Recording successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
+    console.info("Successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
-    this.vocabularyFactory.updateEntry(new_voc[entry_index]);
+    if (this.fromNativeToForeign === true) {
+      console.info("Recording successful translation of: " + entry_index + " " + new_voc[entry_index]._id + " to DB");
+      this.vocabularyFactory.updateEntry(new_voc[entry_index]);
+    } 
     this.setState({ vocabulary: new_voc });
   };
 
@@ -228,7 +233,7 @@ export default class App extends Component {
     if (entry.isCurrentlyCorrectlyTranslated) {
       console.info(`esc pressed and ${entry._id} is correctly translated`);
 
-      if (this.state.fromNativeToForeign) {
+      if (this.fromNativeToForeign) {
         this.saveStatsOfLearnedWord(entry);
       }
     } else {
@@ -237,7 +242,7 @@ export default class App extends Component {
     this.removeEntryFromVocabulary(currentIndex);
 
     if (thisIsTheLastVocWord) {
-      if (this.state.fromNativeToForeign) {
+      if (this.fromNativeToForeign) {
         this.setState({
           showFinishModal: true
         });
@@ -350,9 +355,10 @@ export default class App extends Component {
     this.setState({
       showFinishModal: false,
       showTestArea: false,
-      showStatistics: true,
-      fromNativeToForeign: false
+      showStatistics: true
+      
     });
+    this.fromNativeToForeign = false;
   };
 
   openVocabularyManager = () => {
@@ -621,7 +627,7 @@ export default class App extends Component {
                 onFailedTranslation={this.recordFailedTranslation}
                 onEscPress={this.handleEscPress}
                 onPlusPress={this.addEntryToVocabulary}
-                fromNativeToForeign={this.state.fromNativeToForeign}
+                fromNativeToForeign={this.fromNativeToForeign}
               />
             )}
             {this.state.showVocabularyManager && (

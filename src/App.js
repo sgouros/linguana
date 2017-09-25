@@ -16,7 +16,7 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//      * όταν είναι στο πρώτο semi session ΔΕΝ πρέπει να γράφεται στη βάση οτι βρήκες σωστά τη λέξη 
+//
 //      * σωστή ρύθμιση ώρας της couch db
 //      * να μπορείς να κάνεις edit
 //      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess
@@ -131,7 +131,7 @@ export default class App extends Component {
       showSearchResults: false,
       showVocabularyManager: false,
       currentSearchInputValue: "",
-      
+
       searchResults: []
     });
     this.fromNativeToForeign = true;
@@ -198,7 +198,7 @@ export default class App extends Component {
     this.setState({
       vocabulary: updatedVocabulary
     });
-    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 6, this.allSelectedEntries,);
+    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 6, this.allSelectedEntries);
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {
@@ -206,14 +206,14 @@ export default class App extends Component {
     this.setState({ heatmapStats: statsArray });
   };
 
-  recordSuccessfulTranslation = entry_index => { 
+  recordSuccessfulTranslation = entry_index => {
     const new_voc = this.state.vocabulary;
     console.info("Successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
     if (this.fromNativeToForeign === true) {
       console.info("Recording successful translation of: " + entry_index + " " + new_voc[entry_index]._id + " to DB");
       this.vocabularyFactory.updateEntry(new_voc[entry_index]);
-    } 
+    }
     this.setState({ vocabulary: new_voc });
   };
 
@@ -356,7 +356,6 @@ export default class App extends Component {
       showFinishModal: false,
       showTestArea: false,
       showStatistics: true
-      
     });
     this.fromNativeToForeign = false;
   };

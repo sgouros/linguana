@@ -16,7 +16,8 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//
+//      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger και αυτά να απεικονίζονται στην αρχική οθόνη
+//      * να κάνεις σωστό extract των DBs
 //      * σωστή ρύθμιση ώρας της couch db
 //      * να μπορείς να κάνεις edit
 //      * να προσθέσεις στην DBEntry ένα field dateOfLastSuccess

@@ -1,10 +1,10 @@
 echo -n "STARTING linguana\n"
-cd /home/george/code/linguana
-# nautilus /home/george/code/0linguana &
+cd ~/code/linguana
 git pull origin
+sleep 5
 code
 npm start
-# gnome-terminal -x bash -c 'npm start'
+
 
 #------------ όταν θελεις να κατεβάσεις από το github και να κάνεις overwrite το local
 #git reset --hard

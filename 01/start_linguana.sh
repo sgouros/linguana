@@ -2,7 +2,7 @@ echo -n "STARTING linguana\n"
 cd ~/code/linguana
 git pull origin
 sleep 5
-code
+code .
 npm start
 
 

@@ -16,11 +16,9 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
-//      * να κάνεις σωστό extract των DBs
 //      * να μπορείς να κάνεις edit
 //      * όταν περνάς παρατήρηση σε λέξη, να μπορείς να έχεις οποιαδήποτε γλώσσα εκεί
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
-
 //      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger
 //        και αυτά να απεικονίζονται στην αρχική οθόνη
 //      * να κάνω refactor σε display components + layout components

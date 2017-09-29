@@ -15,7 +15,6 @@ export default class VocabularyEntry {
     } else {
       this._id = id;
     }
-
     this._rev = rev;
     this.nativeTerm = nativeTerm;
     this.foreignTerm = foreignTerm;
@@ -25,7 +24,6 @@ export default class VocabularyEntry {
     this.totalTimesSelected = totalTimesSelected;
     this.lastDateCorrectlyTranslated = lastDateCorrectlyTranslated;
     this.isCurrentlyCorrectlyTranslated = false;
-
   }
 
   trace() {

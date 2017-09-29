@@ -677,6 +677,18 @@ img.finishModalLinguanaFaceImg {
   background-image: url("/img/deleteFromDb3.png");
   background-size: 5.2vh 5.2vh;
   width: 5vh;
+  height: 5vh;
+  background-repeat: no-repeat;
+  background-color: #fcffde;
+  background-position: 1.5vh 0.7vh;
+  border: none !important;
+}
+
+.app__searchResults__table--tdEdit {
+  cursor: pointer;
+  background-image: url("/img/editOnDb.ico");
+  background-size: 5.2vh 5.2vh;
+  width: 5vh;
   background-repeat: no-repeat;
   background-color: #fcffde;
   background-position: 1.5vh 0.7vh;
@@ -744,7 +756,6 @@ img.finishModalLinguanaFaceImg {
   text-align: center;
   font-weight: normal;
   color: darkgrey;
-  
 }
 
 .app__footer {

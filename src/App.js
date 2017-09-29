@@ -456,6 +456,10 @@ export default class App extends Component {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
+  editEntry = vocabularyEntry => {
+    this.vocabularyFactory.editEntry(vocabularyEntry);
+  };
+
   deleteEntry = vocabularyEntry => {
     console.info(`------- deleting entry: ${vocabularyEntry._id}`);
 
@@ -608,7 +612,11 @@ export default class App extends Component {
             )}
 
             {this.state.showSearchResults && (
-              <VocabularyTable vocabulary={this.state.searchResults} onDelete={this.deleteEntry} />
+              <VocabularyTable
+                vocabulary={this.state.searchResults}
+                onEditSubmitted={this.editEntry}
+                onDelete={this.deleteEntry}
+              />
             )}
             {this.state.showTestArea && (
               <TestArea

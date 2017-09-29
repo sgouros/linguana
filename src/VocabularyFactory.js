@@ -135,6 +135,32 @@ export default class VocabularyFactory {
       });
   };
 
+  editEntry = entry => {
+    // todo: εδώ πρώτα πρέπει να σβήνει την παλιά entry και μετά να κάνει φρέσκο insert στην καινούρια και όχι inplace edit
+    this.localVocDb
+      .put(entry)
+      .then(response => {
+        console.log(`Entry ${entry._id} ${entry.nativeTerm} ${entry.foreignTerm}  ${entry.foreignTermNotes} successfully edited`);
+      })
+      .catch(error => {
+        console.error(`Entry ${entry._id} editing in DB FAILED. Response: `);
+        console.error(error);
+      });
+  };
+
+  deleteEntryFromDb = entry => {
+    this.localVocDb
+      .remove(entry)
+      .then(response => {
+        console.debug("the following entry was removed from db:");
+        console.debug(response);
+      })
+      .catch(err => {
+        console.error("error inside deleteEntryFromDb");
+        console.error(err);
+      });
+  };
+
   extractVocDB = () => {
     this.localVocDb
       .find({
@@ -230,19 +256,6 @@ export default class VocabularyFactory {
       })
       .catch(err => {
         console.error("error inside seed search");
-        console.error(err);
-      });
-  };
-
-  deleteEntryFromDb = entry => {
-    this.localVocDb
-      .remove(entry)
-      .then(response => {
-        console.debug("the following entry was removed from db:");
-        console.debug(response);
-      })
-      .catch(err => {
-        console.error("error inside deleteEntryFromDb");
         console.error(err);
       });
   };

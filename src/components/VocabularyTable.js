@@ -15,23 +15,53 @@ export default class VocabularyTable extends Component {
     super();
     this.state = {
       showEditDialog: false,
-      entryBeingEdited: null
+      oldEntry: null,
+      editedNativeTerm: null,
+      editedForeignTerm: null,
+      editedForeignTermNotes: null
     };
   }
 
   onEditRequested = indexInVocabulary => {
+    let oldEntry = this.props.vocabulary[indexInVocabulary];
     this.setState({
       showEditDialog: true,
-      entryBeingEdited: this.props.vocabulary[indexInVocabulary]
+      oldEntry: oldEntry,
+      editedNativeTerm: oldEntry.nativeTerm,
+      editedForeignTerm: oldEntry.foreignTerm,
+      editedForeignTermNotes: oldEntry.foreignTermNotes
     });
   };
 
+  onNativeTermChanged = term => {
+    console.log("onNativeTermChanged " + term);
+    this.setState({ editedNativeTerm: term });
+  };
+
+  onForeignTermChanged = term => {
+    console.log("onForeignTermChanged");
+    this.setState({ editedForeignTerm: term });
+  };
+
+  onForeignTermNotesChanged = term => {
+    console.log("onForeignTermNotesChanged");
+    this.setState({ editedForeignTermNotes: term });
+  };
+
   onEditSubmitted = () => {
-    console.log("submitted Entry CHANGED");
-    this.props.onEditSubmitted(this.state.entryBeingEdited);
+    console.log("submitted Entry!");
+    this.props.onEditSubmitted(
+      this.state.oldEntry,
+      this.state.editedNativeTerm,
+      this.state.editedForeignTerm,
+      this.state.editedNativeTermNotes
+    );
     this.setState({
       showEditDialog: false,
-      entryBeingEdited: null
+      oldEntry: null,
+      editedNativeTerm: null,
+      editedForeignTerm: null,
+      editedForeignTermNotes: null
     });
   };
 
@@ -43,6 +73,7 @@ export default class VocabularyTable extends Component {
     let htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
+          <td>{entry._id}</td>
           <td className="app__searchResults__table--tdTranslation">{entry.foreignTerm}</td>
           <td className="app__searchResults__table--tdTerm">{entry.nativeTerm}</td>
           <td className="app__searchResults__table--tdNotes">{entry.foreignTermNotes}</td>
@@ -72,27 +103,6 @@ export default class VocabularyTable extends Component {
     return htmlTable;
   };
 
-  onNativeTermChanged = term => {
-    console.log("onNativeTermChanged " + term);
-    let entry = this.state.entryBeingEdited;
-    entry.nativeTerm = term;
-    this.setState({ entryBeingEdited: entry });
-  };
-
-  onForeignTermChanged = term => {
-    console.log("onForeignTermChanged");
-    let entry = this.state.entryBeingEdited;
-    entry.foreignTerm = term;
-    this.setState({ entryBeingEdited: entry });
-  };
-
-  onForeignTermNotesChanged = term => {
-    console.log("onForeignTermNotesChanged");
-    let entry = this.state.entryBeingEdited;
-    entry.foreignTermNotes = term;
-    this.setState({ entryBeingEdited: entry });
-  };
-
   render() {
     return (
       <div className="app__searchResults">
@@ -103,9 +113,9 @@ export default class VocabularyTable extends Component {
         {this.state.showEditDialog && (
           <EditEntryModal
             title={`Editing:`}
-            nativeTerm={this.state.entryBeingEdited.nativeTerm}
-            foreignTerm={this.state.entryBeingEdited.foreignTerm}
-            foreignTermNotes={this.state.entryBeingEdited.foreignTermNotes}
+            nativeTerm={this.state.editedNativeTerm}
+            foreignTerm={this.state.editedForeignTerm}
+            foreignTermNotes={this.state.editedForeignTermNotes}
             onNativeTermChanged={this.onNativeTermChanged}
             onForeignTermChanged={this.onForeignTermChanged}
             onForeignTermNotesChanged={this.onForeignTermNotesChanged}

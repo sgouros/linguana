@@ -14,6 +14,7 @@ import { getDateString, getShortDateString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
+import VocabularyEntry from "./components/VocabularyEntry.js";
 
 // todo:
 //      * να μπορείς να κάνεις edit
@@ -456,8 +457,54 @@ export default class App extends Component {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
-  editEntry = vocabularyEntry => {
-    this.vocabularyFactory.editEntry(vocabularyEntry);
+  editEntry = (oldEntry, newNativeTerm, newForeignTerm, newForeignTermNotes) => {
+    let newEntry = new VocabularyEntry(
+      null,
+      null,
+      newNativeTerm,
+      newForeignTerm,
+      newForeignTermNotes,
+      oldEntry.totalSuccesses,
+      oldEntry.totalFailures,
+      oldEntry.totalTimesSelected,
+      oldEntry.lastDateCorrectlyTranslated
+    );
+
+    this.vocabularyFactory.editEntry(oldEntry, newEntry);
+
+    // // ------------------ **todo  εδώ να τα αλλάξεις όλα ----------------------------------------
+    // // edit entry in allSelectedEntries
+    // console.info("--- editing entry in allSelectedEntries");
+
+    // const updatedVocabulary = [
+    //   ...this.state.vocabulary.slice(0, currentIndex),
+    //   ...newVoc,
+    //   ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+    // ];
+    // this.allSelectedEntries.push(...newVoc);
+
+    // let a = this.allSelectedEntries.indexOf(vocabularyEntry);
+    // let newSelectedEntries = this.allSelectedEntries.filter((entry, index) => index !== a);
+    // this.allSelectedEntries = newSelectedEntries;
+    // this.vocabularyFactory.traceVocabulary(this.allSelectedEntries, "tracing this.allSelectedEntries");
+
+    // // edit entry in searchResults
+    // console.info("--- deleting entry from searchResults");
+    // let b = this.state.searchResults.indexOf(vocabularyEntry);
+    // let newSearchResults = this.state.searchResults.filter((entry, index) => index !== b);
+    // this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
+    // this.setState({
+    //   searchResults: newSearchResults
+    // });
+
+    // // edit entry in state vocabulary
+    // console.info("--- deleting entry from state vocabulary");
+    // let c = this.state.vocabulary.indexOf(vocabularyEntry);
+    // let newVocabulary = this.state.vocabulary.filter((entry, index) => index !== c);
+    // this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
+    // this.setState({
+    //   vocabulary: newVocabulary
+    // });
   };
 
   deleteEntry = vocabularyEntry => {

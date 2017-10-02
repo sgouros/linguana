@@ -135,16 +135,25 @@ export default class VocabularyFactory {
       });
   };
 
-  editEntry = entry => {
-    // todo: εδώ πρώτα πρέπει να σβήνει την παλιά entry και μετά να κάνει φρέσκο insert στην καινούρια και όχι inplace edit
+  editEntry = (oldEntry, newEntry) => {
+    console.info(`Editing oldEntry ${oldEntry._id}`);
+    console.info(`    FIRST removing the following entry (old):`);
+    console.info(oldEntry);
     this.localVocDb
-      .put(entry)
+      .remove(oldEntry)
       .then(response => {
-        console.log(`Entry ${entry._id} ${entry.nativeTerm} ${entry.foreignTerm}  ${entry.foreignTermNotes} successfully edited`);
+        console.info(`    oldEntry removed`);
+        console.info(`    NEXT putting the following newEntry:`);
+        console.info(newEntry);
+        this.localVocDb.put(newEntry);
       })
-      .catch(error => {
-        console.error(`Entry ${entry._id} editing in DB FAILED. Response: `);
-        console.error(error);
+      .then(response => {
+        console.info(`    newEntry put.Everything ok! newEntry:`);
+        console.info(newEntry);
+      })
+      .catch(err => {
+        console.error("error inside editEntry:");
+        console.error(err);
       });
   };
 

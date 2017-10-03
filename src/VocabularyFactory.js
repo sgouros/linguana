@@ -135,24 +135,12 @@ export default class VocabularyFactory {
       });
   };
 
-  editEntry = (oldEntry, newEntry) => {
-    console.info(`***** Inside vocabularyFactory.editEntry *****`);
-    console.info("----> old Entry:");
-    console.info(oldEntry);
-    console.info("----> new Entry:");
-    console.info(newEntry);
-    console.info(`    FIRST removing the following entry (old):`);
+  editEntry = changedEntry => {
     this.localVocDb
-      .remove(oldEntry)
+      .put(changedEntry)
       .then(response => {
-        console.info(`    oldEntry removed`);
-        console.info(`    NEXT putting the following newEntry:`);
-        console.info(newEntry);
-        this.localVocDb.put(newEntry);
-      })
-      .then(response => {
-        console.info(`    newEntry put.Everything ok! newEntry:`);
-        console.info(newEntry);
+        console.info(`Just edited successfully an entry in DB! newValidEntry:`);
+        console.info(changedEntry);
       })
       .catch(err => {
         console.error("error inside editEntry:");

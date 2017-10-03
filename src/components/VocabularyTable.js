@@ -15,53 +15,45 @@ export default class VocabularyTable extends Component {
     super();
     this.state = {
       showEditDialog: false,
-      oldEntry: null,
-      editedNativeTerm: null,
-      editedForeignTerm: null,
-      editedForeignTermNotes: null
+      entryBeingEdited: null
     };
   }
 
   onEditRequested = indexInVocabulary => {
-    let oldEntry = this.props.vocabulary[indexInVocabulary];
+    let requestedEntryForEdit = this.props.vocabulary[indexInVocabulary];
     this.setState({
       showEditDialog: true,
-      oldEntry: oldEntry,
-      editedNativeTerm: oldEntry.nativeTerm,
-      editedForeignTerm: oldEntry.foreignTerm,
-      editedForeignTermNotes: oldEntry.foreignTermNotes
+      entryBeingEdited: requestedEntryForEdit
     });
   };
 
   onNativeTermChanged = term => {
-    console.log("onNativeTermChanged " + term);
-    this.setState({ editedNativeTerm: term });
+    console.info("onNativeTermChanged " + term);
+    let newEntry = this.state.entryBeingEdited;
+    newEntry.nativeTerm = term;
+    this.setState({ entryBeingEdited: newEntry });
   };
 
   onForeignTermChanged = term => {
-    console.log("onForeignTermChanged");
-    this.setState({ editedForeignTerm: term });
+    console.info("onForeignTermChanged");
+    let newEntry = this.state.entryBeingEdited;
+    newEntry.foreignTerm = term;
+    this.setState({ entryBeingEdited: newEntry });
   };
 
   onForeignTermNotesChanged = term => {
-    console.log("onForeignTermNotesChanged");
-    this.setState({ editedForeignTermNotes: term });
+    console.info("onForeignTermNotesChanged");
+    let newEntry = this.state.entryBeingEdited;
+    newEntry.foreignTermNotes = term;
+    this.setState({ entryBeingEdited: newEntry });
   };
 
   onEditSubmitted = () => {
-    console.log("submitted Entry!");
-    this.props.onEditSubmitted(
-      this.state.oldEntry,
-      this.state.editedNativeTerm,
-      this.state.editedForeignTerm,
-      this.state.editedForeignTermNotes
-    );
+    console.info("submitted Entry!");
+    this.props.onEditSubmitted(this.state.entryBeingEdited);
     this.setState({
       showEditDialog: false,
-      oldEntry: null,
-      editedNativeTerm: null,
-      editedForeignTerm: null,
-      editedForeignTermNotes: null
+      entryBeingEdited: null
     });
   };
 
@@ -113,9 +105,9 @@ export default class VocabularyTable extends Component {
         {this.state.showEditDialog && (
           <EditEntryModal
             title={`Editing:`}
-            nativeTerm={this.state.editedNativeTerm}
-            foreignTerm={this.state.editedForeignTerm}
-            foreignTermNotes={this.state.editedForeignTermNotes}
+            nativeTerm={this.state.entryBeingEdited.nativeTerm}
+            foreignTerm={this.state.entryBeingEdited.foreignTerm}
+            foreignTermNotes={this.state.entryBeingEdited.foreignTermNotes}
             onNativeTermChanged={this.onNativeTermChanged}
             onForeignTermChanged={this.onForeignTermChanged}
             onForeignTermNotesChanged={this.onForeignTermNotesChanged}

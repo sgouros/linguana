@@ -7,7 +7,7 @@ import TranslationInputGR from "./TranslationInputGR.js";
 export default class EditEntryModal extends Component {
   static propTypes = {
     title: PropTypes.string,
-    fnativeTerm: PropTypes.string,
+    nativeTerm: PropTypes.string,
     foreignTerm: PropTypes.string,
     foreignTermNotes: PropTypes.string,
     onForeignTermChanged: PropTypes.func,

@@ -457,32 +457,8 @@ export default class App extends Component {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
-  editEntry = (oldEntry, newNativeTerm, newForeignTerm, newForeignTermNotes) => {
-    let newEntry = new VocabularyEntry(
-      null,
-      null,
-      newNativeTerm,
-      newForeignTerm,
-      newForeignTermNotes,
-      oldEntry.totalSuccesses,
-      oldEntry.totalFailures,
-      oldEntry.totalTimesSelected,
-      oldEntry.lastDateCorrectlyTranslated
-    );
-    this.vocabularyFactory.editEntry(oldEntry, newEntry);
-
-    // edit entry in searchResults
-    console.info("--- editing entry in searchResults");
-    let oldEntryIndex = this.state.searchResults.indexOf(oldEntry);
-    console.info("oldEntryIndex:" + oldEntryIndex);
-    let newSearchResults = this.state.searchResults;
-    newSearchResults[oldEntryIndex] = newEntry;
-    console.info("newEntry._id" + newEntry._id);
-    this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
-
-    this.setState({
-      searchResults: newSearchResults
-    });
+  editEntry = changedEntry => {
+    this.vocabularyFactory.editEntry(changedEntry);
   };
 
   deleteEntry = vocabularyEntry => {

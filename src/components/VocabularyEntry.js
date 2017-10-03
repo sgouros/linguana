@@ -11,7 +11,7 @@ export default class VocabularyEntry {
     lastDateCorrectlyTranslated = this.getOldestDate()
   ) {
     if (id === null) {
-      this._id = `${nativeTerm}-${foreignTerm}`;
+      this._id = `${foreignTerm}_${nativeTerm}`;
     } else {
       this._id = id;
     }
@@ -41,8 +41,9 @@ export default class VocabularyEntry {
 
   extract() {
     console.info(
-      `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this.foreignTermNotes}", ${this
-        .totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this.lastDateCorrectlyTranslated}"),`
+      `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
+        .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
+        .lastDateCorrectlyTranslated}"),`
     );
   }
 

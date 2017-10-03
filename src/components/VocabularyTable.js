@@ -54,7 +54,7 @@ export default class VocabularyTable extends Component {
       this.state.oldEntry,
       this.state.editedNativeTerm,
       this.state.editedForeignTerm,
-      this.state.editedNativeTermNotes
+      this.state.editedForeignTermNotes
     );
     this.setState({
       showEditDialog: false,

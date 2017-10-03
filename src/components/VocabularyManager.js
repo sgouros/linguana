@@ -62,7 +62,7 @@ export default class VocabularyManager extends Component {
               inputClassName="app__vocabularyManagerComponent__form__termInputDE"
             />
             {
-              <TranslationInputDE
+              <TranslationInputGR
                 ref="vocabularyManagerNotesInput"
                 currentInputValue={this.state.currentForeignTermNotesInputValue}
                 onChange={this.handleForeignTermNotesInputChange}

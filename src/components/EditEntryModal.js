@@ -55,7 +55,7 @@ export default class EditEntryModal extends Component {
                   inputClassName="app__vocabularyManagerComponent__form__termInputDE"
                 />
                 {
-                  <TranslationInputDE
+                  <TranslationInputGR
                     ref="vocabularyManagerNotesInput"
                     currentInputValue={this.props.foreignTermNotes}
                     onChange={this.handleForeignTermNotesInputChange}

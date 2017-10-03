@@ -57,6 +57,13 @@ export default class VocabularyTable extends Component {
     });
   };
 
+  onEditClosed = () => {
+    this.setState({
+      showEditDialog: false,
+      entryBeingEdited: null
+    });
+  };
+
   onDelete = args => {
     this.props.onDelete(this.props.vocabulary[args.indexInVocabulary]);
   };
@@ -65,7 +72,6 @@ export default class VocabularyTable extends Component {
     let htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
-          <td>{entry._id}</td>
           <td className="app__searchResults__table--tdTranslation">{entry.foreignTerm}</td>
           <td className="app__searchResults__table--tdTerm">{entry.nativeTerm}</td>
           <td className="app__searchResults__table--tdNotes">{entry.foreignTermNotes}</td>
@@ -112,6 +118,7 @@ export default class VocabularyTable extends Component {
             onForeignTermChanged={this.onForeignTermChanged}
             onForeignTermNotesChanged={this.onForeignTermNotesChanged}
             onSubmit={this.onEditSubmitted}
+            onClose={this.onEditClosed}
           />
         )}
       </div>

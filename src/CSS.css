@@ -462,6 +462,7 @@ body {
   color: white;
   background: #c3c59e;
   border: solid 1px #adb585;
+  border-bottom: solid 2px #adb585;
   border-radius: 2vh 2vh 0vh 0vh;
   -webkit-border-radius: 2vh 2vh 0vh 0vh;
   -moz-border-radius: 2vh 2vh 0vh 0vh;
@@ -608,12 +609,17 @@ img.finishModalLinguanaFaceImg {
   background: #eee;
 }
 
+#editEntryModal {
+  background: #e9e4d6;
+}
+
 .app__searchResults {
+  height: 100%;
   margin: 1vh;
-  margin-top: 6vh;
-  margin-bottom: 6vh;
+  margin-top: 10vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  overflow-y: auto;
 }
 
 .app__searchResults__table {
@@ -656,7 +662,7 @@ img.finishModalLinguanaFaceImg {
 }
 
 .app__searchResults__table--tdID {
-  width: 20vh;
+  width: 25vh;
 }
 
 .app__searchResults__table--tdTerm {
@@ -668,7 +674,7 @@ img.finishModalLinguanaFaceImg {
 }
 
 .app__searchResults__table--tdNotes {
-  min-width: 30vh;
+  min-width: 25vh;
   font-weight: normal !important;
 }
 
@@ -693,6 +699,8 @@ img.finishModalLinguanaFaceImg {
   background-color: #fcffde;
   background-position: 1.5vh 0.7vh;
   border: none !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .app__searchResults__table__totalTimesSelected__circle {
@@ -700,10 +708,8 @@ img.finishModalLinguanaFaceImg {
   color: white;
   background: #505dfa;
   padding: 1.2vh;
-  width: 4vh;
+  width: 5vh;
   border-radius: 1vh;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .app__searchResults__table__totalSuccesses__circle {
@@ -711,10 +717,8 @@ img.finishModalLinguanaFaceImg {
   color: white;
   background: #86ca00;
   padding: 1.2vh;
-  width: 4vh;
   border-radius: 1vh;
-  margin-left: auto;
-  margin-right: auto;
+  width: 5vh;
 }
 
 .app__searchResults__table__totalFailures__circle {
@@ -722,16 +726,13 @@ img.finishModalLinguanaFaceImg {
   color: white;
   background: #f72a2a;
   padding: 1.2vh;
-  width: 4vh;
   border-radius: 1vh;
-  margin-left: auto;
-  margin-right: auto;
+  width: 5vh;
 }
 
 .app__searchResults__table--tdNumber {
   background-color: #fcffde;
   border: none !important;
-  width: 15vh;
 }
 
 .td-correctTranslationsCount {

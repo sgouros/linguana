@@ -13,7 +13,8 @@ export default class EditEntryModal extends Component {
     onForeignTermChanged: PropTypes.func,
     onNativeTermChanged: PropTypes.func,
     onForeignTermNotesChanged: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onClose: PropTypes.func
   };
 
   handleNativeTermInputChange = event => {
@@ -33,14 +34,17 @@ export default class EditEntryModal extends Component {
     this.props.onSubmit();
   };
 
+  handleClose = () => {
+    this.props.onClose();
+  };
+
   render() {
     return (
-      <ModalContainer onClose={this.closed} id="editEntryModal">
-        <ModalDialog onClose={this.closed} id="editEntryModal" dismissOnBackgroundClick={true} width="60%">
+      <ModalContainer onClose={this.handleClose} id="editEntryModal">
+        <ModalDialog onClose={this.handleClose} id="editEntryModal" dismissOnBackgroundClick={true} width="85%">
           <div className="app__vocabularyManagerComponent">
             <form className="app__vocabularyManagerComponent__form" onSubmit={this.handleSubmit}>
               <div className="app__vocabularyManagerComponent__form__germanFlag" />
-
               <div>
                 <TranslationInputDE
                   ref="vocabularyManagerTermInputDE"

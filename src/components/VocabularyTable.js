@@ -15,13 +15,20 @@ export default class VocabularyTable extends Component {
     super();
     this.state = {
       showEditDialog: false,
-      entryBeingEdited: null
+      entryBeingEdited: null,
+      initialNativeTerm: null,
+      initialForeignTerm: null,
+      initialForeignTermNotes: null
     };
   }
 
   onEditRequested = indexInVocabulary => {
     let requestedEntryForEdit = this.props.vocabulary[indexInVocabulary];
+
     this.setState({
+      initialNativeTerm: requestedEntryForEdit.nativeTerm,
+      initialForeignTerm: requestedEntryForEdit.foreignTerm,
+      initialForeignTermNotes: requestedEntryForEdit.foreignTermNotes,
       showEditDialog: true,
       entryBeingEdited: requestedEntryForEdit
     });
@@ -53,14 +60,26 @@ export default class VocabularyTable extends Component {
     this.props.onEditSubmitted(this.state.entryBeingEdited);
     this.setState({
       showEditDialog: false,
-      entryBeingEdited: null
+      entryBeingEdited: null,
+      initialNativeTerm: null,
+      initialForeignTerm: null,
+      initialForeignTermNotes: null
     });
   };
 
   onEditClosed = () => {
+    console.info("edit cancelled (closed)!");
+    let initialEntry = this.state.initialEntry;
+    initialEntry.nativeTerm = this.state.initialNativeTerm;
+    initialEntry.foreignTerm = this.state.initialForeignTerm;
+    initialEntry.foreignTermNotes = this.state.initialForeignTermNotes;
+
     this.setState({
       showEditDialog: false,
-      entryBeingEdited: null
+      entryBeingEdited: null,
+      initialNativeTerm: null,
+      initialForeignTerm: null,
+      initialForeignTermNotes: null
     });
   };
 

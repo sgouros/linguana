@@ -68,11 +68,15 @@ export default class VocabularyTable extends Component {
   };
 
   onEditClosed = () => {
-    console.info("edit cancelled (closed)!");
-    let initialEntry = this.state.initialEntry;
-    initialEntry.nativeTerm = this.state.initialNativeTerm;
-    initialEntry.foreignTerm = this.state.initialForeignTerm;
-    initialEntry.foreignTermNotes = this.state.initialForeignTermNotes;
+    console.info("edit cancelled (closed)! Resetting to values:");
+    let entryBeingEdited = this.state.entryBeingEdited;
+    entryBeingEdited.nativeTerm = this.state.initialNativeTerm;
+    entryBeingEdited.foreignTerm = this.state.initialForeignTerm;
+    entryBeingEdited.foreignTermNotes = this.state.initialForeignTermNotes;
+
+    console.info(entryBeingEdited.nativeTerm);
+    console.info(entryBeingEdited.foreignTerm);
+    console.info(entryBeingEdited.foreignTermNotes);
 
     this.setState({
       showEditDialog: false,
@@ -91,20 +95,44 @@ export default class VocabularyTable extends Component {
     let htmlTable = this.props.vocabulary.map((entry, index) => {
       return (
         <tr key={entry._id}>
-          <td className="app__searchResults__table--tdTranslation">{entry.foreignTerm}</td>
-          <td className="app__searchResults__table--tdTerm">{entry.nativeTerm}</td>
-          <td className="app__searchResults__table--tdNotes">{entry.foreignTermNotes}</td>
-          <td className="app__searchResults__table--tdNumber" title="total successes">
-            <div className="app__searchResults__table__totalSuccesses__circle">{entry.totalSuccesses}</div>
+          <td className="app__searchResults__table--tdTranslation">
+            {entry.foreignTerm}
           </td>
-          <td className="app__searchResults__table--tdNumber" title="total failures">
-            <div className="app__searchResults__table__totalFailures__circle">{entry.totalFailures}</div>
+          <td className="app__searchResults__table--tdTerm">
+            {entry.nativeTerm}
           </td>
-          <td className="app__searchResults__table--tdNumber" title="total times selected">
-            <div className="app__searchResults__table__totalTimesSelected__circle">{entry.totalTimesSelected}</div>
+          <td className="app__searchResults__table--tdNotes">
+            {entry.foreignTermNotes}
+          </td>
+          <td
+            className="app__searchResults__table--tdNumber"
+            title="total successes"
+          >
+            <div className="app__searchResults__table__totalSuccesses__circle">
+              {entry.totalSuccesses}
+            </div>
+          </td>
+          <td
+            className="app__searchResults__table--tdNumber"
+            title="total failures"
+          >
+            <div className="app__searchResults__table__totalFailures__circle">
+              {entry.totalFailures}
+            </div>
+          </td>
+          <td
+            className="app__searchResults__table--tdNumber"
+            title="total times selected"
+          >
+            <div className="app__searchResults__table__totalTimesSelected__circle">
+              {entry.totalTimesSelected}
+            </div>
           </td>
 
-          <td className="app__searchResults__table--tdEdit" onClick={() => this.onEditRequested(index)} />
+          <td
+            className="app__searchResults__table--tdEdit"
+            onClick={() => this.onEditRequested(index)}
+          />
           <td className="app__searchResults__table--tdDelete">
             <ConfirmDialog
               confirmMessage="This will delete the entry PERMANENTLY from the database. Are you sure?"

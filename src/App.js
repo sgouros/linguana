@@ -14,8 +14,6 @@ import { getDateString, getShortDateString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
-// import "./CSS.css";
-// import "./blackSkin.css";
 
 // todo:
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
@@ -536,6 +534,7 @@ export default class App extends Component {
     return "color-github-1";
   };
 
+  // initial password
   handlePassKeyDown = event => {
     if (event.keyCode === 71) {
       if (this.passKeyAlreadyPressed) {

@@ -47,7 +47,7 @@ export default class App extends Component {
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       totalWordsLearnedForTodayCount: 0,
       pageNotFound: true,
-      cssSkin: "./normalSkin.css"
+      cssSkin: "./blackSkin.css"
     };
     this.fromNativeToForeign = false;
     this.totalWordsLearnedForTodayArray = [];
@@ -554,6 +554,18 @@ export default class App extends Component {
     this.passKeyAlreadyPressed = false;
   };
 
+  toggleCssSkin = event => {
+    if (event.keyCode === 192) {
+      let skin = this.state.cssSkin;
+      if (skin === "./blackSkin.css") {
+        skin = "./normalSkin.css";
+      } else {
+        skin = "./blackSkin.css";
+      }
+      this.setState({ cssSkin: skin });
+    }
+  };
+
   render() {
     if (this.state.pageNotFound) {
       return (
@@ -566,7 +578,7 @@ export default class App extends Component {
       );
     } else {
       return (
-        <div className="app">
+        <div className="app" tabIndex="0" onKeyDown={this.toggleCssSkin}>
           <link rel="stylesheet" type="text/css" href={this.state.cssSkin} />
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />

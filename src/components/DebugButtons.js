@@ -36,6 +36,10 @@ export default class Debugbuttons extends Component {
         <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocabularyPressed}>
           trace voc
         </div>
+
+        <div className="app__header__debugButtons__debugButton" onClick={this.props.onDownloadDBPressed}>
+          DOWNLOAD DB
+        </div>
       </div>
     );
   }

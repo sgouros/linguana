@@ -16,6 +16,18 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 
 // todo:
+//      * να μπορείς όταν πατάς κουμπί να κάνεις download την υπάρχουσα βάση
+//      δες και εδώ (array of strings
+
+// var imgString = [];
+
+// imgString.push("hex image string for row 1");
+// imgString.push("hex image string for row 2");
+// ...
+// imgString.push("hex image string for row n");
+
+// document.forms.imageForm.elements.output.value = imgString.join("\n");)
+
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger
 //        και αυτά να απεικονίζονται στην αρχική οθόνη
@@ -564,6 +576,15 @@ export default class App extends Component {
     }
   };
 
+  downloadDB = () => {
+    console.info("download DB Pressed");
+    let element = document.createElement("a");
+    let file = new Blob(["hi"], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = "05.08.1974.txt";
+    element.click();
+  };
+
   render() {
     if (this.state.pageNotFound) {
       return (
@@ -590,6 +611,7 @@ export default class App extends Component {
               onSeedStatsDBPressed={this.seedStatsDBPressed}
               onTraceStatsDBPressed={this.traceStatsDBPressed}
               onTraceVocabularyPressed={this.traceVocabularyPressed}
+              onDownloadDBPressed={this.downloadDB}
             />
 
             <SearchForm

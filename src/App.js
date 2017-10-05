@@ -555,13 +555,12 @@ export default class App extends Component {
 
   toggleCssSkin = event => {
     if (event.keyCode === 192) {
-      let skin = this.state.cssSkin;
-      if (skin === "./blackSkin.css") {
-        skin = "./normalSkin.css";
+      event.preventDefault();
+      if (this.state.cssSkin === "./blackSkin.css") {
+        this.setState({ cssSkin: "./normalSkin.css" });
       } else {
-        skin = "./blackSkin.css";
+        this.setState({ cssSkin: "./blackSkin.css" });
       }
-      this.setState({ cssSkin: skin });
     }
   };
 

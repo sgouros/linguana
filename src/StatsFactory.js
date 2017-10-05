@@ -180,17 +180,21 @@ export default class StatsFactory {
   seedStatsDB = () => {
     this.localStatsDb
       .bulkDocs([
-        new StatsEntry("2017-9-11", null, 30),
-        new StatsEntry("2017-9-12", null, 9),
-        new StatsEntry("2017-9-13", null, 35),
-        new StatsEntry("2017-9-14", null, 29),
-        new StatsEntry("2017-9-15", null, 10),
-        new StatsEntry("2017-9-19", null, 51),
-        new StatsEntry("2017-9-20", null, 20),
-        new StatsEntry("2017-9-21", null, 37),
-        new StatsEntry("2017-9-6", null, 28),
-        new StatsEntry("2017-9-7", null, 21),
-        new StatsEntry("2017-9-8", null, 19)
+        new StatsEntry("2017-9-18", null, 12),
+        new StatsEntry("2017-9-19", null, 20),
+        new StatsEntry("2017-9-20", null, 40),
+        new StatsEntry("2017-9-21", null, 39),
+        new StatsEntry("2017-9-22", null, 20),
+
+        new StatsEntry("2017-9-25", null, 50),
+        new StatsEntry("2017-9-26", null, 28),
+        new StatsEntry("2017-9-27", null, 32),
+        new StatsEntry("2017-9-28", null, 10),
+        new StatsEntry("2017-9-29", null, 30),
+
+        new StatsEntry("2017-10-2", null, 30),
+        new StatsEntry("2017-10-3", null, 49),
+        new StatsEntry("2017-10-4", null, 19)
       ])
       .then(() => console.info(`${this.localStatsDbName} DB seeded`))
       .catch(err => {

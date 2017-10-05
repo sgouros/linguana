@@ -14,6 +14,8 @@ import { getDateString, getShortDateString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
+// import "./CSS.css";
+// import "./blackSkin.css";
 
 // todo:
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
@@ -44,7 +46,8 @@ export default class App extends Component {
       heatmapStats: [],
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       totalWordsLearnedForTodayCount: 0,
-      pageNotFound: true
+      pageNotFound: true,
+      cssSkin: "./normalSkin.css"
     };
     this.fromNativeToForeign = false;
     this.totalWordsLearnedForTodayArray = [];
@@ -564,6 +567,7 @@ export default class App extends Component {
     } else {
       return (
         <div className="app">
+          <link rel="stylesheet" type="text/css" href={this.state.cssSkin} />
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
             <DebugButtons
@@ -585,7 +589,6 @@ export default class App extends Component {
               onSubmitPressed={this.handleSearchSubmit}
             />
           </header>
-
           <nav className="app__nav">
             <button className="app__nav__navButton--startNewSessionButton" onClick={this.newSession}>
               start new session !
@@ -595,7 +598,6 @@ export default class App extends Component {
               open vocabulary manager
             </button>
           </nav>
-
           <main className="app__main">
             {this.state.showStatistics && (
               <div className="app__main__calendarHeatmap">
@@ -654,7 +656,6 @@ export default class App extends Component {
           {this.state.showSemiFinishModal ? (
             <SemiFinishModal title={`Ok now let's try the oposite!`} onClose={this.closeSemiFinishModal} />
           ) : null}
-
           {this.state.showTestArea && (
             <footer className="app__footer">
               <Stats

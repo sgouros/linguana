@@ -63,7 +63,6 @@ export default class App extends Component {
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
   }
-
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
 

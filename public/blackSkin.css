@@ -1,13 +1,13 @@
 body {
-  background-image: url("/img/blackSkin.png");
   background-image: url("/img/bk.png");
   color: #aaa;
-  padding-top: 45vh;
-  margin-top: -5vh;
-  background-size: contain;
+  /* padding-top: 65vh; */
+  /* margin-top: -5vh; */
+  background-size: cover;
 }
 
 .app {
+  padding-top: 55vh !important;
 }
 
 .app__header__logo__logoImage,
@@ -31,10 +31,8 @@ body {
 
 .app__footer {
   padding-top: 1vh;
-  padding-bottom: 20vh;
+  padding-bottom: 8vh;
   font-weight: bold;
-  display: flex;
-  justify-content: flex-end;
 }
 
 .wordComparisonDialog > img {
@@ -154,4 +152,19 @@ body {
 .app__vocabularyManagerComponent__form__notes {
   background: #3d2003;
   border: solid 1px #3d200f;
+}
+
+.translationForm__entryAlreadyCorrectlyTranslated__false {
+  color: rgb(85, 66, 66);
+  font-size: 1.6rem;
+}
+
+.translationForm__entryAlreadyCorrectlyTranslated__true {
+  color: rgb(19, 65, 8);
+  font-size: 1.6rem;
+}
+
+.translationForm__translationInput {
+  font-size: 1.3rem;
+  color: rgb(60, 62, 71);
 }

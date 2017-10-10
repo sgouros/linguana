@@ -107,6 +107,29 @@ export default class StatsFactory {
       });
   };
 
+  constructDownloadDbString = (stringArray, onSuccess) => {
+    this.localStatsDb
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        let stats = this.constructNewStats(responseFromDb.docs);
+        let downloadString = this.constructStatsDownloadString(stats, stringArray);
+        onSuccess(downloadString);
+      })
+      .catch(err => {
+        console.error("error inside stats constructDownloadDbString");
+        console.error(err);
+      });
+  };
+
+  constructStatsDownloadString = (stats, stringArray) => {
+    stats.map(entry => entry.constructDownloadString(stringArray));
+    return stringArray;
+  };
+
   extractStats = stats => {
     console.info("************** extracting Stats DB ****************");
     stats.map(entry => entry.extract());

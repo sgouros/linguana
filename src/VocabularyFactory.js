@@ -211,6 +211,29 @@ export default class VocabularyFactory {
       });
   };
 
+  constructDownloadDbString = (stringArray, onSuccess) => {
+    this.localVocDb
+      .find({
+        selector: {
+          _id: { $exists: "true" }
+        }
+      })
+      .then(responseFromDb => {
+        let voc = this.constructNewVocabulary(responseFromDb.docs);
+        let downloadString = this.constructVocabularyDownloadString(voc, stringArray);
+        onSuccess(downloadString);
+      })
+      .catch(err => {
+        console.error("error inside voc constructDownloadDbString");
+        console.error(err);
+      });
+  };
+
+  constructVocabularyDownloadString = (voc, stringArray) => {
+    voc.map(entry => entry.constructDownloadString(stringArray));
+    return stringArray;
+  };
+
   resetVocDB = () => {
     let theDB = this.localVocDb;
     theDB

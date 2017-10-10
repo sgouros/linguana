@@ -15,8 +15,6 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
-//      * να μπορείς όταν πατάς κουμπί να κάνεις download την υπάρχουσα βάση
-
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger
 //        και αυτά να απεικονίζονται στην αρχική οθόνη
@@ -567,11 +565,23 @@ export default class App extends Component {
   downloadDB = () => {
     console.info("download DB Pressed");
     let dbStringArray = [];
-    dbStringArray.push("hello");
-    dbStringArray.push("there");
+    dbStringArray.push("------------------   start of Vocabulary DB  -----------------");
+    this.vocabularyFactory.constructDownloadDbString(dbStringArray, this.onVocDbDowloadStringCreated);
+  };
+
+  onVocDbDowloadStringCreated = dbStringArray => {
+    console.info("download DB string created!");
+    dbStringArray.push("------------------ end of Vocabulary DB -----------------");
+    dbStringArray.push("\n");
+    dbStringArray.push("------------------   start of Stats DB  -----------------");
+    this.statsFactory.constructDownloadDbString(dbStringArray, this.onStatsDbDownloadStringCreated);
+  };
+
+  onStatsDbDownloadStringCreated = dbStringArray => {
+    dbStringArray.push("------------------ end of Stats DB -----------------");
     let element = document.createElement("a");
     let file = new Blob([dbStringArray.join("\n")], { type: "text/plain" });
-    let filename = getTodayDateTimeString() + ".txt";
+    let filename = "linguanaDB_" + getTodayDateTimeString() + ".txt";
     element.href = URL.createObjectURL(file);
     element.download = filename;
     element.click();

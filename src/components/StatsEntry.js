@@ -20,9 +20,9 @@ export default class StatsEntry {
     return today;
   }
 
-  constructDownloadString = stringArray => {
+  constructDownloadString(stringArray) {
     stringArray.push(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
-  };
+  }
 
   extract() {
     console.info(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);

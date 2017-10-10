@@ -10,7 +10,7 @@ import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
 import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
-import { getDateString, getShortDateString, getTodayDateTimeString } from "./components/helpers.js";
+import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
@@ -305,6 +305,8 @@ export default class App extends Component {
     return this.getTotalEntries() - this.getTotalCorrectTranslations();
   };
 
+  // <td className="td-lastDateCorrectlyTranslated">{getShortDateString(entry.lastDateCorrectlyTranslated)}</td>
+
   constructStartingSummaryModalContent = () => {
     const htmlTable = this.state.vocabulary.map(entry => {
       return (
@@ -315,7 +317,6 @@ export default class App extends Component {
           <td className="td-correctTranslationsCount">{entry.totalSuccesses}</td>
           <td className="td-wrongTranslationsCount">{entry.totalFailures}</td>
           <td className="td-totalTimesSelected">{entry.totalTimesSelected}</td>
-          <td className="td-lastDateCorrectlyTranslated">{getShortDateString(entry.lastDateCorrectlyTranslated)}</td>
         </tr>
       );
     });
@@ -565,20 +566,16 @@ export default class App extends Component {
   downloadDB = () => {
     console.info("download DB Pressed");
     let dbStringArray = [];
-    dbStringArray.push("------------------   start of Vocabulary DB  -----------------");
     this.vocabularyFactory.constructDownloadDbString(dbStringArray, this.onVocDbDowloadStringCreated);
   };
 
   onVocDbDowloadStringCreated = dbStringArray => {
     console.info("download DB string created!");
-    dbStringArray.push("------------------ end of Vocabulary DB -----------------");
     dbStringArray.push("\n");
-    dbStringArray.push("------------------   start of Stats DB  -----------------");
     this.statsFactory.constructDownloadDbString(dbStringArray, this.onStatsDbDownloadStringCreated);
   };
 
   onStatsDbDownloadStringCreated = dbStringArray => {
-    dbStringArray.push("------------------ end of Stats DB -----------------");
     let element = document.createElement("a");
     let file = new Blob([dbStringArray.join("\n")], { type: "text/plain" });
     let filename = "linguanaDB_" + getTodayDateTimeString() + ".txt";

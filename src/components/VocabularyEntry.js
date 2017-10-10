@@ -47,13 +47,13 @@ export default class VocabularyEntry {
     );
   }
 
-  constructDownloadString = stringArray => {
+  constructDownloadString(stringArray) {
     stringArray.push(
       `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
         .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
         .lastDateCorrectlyTranslated}"),`
     );
-  };
+  }
 
   success() {
     this.totalSuccesses += 1;

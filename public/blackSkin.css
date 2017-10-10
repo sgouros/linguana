@@ -70,12 +70,14 @@ body {
   color: #999;
   background: white;
   border: none;
+  cursor: pointer;
 }
 
 .app__nav__navButton--startNewSessionButton {
   color: #999;
   background: white;
   border: none;
+  cursor: pointer;
 }
 
 .app__header,
@@ -139,6 +141,7 @@ body {
 
 .app__header__debugButtons__debugButton {
   height: 1rem;
+  cursor: pointer;
 }
 
 .translationInput--correctTranslation {

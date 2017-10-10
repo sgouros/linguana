@@ -72,9 +72,38 @@ export function getShortDateString(requestedDate) {
   let dateString = "";
   dateString += date.getDate();
   dateString += ".";
-  dateString += (date.getMonth()+1);
+  dateString += date.getMonth() + 1;
   dateString += ".";
-  dateString += date.getYear().toString().substr(-2);
+  dateString += date
+    .getYear()
+    .toString()
+    .substr(-2);
   return dateString;
 }
 
+export function addZero(number) {
+  if (number < 10) {
+    number = "0" + number;
+  }
+  return number;
+}
+
+export function getTodayDateTimeString() {
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;
+  let yyyy = today.getFullYear();
+  let h = addZero(today.getHours());
+  let m = addZero(today.getMinutes());
+  let s = addZero(today.getSeconds());
+
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+
+  today = yyyy + "." + mm + "." + dd + "_" + h + "." + m + "." + s;
+  return today;
+}

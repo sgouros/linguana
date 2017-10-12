@@ -342,6 +342,7 @@ export default class App extends Component {
   };
 
   closeFinishModal = () => {
+    this.downloadDB();
     this.setState({
       showFinishModal: false,
       showTestArea: false,

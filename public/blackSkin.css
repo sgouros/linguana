@@ -4,9 +4,11 @@ body {
   /* padding-top: 65vh; */
   /* margin-top: -5vh; */
   background-size: cover;
+  height: 100vh;
 }
 
 .app {
+  height: 100vh;
   padding-top: 55vh !important;
 }
 

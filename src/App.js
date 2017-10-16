@@ -15,6 +15,7 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
+//      * οταν πατας α+ν+α να μην βγαίνει α umlaut
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger
 //        και αυτά να απεικονίζονται στην αρχική οθόνη

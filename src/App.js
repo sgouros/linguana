@@ -387,6 +387,10 @@ export default class App extends Component {
     this.vocabularyFactory.extractVocDB();
   };
 
+  statsDbUpdated = () => {
+    this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
+  };
+
   seedVocDBPressed = () => {
     console.info("--------------- seedVocDBPressed");
     this.vocabularyFactory.seedVocDB();

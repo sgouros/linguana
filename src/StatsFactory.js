@@ -21,8 +21,9 @@ export default class StatsFactory {
         retry: true
       })
       .on("change", function(change) {
-        console.info("Stats synced! Changes:");
-        console.info(change);
+        console.debug("Stats synced! Changes:");
+        console.debug(change);
+        this.app.statsDbUpdated();
       })
       .on("paused", function(info) {
         console.debug("Stats replication was paused, usually because of a lost connection");

@@ -1,10 +1,11 @@
 import React from "react";
 import range from "lodash.range";
 import reduce from "lodash.reduce";
-import { DAYS_IN_WEEK, MILLISECONDS_IN_ONE_DAY, MONTH_LABELS } from "./constants.js";
+import { DAYS_IN_WEEK, MILLISECONDS_IN_ONE_DAY, MONTH_LABELS, WEEKDAY_LABELS } from "./constants.js";
 import { shiftDate, getBeginningTimeForDate, convertToDate } from "./dateHelpers.js";
 import ReactTooltip from "react-tooltip";
 import PropTypes from "prop-types";
+import { getDateString, getTodayDateTimeString } from "../helpers.js";
 
 const SQUARE_SIZE = 10;
 const MONTH_LABEL_GUTTER_SIZE = 4;
@@ -190,6 +191,17 @@ export default class CalendarHeatmap extends React.Component {
     // let onDate = shiftDate(this.getStartDateWithEmptyDays(), index);
     // let date = new Date(onDate.getFullYear(), onDate.getMonth(), onDate.getDate());
     // console.info(`renderSquare | dayIndex = ${dayIndex}  index = ${index} weekIndex = ${weekIndex}`);
+
+    // if (value) {
+    //   let dateString = getDateString(value.date, true);
+    //   console.info(
+    //     `george rendering day ${dayIndex}: ${WEEKDAY_LABELS[
+    //       dayIndex
+    //     ]} date: ${value.date} |  ${dateString} έμαθες ${value.count} λέξεις!`
+    //   );
+    // } else {
+    //   console.info(`george rendering day ${dayIndex}: ${WEEKDAY_LABELS[dayIndex]} date: null`);
+    // }
     return (
       <rect
         key={index}

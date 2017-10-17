@@ -22,12 +22,15 @@ export default class TranslationInputGR extends Component {
       this.handlePlusPress(event);
     } else {
       console.debug("normal key pressed");
+      this.resetSpecialKeyPress();
     }
   };
 
   resetSpecialKeyPress = () => {
     console.debug(`Clearing special key press timeout ${this.s_Timeout}`);
-    clearTimeout(this.s_Timeout);
+    if (this.s_Timeout) {
+      clearTimeout(this.s_Timeout);
+    }
     this.s_Timeout = 0;
     this.alreadyPressedSpecialKeyCode = -1;
   };

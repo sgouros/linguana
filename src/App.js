@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
@@ -601,7 +600,7 @@ export default class App extends Component {
     } else {
       return (
         <div className="app" tabIndex="0" onKeyDown={this.toggleCssSkin}>
-          <link rel="stylesheet" type="text/css" href={this.state.cssSkin} />
+          {/* <link rel="stylesheet" type="text/css" href={this.state.cssSkin} /> */}
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
             <DebugButtons

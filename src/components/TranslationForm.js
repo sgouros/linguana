@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import TranslationInputGR from "./TranslationInputGR.js";
 import TranslationInputDE from "./TranslationInputDE.js";
+import { Textfit } from "react-textfit";
 
 export default class TranslationForm extends Component {
   getCssClassForSourceTerm = () => {
-    return (
-      "translationForm__entryAlreadyCorrectlyTranslated__" + this.props.isEntryAlreadyCorrectlyTranslated
-    );
+    return "translationForm__entryAlreadyCorrectlyTranslated__" + this.props.isEntryAlreadyCorrectlyTranslated;
   };
 
   render() {
@@ -14,13 +13,8 @@ export default class TranslationForm extends Component {
     if (this.props.fromNativeToForeign) {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          <div className={this.getCssClassForSourceTerm()}>
-            {this.props.nativeTerm}
-          </div>
-
-          <div className="translationForm__foreignTermNotes">
-            {this.props.foreignTermNotes}
-          </div>
+          <div className={this.getCssClassForSourceTerm()}>{this.props.nativeTerm}</div>
+          <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputDE
             ref="translationInput"
@@ -37,13 +31,8 @@ export default class TranslationForm extends Component {
     } else {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          <div className={this.getCssClassForSourceTerm()}>
-            {this.props.foreignTerm}
-          </div>
-
-          <div className="translationForm__foreignTermNotes">
-            {this.props.foreignTermNotes}
-          </div>
+          <div className={this.getCssClassForSourceTerm()}>{this.props.foreignTerm}</div>
+          <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputGR
             ref="translationInput"

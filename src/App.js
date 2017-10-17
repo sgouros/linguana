@@ -15,9 +15,8 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
+//      * όταν έχω πολλά γράμματα σε ένα translation box να μην αναδιπλώνει σε 2 σειρές
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
-//      * κάθε φορά που ανανεώνεται η βάση των stats να γίνεται κάτι trigger
-//        και αυτά να απεικονίζονται στην αρχική οθόνη
 //      * να κάνω refactor σε display components + layout components
 //      * να βάλω στο παιχνίδι τις routes
 //      * να χρησιμοποιήσω immutability

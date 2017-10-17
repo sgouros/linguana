@@ -599,10 +599,38 @@ img.finishModalLinguanaFaceImg {
 }
 
 .modalDialogTable td {
-  width: 50%;
+  /* width: 50%; */
   height: 1.5em;
   padding: 0.2rem 0.2rem 0.2rem 0.5rem;
   font-size: 1.3rem;
+}
+
+.td-correctTranslationsCount {
+  text-align: center;
+  font-weight: bold;
+  color: green;
+  width: 5vh;
+}
+
+.td-wrongTranslationsCount {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+  width: 5vh;
+}
+
+.td-totalTimesSelected {
+  text-align: center;
+  font-weight: bold;
+  color: blue;
+  width: 5vh;
+}
+
+.td-lastDateCorrectlyTranslated {
+  text-align: center;
+  font-weight: normal;
+  color: darkgrey;
+  width: 15vh;
 }
 
 .modalDialogTable tr:nth-child(odd) {
@@ -733,30 +761,6 @@ img.finishModalLinguanaFaceImg {
 .app__searchResults__table--tdNumber {
   background-color: #fcffde;
   border: none !important;
-}
-
-.td-correctTranslationsCount {
-  text-align: center;
-  font-weight: bold;
-  color: green;
-}
-
-.td-wrongTranslationsCount {
-  text-align: center;
-  font-weight: bold;
-  color: red;
-}
-
-.td-totalTimesSelected {
-  text-align: center;
-  font-weight: bold;
-  color: blue;
-}
-
-.td-lastDateCorrectlyTranslated {
-  text-align: center;
-  font-weight: normal;
-  color: darkgrey;
 }
 
 .app__footer {

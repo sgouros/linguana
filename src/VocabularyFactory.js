@@ -1,5 +1,6 @@
 import VocabularyEntry from "./components/VocabularyEntry.js";
 import PouchDB from "pouchdb";
+import { VOCABULARY_SEEDS } from "./databaseSeeds";
 PouchDB.plugin(require("pouchdb-find"));
 
 export default class VocabularyFactory {
@@ -221,7 +222,7 @@ export default class VocabularyFactory {
       .then(responseFromDb => {
         let voc = this.constructNewVocabulary(responseFromDb.docs);
         let downloadString = this.constructVocabularyDownloadString(voc, stringArray);
-        downloadString.push(`Total voc entries: ${voc.length}`);
+        downloadString.push(`// Total voc entries: ${voc.length}`);
         onSuccess(downloadString);
       })
       .catch(err => {
@@ -231,7 +232,15 @@ export default class VocabularyFactory {
   };
 
   constructVocabularyDownloadString = (voc, stringArray) => {
-    voc.map(entry => entry.constructDownloadString(stringArray));
+    stringArray.push(`import VocabularyEntry from "./components/VocabularyEntry.js";`);
+    stringArray.push(`import StatsEntry from "./components/StatsEntry.js";`);
+    stringArray.push("");
+    stringArray.push("export const VOCABULARY_SEEDS = [");
+    voc.map((entry, index, vocArray) => {
+      let lastItem = vocArray.length - 1 === index;
+      entry.constructDownloadString(stringArray, lastItem);
+    });
+    stringArray.push("];");
     return stringArray;
   };
 
@@ -309,28 +318,7 @@ export default class VocabularyFactory {
 
   seedVocDB = () => {
     this.localVocDb
-      .bulkDocs([
-        new VocabularyEntry(
-          "abbauen_μειώνω",
-          null,
-          "μειώνω μειώνω μειώνω μειώνω μειώνω μειώνω",
-          "ablegen anhalten ablegen anhalten anhalten abbauen",
-          "",
-          27,
-          6,
-          4,
-          "2017-10-09T08:27:08.823Z"
-        ),
-        new VocabularyEntry("ablegen_ανήκω", null, "ανήκω", "ablegen", "", 20, 8, 5, "2017-10-04T06:20:07.501Z"),
-        new VocabularyEntry("anbieten_προσφέρω", null, "προσφέρω", "anbieten", "", 0, 0, 0, "2000-01-01T00:00:00.000Z"),
-        new VocabularyEntry("aufbauen_διαμορφώνω", null, "διαμορφώνω", "aufbauen", "", 22, 4, 4, "2017-10-06T10:07:07.401Z"),
-        new VocabularyEntry("aufmachen_ανοίγω", null, "ανοίγω", "aufmachen", "", 0, 0, 0, "2000-01-01T00:00:00.000Z"),
-        new VocabularyEntry("aufräumen_συμμαζεύω", null, "συμμαζεύω", "aufräumen", "", 18, 4, 4, "2017-10-06T10:15:45.130Z"),
-        new VocabularyEntry("aussuchen_επιλέγω", null, "επιλέγω", "aussuchen", "", 32, 6, 6, "2017-10-06T10:08:01.034Z"),
-        new VocabularyEntry("begleiten_συνοδεύω", null, "συνοδεύω", "begleiten", "", 29, 6, 4, "2017-10-06T10:24:19.203Z"),
-        new VocabularyEntry("behalten_επιβαρύνω", null, "επιβαρύνω", "behalten", "", 9, 4, 4, "2017-09-28T11:54:25.668Z"),
-        new VocabularyEntry("beitragen zu_συμβάλλω", null, "συμβάλλω", "beitragen zu", "", 20, 7, 5, "2017-10-04T06:49:22.638Z")
-      ])
+      .bulkDocs(VOCABULARY_SEEDS)
       .then(() => console.info(`${this.localVocDbName} DB seeded`))
       .catch(err => {
         console.error("error inside seed DB");

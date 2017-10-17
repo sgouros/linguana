@@ -20,8 +20,12 @@ export default class StatsEntry {
     return today;
   }
 
-  constructDownloadString(stringArray) {
-    stringArray.push(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
+  constructDownloadString(stringArray, isLastItem) {
+    if (isLastItem) {
+      stringArray.push(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned})`);
+    } else {
+      stringArray.push(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
+    }
   }
 
   extract() {

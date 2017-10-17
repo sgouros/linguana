@@ -47,12 +47,20 @@ export default class VocabularyEntry {
     );
   }
 
-  constructDownloadString(stringArray) {
-    stringArray.push(
-      `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
-        .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
-        .lastDateCorrectlyTranslated}"),`
-    );
+  constructDownloadString(stringArray, isLastItem) {
+    if (isLastItem) {
+      stringArray.push(
+        `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
+          .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
+          .lastDateCorrectlyTranslated}")`
+      );
+    } else {
+      stringArray.push(
+        `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
+          .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
+          .lastDateCorrectlyTranslated}"),`
+      );
+    }
   }
 
   success() {

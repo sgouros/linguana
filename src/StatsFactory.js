@@ -1,6 +1,7 @@
 import StatsEntry from "./components/StatsEntry.js";
 import PouchDB from "pouchdb";
 import PouchFind from "pouchdb-find";
+import { STATS_SEEDS } from "./databaseSeeds";
 PouchDB.plugin(PouchFind);
 PouchDB.plugin(require("pouchdb-upsert"));
 
@@ -119,7 +120,7 @@ export default class StatsFactory {
       .then(responseFromDb => {
         let stats = this.constructNewStats(responseFromDb.docs);
         let downloadString = this.constructStatsDownloadString(stats, stringArray);
-        downloadString.push(`Total stats entries: ${stats.length}`);
+        downloadString.push(`// Total stats entries: ${stats.length}`);
         onSuccess(downloadString);
       })
       .catch(err => {
@@ -129,7 +130,12 @@ export default class StatsFactory {
   };
 
   constructStatsDownloadString = (stats, stringArray) => {
-    stats.map(entry => entry.constructDownloadString(stringArray));
+    stringArray.push("export const STATS_SEEDS = [");
+    stats.map((entry, index, statsArray) => {
+      let lastItem = statsArray.length - 1 === index;
+      entry.constructDownloadString(stringArray, lastItem);
+    });
+    stringArray.push("];");
     return stringArray;
   };
 
@@ -205,26 +211,7 @@ export default class StatsFactory {
 
   seedStatsDB = () => {
     this.localStatsDb
-      .bulkDocs([
-        new StatsEntry("2017-10-10", null, 39),
-        new StatsEntry("2017-10-12", null, 10),
-        new StatsEntry("2017-10-13", null, 10),
-        new StatsEntry("2017-10-14", null, 23),
-        new StatsEntry("2017-10-16", null, 10),
-        new StatsEntry("2017-10-03", null, 49),
-        new StatsEntry("2017-10-04", null, 19),
-        new StatsEntry("2017-10-05", null, 46),
-        new StatsEntry("2017-10-06", null, 58),
-        new StatsEntry("2017-10-09", null, 79),
-        new StatsEntry("2017-09-18", null, 12),
-        new StatsEntry("2017-09-19", null, 20),
-        new StatsEntry("2017-09-21", null, 39),
-        new StatsEntry("2017-09-22", null, 20),
-        new StatsEntry("2017-09-25", null, 50),
-        new StatsEntry("2017-09-26", null, 28),
-        new StatsEntry("2017-09-27", null, 32),
-        new StatsEntry("2017-09-29", null, 30)
-      ])
+      .bulkDocs(STATS_SEEDS)
       .then(() => console.info(`${this.localStatsDbName} DB seeded`))
       .catch(err => {
         console.error("error inside Stats seed DB");

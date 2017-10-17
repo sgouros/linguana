@@ -59,8 +59,7 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   getWeekCount() {
-    const numDaysRoundedToWeek =
-      this.props.numDays + this.getNumEmptyDaysAtStart() + this.getNumEmptyDaysAtEnd();
+    const numDaysRoundedToWeek = this.props.numDays + this.getNumEmptyDaysAtStart() + this.getNumEmptyDaysAtEnd();
     return Math.ceil(numDaysRoundedToWeek / DAYS_IN_WEEK);
   }
 
@@ -182,8 +181,7 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   renderSquare(dayIndex, index, weekIndex) {
-    const indexOutOfRange =
-      index < this.getNumEmptyDaysAtStart() || index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
+    const indexOutOfRange = index < this.getNumEmptyDaysAtStart() || index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
     if (indexOutOfRange && !this.props.showOutOfRangeDays) {
       return null;
     }
@@ -191,6 +189,7 @@ export default class CalendarHeatmap extends React.Component {
     const value = this.getValueForIndex(index);
     // let onDate = shiftDate(this.getStartDateWithEmptyDays(), index);
     // let date = new Date(onDate.getFullYear(), onDate.getMonth(), onDate.getDate());
+    // console.info(`renderSquare | dayIndex = ${dayIndex}  index = ${index} weekIndex = ${weekIndex}`);
     return (
       <rect
         key={index}
@@ -210,9 +209,7 @@ export default class CalendarHeatmap extends React.Component {
   renderWeek(weekIndex) {
     return (
       <g key={weekIndex} transform={this.getTransformForWeek(weekIndex)}>
-        {range(DAYS_IN_WEEK).map(dayIndex =>
-          this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex, weekIndex)
-        )}
+        {range(DAYS_IN_WEEK).map(dayIndex => this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex, weekIndex))}
       </g>
     );
   }
@@ -229,11 +226,11 @@ export default class CalendarHeatmap extends React.Component {
     return weekRange.map(weekIndex => {
       const endOfWeek = shiftDate(this.getStartDateWithEmptyDays(), (weekIndex + 1) * DAYS_IN_WEEK);
       const [x, y] = this.getMonthLabelCoordinates(weekIndex);
-      return endOfWeek.getDate() >= 1 && endOfWeek.getDate() <= DAYS_IN_WEEK
-        ? <text key={weekIndex} x={x} y={y}>
-            {MONTH_LABELS[endOfWeek.getMonth()]}
-          </text>
-        : null;
+      return endOfWeek.getDate() >= 1 && endOfWeek.getDate() <= DAYS_IN_WEEK ? (
+        <text key={weekIndex} x={x} y={y}>
+          {MONTH_LABELS[endOfWeek.getMonth()]}
+        </text>
+      ) : null;
     });
   }
 
@@ -241,12 +238,8 @@ export default class CalendarHeatmap extends React.Component {
     return (
       <div>
         <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
-          <g transform={this.getTransformForMonthLabels()}>
-            {this.renderMonthLabels()}
-          </g>
-          <g transform={this.getTransformForAllWeeks()}>
-            {this.renderAllWeeks()}
-          </g>
+          <g transform={this.getTransformForMonthLabels()}>{this.renderMonthLabels()}</g>
+          <g transform={this.getTransformForAllWeeks()}>{this.renderAllWeeks()}</g>
         </svg>
         <ReactTooltip type="success" className="calendar__heatmap__tooltip" />
       </div>

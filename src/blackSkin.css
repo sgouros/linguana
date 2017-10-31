@@ -98,6 +98,11 @@ body {
   outline: 0 none;
 }
 
+.startModal {
+  background: #14212f !important;
+  color: #666 !important;
+}
+
 .startModal > img {
   display: none;
 }
@@ -106,9 +111,41 @@ body {
   display: none;
 }
 
-.startModal {
+.semiFinishModal {
   background: #14212f !important;
   color: #666 !important;
+}
+
+#semiFinishModal {
+  background: #14212f !important;
+  color: #666 !important;
+}
+
+.semiFinishModal > img {
+  display: none;
+}
+
+.semiFinishModal > h1 {
+  display: none;
+}
+
+#finishModal {
+  background: #14212f !important;
+  color: #666 !important;
+}
+
+.finishModal > img {
+  display: none;
+}
+
+#finishModal > h1 {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.finishModalLinguanaFaceImg,
+.css-congratulations-img {
+  display: none;
 }
 
 .app__header__searchForm__searchInput {

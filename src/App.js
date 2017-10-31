@@ -386,6 +386,7 @@ export default class App extends Component {
   };
 
   statsDbUpdated = () => {
+    console.info("stats DB informed of an update");
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 
@@ -600,7 +601,7 @@ export default class App extends Component {
     } else {
       return (
         <div className="app" tabIndex="0" onKeyDown={this.toggleCssSkin}>
-          <link rel="stylesheet" type="text/css" href={this.state.cssSkin} />
+          {/* <link rel="stylesheet" type="text/css" href={this.state.cssSkin} /> */}
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
             <DebugButtons

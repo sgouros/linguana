@@ -199,12 +199,13 @@ body {
 .translationForm__entryAlreadyCorrectlyTranslated__false {
   color: rgb(85, 66, 66);
   font-size: 1.6rem;
-  padding-top: 2vh;
+  padding-top: 1.5vh;
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__true {
   color: rgb(19, 65, 8);
   font-size: 1.6rem;
+  padding-top: 1.5vh;
 }
 
 .translationForm__translationInput {

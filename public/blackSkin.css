@@ -162,6 +162,7 @@ body {
 .translationForm__entryAlreadyCorrectlyTranslated__false {
   color: rgb(85, 66, 66);
   font-size: 1.6rem;
+  padding-top: 2vh;
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__true {
@@ -172,4 +173,13 @@ body {
 .translationForm__translationInput {
   font-size: 1.3rem;
   color: rgb(60, 62, 71);
+  width: 25rem;
+  border: none;
+  color: transparent;
+  text-shadow: 0 0 0 gray;
+}
+
+.translationForm__translationInput:focus {
+  outline: none;
+  cursor: none;
 }

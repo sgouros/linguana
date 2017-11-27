@@ -2,17 +2,62 @@ import VocabularyEntry from "./components/VocabularyEntry.js";
 import StatsEntry from "./components/StatsEntry.js";
 
 export const VOCABULARY_SEEDS = [
-  new VocabularyEntry("abbauen_μειώνω", null, "μειώνω", "abbauen", "", 27, 6, 4, "2017-10-09T08:27:08.823Z"),
-  new VocabularyEntry("abgeben_παραδίδω", null, "παραδίδω", "abgeben", "", 16, 2, 1, "2017-10-13T18:44:59.278Z"),
-  new VocabularyEntry("ablegen_ανήκω", null, "ανήκω", "ablegen", "", 20, 8, 5, "2017-10-04T06:20:07.501Z"),
-  new VocabularyEntry("abschließen_ολοκληρώνω", null, "ολοκληρώνω", "abschließen", "", 15, 1, 1, "2017-10-13T18:45:04.559Z"),
-  new VocabularyEntry("anbieten_προσφέρω", null, "προσφέρω", "anbieten", "", 0, 1, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("anhalten_σταματώ", null, "σταματώ", "anhalten", "", 21, 4, 4, "2017-10-06T10:16:05.753Z"),
-  new VocabularyEntry("anhängen_κρεμώ", null, "κρεμώ", "anhängen", "", 10, 2, 5, "2017-10-04T06:19:04.404Z"),
-  new VocabularyEntry("anlegen_διαμορφώνω", null, "διαμορφώνω", "anlegen", "", 12, 2, 4, "2017-09-30T13:18:28.583Z"),
-  new VocabularyEntry("anschließend_κατόπιν", null, "κατόπιν", "anschließend", "danach", 10, 3, 5, "2017-10-04T06:19:07.900Z"),
-  new VocabularyEntry("anziehen_φορώ", null, "φορώ", "anziehen", "", 19, 3, 4, "2017-10-06T10:24:09.210Z"),
-  new VocabularyEntry("arm_φτωχός", null, "φτωχός", "arm", "", 11, 5, 5, "2017-10-04T06:19:09.316Z"),
+  new VocabularyEntry("abbauen_μειώνω", null, "μειώνω", "abbauen", "", 27, 6, 5, "2017-10-09T08:27:08.823Z"),
+  new VocabularyEntry("abbrechen_διακόπτω", null, "διακόπτω", "abbrechen", "", 22, 3, 2, "2017-11-14T09:30:33.253Z"),
+  new VocabularyEntry("abgeben_παραδίδω", null, "παραδίδω", "abgeben", "", 22, 4, 3, "2017-10-26T06:37:50.755Z"),
+  new VocabularyEntry(
+    "abholen holte ab abgeholt_παραλαμβάνω",
+    null,
+    "παραλαμβάνω",
+    "abholen holte ab abgeholt",
+    "",
+    20,
+    7,
+    2,
+    "2017-11-14T09:30:44.044Z"
+  ),
+  new VocabularyEntry("ablegen_ανήκω", null, "ανήκω", "ablegen", "", 24, 10, 7, "2017-10-31T11:41:13.161Z"),
+  new VocabularyEntry(
+    "abschaffen schaffte ab abgeschafft_καταργώ",
+    null,
+    "καταργώ",
+    "abschaffen schaffte ab abgeschafft",
+    "",
+    23,
+    4,
+    2,
+    "2017-11-14T09:31:38.924Z"
+  ),
+  new VocabularyEntry("abschließen_ολοκληρώνω", null, "ολοκληρώνω", "abschließen", "", 21, 3, 3, "2017-10-26T06:37:53.763Z"),
+  new VocabularyEntry(
+    "anbieten bot an angeboten_προσφέρω",
+    null,
+    "προσφέρω",
+    "anbieten bot an angeboten",
+    "",
+    14,
+    3,
+    3,
+    "2017-10-31T11:16:18.302Z"
+  ),
+  new VocabularyEntry("anbieten_προσφέρω", null, "προσφέρω", "anbieten", "", 5, 3, 4, "2017-10-19T08:28:54.966Z"),
+  new VocabularyEntry("anhalten_σταματώ", null, "σταματώ", "anhalten", "", 21, 4, 5, "2017-10-06T10:16:05.753Z"),
+  new VocabularyEntry("anhängen_κρεμώ", null, "κρεμώ", "anhängen", "", 12, 3, 7, "2017-10-31T11:27:24.041Z"),
+  new VocabularyEntry(
+    "anklagen klagte an angeklagt_κατηγορώ",
+    null,
+    "κατηγορώ",
+    "anklagen klagte an angeklagt",
+    "",
+    18,
+    3,
+    2,
+    "2017-11-14T09:40:56.550Z"
+  ),
+  new VocabularyEntry("anlegen_διαμορφώνω", null, "διαμορφώνω", "anlegen", "", 16, 4, 6, "2017-10-30T12:43:17.878Z"),
+  new VocabularyEntry("anschließend_κατόπιν", null, "κατόπιν", "anschließend", "danach", 12, 4, 7, "2017-10-31T11:27:27.378Z"),
+  new VocabularyEntry("anziehen_φορώ", null, "φορώ", "anziehen", "", 19, 3, 5, "2017-10-06T10:24:09.210Z"),
+  new VocabularyEntry("arm_φτωχός", null, "φτωχός", "arm", "", 16, 6, 6, "2017-10-31T11:41:08.841Z"),
   new VocabularyEntry(
     "auf den ersten Blick_με την πρώτη ματιά",
     null,
@@ -25,7 +70,18 @@ export const VOCABULARY_SEEDS = [
     "2017-10-05T09:55:37.998Z"
   ),
   new VocabularyEntry("aufbauen_διαμορφώνω", null, "διαμορφώνω", "aufbauen", "", 22, 4, 4, "2017-10-06T10:07:07.401Z"),
-  new VocabularyEntry("aufmachen_ανοίγω", null, "ανοίγω", "aufmachen", "", 2, 1, 2, "2017-10-16T08:06:07.468Z"),
+  new VocabularyEntry("aufmachen_ανοίγω", null, "ανοίγω", "aufmachen", "", 9, 2, 3, "2017-10-27T06:47:20.850Z"),
+  new VocabularyEntry(
+    "aufnehmen nahm auf aufgenommen_υποδέχομαι",
+    null,
+    "υποδέχομαι",
+    "aufnehmen nahm auf aufgenommen",
+    "",
+    31,
+    5,
+    3,
+    "2017-10-31T11:33:49.788Z"
+  ),
   new VocabularyEntry("aufräumen_συμμαζεύω", null, "συμμαζεύω", "aufräumen", "", 18, 4, 4, "2017-10-06T10:15:45.130Z"),
   new VocabularyEntry(
     "aufs Land ziehen_μετακομίζω στην επαρχία",
@@ -33,12 +89,12 @@ export const VOCABULARY_SEEDS = [
     "μετακομίζω στην επαρχία",
     "aufs Land ziehen",
     "",
-    7,
-    1,
+    10,
     4,
-    "2017-09-30T13:21:09.082Z"
+    5,
+    "2017-10-30T12:48:39.095Z"
   ),
-  new VocabularyEntry("aufstehen_σηκώνομαι", null, "σηκώνομαι", "aufstehen", "", 0, 1, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("aufstehen_σηκώνομαι", null, "σηκώνομαι", "aufstehen", "", 9, 4, 4, "2017-11-01T08:01:26.024Z"),
   new VocabularyEntry("aufwachen_ξυπνώ", null, "ξυπνώ", "aufwachen", "", 25, 5, 6, "2017-10-06T06:29:06.413Z"),
   new VocabularyEntry("aufwerten_αναβαθμίζω", null, "αναβαθμίζω", "aufwerten", "", 26, 10, 4, "2017-10-09T07:39:35.042Z"),
   new VocabularyEntry("ausbauen_διευρύνω", null, "διευρύνω", "ausbauen", "", 29, 5, 4, "2017-10-09T08:29:11.101Z"),
@@ -48,12 +104,13 @@ export const VOCABULARY_SEEDS = [
     "διεξοδικά",
     "ausführlich",
     "gründlich, ausgiebig",
-    8,
-    2,
-    5,
-    "2017-09-25T05:35:29.239Z"
+    13,
+    3,
+    6,
+    "2017-10-27T06:40:51.939Z"
   ),
   new VocabularyEntry("ausgezeichnet_εξαιρετικά", null, "εξαιρετικά", "ausgezeichnet", "", 11, 7, 5, "2017-10-09T12:01:32.569Z"),
+  new VocabularyEntry("aussagen_δηλώνω", null, "δηλώνω", "aussagen", "", 35, 5, 3, "2017-10-31T11:32:18.757Z"),
   new VocabularyEntry(
     "ausschlafen_κοιμάμαι διεξοδικά",
     null,
@@ -65,44 +122,90 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T06:29:12.437Z"
   ),
+  new VocabularyEntry(
+    "aussteigen stieg aus ist ausgestiegen_αποβιβάζομαι",
+    null,
+    "αποβιβάζομαι",
+    "aussteigen stieg aus ist ausgestiegen",
+    "",
+    15,
+    4,
+    2,
+    "2017-11-14T09:09:56.324Z"
+  ),
   new VocabularyEntry("aussuchen_επιλέγω", null, "επιλέγω", "aussuchen", "", 32, 6, 6, "2017-10-06T10:08:01.034Z"),
+  new VocabularyEntry(
+    "ausverkauft_εξαντλημένο",
+    null,
+    "εξαντλημένο",
+    "ausverkauft",
+    "sold out",
+    17,
+    3,
+    2,
+    "2017-11-14T09:09:59.395Z"
+  ),
   new VocabularyEntry(
     "ausüben auf_ασκώ πάνω σε",
     null,
     "ασκώ πάνω σε",
     "ausüben auf",
     "+A",
-    11,
+    22,
+    8,
     4,
-    1,
-    "2017-10-13T18:45:08.838Z"
+    "2017-11-01T08:18:14.937Z"
   ),
+  new VocabularyEntry("bedienen_χειρίζομαι", null, "χειρίζομαι", "bedienen", "", 11, 4, 3, "2017-10-31T11:28:07.036Z"),
   new VocabularyEntry("begleiten_συνοδεύω", null, "συνοδεύω", "begleiten", "", 29, 6, 4, "2017-10-06T10:24:19.203Z"),
-  new VocabularyEntry("behalten_επιβαρύνω", null, "επιβαρύνω", "behalten", "", 9, 4, 4, "2017-09-28T11:54:25.668Z"),
-  new VocabularyEntry("beitragen zu_συμβάλλω", null, "συμβάλλω", "beitragen zu", "", 20, 7, 5, "2017-10-04T06:49:22.638Z"),
+  new VocabularyEntry("behalten_επιβαρύνω", null, "επιβαρύνω", "behalten", "", 15, 6, 5, "2017-10-30T11:38:54.236Z"),
+  new VocabularyEntry(
+    "bei Bedarf_σύμφωνα με τις ανάγκες",
+    null,
+    "σύμφωνα με τις ανάγκες",
+    "bei Bedarf",
+    "",
+    25,
+    5,
+    3,
+    "2017-10-31T11:41:21.234Z"
+  ),
+  new VocabularyEntry("beitragen zu_συμβάλλω", null, "συμβάλλω", "beitragen zu", "", 23, 10, 6, "2017-11-01T08:00:44.312Z"),
   new VocabularyEntry("belasten_επιβαρύνω", null, "επιβαρύνω", "belasten", "behalten", 16, 4, 5, "2017-10-10T05:18:16.510Z"),
+  new VocabularyEntry("beliebig_κατά βούληση", null, "κατά βούληση", "beliebig", "", 29, 4, 3, "2017-10-31T11:41:24.810Z"),
   new VocabularyEntry("bequem_άνετος", null, "άνετος", "bequem", "", 22, 4, 4, "2017-10-09T07:30:41.298Z"),
   new VocabularyEntry("bereichern_εμπλουτίζω", null, "εμπλουτίζω", "bereichern", "", 24, 7, 6, "2017-10-06T10:06:44.969Z"),
-  new VocabularyEntry("bereits_ήδη", null, "ήδη", "bereits", "", 11, 1, 4, "2017-10-02T08:05:45.344Z"),
+  new VocabularyEntry("bereits_ήδη", null, "ήδη", "bereits", "", 18, 3, 5, "2017-10-31T06:31:24.258Z"),
   new VocabularyEntry("beschimpfen_βρίζω", null, "βρίζω", "beschimpfen", "#vorurteile", 23, 6, 6, "2017-10-06T10:06:48.537Z"),
-  new VocabularyEntry("beschließen_αποφασίζω", null, "αποφασίζω", "beschließen", "1 lexi", 18, 2, 5, "2017-10-04T06:47:56.556Z"),
-  new VocabularyEntry("besprechen_συζητώ", null, "συζητώ", "besprechen", "", 12, 3, 5, "2017-09-26T06:22:33.320Z"),
+  new VocabularyEntry("beschließen_αποφασίζω", null, "αποφασίζω", "beschließen", "1 lexi", 22, 4, 6, "2017-11-01T08:00:36.018Z"),
+  new VocabularyEntry(
+    "besiegen besiegte besiegt_νικώ",
+    null,
+    "νικώ",
+    "besiegen besiegte besiegt",
+    "",
+    12,
+    3,
+    3,
+    "2017-11-01T08:18:28.665Z"
+  ),
+  new VocabularyEntry("besprechen_συζητώ", null, "συζητώ", "besprechen", "", 16, 4, 6, "2017-10-27T06:55:52.498Z"),
   new VocabularyEntry(
     "bestehen aus_αποτελούμαι από",
     null,
     "αποτελούμαι από",
     "bestehen aus",
     "",
-    5,
-    1,
-    5,
-    "2017-10-04T06:47:59.573Z"
+    10,
+    2,
+    6,
+    "2017-11-01T08:00:39.608Z"
   ),
-  new VocabularyEntry("bestimmen_ορίζω", null, "ορίζω", "bestimmen", "", 14, 2, 1, "2017-10-13T18:45:56.205Z"),
-  new VocabularyEntry("bestimmt_βεβαίως", null, "βεβαίως", "bestimmt", "", 14, 3, 4, "2017-09-28T07:22:39.995Z"),
+  new VocabularyEntry("bestimmen_ορίζω", null, "ορίζω", "bestimmen", "", 19, 3, 3, "2017-10-19T08:41:19.423Z"),
+  new VocabularyEntry("bestimmt_βεβαίως", null, "βεβαίως", "bestimmt", "", 20, 6, 5, "2017-10-30T11:38:52.109Z"),
   new VocabularyEntry("beurteilen_κρίνω", null, "κρίνω", "beurteilen", "1 λέξη", 14, 7, 6, "2017-10-06T10:06:51.809Z"),
-  new VocabularyEntry("bewältigen_αντιμετωπίζω", null, "αντιμετωπίζω", "bewältigen", "", 25, 9, 5, "2017-10-04T06:49:28.402Z"),
-  new VocabularyEntry("bezahlen_πληρώνω", null, "πληρώνω", "bezahlen", "", 9, 2, 4, "2017-10-02T08:19:15.145Z"),
+  new VocabularyEntry("bewältigen_αντιμετωπίζω", null, "αντιμετωπίζω", "bewältigen", "", 40, 11, 6, "2017-11-01T08:18:45.793Z"),
+  new VocabularyEntry("bezahlen_πληρώνω", null, "πληρώνω", "bezahlen", "", 11, 3, 5, "2017-10-31T11:27:21.393Z"),
   new VocabularyEntry(
     "biegen Sie hier links ab_στρίψτε εδώ αριστερά",
     null,
@@ -114,17 +217,28 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-06T10:16:18.994Z"
   ),
-  new VocabularyEntry("bis_μέχρι", null, "μέχρι", "bis", "until", 2, 1, 2, "2017-10-16T08:06:12.636Z"),
+  new VocabularyEntry("bis_μέχρι", null, "μέχρι", "bis", "until", 6, 2, 3, "2017-10-27T06:46:20.555Z"),
   new VocabularyEntry(
     "bitten bat gebeten_παρακαλώ",
     null,
     "παρακαλώ",
     "bitten bat gebeten",
     "3χρ",
-    11,
-    1,
-    1,
-    "2017-10-16T20:33:16.735Z"
+    15,
+    2,
+    3,
+    "2017-10-27T06:56:21.251Z"
+  ),
+  new VocabularyEntry(
+    "bügeln bügelte gebügelt_σιδερώνω",
+    null,
+    "σιδερώνω",
+    "bügeln bügelte gebügelt",
+    "",
+    20,
+    3,
+    2,
+    "2017-11-14T09:10:02.004Z"
   ),
   new VocabularyEntry(
     "da fällt mir ein_αυτό μου θυμίζει",
@@ -143,10 +257,10 @@ export const VOCABULARY_SEEDS = [
     "μπορώ να έχω την προσοχή σας παρακαλώ",
     "darf ich um ihre Aufmerksamkeit bitten",
     "",
+    11,
     8,
-    5,
-    5,
-    "2017-09-25T05:51:14.263Z"
+    6,
+    "2017-10-27T06:47:39.906Z"
   ),
   new VocabularyEntry(
     "darüber muss ich noch mal nachdenken_πρέπει να το ξανασκεφτώ",
@@ -159,17 +273,20 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-09T06:23:39.954Z"
   ),
+  new VocabularyEntry("das Angebot_προσφορά", null, "προσφορά", "das Angebot", "", 18, 2, 2, "2017-11-14T09:10:05.564Z"),
   new VocabularyEntry("das Anliegen_παράκληση", null, "παράκληση", "das Anliegen", "", 21, 4, 4, "2017-10-09T07:31:33.866Z"),
+  new VocabularyEntry("das Ansehen_κύρος", null, "κύρος", "das Ansehen", "", 20, 4, 2, "2017-11-14T09:10:16.772Z"),
+  new VocabularyEntry("das Anwesen_βίλα", null, "βίλα", "das Anwesen", "", 40, 5, 3, "2017-10-31T11:33:28.994Z"),
   new VocabularyEntry(
     "das Ausland_εξωτερικό χώρας",
     null,
     "εξωτερικό χώρας",
     "das Ausland",
     "abroad",
-    2,
-    3,
-    4,
-    "2017-10-02T08:11:03.098Z"
+    8,
+    5,
+    12,
+    "2017-10-31T07:46:05.660Z"
   ),
   new VocabularyEntry(
     "das Besteck_μαχαιροπήρουνα",
@@ -177,10 +294,10 @@ export const VOCABULARY_SEEDS = [
     "μαχαιροπήρουνα",
     "das Besteck",
     "",
-    0,
-    0,
+    9,
     2,
-    "2000-01-01T00:00:00.000Z"
+    4,
+    "2017-11-01T08:01:46.336Z"
   ),
   new VocabularyEntry("das Blatt_φύλλο", null, "φύλλο", "das Blatt", "", 12, 3, 4, "2017-10-06T10:23:23.754Z"),
   new VocabularyEntry(
@@ -194,8 +311,19 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T10:15:51.233Z"
   ),
-  new VocabularyEntry("das Dachgeschoss_σοφίτα", null, "σοφίτα", "das Dachgeschoss", "", 12, 2, 1, "2017-10-16T20:34:54.660Z"),
-  new VocabularyEntry("das Dreieck_τρίγωνο", null, "τρίγωνο", "das Dreieck", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Dachgeschoss_σοφίτα", null, "σοφίτα", "das Dachgeschoss", "", 16, 3, 3, "2017-10-27T06:56:26.595Z"),
+  new VocabularyEntry("das Dreieck_τρίγωνο", null, "τρίγωνο", "das Dreieck", "", 7, 5, 4, "2017-11-01T08:01:57.808Z"),
+  new VocabularyEntry(
+    "das Eigenheim_ιδιόκτητη οικία",
+    null,
+    "ιδιόκτητη οικία",
+    "das Eigenheim",
+    "",
+    42,
+    4,
+    3,
+    "2017-10-31T11:42:46.304Z"
+  ),
   new VocabularyEntry(
     "das Eigeninteresse_ατομικό συμφέρον",
     null,
@@ -207,46 +335,58 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T10:17:11.810Z"
   ),
-  new VocabularyEntry("das Ereignis_συμβάν", null, "συμβάν", "das Ereignis", "", 18, 5, 5, "2017-10-04T07:05:28.133Z"),
+  new VocabularyEntry("das Ereignis_συμβάν", null, "συμβάν", "das Ereignis", "", 31, 8, 6, "2017-11-01T08:18:41.545Z"),
   new VocabularyEntry("das Ergebnis_αποτέλεσμα", null, "αποτέλεσμα", "das Ergebnis", "", 12, 7, 6, "2017-10-06T10:17:07.201Z"),
-  new VocabularyEntry("das Essen_φαγητό", null, "φαγητό", "das Essen", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Essen_φαγητό", null, "φαγητό", "das Essen", "", 8, 2, 4, "2017-11-01T08:01:31.122Z"),
+  new VocabularyEntry("das Fleisch_κρέας", null, "κρέας", "das Fleisch", "", 16, 2, 2, "2017-11-14T09:09:27.027Z"),
+  new VocabularyEntry(
+    "das Gebäck_αρτοσκευάσματα",
+    null,
+    "αρτοσκευάσματα",
+    "das Gebäck",
+    "",
+    18,
+    5,
+    2,
+    "2017-11-14T09:30:56.876Z"
+  ),
   new VocabularyEntry("das Gehalt_μισθός", null, "μισθός", "das Gehalt", "", 6, 2, 4, "2017-10-09T06:24:58.753Z"),
   new VocabularyEntry("das Geschirr_πιατικά", null, "πιατικά", "das Geschirr", "", 15, 3, 4, "2017-10-06T10:23:58.162Z"),
-  new VocabularyEntry("das Gesicht_πρόσωπο", null, "πρόσωπο", "das Gesicht", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("das Gewicht_βάρος", null, "βάρος", "das Gewicht", "", 11, 4, 4, "2017-10-04T07:05:23.981Z"),
-  new VocabularyEntry("das Glas_ποτήρι", null, "ποτήρι", "das Glas", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Gesicht_πρόσωπο", null, "πρόσωπο", "das Gesicht", "", 10, 6, 4, "2017-11-01T08:06:36.216Z"),
+  new VocabularyEntry("das Gewicht_βάρος", null, "βάρος", "das Gewicht", "", 16, 5, 5, "2017-11-01T08:16:26.944Z"),
+  new VocabularyEntry("das Glas_ποτήρι", null, "ποτήρι", "das Glas", "", 8, 2, 4, "2017-11-01T08:02:00.321Z"),
   new VocabularyEntry("das Hackfleisch_κιμάς", null, "κιμάς", "das Hackfleisch", "", 17, 6, 6, "2017-10-06T10:16:02.921Z"),
-  new VocabularyEntry("das Heft_τετράδιο", null, "τετράδιο", "das Heft", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Heft_τετράδιο", null, "τετράδιο", "das Heft", "", 7, 3, 4, "2017-11-01T08:02:05.440Z"),
   new VocabularyEntry("das Hemd_πουκάμισο", null, "πουκάμισο", "das Hemd", "", 11, 3, 4, "2017-10-05T09:56:04.543Z"),
   new VocabularyEntry("das Judentum_Ιουδαϊσμός", null, "Ιουδαϊσμός", "das Judentum", "", 7, 6, 6, "2017-10-06T10:22:01.450Z"),
-  new VocabularyEntry("das Kleingeld_νόμισμα", null, "νόμισμα", "das Kleingeld", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Kleingeld_νόμισμα", null, "νόμισμα", "das Kleingeld", "", 7, 3, 4, "2017-11-01T08:02:10.073Z"),
   new VocabularyEntry("das Merkmal_γνώρισμα", null, "γνώρισμα", "das Merkmal", "", 14, 2, 4, "2017-10-06T11:35:42.068Z"),
-  new VocabularyEntry("das Ohr_αυτί", null, "αυτί", "das Ohr", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Ohr_αυτί", null, "αυτί", "das Ohr", "", 6, 1, 4, "2017-10-18T08:05:31.107Z"),
   new VocabularyEntry(
     "das Personenkraftwagen_ιχ",
     null,
     "ιχ",
     "das Personenkraftwagen",
     "",
-    12,
-    5,
-    1,
-    "2017-10-16T20:35:40.139Z"
+    16,
+    7,
+    3,
+    "2017-10-30T12:43:44.446Z"
   ),
-  new VocabularyEntry("das Quadrat_τετράγωνο", null, "τετράγωνο", "das Quadrat", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("das Quadrat_τετράγωνο", null, "τετράγωνο", "das Quadrat", "", 6, 1, 4, "2017-10-18T08:05:33.740Z"),
   new VocabularyEntry(
     "das Sondierungsgespräch_διερευνητική συζήτηση",
     null,
     "διερευνητική συζήτηση",
     "das Sondierungsgespräch",
     "",
-    5,
-    1,
+    13,
     4,
-    "2017-10-02T08:10:56.697Z"
+    12,
+    "2017-10-31T07:45:55.771Z"
   ),
   new VocabularyEntry("das Sternzeichen_ζώδιο", null, "ζώδιο", "das Sternzeichen", "", 20, 9, 6, "2017-10-06T10:24:27.522Z"),
-  new VocabularyEntry("das Umfeld_περίγυρος", null, "περίγυρος", "das Umfeld", "", 13, 4, 4, "2017-09-28T07:22:31.139Z"),
+  new VocabularyEntry("das Umfeld_περίγυρος", null, "περίγυρος", "das Umfeld", "", 20, 6, 5, "2017-10-30T10:56:18.893Z"),
   new VocabularyEntry("das Unwissen_άγνοια", null, "άγνοια", "das Unwissen", "", 20, 7, 6, "2017-10-06T10:25:33.322Z"),
   new VocabularyEntry(
     "das Verhandlungsgespräch_διαπραγματευτική συζήτηση",
@@ -254,10 +394,10 @@ export const VOCABULARY_SEEDS = [
     "διαπραγματευτική συζήτηση",
     "das Verhandlungsgespräch",
     "",
-    13,
-    1,
+    19,
     4,
-    "2017-10-02T08:06:29.851Z"
+    5,
+    "2017-10-31T06:32:00.115Z"
   ),
   new VocabularyEntry(
     "das Vorurteil_προκατάληψη",
@@ -265,25 +405,24 @@ export const VOCABULARY_SEEDS = [
     "προκατάληψη",
     "das Vorurteil",
     "",
-    25,
-    7,
-    5,
-    "2017-10-04T07:05:31.869Z"
+    35,
+    8,
+    6,
+    "2017-11-14T09:31:04.644Z"
   ),
-  new VocabularyEntry("das Werkzeug_εργαλείο", null, "εργαλείο", "das Werkzeug", "", 15, 4, 5, "2017-10-04T07:05:35.253Z"),
-  new VocabularyEntry("das Ziel_στόχος", null, "στόχος", "das Ziel", "", 13, 3, 4, "2017-10-02T08:15:25.489Z"),
+  new VocabularyEntry("das Werkzeug_εργαλείο", null, "εργαλείο", "das Werkzeug", "", 24, 5, 6, "2017-11-14T09:31:08.269Z"),
+  new VocabularyEntry("das Ziel_στόχος", null, "στόχος", "das Ziel", "", 18, 4, 5, "2017-10-31T07:51:58.725Z"),
   new VocabularyEntry(
     "das Zugeständnis_παραχώρηση",
     null,
     "παραχώρηση",
     "das Zugeständnis",
     "",
-    34,
-    6,
-    4,
-    "2017-10-05T09:19:29.062Z"
+    38,
+    11,
+    5,
+    "2017-11-22T12:41:01.951Z"
   ),
-  new VocabularyEntry("das _", null, "", "das ", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
   new VocabularyEntry(
     "das gemeine Interesse_κοινό συμφέρον",
     null,
@@ -294,6 +433,17 @@ export const VOCABULARY_SEEDS = [
     8,
     6,
     "2017-10-06T10:25:05.274Z"
+  ),
+  new VocabularyEntry(
+    "das wesen_τομέας ή κλάδος",
+    null,
+    "τομέας ή κλάδος",
+    "das wesen",
+    "κατάληξη λέξης",
+    9,
+    6,
+    3,
+    "2017-10-31T11:28:10.562Z"
   ),
   new VocabularyEntry(
     "das öffentliche Interesse_δημόσιο συμφέρον",
@@ -313,12 +463,12 @@ export const VOCABULARY_SEEDS = [
     "βουλευτής",
     "der Abgeordnete",
     "",
-    18,
-    2,
-    1,
-    "2017-10-13T18:47:59.258Z"
+    29,
+    5,
+    4,
+    "2017-11-01T08:18:12.289Z"
   ),
-  new VocabularyEntry("der Abschluss_πτυχίο", null, "πτυχίο", "der Abschluss", "", 13, 5, 4, "2017-10-02T08:11:06.657Z"),
+  new VocabularyEntry("der Abschluss_πτυχίο", null, "πτυχίο", "der Abschluss", "", 18, 6, 5, "2017-10-31T07:51:50.398Z"),
   new VocabularyEntry(
     "der Aktenkoffer_χαρτοφύλακας",
     null,
@@ -330,7 +480,13 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-06T11:35:38.428Z"
   ),
-  new VocabularyEntry("der Anzug_κοστούμι", null, "κοστούμι", "der Anzug", "", 7, 2, 4, "2017-10-02T08:10:40.161Z"),
+  new VocabularyEntry("der Angriff_επίθεση", null, "επίθεση", "der Angriff", "", 8, 2, 3, "2017-11-01T08:12:20.083Z"),
+  new VocabularyEntry("der Anlass_αφορμή", null, "αφορμή", "der Anlass", "", 20, 4, 2, "2017-11-14T09:41:36.813Z"),
+  new VocabularyEntry("der Anreiz_κίνητρο", null, "κίνητρο", "der Anreiz", "", 28, 3, 3, "2017-10-31T11:41:29.353Z"),
+  new VocabularyEntry("der Anschluss_σύνδεση", null, "σύνδεση", "der Anschluss", "", 21, 4, 2, "2017-11-14T09:41:42.908Z"),
+  new VocabularyEntry("der Anzug_κοστούμι", null, "κοστούμι", "der Anzug", "", 13, 4, 12, "2017-10-31T07:45:49.467Z"),
+  new VocabularyEntry("der Aufzug_ασανσέρ", null, "ασανσέρ", "der Aufzug", "", 22, 2, 2, "2017-11-14T09:41:21.084Z"),
+  new VocabularyEntry("der Ausflug_εκδρομή", null, "εκδρομή", "der Ausflug", "", 21, 4, 2, "2017-11-14T09:41:28.188Z"),
   new VocabularyEntry("der Beruf_επάγγελμα", null, "επάγγελμα", "der Beruf", "", 5, 2, 4, "2017-10-09T06:23:49.148Z"),
   new VocabularyEntry(
     "der Besitzer_ιδιοκτήτης",
@@ -349,30 +505,56 @@ export const VOCABULARY_SEEDS = [
     "συστατική",
     "der Betreff",
     "reference",
-    16,
-    3,
+    23,
     4,
-    "2017-10-02T08:19:06.378Z"
+    6,
+    "2017-10-31T11:16:04.014Z"
   ),
   new VocabularyEntry("der Betrieb_επιχείρηση", null, "επιχείρηση", "der Betrieb", "", 17, 3, 5, "2017-10-10T05:18:19.262Z"),
-  new VocabularyEntry("der Bewohner_κάτοικος", null, "κάτοικος", "der Bewohner", "", 20, 4, 4, "2017-10-05T09:16:21.094Z"),
-  new VocabularyEntry("der Button_κουμπί", null, "κουμπί", "der Button", "", 4, 1, 1, "2017-10-13T18:41:37.267Z"),
-  new VocabularyEntry("der Chef_αφεντικό", null, "αφεντικό", "der Chef", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("der Bewohner_κάτοικος", null, "κάτοικος", "der Bewohner", "", 24, 5, 5, "2017-11-14T09:39:08.765Z"),
+  new VocabularyEntry("der Button_κουμπί", null, "κουμπί", "der Button", "", 9, 3, 4, "2017-11-01T08:13:19.512Z"),
+  new VocabularyEntry("der Chef_αφεντικό", null, "αφεντικό", "der Chef", "", 6, 1, 4, "2017-10-18T08:05:37.068Z"),
   new VocabularyEntry(
     "der Datenfluss_ροή δεδομένων",
     null,
     "ροή δεδομένων",
     "der Datenfluss",
     "",
-    12,
-    2,
-    1,
-    "2017-10-13T18:47:05.819Z"
+    18,
+    5,
+    4,
+    "2017-11-01T08:18:05.072Z"
   ),
-  new VocabularyEntry("der Durst_δίψα", null, "δίψα", "der Durst", "", 10, 1, 2, "2017-10-16T20:33:08.655Z"),
+  new VocabularyEntry("der Durst_δίψα", null, "δίψα", "der Durst", "", 14, 2, 3, "2017-10-27T06:56:15.499Z"),
+  new VocabularyEntry(
+    "der Eigentümer_ιδιοκτήτης",
+    null,
+    "ιδιοκτήτης",
+    "der Eigentümer",
+    "",
+    33,
+    4,
+    3,
+    "2017-10-31T11:42:58.433Z"
+  ),
+  new VocabularyEntry("der Flughafen_αεροδρόμιο", null, "αεροδρόμιο", "der Flughafen", "", 8, 1, 2, "2017-11-14T06:01:16.667Z"),
+  new VocabularyEntry("der Flüchtling_πρόσφυγας", null, "πρόσφυγας", "der Flüchtling", "", 30, 5, 3, "2017-10-31T11:31:39.369Z"),
   new VocabularyEntry("der Frühling_άνοιξη", null, "άνοιξη", "der Frühling", "", 18, 6, 5, "2017-10-09T08:29:42.829Z"),
-  new VocabularyEntry("der Gast_καλεσμένος", null, "καλεσμένος", "der Gast", "", 0, 1, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("der Geldautomat_ΑΤΜ", null, "ΑΤΜ", "der Geldautomat", "", 18, 9, 5, "2017-10-04T07:05:40.941Z"),
+  new VocabularyEntry("der Gast_καλεσμένος", null, "καλεσμένος", "der Gast", "", 8, 3, 4, "2017-11-01T08:13:02.576Z"),
+  new VocabularyEntry("der Gedenke_σκέψη", null, "σκέψη", "der Gedenke", "", 7, 1, 2, "2017-11-14T06:01:19.138Z"),
+  new VocabularyEntry("der Gegner_αντίπαλος", null, "αντίπαλος", "der Gegner", "", 13, 2, 1, "2017-11-22T12:34:56.775Z"),
+  new VocabularyEntry("der Geldautomat_ΑΤΜ", null, "ΑΤΜ", "der Geldautomat", "", 26, 10, 6, "2017-11-14T09:31:13.132Z"),
+  new VocabularyEntry(
+    "der Grund, weswegen_ο λόγος για τον οποίο",
+    null,
+    "ο λόγος για τον οποίο",
+    "der Grund, weswegen",
+    "",
+    12,
+    3,
+    3,
+    "2017-10-31T11:15:48.839Z"
+  ),
   new VocabularyEntry("der Herbst_φθινόπωρο", null, "φθινόπωρο", "der Herbst", "", 16, 4, 5, "2017-10-09T12:02:12.434Z"),
   new VocabularyEntry(
     "der Herkunftsort_τόπος προέλευσης",
@@ -385,7 +567,7 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T11:35:32.164Z"
   ),
-  new VocabularyEntry("der Hinweis_συμβουλή", null, "συμβουλή", "der Hinweis", "rat", 20, 4, 4, "2017-10-02T08:15:29.537Z"),
+  new VocabularyEntry("der Hinweis_συμβουλή", null, "συμβουλή", "der Hinweis", "rat", 25, 5, 5, "2017-10-31T07:52:01.828Z"),
   new VocabularyEntry("der Händler_έμπορος", null, "έμπορος", "der Händler", "", 13, 3, 5, "2017-10-10T05:18:10.598Z"),
   new VocabularyEntry(
     "der Inhaber_ιδιοκτήτης",
@@ -398,56 +580,59 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T11:35:34.756Z"
   ),
-  new VocabularyEntry("der Islam_Ισλάμ", null, "Ισλάμ", "der Islam", "", 3, 1, 8, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("der Knopf_διακόπτης", null, "διακόπτης", "der Knopf", "", 1, 1, 1, "2017-10-13T18:34:47.510Z"),
+  new VocabularyEntry("der Islam_Ισλάμ", null, "Ισλάμ", "der Islam", "", 6, 2, 14, "2017-10-27T06:38:15.754Z"),
+  new VocabularyEntry("der Knopf_διακόπτης", null, "διακόπτης", "der Knopf", "", 7, 3, 4, "2017-11-01T08:13:16.609Z"),
   new VocabularyEntry(
     "der Konditor_ζαχαροπλάστης",
     null,
     "ζαχαροπλάστης",
     "der Konditor",
     "",
-    0,
-    0,
-    2,
-    "2000-01-01T00:00:00.000Z"
+    10,
+    3,
+    3,
+    "2017-10-30T12:48:07.703Z"
   ),
-  new VocabularyEntry("der Kreis_κύκλος", null, "κύκλος", "der Kreis", "", 11, 3, 4, "2017-10-05T09:36:32.365Z"),
-  new VocabularyEntry("der Löffel_κουτάλι", null, "κουτάλι", "der Löffel", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("der Mantel_παλτό", null, "παλτό", "der Mantel", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("der Kreis_κύκλος", null, "κύκλος", "der Kreis", "", 14, 5, 5, "2017-11-22T13:00:36.615Z"),
+  new VocabularyEntry("der Landwirt_γεωργός", null, "γεωργός", "der Landwirt", "", 7, 1, 2, "2017-11-14T06:01:21.890Z"),
+  new VocabularyEntry("der Löffel_κουτάλι", null, "κουτάλι", "der Löffel", "", 11, 2, 3, "2017-10-30T12:48:20.631Z"),
+  new VocabularyEntry("der Mantel_παλτό", null, "παλτό", "der Mantel", "", 9, 2, 3, "2017-10-30T12:47:21.702Z"),
+  new VocabularyEntry("der Metzger_κρεοπώλης", null, "κρεοπώλης", "der Metzger", "", 6, 2, 2, "2017-11-14T06:01:24.530Z"),
   new VocabularyEntry("der Mitbürger_συμπολίτης", null, "συμπολίτης", "der Mitbürger", "", 15, 2, 4, "2017-10-06T11:35:45.476Z"),
-  new VocabularyEntry("der Mund_στόμα", null, "στόμα", "der Mund", "", 10, 1, 1, "2017-10-10T11:34:00.746Z"),
+  new VocabularyEntry("der Mund_στόμα", null, "στόμα", "der Mund", "", 18, 3, 4, "2017-11-01T08:01:23.552Z"),
   new VocabularyEntry(
     "der Namenstag_ονομαστική γιορτή",
     null,
     "ονομαστική γιορτή",
     "der Namenstag",
     "",
-    7,
-    3,
-    1,
-    "2017-10-10T11:34:05.106Z"
+    11,
+    4,
+    4,
+    "2017-10-18T07:59:40.923Z"
   ),
-  new VocabularyEntry("der Norden_βοράς", null, "βοράς", "der Norden", "", 9, 2, 1, "2017-10-10T11:34:35.882Z"),
-  new VocabularyEntry("der Osten_ανατολή", null, "ανατολή", "der Osten", "", 8, 1, 1, "2017-10-10T11:33:33.362Z"),
-  new VocabularyEntry("der Quadratmeter_τμ", null, "τμ", "der Quadratmeter", "", 9, 2, 1, "2017-10-10T11:33:37.517Z"),
-  new VocabularyEntry("der Radiergummi_σβήστρα", null, "σβήστρα", "der Radiergummi", "", 9, 1, 1, "2017-10-10T11:33:43.778Z"),
+  new VocabularyEntry("der Norden_βοράς", null, "βοράς", "der Norden", "", 14, 4, 3, "2017-10-31T07:13:49.692Z"),
+  new VocabularyEntry("der Osten_ανατολή", null, "ανατολή", "der Osten", "", 19, 3, 3, "2017-10-31T06:33:52.242Z"),
+  new VocabularyEntry("der Quadratmeter_τμ", null, "τμ", "der Quadratmeter", "", 19, 5, 4, "2017-11-01T08:04:03.721Z"),
+  new VocabularyEntry("der Radiergummi_σβήστρα", null, "σβήστρα", "der Radiergummi", "", 12, 3, 4, "2017-10-18T07:46:43.779Z"),
   new VocabularyEntry("der Rat_συμβουλή", null, "συμβουλή", "der Rat", "hinweis", 5, 3, 6, "2017-10-06T11:41:29.316Z"),
+  new VocabularyEntry("der Rechner_ηυ", null, "ηυ", "der Rechner", "", 7, 1, 2, "2017-11-14T06:01:26.989Z"),
   new VocabularyEntry("der Schafskäse_τυρί φέτα", null, "τυρί φέτα", "der Schafskäse", "", 11, 7, 4, "2017-10-06T10:24:04.090Z"),
-  new VocabularyEntry("der Schalter_διακόπτης", null, "διακόπτης", "der Schalter", "", 13, 1, 1, "2017-10-13T18:47:08.555Z"),
+  new VocabularyEntry("der Schalter_διακόπτης", null, "διακόπτης", "der Schalter", "", 24, 4, 3, "2017-10-31T07:45:29.980Z"),
   new VocabularyEntry("der Schein_χαρτονόμισμα", null, "χαρτονόμισμα", "der Schein", "", 11, 3, 4, "2017-10-06T10:23:26.306Z"),
-  new VocabularyEntry("der Schlüssel_κλειδί", null, "κλειδί", "der Schlüssel", "", 20, 4, 4, "2017-10-05T09:36:30.051Z"),
+  new VocabularyEntry("der Schlüssel_κλειδί", null, "κλειδί", "der Schlüssel", "", 23, 5, 5, "2017-11-22T13:00:05.983Z"),
   new VocabularyEntry(
     "der Schwiegervater_πεθερός",
     null,
     "πεθερός",
     "der Schwiegervater",
     "",
-    8,
-    3,
-    1,
-    "2017-10-10T11:33:47.428Z"
+    17,
+    6,
+    4,
+    "2017-11-01T08:01:43.529Z"
   ),
-  new VocabularyEntry("der Sportler_αθλητής", null, "αθλητής", "der Sportler", "", 12, 3, 4, "2017-10-04T07:05:21.469Z"),
+  new VocabularyEntry("der Sportler_αθλητής", null, "αθλητής", "der Sportler", "", 17, 4, 6, "2017-11-14T09:08:58.676Z"),
   new VocabularyEntry("der Stau_μποτιλιάρισμα", null, "μποτιλιάρισμα", "der Stau", "", 15, 4, 5, "2017-10-10T05:13:16.382Z"),
   new VocabularyEntry(
     "der Stimmzettel_ψηφοδέλτιο",
@@ -455,16 +640,29 @@ export const VOCABULARY_SEEDS = [
     "ψηφοδέλτιο",
     "der Stimmzettel",
     "",
-    13,
-    2,
-    1,
-    "2017-10-13T18:48:13.297Z"
+    26,
+    5,
+    3,
+    "2017-10-31T07:45:34.987Z"
   ),
-  new VocabularyEntry("der Süden_νότος", null, "νότος", "der Süden", "", 9, 1, 1, "2017-10-10T11:33:51.594Z"),
-  new VocabularyEntry("der Topf_κατσαρόλα", null, "κατσαρόλα", "der Topf", "", 9, 1, 1, "2017-10-10T11:33:53.594Z"),
-  new VocabularyEntry("der Urlaub_άδεια", null, "άδεια", "der Urlaub", "από τη δουλειά", 9, 1, 1, "2017-10-10T11:33:56.602Z"),
-  new VocabularyEntry("der Vertrag_συμβόλαιο", null, "συμβόλαιο", "der Vertrag", "", 6, 1, 1, "2017-10-10T11:49:20.738Z"),
-  new VocabularyEntry("der Vertreter_εκπρόσωπος", null, "εκπρόσωπος", "der Vertreter", "", 13, 1, 1, "2017-10-13T18:47:19.820Z"),
+  new VocabularyEntry("der Stoff_ύφασμα", null, "ύφασμα", "der Stoff", "", 17, 3, 2, "2017-11-22T12:33:07.095Z"),
+  new VocabularyEntry(
+    "der Studiengang_κύκλος σπουδών",
+    null,
+    "κύκλος σπουδών",
+    "der Studiengang",
+    "",
+    25,
+    4,
+    3,
+    "2017-10-31T11:41:50.122Z"
+  ),
+  new VocabularyEntry("der Süden_νότος", null, "νότος", "der Süden", "", 17, 3, 4, "2017-11-01T08:01:17.272Z"),
+  new VocabularyEntry("der Topf_κατσαρόλα", null, "κατσαρόλα", "der Topf", "", 17, 3, 4, "2017-11-01T08:01:20.616Z"),
+  new VocabularyEntry("der Urlaub_άδεια", null, "άδεια", "der Urlaub", "από τη δουλειά", 17, 3, 4, "2017-11-01T08:01:38.000Z"),
+  new VocabularyEntry("der Verletzte_τραυματίας", null, "τραυματίας", "der Verletzte", "", 9, 2, 3, "2017-11-01T08:16:37.304Z"),
+  new VocabularyEntry("der Vertrag_συμβόλαιο", null, "συμβόλαιο", "der Vertrag", "", 12, 3, 3, "2017-10-31T07:19:29.883Z"),
+  new VocabularyEntry("der Vertreter_εκπρόσωπος", null, "εκπρόσωπος", "der Vertreter", "", 24, 4, 4, "2017-11-01T08:17:20.009Z"),
   new VocabularyEntry("der Verwandt_συγγενής", null, "συγγενής", "der Verwandt", "", 13, 10, 6, "2017-10-06T11:43:11.396Z"),
   new VocabularyEntry(
     "der Vorbehalt_επιφύλαξη",
@@ -477,6 +675,18 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-06T11:43:08.788Z"
   ),
+  new VocabularyEntry("der Vorhang_κουρτίνα", null, "κουρτίνα", "der Vorhang", "", 17, 4, 3, "2017-10-31T11:40:17.002Z"),
+  new VocabularyEntry(
+    "der Vorschuss_προκαταβολή",
+    null,
+    "προκαταβολή",
+    "der Vorschuss",
+    "",
+    16,
+    5,
+    2,
+    "2017-11-22T12:33:10.567Z"
+  ),
   new VocabularyEntry("der Zustand_κατάσταση", null, "κατάσταση", "der Zustand", "", 15, 4, 5, "2017-10-09T08:29:27.792Z"),
   new VocabularyEntry(
     "der so genannte_ονομαζόμενος",
@@ -484,10 +694,10 @@ export const VOCABULARY_SEEDS = [
     "ονομαζόμενος",
     "der so genannte",
     "",
-    10,
-    1,
-    1,
-    "2017-10-14T08:37:14.395Z"
+    24,
+    3,
+    3,
+    "2017-10-31T07:45:38.291Z"
   ),
   new VocabularyEntry(
     "der wievielte ist heute_πόσο έχουμε σήμερα",
@@ -495,10 +705,10 @@ export const VOCABULARY_SEEDS = [
     "πόσο έχουμε σήμερα",
     "der wievielte ist heute",
     "",
-    13,
-    3,
+    18,
     4,
-    "2017-10-02T08:15:23.177Z"
+    5,
+    "2017-10-31T07:51:55.574Z"
   ),
   new VocabularyEntry("deutlich_σαφής", null, "σαφής", "deutlich", "", 17, 5, 4, "2017-10-05T09:56:20.329Z"),
   new VocabularyEntry("die Abfahrt_αναχώρηση", null, "αναχώρηση", "die Abfahrt", "", 14, 3, 4, "2017-10-06T11:35:49.012Z"),
@@ -515,8 +725,9 @@ export const VOCABULARY_SEEDS = [
     "2017-10-09T06:29:49.010Z"
   ),
   new VocabularyEntry("die Angst_φόβος", null, "φόβος", "die Angst", "die Furcht", 16, 4, 6, "2017-10-09T06:29:52.322Z"),
+  new VocabularyEntry("die Anklage_καταγγελία", null, "καταγγελία", "die Anklage", "", 20, 5, 2, "2017-11-22T12:41:37.783Z"),
   new VocabularyEntry("die Ankunft_άφιξη", null, "άφιξη", "die Ankunft", "", 15, 2, 4, "2017-10-06T11:35:51.132Z"),
-  new VocabularyEntry("die Anlage_υποδομή", null, "υποδομή", "die Anlage", "", 5, 2, 1, "2017-10-10T11:49:23.714Z"),
+  new VocabularyEntry("die Anlage_υποδομή", null, "υποδομή", "die Anlage", "", 18, 7, 4, "2017-11-01T08:06:34.145Z"),
   new VocabularyEntry(
     "die Anzahl_αριθμητική ποσότητα",
     null,
@@ -545,23 +756,24 @@ export const VOCABULARY_SEEDS = [
     "πιστοποιητικά εργασίας",
     "die Arbeitzeugnisse",
     "",
-    9,
-    2,
-    4,
-    "2017-09-28T11:54:30.236Z"
+    15,
+    3,
+    5,
+    "2017-10-30T11:37:59.765Z"
   ),
-  new VocabularyEntry("die Aufführung_παράσταση", null, "παράσταση", "die Aufführung", "", 11, 4, 4, "2017-09-28T07:22:27.516Z"),
+  new VocabularyEntry("die Aufführung_παράσταση", null, "παράσταση", "die Aufführung", "", 16, 6, 5, "2017-10-30T10:49:19.509Z"),
   new VocabularyEntry("die Augen_μάτια", null, "μάτια", "die Augen", "", 9, 4, 4, "2017-10-05T09:40:33.278Z"),
+  new VocabularyEntry("die Ausnahme_εξαίρεση", null, "εξαίρεση", "die Ausnahme", "", 13, 3, 3, "2017-10-31T11:15:51.470Z"),
   new VocabularyEntry(
     "die Bandbreite_εύρος φάσματος",
     null,
     "εύρος φάσματος",
     "die Bandbreite",
     "",
-    11,
-    1,
-    1,
-    "2017-10-14T08:38:34.704Z"
+    24,
+    3,
+    3,
+    "2017-10-31T07:45:43.843Z"
   ),
   new VocabularyEntry(
     "die Batterien aufladen_γεμίζω τις μπαταρίες",
@@ -580,10 +792,10 @@ export const VOCABULARY_SEEDS = [
     "δημόσια υπηρεσία",
     "die Behörde",
     "",
-    13,
-    2,
-    1,
-    "2017-10-14T08:38:37.248Z"
+    27,
+    6,
+    3,
+    "2017-10-31T07:45:47.315Z"
   ),
   new VocabularyEntry(
     "die Bezirksverwaltung_περιφέρεια",
@@ -591,24 +803,26 @@ export const VOCABULARY_SEEDS = [
     "περιφέρεια",
     "die Bezirksverwaltung",
     "",
-    12,
+    25,
+    5,
     3,
-    1,
-    "2017-10-14T08:38:42.104Z"
+    "2017-10-31T07:52:15.396Z"
   ),
   new VocabularyEntry("die Bohnen_φασόλια", null, "φασόλια", "die Bohnen", "", 15, 4, 6, "2017-10-09T06:33:30.274Z"),
-  new VocabularyEntry("die Breite_πλάτος", null, "πλάτος", "die Breite", "", 5, 2, 1, "2017-10-10T11:49:30.131Z"),
+  new VocabularyEntry("die Breite_πλάτος", null, "πλάτος", "die Breite", "", 15, 4, 4, "2017-11-01T08:05:59.176Z"),
+  new VocabularyEntry("die Brille_γυαλιά", null, "γυαλιά", "die Brille", "", 10, 2, 2, "2017-11-14T06:15:34.023Z"),
   new VocabularyEntry(
     "die Datenbank_βάση δεδομένων",
     null,
     "βάση δεδομένων",
     "die Datenbank",
     "",
-    11,
-    2,
-    1,
-    "2017-10-14T08:38:45.216Z"
+    19,
+    4,
+    3,
+    "2017-10-31T07:51:41.871Z"
   ),
+  new VocabularyEntry("die Dämmung_μόνωση", null, "μόνωση", "die Dämmung", "", 17, 4, 3, "2017-10-31T11:40:21.106Z"),
   new VocabularyEntry("die Erbsen_αρακάς", null, "αρακάς", "die Erbsen", "", 22, 4, 6, "2017-10-09T06:33:22.457Z"),
   new VocabularyEntry("die Erhaltung_διατήρηση", null, "διατήρηση", "die Erhaltung", "", 23, 8, 6, "2017-10-09T06:32:58.409Z"),
   new VocabularyEntry(
@@ -622,26 +836,30 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-09T06:33:27.489Z"
   ),
-  new VocabularyEntry("die Flasche_μπουκάλι", null, "μπουκάλι", "die Flasche", "", 6, 1, 1, "2017-10-10T11:49:33.267Z"),
+  new VocabularyEntry("die Fahne_σημαία", null, "σημαία", "die Fahne", "", 12, 2, 1, "2017-11-22T12:34:03.863Z"),
+  new VocabularyEntry("die Festnahme_σύλληψη", null, "σύλληψη", "die Festnahme", "", 25, 2, 3, "2017-10-31T11:33:16.617Z"),
+  new VocabularyEntry("die Flasche_μπουκάλι", null, "μπουκάλι", "die Flasche", "", 11, 2, 4, "2017-10-18T08:05:18.891Z"),
   new VocabularyEntry(
     "die Fortbildung_επιμόρφωση",
     null,
     "επιμόρφωση",
     "die Fortbildung",
     "",
-    11,
-    2,
-    5,
-    "2017-09-25T05:35:16.118Z"
+    16,
+    3,
+    6,
+    "2017-10-27T06:40:46.354Z"
   ),
-  new VocabularyEntry("die Funktion_λειτουργία", null, "λειτουργία", "die Funktion", "", 11, 1, 1, "2017-10-14T08:38:48.048Z"),
+  new VocabularyEntry("die Funktion_λειτουργία", null, "λειτουργία", "die Funktion", "", 19, 3, 3, "2017-10-31T07:52:19.660Z"),
   new VocabularyEntry("die Furcht_φόβος", null, "φόβος", "die Furcht", "die Angst", 22, 7, 6, "2017-10-09T07:32:22.970Z"),
-  new VocabularyEntry("die Gabel_πηρούνι", null, "πηρούνι", "die Gabel", "", 7, 1, 1, "2017-10-10T11:49:35.786Z"),
-  new VocabularyEntry("die Gegend_περιοχή", null, "περιοχή", "die Gegend", "", 8, 2, 1, "2017-10-16T20:32:47.352Z"),
-  new VocabularyEntry("die Geschichte_ιστορία", null, "ιστορία", "die Geschichte", "", 7, 1, 1, "2017-10-10T11:49:39.491Z"),
-  new VocabularyEntry("die Gewalt_βία", null, "βία", "die Gewalt", "", 10, 2, 1, "2017-10-14T08:38:50.424Z"),
-  new VocabularyEntry("die Gewalt_εξουσία", null, "εξουσία", "die Gewalt", "", 0, 1, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("die Grippe_γρίππη", null, "γρίππη", "die Grippe", "", 5, 1, 1, "2017-10-10T11:49:05.963Z"),
+  new VocabularyEntry("die Gabel_πηρούνι", null, "πηρούνι", "die Gabel", "", 12, 2, 4, "2017-10-18T08:05:21.131Z"),
+  new VocabularyEntry("die Gardine_κουρτίνα", null, "κουρτίνα", "die Gardine", "", 2, 1, 3, "2017-10-30T10:49:13.837Z"),
+  new VocabularyEntry("die Gegend_περιοχή", null, "περιοχή", "die Gegend", "", 13, 3, 3, "2017-10-27T06:56:03.059Z"),
+  new VocabularyEntry("die Gegenwart_παρόν", null, "παρόν", "die Gegenwart", "", 13, 3, 2, "2017-11-22T12:40:30.287Z"),
+  new VocabularyEntry("die Geschichte_ιστορία", null, "ιστορία", "die Geschichte", "", 12, 2, 4, "2017-10-18T08:05:25.435Z"),
+  new VocabularyEntry("die Gewalt_βία", null, "βία", "die Gewalt", "", 18, 4, 3, "2017-10-31T07:51:45.797Z"),
+  new VocabularyEntry("die Gewalt_εξουσία", null, "εξουσία", "die Gewalt", "", 14, 5, 3, "2017-10-30T12:48:26.694Z"),
+  new VocabularyEntry("die Grippe_γρίππη", null, "γρίππη", "die Grippe", "", 13, 3, 4, "2017-11-01T08:02:12.368Z"),
   new VocabularyEntry("die Handlung_πράξη", null, "πράξη", "die Handlung", "die Tat", 28, 9, 6, "2017-10-09T07:31:16.434Z"),
   new VocabularyEntry(
     "die Hautfarbe_χρώμα δέρματος",
@@ -654,25 +872,41 @@ export const VOCABULARY_SEEDS = [
     6,
     "2017-10-09T07:31:19.938Z"
   ),
+  new VocabularyEntry(
+    "die Herausforderung_πρόκληση",
+    null,
+    "πρόκληση",
+    "die Herausforderung",
+    "",
+    8,
+    2,
+    2,
+    "2017-11-14T06:15:43.119Z"
+  ),
   new VocabularyEntry("die Ignoranz_άγνοια", null, "άγνοια", "die Ignoranz", "adiaforia", 12, 6, 6, "2017-10-09T07:31:23.794Z"),
+  new VocabularyEntry("die Immobilie_ακίνητο", null, "ακίνητο", "die Immobilie", "", 15, 3, 3, "2017-10-31T11:42:17.689Z"),
   new VocabularyEntry(
     "die Kaltmiete_ενοίκιο χωρίς θέρμανση",
     null,
     "ενοίκιο χωρίς θέρμανση",
     "die Kaltmiete",
     "",
-    10,
-    1,
-    1,
-    "2017-10-16T20:32:50.223Z"
+    14,
+    2,
+    3,
+    "2017-10-27T06:56:09.250Z"
   ),
-  new VocabularyEntry("die Koalition_συνασπισμός", null, "συνασπισμός", "die Koalition", "", 5, 2, 4, "2017-09-30T13:18:41.614Z"),
+  new VocabularyEntry("die Kasse_ταμείο", null, "ταμείο", "die Kasse", "", 10, 1, 2, "2017-11-14T06:15:16.839Z"),
+  new VocabularyEntry("die Koalition_συνασπισμός", null, "συνασπισμός", "die Koalition", "", 8, 4, 5, "2017-10-30T12:47:56.831Z"),
+  new VocabularyEntry("die Lage_τοποθεσία", null, "τοποθεσία", "die Lage", "", 10, 1, 2, "2017-11-14T06:15:18.623Z"),
+  new VocabularyEntry("die Leistung_απόδοση", null, "απόδοση", "die Leistung", "", 10, 1, 2, "2017-11-14T06:15:20.567Z"),
   new VocabularyEntry("die Linsen_φακές", null, "φακές", "die Linsen", "", 14, 3, 6, "2017-10-09T07:38:07.826Z"),
-  new VocabularyEntry("die Länge_μήκος", null, "μήκος", "die Länge", "", 6, 2, 1, "2017-10-10T11:50:03.035Z"),
+  new VocabularyEntry("die Länge_μήκος", null, "μήκος", "die Länge", "", 10, 4, 4, "2017-10-18T08:05:27.923Z"),
+  new VocabularyEntry("die Macht_εξουσία", null, "εξουσία", "die Macht", "", 7, 1, 1, "2017-11-22T12:33:17.455Z"),
   new VocabularyEntry("die Mahlzeit_γεύμα", null, "γεύμα", "die Mahlzeit", "", 17, 5, 6, "2017-10-09T07:38:12.306Z"),
   new VocabularyEntry("die Mappe_φάκελος", null, "φάκελος", "die Mappe", "", 15, 4, 4, "2017-10-06T10:15:40.842Z"),
-  new VocabularyEntry("die Maßnahme_μέτρo", null, "μέτρo", "die Maßnahme", "", 0, 1, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("die Menge_ποσότητα", null, "ποσότητα", "die Menge", "", 8, 1, 4, "2017-09-28T11:54:33.181Z"),
+  new VocabularyEntry("die Maßnahme_μέτρο", null, "μέτρο", "die Maßnahme", "", 10, 3, 4, "2017-11-01T08:03:33.536Z"),
+  new VocabularyEntry("die Menge_ποσότητα", null, "ποσότητα", "die Menge", "", 12, 2, 5, "2017-10-30T11:41:34.492Z"),
   new VocabularyEntry(
     "die Minderheit_μειονότητα",
     null,
@@ -696,8 +930,9 @@ export const VOCABULARY_SEEDS = [
     "2017-10-09T07:38:20.707Z"
   ),
   new VocabularyEntry("die Münze_κέρμα", null, "κέρμα", "die Münze", "", 19, 5, 8, "2017-10-09T11:56:31.369Z"),
-  new VocabularyEntry("die Nachbarn_γείτονες", null, "γείτονες", "die Nachbarn", "", 8, 3, 5, "2017-09-28T07:17:58.163Z"),
-  new VocabularyEntry("die Nachrichten_ειδήσεις", null, "ειδήσεις", "die Nachrichten", "", 12, 2, 4, "2017-09-28T11:54:47.861Z"),
+  new VocabularyEntry("die Nachbarn_γείτονες", null, "γείτονες", "die Nachbarn", "", 12, 4, 6, "2017-10-27T06:55:56.762Z"),
+  new VocabularyEntry("die Nachfrage_ζήτηση", null, "ζήτηση", "die Nachfrage", "", 15, 4, 3, "2017-10-31T11:40:43.881Z"),
+  new VocabularyEntry("die Nachrichten_ειδήσεις", null, "ειδήσεις", "die Nachrichten", "", 14, 3, 5, "2017-10-30T12:28:46.278Z"),
   new VocabularyEntry("die Nase_μύτη", null, "μύτη", "die Nase", "", 15, 4, 4, "2017-10-05T09:47:51.382Z"),
   new VocabularyEntry(
     "die Nebenkosten_πρόσθετα έξοδα",
@@ -705,56 +940,72 @@ export const VOCABULARY_SEEDS = [
     "πρόσθετα έξοδα",
     "die Nebenkosten",
     "",
-    12,
+    16,
+    5,
     3,
-    1,
-    "2017-10-16T20:35:04.579Z"
+    "2017-10-30T12:43:33.678Z"
   ),
-  new VocabularyEntry("die Neuigkeit_νέο", null, "νέο", "die Neuigkeit", "", 6, 1, 1, "2017-10-10T11:49:15.589Z"),
-  new VocabularyEntry("die Ofenheizung_σόμπα", null, "σόμπα", "die Ofenheizung", "", 10, 1, 1, "2017-10-16T20:32:57.417Z"),
-  new VocabularyEntry("die Ohren_αυτιά", null, "αυτιά", "die Ohren", "", 6, 1, 1, "2017-10-10T11:49:17.988Z"),
-  new VocabularyEntry("die Prüfung_εξέταση", null, "εξέταση", "die Prüfung", "", 12, 2, 4, "2017-09-28T11:54:50.652Z"),
-  new VocabularyEntry("die Rechnung_λογαριασμός", null, "λογαριασμός", "die Rechnung", "", 5, 1, 1, "2017-10-12T11:30:31.534Z"),
-  new VocabularyEntry("die Richtung_κατεύθυνση", null, "κατεύθυνση", "die Richtung", "", 17, 2, 4, "2017-10-02T08:04:40.753Z"),
-  new VocabularyEntry("die Sitzung_συνεδρία", null, "συνεδρία", "die Sitzung", "session", 11, 4, 1, "2017-10-14T08:38:52.792Z"),
+  new VocabularyEntry("die Neuigkeit_νέο", null, "νέο", "die Neuigkeit", "", 13, 4, 4, "2017-11-01T08:02:16.872Z"),
+  new VocabularyEntry("die Ofenheizung_σόμπα", null, "σόμπα", "die Ofenheizung", "", 13, 3, 3, "2017-10-27T06:56:13.259Z"),
+  new VocabularyEntry("die Ohren_αυτιά", null, "αυτιά", "die Ohren", "", 14, 3, 4, "2017-11-01T08:02:19.224Z"),
+  new VocabularyEntry("die Prüfung_εξέταση", null, "εξέταση", "die Prüfung", "", 14, 4, 5, "2017-10-30T12:30:07.638Z"),
+  new VocabularyEntry("die Rechnung_λογαριασμός", null, "λογαριασμός", "die Rechnung", "", 13, 4, 4, "2017-11-01T08:03:36.720Z"),
+  new VocabularyEntry("die Richtung_κατεύθυνση", null, "κατεύθυνση", "die Richtung", "", 20, 3, 5, "2017-10-30T12:47:02.254Z"),
+  new VocabularyEntry("die Sieg_νίκη", null, "νίκη", "die Sieg", "", 25, 5, 2, "2017-11-22T12:34:49.959Z"),
+  new VocabularyEntry("die Sitzung_συνεδρία", null, "συνεδρία", "die Sitzung", "session", 19, 7, 3, "2017-10-31T07:52:43.349Z"),
+  new VocabularyEntry("die Strafe_ποινή", null, "ποινή", "die Strafe", "", 14, 3, 1, "2017-11-22T12:34:08.406Z"),
+  new VocabularyEntry("die Strömung_ρεύμα", null, "ρεύμα", "die Strömung", "", 14, 3, 3, "2017-10-31T11:40:25.601Z"),
   new VocabularyEntry(
     "die Stätsbürgerschaft_υπηκοότητα",
     null,
     "υπηκοότητα",
     "die Stätsbürgerschaft",
     "",
-    14,
-    1,
-    1,
-    "2017-10-14T08:40:10.030Z"
+    28,
+    8,
+    3,
+    "2017-10-31T11:16:12.462Z"
   ),
-  new VocabularyEntry("die Tafel_πίνακας", null, "πίνακας", "die Tafel", "", 4, 3, 1, "2017-10-12T11:30:33.757Z"),
+  new VocabularyEntry("die Tafel_πίνακας", null, "πίνακας", "die Tafel", "", 13, 7, 4, "2017-11-01T08:16:54.236Z"),
   new VocabularyEntry("die Tat_πράξη", null, "πράξη", "die Tat", "", 12, 3, 8, "2017-10-09T11:56:34.338Z"),
   new VocabularyEntry("die Teller_πιάτα", null, "πιάτα", "die Teller", "", 13, 3, 4, "2017-10-05T09:40:53.551Z"),
-  new VocabularyEntry("die Tiefe_βάθος", null, "βάθος", "die Tiefe", "", 15, 3, 4, "2017-09-28T07:22:35.987Z"),
-  new VocabularyEntry("die Unterkunft_κατάλυμα", null, "κατάλυμα", "die Unterkunft", "", 15, 3, 1, "2017-10-16T20:35:34.626Z"),
+  new VocabularyEntry("die Tiefe_βάθος", null, "βάθος", "die Tiefe", "", 23, 4, 5, "2017-10-30T11:38:49.068Z"),
+  new VocabularyEntry("die Tüte_σακούλα", null, "σακούλα", "die Tüte", "", 8, 3, 2, "2017-11-22T12:39:28.015Z"),
+  new VocabularyEntry("die Unterkunft_κατάλυμα", null, "κατάλυμα", "die Unterkunft", "", 21, 6, 3, "2017-10-30T12:43:38.198Z"),
   new VocabularyEntry(
     "die Verabredung_ιδιωτικό ραντεβού",
     null,
     "ιδιωτικό ραντεβού",
     "die Verabredung",
     "",
-    10,
-    3,
-    4,
-    "2017-09-30T13:18:33.766Z"
+    13,
+    5,
+    5,
+    "2017-10-30T12:47:51.118Z"
   ),
-  new VocabularyEntry("die Vorlesung_διάλεξη", null, "διάλεξη", "die Vorlesung", "", 5, 1, 1, "2017-10-12T11:30:36.270Z"),
+  new VocabularyEntry("die Vorlesung_διάλεξη", null, "διάλεξη", "die Vorlesung", "", 15, 3, 4, "2017-11-01T08:16:58.305Z"),
   new VocabularyEntry(
     "die Völkerwanderung_μετακίνηση πληθυσμών",
     null,
     "μετακίνηση πληθυσμών",
     "die Völkerwanderung",
     "",
-    22,
+    26,
+    7,
     5,
-    4,
-    "2017-10-05T09:19:21.374Z"
+    "2017-11-22T12:40:55.151Z"
+  ),
+  new VocabularyEntry("die Werkstatt_συνεργείο", null, "συνεργείο", "die Werkstatt", "", 10, 4, 2, "2017-11-22T12:41:10.119Z"),
+  new VocabularyEntry(
+    "die Wunschliste_λίστα επιθυμιών",
+    null,
+    "λίστα επιθυμιών",
+    "die Wunschliste",
+    "",
+    13,
+    2,
+    3,
+    "2017-10-30T11:42:08.741Z"
   ),
   new VocabularyEntry(
     "die Zeitschrift_περιοδικό",
@@ -767,13 +1018,36 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-05T09:48:12.029Z"
   ),
-  new VocabularyEntry("die Zeitung_εφημερίδα", null, "εφημερίδα", "die Zeitung", "", 6, 2, 5, "2017-09-25T05:35:23.870Z"),
+  new VocabularyEntry("die Zeitung_εφημερίδα", null, "εφημερίδα", "die Zeitung", "", 11, 3, 6, "2017-10-27T06:40:48.930Z"),
+  new VocabularyEntry("die Zukunft_μέλλον", null, "μέλλον", "die Zukunft", "", 10, 2, 2, "2017-11-22T12:49:16.515Z"),
+  new VocabularyEntry(
+    "die Überwachung_παρακολούθηση",
+    null,
+    "παρακολούθηση",
+    "die Überwachung",
+    "surveillance",
+    19,
+    4,
+    3,
+    "2017-10-31T11:40:59.377Z"
+  ),
   new VocabularyEntry("dienen_εξυπηρετώ", null, "εξυπηρετώ", "dienen", "", 10, 3, 8, "2017-10-09T11:56:09.586Z"),
   new VocabularyEntry("dreckig_βρώμικος", null, "βρώμικος", "dreckig", "", 21, 4, 5, "2017-10-10T05:18:14.078Z"),
   new VocabularyEntry("dringend_επείγον", null, "επείγον", "dringend", "", 12, 3, 8, "2017-10-09T12:02:14.825Z"),
-  new VocabularyEntry("du erklärst_εξηγείς", null, "εξηγείς", "du erklärst", "", 4, 1, 1, "2017-10-12T11:30:40.550Z"),
+  new VocabularyEntry("du erklärst_εξηγείς", null, "εξηγείς", "du erklärst", "", 11, 3, 3, "2017-10-31T07:25:00.916Z"),
+  new VocabularyEntry(
+    "durchgehen_κάνω πέρασμα",
+    null,
+    "κάνω πέρασμα",
+    "durchgehen",
+    "go through",
+    22,
+    3,
+    3,
+    "2017-10-31T11:16:29.262Z"
+  ),
   new VocabularyEntry("durchhalten_κουράγιο", null, "κουράγιο", "durchhalten", "", 15, 6, 8, "2017-10-09T12:02:18.202Z"),
-  new VocabularyEntry("ehemalig_προηγούμενος", null, "προηγούμενος", "ehemalig", "", 13, 3, 4, "2017-09-28T11:54:35.812Z"),
+  new VocabularyEntry("ehemalig_προηγούμενος", null, "προηγούμενος", "ehemalig", "", 16, 5, 5, "2017-10-30T11:41:37.316Z"),
   new VocabularyEntry("eher_μάλλον", null, "μάλλον", "eher", "", 13, 2, 8, "2017-10-09T12:02:19.514Z"),
   new VocabularyEntry("ein wenig_λιγάκι", null, "λιγάκι", "ein wenig", "", 12, 3, 4, "2017-10-05T09:37:02.094Z"),
   new VocabularyEntry(
@@ -782,10 +1056,10 @@ export const VOCABULARY_SEEDS = [
     "ψηφίζω",
     "eine Stimme abgeben",
     "",
-    12,
-    2,
-    1,
-    "2017-10-14T08:39:39.655Z"
+    23,
+    4,
+    3,
+    "2017-10-25T11:01:53.729Z"
   ),
   new VocabularyEntry(
     "eine Vielfalt an Unterstützung_μία πληθώρα στήριξης",
@@ -798,8 +1072,31 @@ export const VOCABULARY_SEEDS = [
     8,
     "2017-10-09T12:02:26.873Z"
   ),
-  new VocabularyEntry("einkaufen_ψωνίζω", null, "ψωνίζω", "einkaufen", "", 5, 1, 1, "2017-10-12T11:30:43.270Z"),
-  new VocabularyEntry("einziehen_εισέρχομαι", null, "εισέρχομαι", "einziehen", "", 9, 2, 1, "2017-10-14T08:39:07.687Z"),
+  new VocabularyEntry("einkaufen_ψωνίζω", null, "ψωνίζω", "einkaufen", "", 11, 3, 3, "2017-10-31T07:24:11.550Z"),
+  new VocabularyEntry("einrichten_διαμορφώνω", null, "διαμορφώνω", "einrichten", "", 12, 3, 2, "2017-11-22T12:49:18.904Z"),
+  new VocabularyEntry(
+    "einsteigen stieg ein ist eingestiegen_επιβιβάζομαι",
+    null,
+    "επιβιβάζομαι",
+    "einsteigen stieg ein ist eingestiegen",
+    "",
+    15,
+    3,
+    2,
+    "2017-11-22T12:50:25.911Z"
+  ),
+  new VocabularyEntry("einziehen_εισέρχομαι", null, "εισέρχομαι", "einziehen", "", 15, 5, 3, "2017-10-31T07:51:38.116Z"),
+  new VocabularyEntry(
+    "empfinden empfand empfunden_αισθάνομαι",
+    null,
+    "αισθάνομαι",
+    "empfinden empfand empfunden",
+    "",
+    14,
+    5,
+    2,
+    "2017-11-22T12:52:58.383Z"
+  ),
   new VocabularyEntry("entdecken_ανακαλύπτω", null, "ανακαλύπτω", "entdecken", "", 8, 2, 8, "2017-10-10T05:13:19.030Z"),
   new VocabularyEntry(
     "entlassen entließ entlassen_απολύω",
@@ -813,47 +1110,61 @@ export const VOCABULARY_SEEDS = [
     "2017-10-09T07:39:19.315Z"
   ),
   new VocabularyEntry("entstehen_δημιουργούμαι", null, "δημιουργούμαι", "entstehen", "", 26, 6, 4, "2017-10-09T08:29:03.370Z"),
-  new VocabularyEntry("entwickeln_εξελίσσω", null, "εξελίσσω", "entwickeln", "", 11, 3, 5, "2017-09-25T05:35:06.383Z"),
+  new VocabularyEntry("enttäuschen_απογοητεύω", null, "απογοητεύω", "enttäuschen", "", 16, 2, 2, "2017-11-22T12:52:45.721Z"),
+  new VocabularyEntry("entwerfen_κάνω προσχέδιο", null, "κάνω προσχέδιο", "entwerfen", "", 18, 6, 3, "2017-10-31T11:42:36.169Z"),
+  new VocabularyEntry("entwickeln_εξελίσσω", null, "εξελίσσω", "entwickeln", "", 18, 4, 10, "2017-10-26T06:37:12.292Z"),
+  new VocabularyEntry(
+    "er versetzt mich in die Lage zu_μου δίνει τη δυνατότητα να",
+    null,
+    "μου δίνει τη δυνατότητα να",
+    "er versetzt mich in die Lage zu",
+    "",
+    14,
+    5,
+    2,
+    "2017-11-22T12:53:06.425Z"
+  ),
   new VocabularyEntry(
     "ergreifen ergriff ergriffen_παίρνω",
     null,
     "παίρνω",
     "ergreifen ergriff ergriffen",
     "3χρ",
-    10,
+    16,
+    5,
     3,
-    1,
-    "2017-10-14T08:39:14.575Z"
+    "2017-10-19T09:00:54.519Z"
   ),
   new VocabularyEntry("ergänzen_συμπληρώνω", null, "συμπληρώνω", "ergänzen", "", 13, 3, 8, "2017-10-10T05:13:21.830Z"),
-  new VocabularyEntry("erhalten_λαμβάνω", null, "λαμβάνω", "erhalten", "", 27, 9, 5, "2017-10-05T09:17:15.925Z"),
+  new VocabularyEntry("erhalten_λαμβάνω", null, "λαμβάνω", "erhalten", "", 32, 11, 6, "2017-11-22T12:41:12.082Z"),
   new VocabularyEntry(
     "ermöglichen_δίνω τη δυνατότητα",
     null,
     "δίνω τη δυνατότητα",
     "ermöglichen",
-    "",
+    "enable",
     12,
     3,
     5,
     "2017-10-09T11:56:14.770Z"
   ),
-  new VocabularyEntry("ernennen_αναγορεύω", null, "αναγορεύω", "ernennen", "", 8, 3, 1, "2017-10-14T08:38:26.560Z"),
+  new VocabularyEntry("ermüden_κουράζω", null, "κουράζω", "ermüden", "", 8, 2, 2, "2017-11-22T12:39:21.047Z"),
+  new VocabularyEntry("ernennen_αναγορεύω", null, "αναγορεύω", "ernennen", "", 22, 5, 3, "2017-10-31T07:45:40.659Z"),
   new VocabularyEntry("ernst_σοβαρά", null, "σοβαρά", "ernst", "", 13, 7, 4, "2017-10-05T09:56:06.502Z"),
-  new VocabularyEntry("erweitern_διευρύνω", null, "διευρύνω", "erweitern", "", 9, 2, 5, "2017-09-25T05:35:31.654Z"),
+  new VocabularyEntry("erweitern_διευρύνω", null, "διευρύνω", "erweitern", "", 13, 3, 6, "2017-10-27T06:44:51.602Z"),
   new VocabularyEntry("erwerben_αποκτώ", null, "αποκτώ", "erwerben", "", 17, 4, 4, "2017-10-09T07:30:46.122Z"),
-  new VocabularyEntry("es ergebt sich_προκύπτει", null, "προκύπτει", "es ergebt sich", "", 9, 2, 1, "2017-10-14T08:54:47.665Z"),
+  new VocabularyEntry("es ergebt sich_προκύπτει", null, "προκύπτει", "es ergebt sich", "", 15, 4, 3, "2017-10-27T06:47:59.274Z"),
   new VocabularyEntry("es geht dich an_σε αφορά", null, "σε αφορά", "es geht dich an", "", 18, 5, 4, "2017-10-06T10:16:22.450Z"),
   new VocabularyEntry(
-    "es gilt als Sicher_θεωρείται σίγουρο",
+    "es gilt als sicher_θεωρείται σίγουρο",
     null,
     "θεωρείται σίγουρο",
-    "es gilt als Sicher",
+    "es gilt als sicher",
     "",
-    11,
-    3,
+    15,
     5,
-    "2017-09-25T05:51:31.447Z"
+    6,
+    "2017-10-27T06:56:30.330Z"
   ),
   new VocabularyEntry(
     "es gründet sich auf_αυτό βασίζεται σε",
@@ -876,6 +1187,17 @@ export const VOCABULARY_SEEDS = [
     12,
     8,
     "2017-10-10T05:13:27.070Z"
+  ),
+  new VocabularyEntry(
+    "es scheint mir gut_μου φαίνεται καλό",
+    null,
+    "μου φαίνεται καλό",
+    "es scheint mir gut",
+    "",
+    6,
+    2,
+    2,
+    "2017-11-22T12:39:26.007Z"
   ),
   new VocabularyEntry("es wird gesagt_λέγεται", null, "λέγεται", "es wird gesagt", "", 19, 4, 8, "2017-10-10T05:13:31.071Z"),
   new VocabularyEntry(
@@ -900,8 +1222,31 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-09T11:56:28.753Z"
   ),
-  new VocabularyEntry("feiern_γιορτάζω", null, "γιορτάζω", "feiern", "", 12, 2, 4, "2017-09-28T11:54:43.172Z"),
-  new VocabularyEntry("fest_μόνιμος", null, "μόνιμος", "fest", "", 7, 2, 1, "2017-10-14T08:53:45.587Z"),
+  new VocabularyEntry(
+    "fehlen fehlte gefehlt_λείπω",
+    null,
+    "λείπω",
+    "fehlen fehlte gefehlt",
+    "",
+    11,
+    4,
+    2,
+    "2017-11-22T12:59:56.471Z"
+  ),
+  new VocabularyEntry("feiern_γιορτάζω", null, "γιορτάζω", "feiern", "", 16, 3, 5, "2017-10-30T11:41:55.116Z"),
+  new VocabularyEntry(
+    "ferngesteuert_τηλεχειριζόμενο",
+    null,
+    "τηλεχειριζόμενο",
+    "ferngesteuert",
+    "",
+    16,
+    6,
+    3,
+    "2017-10-31T11:41:03.625Z"
+  ),
+  new VocabularyEntry("fertigstellen_ολοκληρώνω", null, "ολοκληρώνω", "fertigstellen", "", 21, 4, 3, "2017-11-01T07:42:08.047Z"),
+  new VocabularyEntry("fest_μόνιμος", null, "μόνιμος", "fest", "", 12, 3, 3, "2017-10-27T06:40:42.706Z"),
   new VocabularyEntry(
     "finden fand gefunden_βρίσκω",
     null,
@@ -916,8 +1261,8 @@ export const VOCABULARY_SEEDS = [
   new VocabularyEntry("fleißig_εργατικός", null, "εργατικός", "fleißig", "", 16, 3, 5, "2017-10-10T05:18:21.718Z"),
   new VocabularyEntry("folgen_ακολουθώ", null, "ακολουθώ", "folgen", "", 11, 4, 4, "2017-10-09T07:31:30.642Z"),
   new VocabularyEntry("führend_πρωτοπόρος", null, "πρωτοπόρος", "führend", "", 16, 3, 4, "2017-10-09T07:30:35.970Z"),
-  new VocabularyEntry("gar nicht_καθόλου", null, "καθόλου", "gar nicht", "", 5, 1, 1, "2017-10-12T11:30:46.021Z"),
-  new VocabularyEntry("geben gab gegeben_δίνω", null, "δίνω", "geben gab gegeben", "3χρ", 6, 1, 1, "2017-10-14T08:52:04.776Z"),
+  new VocabularyEntry("gar nicht_καθόλου", null, "καθόλου", "gar nicht", "", 13, 3, 4, "2017-11-01T08:03:29.144Z"),
+  new VocabularyEntry("geben gab gegeben_δίνω", null, "δίνω", "geben gab gegeben", "3χρ", 11, 2, 3, "2017-10-27T06:40:25.188Z"),
   new VocabularyEntry(
     "gefülte Paprika und Tomaten_γεμιστά",
     null,
@@ -929,24 +1274,26 @@ export const VOCABULARY_SEEDS = [
     8,
     "2017-10-10T05:18:32.478Z"
   ),
-  new VocabularyEntry("gehören_ανήκω", null, "ανήκω", "gehören", "", 6, 1, 5, "2017-10-05T09:16:27.349Z"),
-  new VocabularyEntry("gelb_κίτρινο", null, "κίτρινο", "gelb", "", 21, 3, 4, "2017-10-05T09:16:22.784Z"),
+  new VocabularyEntry("gehören_ανήκω", null, "ανήκω", "gehören", "", 10, 2, 6, "2017-11-14T09:39:13.725Z"),
+  new VocabularyEntry("geistreich_πνευματώδης", null, "πνευματώδης", "geistreich", "", 11, 3, 2, "2017-11-22T12:59:59.479Z"),
+  new VocabularyEntry("gelb_κίτρινο", null, "κίτρινο", "gelb", "", 25, 4, 5, "2017-11-14T09:39:10.421Z"),
   new VocabularyEntry(
     "gelingen gelang ist gelungen_πετυχαίνω",
     null,
     "πετυχαίνω",
     "gelingen gelang ist gelungen",
     "3χρ",
-    31,
-    8,
-    4,
-    "2017-10-05T09:19:36.461Z"
+    38,
+    13,
+    5,
+    "2017-11-22T12:52:52.816Z"
   ),
-  new VocabularyEntry("gemeinsam_μαζί", null, "μαζί", "gemeinsam", "", 7, 1, 1, "2017-10-12T11:31:53.965Z"),
+  new VocabularyEntry("gemeinsam_μαζί", null, "μαζί", "gemeinsam", "", 13, 3, 4, "2017-11-01T08:13:14.360Z"),
   new VocabularyEntry("genau_ακριβώς", null, "ακριβώς", "genau", "", 13, 3, 5, "2017-10-10T05:13:13.967Z"),
-  new VocabularyEntry("genug_επαρκής", null, "επαρκής", "genug", "", 11, 3, 4, "2017-09-28T11:54:53.620Z"),
-  new VocabularyEntry("geradeaus_ευθεία", null, "ευθεία", "geradeaus", "", 10, 2, 4, "2017-09-30T13:15:36.963Z"),
-  new VocabularyEntry("gewinnen_κερδίζω", null, "κερδίζω", "gewinnen", "", 21, 3, 4, "2017-10-05T09:36:24.678Z"),
+  new VocabularyEntry("genug_επαρκής", null, "επαρκής", "genug", "", 13, 5, 5, "2017-10-30T12:29:10.182Z"),
+  new VocabularyEntry("genügend_αρκετός", null, "αρκετός", "genügend", "θέλει άρθρο", 10, 2, 1, "2017-11-14T06:45:56.511Z"),
+  new VocabularyEntry("geradeaus_ευθεία", null, "ευθεία", "geradeaus", "", 14, 3, 5, "2017-10-30T12:43:13.159Z"),
+  new VocabularyEntry("gewinnen_κερδίζω", null, "κερδίζω", "gewinnen", "", 25, 5, 5, "2017-11-22T12:50:11.343Z"),
   new VocabularyEntry(
     "gewissenhaft_ευσυνείδητος",
     null,
@@ -958,8 +1305,30 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-09T08:29:24.452Z"
   ),
-  new VocabularyEntry("glücklicherweise_ευτυχώς", null, "ευτυχώς", "glücklicherweise", "", 5, 2, 1, "2017-10-14T08:52:08.880Z"),
-  new VocabularyEntry("hinten_πίσω", null, "πίσω", "hinten", "", 5, 1, 1, "2017-10-12T11:31:01.349Z"),
+  new VocabularyEntry("glücklicherweise_ευτυχώς", null, "ευτυχώς", "glücklicherweise", "", 10, 3, 3, "2017-10-27T06:40:29.100Z"),
+  new VocabularyEntry(
+    "herrschen herrschte geherrscht_επικρατώ",
+    null,
+    "επικρατώ",
+    "herrschen herrschte geherrscht",
+    "",
+    8,
+    3,
+    1,
+    "2017-11-14T06:45:45.671Z"
+  ),
+  new VocabularyEntry(
+    "herstellen stellte her hergestellt_κατασκευάζω",
+    null,
+    "κατασκευάζω",
+    "herstellen stellte her hergestellt",
+    "",
+    20,
+    9,
+    3,
+    "2017-11-01T07:42:03.903Z"
+  ),
+  new VocabularyEntry("hinten_πίσω", null, "πίσω", "hinten", "", 11, 3, 4, "2017-11-01T08:13:04.409Z"),
   new VocabularyEntry("hinzufügen_προσθέτω", null, "προσθέτω", "hinzufügen", "", 20, 3, 4, "2017-10-09T07:31:44.876Z"),
   new VocabularyEntry("hochladen_μεταφορτώνω", null, "μεταφορτώνω", "hochladen", "upload", 16, 3, 8, "2017-10-10T05:18:35.398Z"),
   new VocabularyEntry(
@@ -996,15 +1365,26 @@ export const VOCABULARY_SEEDS = [
     "2017-10-09T08:28:56.741Z"
   ),
   new VocabularyEntry(
+    "ich bin verbunden mit_είμαι συνδεδεμένος με",
+    null,
+    "είμαι συνδεδεμένος με",
+    "ich bin verbunden mit",
+    "",
+    10,
+    4,
+    3,
+    "2017-10-30T12:29:47.670Z"
+  ),
+  new VocabularyEntry(
     "ich erstelle eine Sicherungskopie_δημιουργώ αντίγραφο ασφαλείας",
     null,
     "δημιουργώ αντίγραφο ασφαλείας",
     "ich erstelle eine Sicherungskopie",
     "",
-    5,
+    8,
+    6,
     3,
-    1,
-    "2017-10-14T08:53:19.500Z"
+    "2017-10-27T06:40:40.986Z"
   ),
   new VocabularyEntry(
     "ich gehe davon aus, dass_εικάζω",
@@ -1016,6 +1396,39 @@ export const VOCABULARY_SEEDS = [
     8,
     8,
     "2017-10-10T05:18:40.814Z"
+  ),
+  new VocabularyEntry(
+    "ich kann dir Tanzen beibringen_μπορώ να σου μάθω χορό",
+    null,
+    "μπορώ να σου μάθω χορό",
+    "ich kann dir Tanzen beibringen",
+    "",
+    10,
+    2,
+    2,
+    "2017-11-22T13:00:49.519Z"
+  ),
+  new VocabularyEntry(
+    "ich kann es mir nicht leisten_δεν μπορώ να το πληρώσω",
+    null,
+    "δεν μπορώ να το πληρώσω",
+    "ich kann es mir nicht leisten",
+    "afford",
+    11,
+    6,
+    3,
+    "2017-10-31T11:40:52.321Z"
+  ),
+  new VocabularyEntry(
+    "ich komme klar mit_τα πάω μια χαρά με",
+    null,
+    "τα πάω μια χαρά με",
+    "ich komme klar mit",
+    "",
+    8,
+    4,
+    2,
+    "2017-11-22T13:00:53.697Z"
   ),
   new VocabularyEntry(
     "ich muss Geld abheben_πρέπει να βγάλω λεφτά (από την τράπεζα)",
@@ -1034,10 +1447,32 @@ export const VOCABULARY_SEEDS = [
     "πρέπει να λάβω μέτρα",
     "ich muss die Maßnahmen ergreifen",
     "",
-    8,
+    14,
+    6,
     3,
-    1,
-    "2017-10-14T08:54:44.329Z"
+    "2017-10-27T06:48:12.787Z"
+  ),
+  new VocabularyEntry(
+    "ich werde klar kommen mit_θα τα πάω μια χαρά με",
+    null,
+    "θα τα πάω μια χαρά με",
+    "ich werde klar kommen mit",
+    "",
+    9,
+    5,
+    2,
+    "2017-11-22T13:00:59.544Z"
+  ),
+  new VocabularyEntry(
+    "im Augenblick_αυτή τη στιγμή",
+    null,
+    "αυτή τη στιγμή",
+    "im Augenblick",
+    "",
+    9,
+    6,
+    2,
+    "2017-11-22T13:01:02.687Z"
   ),
   new VocabularyEntry(
     "im Rahmen_στο πλαίσιο του",
@@ -1045,10 +1480,10 @@ export const VOCABULARY_SEEDS = [
     "στο πλαίσιο του",
     "im Rahmen",
     "+ genitif",
-    18,
-    5,
-    5,
-    "2017-10-05T09:16:29.911Z"
+    22,
+    6,
+    6,
+    "2017-11-14T09:39:17.068Z"
   ),
   new VocabularyEntry(
     "im Vergleich zu_σε σύγκριση με",
@@ -1056,10 +1491,10 @@ export const VOCABULARY_SEEDS = [
     "σε σύγκριση με",
     "im Vergleich zu",
     "",
-    22,
-    4,
-    5,
-    "2017-10-05T09:18:28.253Z"
+    25,
+    6,
+    6,
+    "2017-11-22T12:39:44.927Z"
   ),
   new VocabularyEntry(
     "im engeren Sinne_με τη στενότερη έννοια",
@@ -1067,10 +1502,10 @@ export const VOCABULARY_SEEDS = [
     "με τη στενότερη έννοια",
     "im engeren Sinne",
     "",
-    11,
-    5,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    15,
+    8,
+    8,
+    "2017-10-19T08:28:59.790Z"
   ),
   new VocabularyEntry(
     "immerhin_τουλάχιστον",
@@ -1078,56 +1513,71 @@ export const VOCABULARY_SEEDS = [
     "τουλάχιστον",
     "immerhin",
     "at least, wenigstens",
-    26,
-    4,
+    39,
     5,
-    "2017-10-05T09:36:41.486Z"
+    6,
+    "2017-11-22T13:01:36.688Z"
   ),
+  new VocabularyEntry("in Kürze_εν συντομία", null, "εν συντομία", "in Kürze", "", 11, 3, 3, "2017-10-31T11:40:30.202Z"),
   new VocabularyEntry("in der Tat_πράγματι", null, "πράγματι", "in der Tat", "indeed", 21, 4, 5, "2017-10-09T08:29:34.956Z"),
-  new VocabularyEntry("intensiv_έντονα", null, "έντονα", "intensiv", "hart", 2, 4, 5, "2017-10-05T09:36:16.571Z"),
+  new VocabularyEntry(
+    "inklusive_συμπεριλαμβανομένου",
+    null,
+    "συμπεριλαμβανομένου",
+    "inklusive",
+    "+gen",
+    7,
+    2,
+    3,
+    "2017-10-25T11:00:43.174Z"
+  ),
+  new VocabularyEntry("intensiv_έντονα", null, "έντονα", "intensiv", "hart", 4, 6, 6, "2017-11-22T12:46:43.943Z"),
+  new VocabularyEntry("jedenfalls_πάντως", null, "πάντως", "jedenfalls", "", 10, 2, 1, "2017-11-14T06:45:51.319Z"),
   new VocabularyEntry(
     "jedes mal wenn_κάθε φορά που",
     null,
     "κάθε φορά που",
     "jedes mal wenn",
     "",
-    9,
-    2,
-    1,
-    "2017-10-14T08:54:34.425Z"
+    15,
+    4,
+    3,
+    "2017-10-27T06:48:20.115Z"
   ),
   new VocabularyEntry("knapp_σχεδόν", null, "σχεδόν", "knapp", "fast", 14, 3, 4, "2017-10-06T10:15:47.130Z"),
-  new VocabularyEntry("komplett_ολοκληρωτικά", null, "ολοκληρωτικά", "komplett", "", 5, 1, 1, "2017-10-14T08:51:29.066Z"),
-  new VocabularyEntry("kostspielig_δαπανηρός", null, "δαπανηρός", "kostspielig", "", 11, 2, 7, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("komplett_ολοκληρωτικά", null, "ολοκληρωτικά", "komplett", "", 11, 2, 3, "2017-10-27T06:40:54.418Z"),
+  new VocabularyEntry("kostspielig_δαπανηρός", null, "δαπανηρός", "kostspielig", "", 15, 4, 8, "2017-10-19T08:33:19.118Z"),
   new VocabularyEntry("kurz_κοντός", null, "κοντός", "kurz", "", 9, 4, 5, "2017-10-09T08:27:26.909Z"),
   new VocabularyEntry("langweilig_βαρετός", null, "βαρετός", "langweilig", "", 11, 3, 5, "2017-10-10T05:13:12.078Z"),
   new VocabularyEntry("lecker_νόστιμος", null, "νόστιμος", "lecker", "", 14, 3, 4, "2017-10-05T09:47:58.638Z"),
-  new VocabularyEntry("ledig_ανύπαντρος", null, "ανύπαντρος", "ledig", "", 13, 2, 4, "2017-09-28T07:22:32.915Z"),
-  new VocabularyEntry("mal schnell_στα γρήγορα", null, "στα γρήγορα", "mal schnell", "", 5, 1, 1, "2017-10-12T11:31:04.181Z"),
-  new VocabularyEntry("mal sehen_γιά να δούμε", null, "γιά να δούμε", "mal sehen", "", 11, 3, 7, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("manchmal_κάπου κάπου", null, "κάπου κάπου", "manchmal", "", 20, 3, 4, "2017-10-05T09:16:16.710Z"),
+  new VocabularyEntry("ledig_ανύπαντρος", null, "ανύπαντρος", "ledig", "", 15, 3, 5, "2017-10-30T10:49:26.677Z"),
+  new VocabularyEntry("lediglich_μόνο", null, "μόνο", "lediglich", "", 8, 4, 1, "2017-11-14T06:45:54.048Z"),
+  new VocabularyEntry("mal schnell_στα γρήγορα", null, "στα γρήγορα", "mal schnell", "", 11, 3, 4, "2017-11-01T08:13:07.696Z"),
+  new VocabularyEntry("mal sehen_γιά να δούμε", null, "γιά να δούμε", "mal sehen", "", 15, 5, 8, "2017-10-19T08:33:21.166Z"),
+  new VocabularyEntry("manchmal_κάπου κάπου", null, "κάπου κάπου", "manchmal", "", 28, 4, 5, "2017-11-14T09:30:29.356Z"),
   new VocabularyEntry(
     "meine Position abgeben_παραδίδω τη θέση μου",
     null,
     "παραδίδω τη θέση μου",
     "meine Position abgeben",
     "",
-    5,
-    2,
-    1,
-    "2017-10-14T08:52:50.661Z"
+    10,
+    3,
+    3,
+    "2017-10-27T06:40:33.954Z"
   ),
-  new VocabularyEntry("mindestens_τουλάχιστον", null, "τουλάχιστον", "mindestens", "", 8, 1, 1, "2017-10-14T08:54:14.762Z"),
+  new VocabularyEntry("mindestens_τουλάχιστον", null, "τουλάχιστον", "mindestens", "", 16, 2, 3, "2017-10-27T06:48:16.587Z"),
+  new VocabularyEntry("mutmaßlich_πιθανός", null, "πιθανός", "mutmaßlich", "", 11, 2, 3, "2017-11-01T08:16:49.592Z"),
   new VocabularyEntry(
     "nachvollziehen_καταννοώ",
     null,
     "καταννοώ",
     "nachvollziehen",
     "comprehend, relate to",
-    19,
-    5,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    26,
+    6,
+    8,
+    "2017-10-19T08:33:49.983Z"
   ),
   new VocabularyEntry(
     "nicht allzu_όχι ιδιαίτερα",
@@ -1135,18 +1585,19 @@ export const VOCABULARY_SEEDS = [
     "όχι ιδιαίτερα",
     "nicht allzu",
     "nicht besonders",
-    14,
-    2,
-    5,
-    "2017-10-05T09:36:48.966Z"
+    26,
+    3,
+    6,
+    "2017-11-22T13:01:21.695Z"
   ),
-  new VocabularyEntry("niedrig_χαμηλός", null, "χαμηλός", "niedrig", "", 9, 4, 4, "2017-10-02T08:19:10.723Z"),
+  new VocabularyEntry("niedrig_χαμηλός", null, "χαμηλός", "niedrig", "", 16, 6, 6, "2017-10-31T11:16:07.446Z"),
   new VocabularyEntry("nirgends_πουθενά", null, "πουθενά", "nirgends", "", 24, 5, 5, "2017-10-09T08:27:32.652Z"),
-  new VocabularyEntry("noch ich_ούτε εγώ", null, "ούτε εγώ", "noch ich", "me neither", 10, 2, 7, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("noch ich_ούτε εγώ", null, "ούτε εγώ", "noch ich", "me neither", 14, 3, 8, "2017-10-19T08:33:28.918Z"),
   new VocabularyEntry("noch nie_ποτέ ως τώρα", null, "ποτέ ως τώρα", "noch nie", "", 21, 6, 5, "2017-10-09T08:27:30.165Z"),
-  new VocabularyEntry("nun_τώρα", null, "τώρα", "nun", "", 12, 2, 4, "2017-10-02T08:19:07.825Z"),
-  new VocabularyEntry("offenbar_προφανής", null, "προφανής", "offenbar", "", 12, 3, 5, "2017-10-05T09:36:22.350Z"),
-  new VocabularyEntry("ohnerin_ούτως ή άλλως", null, "ούτως ή άλλως", "ohnerin", "sowieso", 10, 3, 4, "2017-09-28T07:22:22.755Z"),
+  new VocabularyEntry("notwendig_απαραίτητος", null, "απαραίτητος", "notwendig", "", 19, 1, 1, "2017-11-14T08:58:58.420Z"),
+  new VocabularyEntry("nun_τώρα", null, "τώρα", "nun", "", 18, 3, 6, "2017-10-31T11:16:05.342Z"),
+  new VocabularyEntry("offenbar_προφανής", null, "προφανής", "offenbar", "", 15, 4, 6, "2017-11-22T12:46:46.607Z"),
+  new VocabularyEntry("ohnerin_ούτως ή άλλως", null, "ούτως ή άλλως", "ohnerin", "sowieso", 14, 4, 5, "2017-10-27T06:55:59.138Z"),
   new VocabularyEntry(
     "pass gut auf meine Sachen auf_πρόσεχε καλά τα πράγματά μου",
     null,
@@ -1159,8 +1610,9 @@ export const VOCABULARY_SEEDS = [
     "2017-10-09T12:02:33.569Z"
   ),
   new VocabularyEntry("passen zu_ταιριάζω με", null, "ταιριάζω με", "passen zu", "", 15, 8, 5, "2017-10-09T12:01:41.157Z"),
-  new VocabularyEntry("permanent_μόνιμος", null, "μόνιμος", "permanent", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("provisorich_προσωρινός", null, "προσωρινός", "provisorich", "", 0, 0, 2, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("permanent_μόνιμος", null, "μόνιμος", "permanent", "", 9, 2, 3, "2017-10-30T12:47:25.614Z"),
+  new VocabularyEntry("provisorich_προσωρινός", null, "προσωρινός", "provisorich", "", 9, 3, 3, "2017-10-30T12:47:30.158Z"),
+  new VocabularyEntry("rahmen_πλαισιώνω", null, "πλαισιώνω", "rahmen", "", 6, 3, 3, "2017-10-30T10:55:06.077Z"),
   new VocabularyEntry("reagieren_αντιδρώ", null, "αντιδρώ", "reagieren", "", 18, 3, 4, "2017-10-09T07:30:43.810Z"),
   new VocabularyEntry("richtig_σωστά", null, "σωστά", "richtig", "", 12, 5, 4, "2017-10-09T07:30:30.834Z"),
   new VocabularyEntry(
@@ -1169,22 +1621,33 @@ export const VOCABULARY_SEEDS = [
     "μεταφορτώνω",
     "runterladen",
     "download",
-    10,
-    2,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    14,
+    3,
+    8,
+    "2017-10-19T08:40:35.093Z"
   ),
   new VocabularyEntry("sammeln_συλλέγω", null, "συλλέγω", "sammeln", "", 10, 3, 5, "2017-10-05T09:40:57.923Z"),
+  new VocabularyEntry(
+    "sanieren sanierte saniert_εξυγιαίνω",
+    null,
+    "εξυγιαίνω",
+    "sanieren sanierte saniert",
+    "",
+    12,
+    1,
+    3,
+    "2017-10-25T11:00:57.407Z"
+  ),
   new VocabularyEntry(
     "schaffen schaffte geschaft_καταφέρνω",
     null,
     "καταφέρνω",
     "schaffen schaffte geschaft",
     "3χρ",
-    6,
-    6,
-    4,
-    "2017-09-30T13:14:09.662Z"
+    11,
+    11,
+    5,
+    "2017-10-30T12:43:52.910Z"
   ),
   new VocabularyEntry(
     "schaffen schuf geschaffen_δημιουργώ",
@@ -1192,10 +1655,10 @@ export const VOCABULARY_SEEDS = [
     "δημιουργώ",
     "schaffen schuf geschaffen",
     "3χρ",
-    12,
-    2,
-    4,
-    "2017-10-02T08:06:57.192Z"
+    23,
+    7,
+    5,
+    "2017-10-31T06:34:38.050Z"
   ),
   new VocabularyEntry(
     "scheitern scheiterte ist gescheitert_αποτυγχάνω",
@@ -1203,10 +1666,10 @@ export const VOCABULARY_SEEDS = [
     "αποτυγχάνω",
     "scheitern scheiterte ist gescheitert",
     "",
-    10,
-    3,
-    4,
-    "2017-10-02T08:06:17.752Z"
+    25,
+    5,
+    5,
+    "2017-10-31T06:35:08.875Z"
   ),
   new VocabularyEntry(
     "schicken schickte geschickt_στέλνω",
@@ -1214,11 +1677,12 @@ export const VOCABULARY_SEEDS = [
     "στέλνω",
     "schicken schickte geschickt",
     "3χρ",
-    0,
-    0,
-    2,
-    "2000-01-01T00:00:00.000Z"
+    22,
+    5,
+    3,
+    "2017-10-31T06:34:49.914Z"
   ),
+  new VocabularyEntry("schlau_έξυπνος", null, "έξυπνος", "schlau", "", 13, 4, 3, "2017-10-31T11:40:07.906Z"),
   new VocabularyEntry("schlossen_κλειστός", null, "κλειστός", "schlossen", "", 15, 5, 4, "2017-10-05T09:40:46.422Z"),
   new VocabularyEntry("schulden_οφείλω", null, "οφείλω", "schulden", "", 23, 4, 5, "2017-10-09T08:27:40.445Z"),
   new VocabularyEntry("schöpfen_δημιουργώ", null, "δημιουργώ", "schöpfen", "", 14, 3, 4, "2017-10-09T07:30:38.730Z"),
@@ -1228,10 +1692,10 @@ export const VOCABULARY_SEEDS = [
     "αν έχεις την καλοσύνη",
     "sei so lieb und",
     "could you please",
-    2,
-    1,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    5,
+    3,
+    8,
+    "2017-10-19T08:40:38.495Z"
   ),
   new VocabularyEntry(
     "seit lange_εδώ και πολύ καιρό",
@@ -1239,22 +1703,32 @@ export const VOCABULARY_SEEDS = [
     "εδώ και πολύ καιρό",
     "seit lange",
     "",
-    8,
-    3,
+    12,
     5,
-    "2017-09-25T05:35:35.360Z"
+    6,
+    "2017-10-27T06:44:54.458Z"
   ),
-  new VocabularyEntry("seit langen_εδώ και καιρό", null, "εδώ και καιρό", "seit langen", "", 5, 1, 4, "2017-10-02T08:10:59.970Z"),
+  new VocabularyEntry(
+    "seit langen_εδώ και καιρό",
+    null,
+    "εδώ και καιρό",
+    "seit langen",
+    "",
+    11,
+    3,
+    12,
+    "2017-10-31T07:45:58.795Z"
+  ),
   new VocabularyEntry(
     "selber schuld_καλά να πάθεις",
     null,
     "καλά να πάθεις",
     "selber schuld",
     "",
-    16,
-    4,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    20,
+    5,
+    8,
+    "2017-10-19T08:40:41.742Z"
   ),
   new VocabularyEntry(
     "selbstverständlich_προφανώς",
@@ -1273,12 +1747,12 @@ export const VOCABULARY_SEEDS = [
     "ελεύθερος επαγγελματίας",
     "selbständig",
     "",
-    5,
-    1,
-    1,
-    "2017-10-12T11:31:15.149Z"
+    10,
+    3,
+    4,
+    "2017-11-01T08:13:11.400Z"
   ),
-  new VocabularyEntry("selten_σπάνια", null, "σπάνια", "selten", "", 9, 2, 4, "2017-10-04T06:19:19.164Z"),
+  new VocabularyEntry("selten_σπάνια", null, "σπάνια", "selten", "", 12, 3, 5, "2017-10-31T11:41:10.705Z"),
   new VocabularyEntry(
     "sich anpassen an_προσαρμόζομαι σε",
     null,
@@ -1296,10 +1770,10 @@ export const VOCABULARY_SEEDS = [
     "κοπιάζω για",
     "sich bemühen um",
     "+a",
-    0,
-    0,
-    2,
-    "2000-01-01T00:00:00.000Z"
+    21,
+    3,
+    3,
+    "2017-10-31T06:33:43.890Z"
   ),
   new VocabularyEntry(
     "sich beschweren_διαμαρτύρομαι",
@@ -1312,6 +1786,7 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-09T07:30:21.938Z"
   ),
+  new VocabularyEntry("sich einigen_συμφωνώ", null, "συμφωνώ", "sich einigen", "", 9, 1, 1, "2017-11-22T12:33:27.671Z"),
   new VocabularyEntry(
     "sich entschließen_αποφασίζω",
     null,
@@ -1329,10 +1804,10 @@ export const VOCABULARY_SEEDS = [
     "ξεκουράζομαι",
     "sich entspannen",
     "",
-    8,
-    5,
+    10,
     7,
-    "2000-01-01T00:00:00.000Z"
+    8,
+    "2017-10-19T08:40:05.153Z"
   ),
   new VocabularyEntry(
     "sich entwickeln_εξελίσσομαι",
@@ -1362,10 +1837,10 @@ export const VOCABULARY_SEEDS = [
     "απευθύνομαι προς",
     "sich richten an",
     "+A",
-    20,
-    7,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    26,
+    9,
+    8,
+    "2017-10-19T08:55:28.383Z"
   ),
   new VocabularyEntry(
     "sich richten gegen_στρέφομαι εναντίον",
@@ -1389,18 +1864,39 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-05T09:48:28.086Z"
   ),
-  new VocabularyEntry("sich weigern_αρνούμαι", null, "αρνούμαι", "sich weigern", "", 16, 6, 7, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("sich äußern über_σχολιάζω", null, "σχολιάζω", "sich äußern über", "", 9, 4, 5, "2017-09-25T05:35:39.318Z"),
+  new VocabularyEntry("sich weigern_αρνούμαι", null, "αρνούμαι", "sich weigern", "", 22, 8, 8, "2017-10-19T08:55:31.167Z"),
+  new VocabularyEntry(
+    "sich wohl fühlen_νιώθω άνετα",
+    null,
+    "νιώθω άνετα",
+    "sich wohl fühlen",
+    "",
+    11,
+    3,
+    3,
+    "2017-10-31T11:40:38.858Z"
+  ),
+  new VocabularyEntry(
+    "sich äußern über_σχολιάζω",
+    null,
+    "σχολιάζω",
+    "sich äußern über",
+    "",
+    15,
+    6,
+    6,
+    "2017-10-27T06:46:30.322Z"
+  ),
   new VocabularyEntry(
     "so geschieht es_έτσι συμβαίνει",
     null,
     "έτσι συμβαίνει",
     "so geschieht es",
     "",
-    0,
-    0,
-    2,
-    "2000-01-01T00:00:00.000Z"
+    26,
+    6,
+    3,
+    "2017-10-31T06:34:59.322Z"
   ),
   new VocabularyEntry(
     "so gut wie nie_σχεδόν ποτέ",
@@ -1419,22 +1915,62 @@ export const VOCABULARY_SEEDS = [
     "δεν είναι κάτι το φοβερό",
     "so schlimm ist es auch nicht",
     "",
-    9,
-    11,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    13,
+    14,
+    8,
+    "2017-10-19T08:55:03.063Z"
   ),
-  new VocabularyEntry("so_όπως και", null, "όπως και", "so", "as well as2", 8, 4, 4, "2017-10-02T08:19:12.929Z"),
-  new VocabularyEntry("sobald_μόλις", null, "μόλις", "sobald", "", 11, 4, 7, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("sowie_καθώς και", null, "καθώς και", "sowie", "as well as2", 13, 6, 9, "2017-11-01T08:00:33.035Z"),
+  new VocabularyEntry("sobald_μόλις", null, "μόλις", "sobald", "", 17, 5, 8, "2017-10-19T08:55:04.818Z"),
   new VocabularyEntry("solcher_τέτοιος", null, "τέτοιος", "solcher", "", 8, 5, 5, "2017-10-05T09:48:30.382Z"),
-  new VocabularyEntry("sonst_ειδάλλως", null, "ειδάλλως", "sonst", "", 12, 2, 4, "2017-09-28T11:54:44.788Z"),
+  new VocabularyEntry("sonst_ειδάλλως", null, "ειδάλλως", "sonst", "", 15, 3, 5, "2017-10-30T12:30:01.518Z"),
+  new VocabularyEntry("sorgsam_επιμελής", null, "επιμελής", "sorgsam", "", 16, 4, 3, "2017-10-31T11:42:00.345Z"),
+  new VocabularyEntry("soweit_ως τώρα", null, "ως τώρα", "soweit", "so far", 15, 2, 1, "2017-11-14T08:59:00.475Z"),
   new VocabularyEntry("sowie_καθώς και", null, "καθώς και", "sowie", "", 10, 3, 5, "2017-10-05T09:48:33.934Z"),
-  new VocabularyEntry("starken_ισχυρός", null, "ισχυρός", "starken", "", 10, 2, 4, "2017-09-30T13:15:45.275Z"),
-  new VocabularyEntry("stets_ανέκαθεν", null, "ανέκαθεν", "stets", "", 6, 3, 7, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("stressig_αγχωτικό", null, "αγχωτικό", "stressig", "", 4, 1, 7, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("unbedeutend_ασήμαντος", null, "ασήμαντος", "unbedeutend", "", 20, 5, 7, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("ungefähr_περίπου", null, "περίπου", "ungefähr", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("unwichtig_αμελητέος", null, "αμελητέος", "unwichtig", "", 12, 3, 7, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("starken_ισχυρός", null, "ισχυρός", "starken", "", 14, 4, 5, "2017-10-30T12:43:15.822Z"),
+  new VocabularyEntry("stets_ανέκαθεν", null, "ανέκαθεν", "stets", "", 10, 4, 8, "2017-10-19T08:59:43.543Z"),
+  new VocabularyEntry("stressig_αγχωτικό", null, "αγχωτικό", "stressig", "", 7, 3, 8, "2017-10-19T08:59:47.079Z"),
+  new VocabularyEntry("tragen trug getragen_φορώ", null, "φορώ", "tragen trug getragen", "", 7, 2, 1, "2017-11-14T08:56:33.316Z"),
+  new VocabularyEntry(
+    "treiben trieb ist getrieben_κινώ",
+    null,
+    "κινώ",
+    "treiben trieb ist getrieben",
+    "",
+    25,
+    4,
+    3,
+    "2017-10-31T11:33:13.409Z"
+  ),
+  new VocabularyEntry("träumen von_ονειρεύομαι", null, "ονειρεύομαι", "träumen von", "", 14, 3, 3, "2017-10-31T11:42:05.530Z"),
+  new VocabularyEntry("umstritten_επίμαχος", null, "επίμαχος", "umstritten", "", 34, 8, 3, "2017-10-31T11:34:13.505Z"),
+  new VocabularyEntry(
+    "umweltfreundlich_φιλικός προς το περιβάλλον",
+    null,
+    "φιλικός προς το περιβάλλον",
+    "umweltfreundlich",
+    "",
+    12,
+    4,
+    3,
+    "2017-10-31T11:41:55.242Z"
+  ),
+  new VocabularyEntry("unbedeutend_ασήμαντος", null, "ασήμαντος", "unbedeutend", "", 23, 7, 8, "2017-10-19T08:59:50.207Z"),
+  new VocabularyEntry("unbedingt_οπωσδήποτε", null, "οπωσδήποτε", "unbedingt", "", 16, 3, 1, "2017-11-14T08:59:03.323Z"),
+  new VocabularyEntry("ungefähr_περίπου", null, "περίπου", "ungefähr", "", 10, 2, 3, "2017-10-30T12:43:47.199Z"),
+  new VocabularyEntry("unterdrücken_καταπιέζω", null, "καταπιέζω", "unterdrücken", "", 12, 4, 1, "2017-11-22T12:35:25.750Z"),
+  new VocabularyEntry(
+    "unverwechselbar_απαράλλαχτος",
+    null,
+    "απαράλλαχτος",
+    "unverwechselbar",
+    "",
+    17,
+    5,
+    3,
+    "2017-11-01T07:42:15.135Z"
+  ),
+  new VocabularyEntry("unwichtig_αμελητέος", null, "αμελητέος", "unwichtig", "", 15, 5, 8, "2017-10-19T08:59:52.983Z"),
   new VocabularyEntry("unzählig_αμέτρητος", null, "αμέτρητος", "unzählig", "", 22, 4, 4, "2017-10-09T07:38:47.342Z"),
   new VocabularyEntry(
     "urteilen über_κρίνω",
@@ -1442,10 +1978,10 @@ export const VOCABULARY_SEEDS = [
     "κρίνω",
     "urteilen über",
     "#vorurteile     +A    2 lexeis",
-    13,
-    4,
-    7,
-    "2000-01-01T00:00:00.000Z"
+    20,
+    5,
+    12,
+    "2017-10-26T06:37:08.982Z"
   ),
   new VocabularyEntry(
     "verantwortlich für_υπεύθυνος για",
@@ -1458,9 +1994,33 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-05T09:48:39.702Z"
   ),
+  new VocabularyEntry(
+    "verbringen_περνώ τον χρόνο μου",
+    null,
+    "περνώ τον χρόνο μου",
+    "verbringen",
+    "",
+    7,
+    2,
+    1,
+    "2017-11-14T08:56:39.915Z"
+  ),
   new VocabularyEntry("verdienen_βγάζω χρήματα", null, "βγάζω χρήματα", "verdienen", "", 6, 3, 4, "2017-10-09T06:25:18.826Z"),
+  new VocabularyEntry(
+    "verfügen Sie über mich_είμαι στη διάθεσή σας",
+    null,
+    "είμαι στη διάθεσή σας",
+    "verfügen Sie über mich",
+    "",
+    18,
+    4,
+    3,
+    "2017-10-31T11:32:16.306Z"
+  ),
+  new VocabularyEntry("verfügen über_διαθέτω", null, "διαθέτω", "verfügen über", "+a", 22, 2, 3, "2017-10-31T11:28:47.929Z"),
   new VocabularyEntry("vergehen_παρέρχομαι", null, "παρέρχομαι", "vergehen", "", 23, 5, 5, "2017-10-09T11:56:16.978Z"),
   new VocabularyEntry("verheiratet_παντρεμένος", null, "παντρεμένος", "verheiratet", "", 12, 3, 4, "2017-10-05T09:40:51.254Z"),
+  new VocabularyEntry("verifizieren_επαληθεύω", null, "επαληθεύω", "verifizieren", "", 7, 2, 1, "2017-11-14T08:56:43.252Z"),
   new VocabularyEntry(
     "verlieren verlor verloren_χάνω",
     null,
@@ -1472,6 +2032,17 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-10T05:12:51.279Z"
   ),
+  new VocabularyEntry(
+    "vernünftig_ικανοποιητικός",
+    null,
+    "ικανοποιητικός",
+    "vernünftig",
+    "",
+    14,
+    2,
+    1,
+    "2017-11-14T08:58:51.251Z"
+  ),
   new VocabularyEntry("verpassen_χάνω", null, "χάνω", "verpassen", "πχ τρένο", 7, 2, 4, "2017-10-09T06:25:22.204Z"),
   new VocabularyEntry(
     "verschwinden verschwand ist verschwunden_εξαφανίζομαι",
@@ -1479,12 +2050,12 @@ export const VOCABULARY_SEEDS = [
     "εξαφανίζομαι",
     "verschwinden verschwand ist verschwunden",
     "",
-    0,
-    1,
-    1,
-    "2000-01-01T00:00:00.000Z"
+    12,
+    5,
+    4,
+    "2017-11-01T07:42:39.343Z"
   ),
-  new VocabularyEntry("verteilen_διανέμω", null, "διανέμω", "verteilen", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("verteilen_διανέμω", null, "διανέμω", "verteilen", "", 10, 4, 3, "2017-10-31T06:31:21.771Z"),
   new VocabularyEntry("verteilen_μοιράζω", null, "μοιράζω", "verteilen", "", 11, 7, 5, "2017-10-05T09:56:24.918Z"),
   new VocabularyEntry("verurteilen_καταδικάζω", null, "καταδικάζω", "verurteilen", "", 19, 6, 7, "2017-10-09T08:29:56.452Z"),
   new VocabularyEntry(
@@ -1498,7 +2069,7 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-10T05:13:36.830Z"
   ),
-  new VocabularyEntry("vollständig_ολοκληρωτικά", null, "ολοκληρωτικά", "vollständig", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("vollständig_ολοκληρωτικά", null, "ολοκληρωτικά", "vollständig", "", 10, 4, 4, "2017-11-01T08:00:51.976Z"),
   new VocabularyEntry(
     "vor die Tür gehen_πάω βόλτα",
     null,
@@ -1510,12 +2081,24 @@ export const VOCABULARY_SEEDS = [
     4,
     "2017-10-06T10:07:20.657Z"
   ),
-  new VocabularyEntry("vor kurzem_πρόσφατα", null, "πρόσφατα", "vor kurzem", "", 14, 2, 4, "2017-09-28T11:54:39.604Z"),
+  new VocabularyEntry("vor kurzem_πρόσφατα", null, "πρόσφατα", "vor kurzem", "", 18, 4, 5, "2017-10-30T11:42:45.469Z"),
+  new VocabularyEntry(
+    "vorgeschlagen_προτεινόμενος",
+    null,
+    "προτεινόμενος",
+    "vorgeschlagen",
+    "",
+    8,
+    1,
+    1,
+    "2017-11-14T08:56:56.181Z"
+  ),
   new VocabularyEntry("vorhaben_σκοπεύω", null, "σκοπεύω", "vorhaben", "", 12, 3, 4, "2017-10-05T09:48:07.998Z"),
   new VocabularyEntry("vorher_προηγουμένως", null, "προηγουμένως", "vorher", "", 25, 5, 5, "2017-10-09T11:56:21.754Z"),
   new VocabularyEntry("vorne_μπροστά", null, "μπροστά", "vorne", "", 15, 3, 4, "2017-10-05T09:40:55.108Z"),
-  new VocabularyEntry("wann_πότε", null, "πότε", "wann", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
-  new VocabularyEntry("wegen_εξαιτίας", null, "εξαιτίας", "wegen", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("vorteilhaft_συμφέρον", null, "συμφέρον", "vorteilhaft", "", 25, 5, 3, "2017-10-31T11:15:58.926Z"),
+  new VocabularyEntry("wann_πότε", null, "πότε", "wann", "", 8, 3, 4, "2017-11-01T07:39:48.367Z"),
+  new VocabularyEntry("wegen_εξαιτίας", null, "εξαιτίας", "wegen", "", 13, 4, 3, "2017-10-31T06:33:49.738Z"),
   new VocabularyEntry(
     "wegwerfen_πετώ στα σκουπίδια",
     null,
@@ -1528,6 +2111,7 @@ export const VOCABULARY_SEEDS = [
     "2017-10-05T09:55:43.872Z"
   ),
   new VocabularyEntry("weit_μακριά", null, "μακριά", "weit", "", 11, 3, 4, "2017-10-05T09:40:42.926Z"),
+  new VocabularyEntry("weiterhin_επιπρόσθετα", null, "επιπρόσθετα", "weiterhin", "", 12, 3, 1, "2017-11-14T08:58:53.572Z"),
   new VocabularyEntry(
     "wenigstens_τουλάχιστον",
     null,
@@ -1539,9 +2123,21 @@ export const VOCABULARY_SEEDS = [
     5,
     "2017-10-05T09:56:28.126Z"
   ),
-  new VocabularyEntry("wie auch_επίσης", null, "επίσης", "wie auch", "as well as", 13, 3, 5, "2017-09-25T05:35:11.065Z"),
+  new VocabularyEntry(
+    "wie auch immer_εν πάσει περιπτώσει",
+    null,
+    "εν πάσει περιπτώσει",
+    "wie auch immer",
+    "",
+    22,
+    4,
+    3,
+    "2017-10-31T11:28:52.148Z"
+  ),
+  new VocabularyEntry("wie auch_επίσης", null, "επίσης", "wie auch", "as well as", 20, 4, 10, "2017-10-26T06:37:16.619Z"),
   new VocabularyEntry("wie breit_πόσο πλατύ", null, "πόσο πλατύ", "wie breit", "", 12, 4, 4, "2017-10-05T09:48:05.727Z"),
-  new VocabularyEntry("woanders_αλλού", null, "αλλού", "woanders", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry("woanders_αλλού", null, "αλλού", "woanders", "", 12, 2, 4, "2017-11-01T08:00:54.952Z"),
+  new VocabularyEntry("wohlhabend_εύπορος", null, "εύπορος", "wohlhabend", "", 24, 4, 3, "2017-10-31T11:32:33.585Z"),
   new VocabularyEntry("wählen_επιλέγω", null, "επιλέγω", "wählen", "aussuchen", 24, 6, 7, "2017-10-09T08:29:59.317Z"),
   new VocabularyEntry(
     "wäre ich an deiner Stelle_αν ήμουν στη θέση σου",
@@ -1549,12 +2145,35 @@ export const VOCABULARY_SEEDS = [
     "αν ήμουν στη θέση σου",
     "wäre ich an deiner Stelle",
     "",
-    0,
-    0,
-    1,
-    "2000-01-01T00:00:00.000Z"
+    9,
+    2,
+    4,
+    "2017-11-01T07:41:08.663Z"
   ),
-  new VocabularyEntry("zusätzlich_επιπλέον", null, "επιπλέον", "zusätzlich", "", 0, 0, 1, "2000-01-01T00:00:00.000Z"),
+  new VocabularyEntry(
+    "zustimmen stimmte zu zugestimmt_συμφωνώ",
+    null,
+    "συμφωνώ",
+    "zustimmen stimmte zu zugestimmt",
+    "+D",
+    5,
+    2,
+    3,
+    "2017-10-25T10:57:57.798Z"
+  ),
+  new VocabularyEntry("zusätzlich_επιπλέον", null, "επιπλέον", "zusätzlich", "", 9, 6, 3, "2017-10-31T07:12:11.387Z"),
+  new VocabularyEntry(
+    "zuzüglich_μή συμπεριλαμβανομένου",
+    null,
+    "μή συμπεριλαμβανομένου",
+    "zuzüglich",
+    "",
+    7,
+    1,
+    3,
+    "2017-10-25T11:01:48.870Z"
+  ),
+  new VocabularyEntry("zwingend_αναγκαστικός", null, "αναγκαστικός", "zwingend", "", 26, 7, 3, "2017-10-31T11:34:03.786Z"),
   new VocabularyEntry(
     "zählen zählte gezählt_μετρώ",
     null,
@@ -1568,9 +2187,24 @@ export const VOCABULARY_SEEDS = [
   ),
   new VocabularyEntry("ähnlich_παρόμοιος", null, "παρόμοιος", "ähnlich", "", 15, 6, 7, "2017-10-09T08:28:52.214Z"),
   new VocabularyEntry("überaus_υπερβολικά", null, "υπερβολικά", "überaus", "", 19, 4, 5, "2017-10-05T09:56:41.726Z"),
-  new VocabularyEntry("überzeugt_πεπεισμένος", null, "πεπεισμένος", "überzeugt", "", 25, 4, 5, "2017-10-09T11:56:19.705Z")
+  new VocabularyEntry("überhaupt_γενικά", null, "γενικά", "überhaupt", "", 14, 2, 1, "2017-11-14T08:58:56.243Z"),
+  new VocabularyEntry("überleben_επιβιώνω", null, "επιβιώνω", "überleben", "", 7, 2, 1, "2017-11-14T09:10:19.619Z"),
+  new VocabularyEntry(
+    "übernehmen übernahm übernommen_αναλαμβάνω",
+    null,
+    "αναλαμβάνω",
+    "übernehmen übernahm übernommen",
+    "",
+    8,
+    4,
+    1,
+    "2017-11-22T12:35:18.991Z"
+  ),
+  new VocabularyEntry("überzeugt_πεπεισμένος", null, "πεπεισμένος", "überzeugt", "", 25, 4, 5, "2017-10-09T11:56:19.705Z"),
+  new VocabularyEntry("übrigens_παρεπιπτόντως", null, "παρεπιπτόντως", "übrigens", "", 8, 1, 1, "2017-11-14T09:10:22.181Z"),
+  new VocabularyEntry("üppig_άφθονος", null, "άφθονος", "üppig", "more than enough", 8, 2, 1, "2017-11-14T09:10:25.060Z")
 ];
-// Total voc entries: 377
+// Total voc entries: 501
 
 export const STATS_SEEDS = [
   new StatsEntry("2017-09-18", null, 12),
@@ -1590,6 +2224,18 @@ export const STATS_SEEDS = [
   new StatsEntry("2017-10-12", null, 10),
   new StatsEntry("2017-10-13", null, 10),
   new StatsEntry("2017-10-14", null, 23),
-  new StatsEntry("2017-10-16", null, 10)
+  new StatsEntry("2017-10-16", null, 10),
+  new StatsEntry("2017-10-18", null, 49),
+  new StatsEntry("2017-10-19", null, 50),
+  new StatsEntry("2017-10-25", null, 14),
+  new StatsEntry("2017-10-26", null, 10),
+  new StatsEntry("2017-10-27", null, 61),
+  new StatsEntry("2017-10-30", null, 70),
+  new StatsEntry("2017-10-31", null, 85),
+  new StatsEntry("2017-11-01", null, 54),
+  new StatsEntry("2017-11-02", null, 10),
+  new StatsEntry("2017-11-14", null, 77),
+  new StatsEntry("2017-11-22", null, 40),
+  new StatsEntry("2017-11-23", null, 43)
 ];
-// Total stats entries: 18
+// Total stats entries: 30

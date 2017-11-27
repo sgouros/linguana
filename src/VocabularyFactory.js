@@ -232,13 +232,14 @@ export default class VocabularyFactory {
   };
 
   constructVocabularyDownloadString = (voc, stringArray) => {
+    stringArray.push(`// copy this to file: databaseSeeds.js then reset and seed both DBs";`);
     stringArray.push(`import VocabularyEntry from "./components/VocabularyEntry.js";`);
     stringArray.push(`import StatsEntry from "./components/StatsEntry.js";`);
     stringArray.push("");
     stringArray.push("export const VOCABULARY_SEEDS = [");
     voc.map((entry, index, vocArray) => {
       let lastItem = vocArray.length - 1 === index;
-      entry.constructDownloadString(stringArray, lastItem);
+      return entry.constructDownloadString(stringArray, lastItem);
     });
     stringArray.push("];");
     return stringArray;

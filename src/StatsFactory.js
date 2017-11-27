@@ -133,7 +133,7 @@ export default class StatsFactory {
     stringArray.push("export const STATS_SEEDS = [");
     stats.map((entry, index, statsArray) => {
       let lastItem = statsArray.length - 1 === index;
-      entry.constructDownloadString(stringArray, lastItem);
+      return entry.constructDownloadString(stringArray, lastItem);
     });
     stringArray.push("];");
     return stringArray;

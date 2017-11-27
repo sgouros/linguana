@@ -21,6 +21,7 @@ import HeaderLogo from "./components/HeaderLogo.js";
 //      * να χρησιμοποιήσω immutability
 //      * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
 //      * να διαλέγει με hash_tag
+//      * να κάνει αυτόματα focus στο αρχικό password string και μετά αυτόματα στο γενικό div
 
 export default class App extends Component {
   constructor() {

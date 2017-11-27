@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TranslationInputGR from "./TranslationInputGR.js";
 import TranslationInputDE from "./TranslationInputDE.js";
-import { Textfit } from "react-textfit";
+// import { Textfit } from "react-textfit";
 
 export default class TranslationForm extends Component {
   getCssClassForSourceTerm = () => {

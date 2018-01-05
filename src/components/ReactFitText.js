@@ -36,10 +36,8 @@ module.exports = createClass({
 
   _onBodyResize: function() {
     var element = ReactDOM.findDOMNode(this);
-    console.info("********* element");
     console.info(element);
     var width = element.offsetWidth;
-    console.info("********* width");
     console.info(element.offsetWidth);
 
     let stringLength = this.props.children.props.children.length;
@@ -58,9 +56,9 @@ module.exports = createClass({
       element.style.padding = "3.5vh 1vh 5vh 1vh";
     }
 
-    console.info("****** stringLength: " + stringLength);
-    console.info("****** element.style.fontSize: " + element.style.fontSize);
-    console.info("****** this.props.children.props.children: " + this.props.children.props.children);
+    console.debug("****** stringLength: " + stringLength);
+    console.debug("****** element.style.fontSize: " + element.style.fontSize);
+    console.debug("****** this.props.children.props.children: " + this.props.children.props.children);
   },
   _renderChildren: function() {
     var _this = this;

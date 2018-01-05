@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TranslationInputGR from "./TranslationInputGR.js";
 import TranslationInputDE from "./TranslationInputDE.js";
-// import { Textfit } from "react-textfit";
+import ReactFitText from "./ReactFitText.js";
 
 export default class TranslationForm extends Component {
   getCssClassForSourceTerm = () => {
@@ -13,7 +13,9 @@ export default class TranslationForm extends Component {
     if (this.props.fromNativeToForeign) {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          <div className={this.getCssClassForSourceTerm()}>{this.props.nativeTerm}</div>
+          <ReactFitText>
+            <div className={this.getCssClassForSourceTerm()}>{this.props.nativeTerm}</div>
+          </ReactFitText>
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputDE
@@ -31,7 +33,9 @@ export default class TranslationForm extends Component {
     } else {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          <div className={this.getCssClassForSourceTerm()}>{this.props.foreignTerm}</div>
+          <ReactFitText>
+            <div className={this.getCssClassForSourceTerm()}>{this.props.foreignTerm}</div>
+          </ReactFitText>
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputGR

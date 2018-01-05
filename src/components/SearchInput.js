@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class TranslationInputDE extends Component {
+export default class SearchInput extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
 
@@ -46,18 +46,12 @@ export default class TranslationInputDE extends Component {
 
   handleKeyDown = event => {
     let uppercase = false;
+
     if (event.getModifierState("Shift") || event.getModifierState("CapsLock")) {
       uppercase = true;
     }
-    // 27: esc 109: -  107: +
-    if (event.keyCode === 27 || event.keyCode === 109) {
-      console.debug("esc press: " + event.keyCode);
-      this.handleEscPress(event);
-    } else if (event.keyCode === 107) {
-      console.debug("plus press: " + event.keyCode);
-      this.handlePlusPress(event);
-    } else if (this.normalKeySubstitutions[event.keyCode]) {
-      console.debug("normal key press: " + event.keyCode);
+
+    if (this.normalKeySubstitutions[event.keyCode]) {
       this.handleNormalKeyPress(event, uppercase);
     }
 
@@ -70,6 +64,7 @@ export default class TranslationInputDE extends Component {
         this.handleSpecialKeyPress(event);
       }
     }
+    console.debug("key down: " + event.keyCode);
   };
 
   handleNormalKeyPress = (event, uppercase) => {
@@ -113,42 +108,20 @@ export default class TranslationInputDE extends Component {
     return keyCode === this.alreadyPressedSpecialKeyCode;
   };
 
-  handleEscPress = event => {
-    if (!this.props.disableSpecialEscPress) {
-      this.props.onEscPress();
-      event.preventDefault();
-    }
-  };
-
-  handlePlusPress = event => {
-    if (!this.props.disableSpecialPlusPress) {
-      this.props.onPlusPress();
-      event.preventDefault();
-    }
-  };
-
-  constructCssClassName = () => {
-    let className = this.props.inputClassName;
-    let attribute = this.props.correctTranslation ? " translationInput--correctTranslation" : "";
-    let sizeAttribute = this.props.currentInputValue.length > 20 ? "" : " translationInput--centered_text";
-    return className + attribute + sizeAttribute;
-  };
-
   render() {
     return (
       <input
         ref="input"
-        className={this.constructCssClassName()}
-        id={this.props.cssID}
-        name="translationInputDE"
+        className="app__header__searchForm__searchInput"
+        name="searchInput"
         type="text"
         autoComplete="off"
         autoCorrect="off"
         spellCheck="off"
-        value={this.props.currentInputValue}
+        value={this.props.currentSearchInputValue}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleOnChange}
-        placeholder={this.props.placeholder}
+        placeholder="αναζήτηση..."
       />
     );
   }

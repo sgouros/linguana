@@ -449,7 +449,7 @@ export default class App extends Component {
   };
 
   handleSearchInputOnChange = event => {
-    this.setState({ currentSearchInputValue: this.refs.searchForm.refs.searchInput.value });
+    this.setState({ currentSearchInputValue: this.refs.searchInputForm.refs.searchInput.refs.input.value });
   };
 
   handleSearchSubmit = event => {
@@ -558,7 +558,7 @@ export default class App extends Component {
   };
 
   toggleCssSkin = event => {
-    if (event.keyCode === 192) {
+    if (event.keyCode === 48 || event.keyCode === 56 || event.keyCode === 57 || event.keyCode === 51 || event.keyCode === 52) {
       event.preventDefault();
       if (this.state.cssSkin === "./blackSkin.css") {
         this.setState({ cssSkin: "./normalSkin.css" });
@@ -619,7 +619,7 @@ export default class App extends Component {
             />
 
             <SearchForm
-              ref="searchForm"
+              ref="searchInputForm"
               currentSearchInputValue={this.state.currentSearchInputValue}
               onInputChange={this.handleSearchInputOnChange}
               onSubmitPressed={this.handleSearchSubmit}

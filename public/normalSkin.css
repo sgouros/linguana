@@ -221,16 +221,14 @@ body {
   position: relative;
   box-sizing: border-box;
   width: 95%;
-  padding: 1vh 1vh 2.5vh 1vh;
-  font-size: 12vh;
+  /* αυτά δίνονται μεσα στο ReactFitText */
+  /* padding: 1vh 1vh 2.5vh 1vh; */
+  /* font-size: 12vh; */
   margin-top: 1vh;
   color: black;
-
   text-align: center;
-
   background: #c3c59e;
   border: solid 1px #adb585;
-
   border-top-left-radius: 2vh;
   -webkit-border-top-left-radius: 2vh;
   -moz-border-top-left-radius: 2vh;
@@ -291,7 +289,6 @@ body {
 }
 
 .translationForm__translationInput {
-  text-align: center;
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
   width: 95%;
@@ -306,6 +303,10 @@ body {
 
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+}
+
+.translationInput--centered_text {
+  text-align: center;
 }
 
 .translationForm__translationInput:focus {

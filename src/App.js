@@ -14,6 +14,7 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
+//      * να μεταφερθούν τα styles από μέσα από το reactfittext μέσα στο css
 //      * http://malte-wessel.github.io/react-textfit/
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * να κάνω refactor σε display components + layout components

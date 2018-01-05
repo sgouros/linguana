@@ -36,26 +36,20 @@ module.exports = createClass({
 
   _onBodyResize: function() {
     var element = ReactDOM.findDOMNode(this);
-    console.info(element);
-    var width = element.offsetWidth;
-    console.info(element.offsetWidth);
-
     let stringLength = this.props.children.props.children.length;
-
     if (stringLength <= 20) {
       element.style.fontSize = "12vh";
       element.style.padding = "1vh 1vh 2.5vh 1vh";
-    } else if (stringLength > 20 && stringLength <= 27) {
+    } else if (stringLength > 20 && stringLength <= 25) {
       element.style.fontSize = "10vh";
-      element.style.padding = "2vh 1vh 3.5vh 1vh";
-    } else if (stringLength > 27 && stringLength <= 35) {
+      element.style.padding = "2.5vh 1vh 3.5vh 1vh";
+    } else if (stringLength > 25 && stringLength <= 35) {
       element.style.fontSize = "8vh";
-      element.style.padding = "3vh 1vh 4.5vh 1vh";
+      element.style.padding = "3.5vh 1vh 4.5vh 1vh";
     } else {
       element.style.fontSize = "6vh";
-      element.style.padding = "3.5vh 1vh 5vh 1vh";
+      element.style.padding = "4vh 1vh 5vh 1vh";
     }
-
     console.debug("****** stringLength: " + stringLength);
     console.debug("****** element.style.fontSize: " + element.style.fontSize);
     console.debug("****** this.props.children.props.children: " + this.props.children.props.children);

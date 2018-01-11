@@ -18,12 +18,11 @@
     "pouchdb-upsert": "^2.2.0",
     "prop-types": "^15.6.0",
     "react-confirm-dialog": "^1.0.5",
-    "react-fittext": "^1.0.0",
     "react-modal-dialog": "^4.0.7",
     "react-notification-system": "^0.2.15",
     "react-scripts": "^1.0.14",
     "react-spinjs": "^3.0.0",
-    "react-textfit": "^1.0.1",
+    "react-textfit": "^1.1.0",
     "react-tooltip": "^3.3.1"
   },
   "devDependencies": {

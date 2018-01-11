@@ -2,7 +2,7 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif
   background-color: #fcffde;
 }
 
@@ -179,7 +179,7 @@ body {
 .app__main {
   display: flex;
   background-color: #fcffde;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -187,25 +187,25 @@ body {
   display: flex;
   height: 100%;
   padding: 0;
-  width: auto;
+  width: 100vw;
   justify-content: space-around;
   /*align-items: center;*/
   /*background: red;*/
 }
 
 #testArea__component__linguanaImg {
-  padding-top: 21vh;
-  max-width: 100%;
-  height: 25vh;
+  padding-top: 14vw;
+  margin-left: -2vw;
+  max-width: 19vw;
+  height: 28vh;
   width: auto;
   align-self: center;
-  /*border: solid 1px black;*/
-  margin-left: -4vh;
+  /* border: solid 1px black; */
 }
 
 .translationForm {
   display: flex;
-  width: 82%;
+  width: 80vw;
   padding-top: 1.5%;
   padding-bottom: 2%;
   margin-left: -3%;
@@ -219,23 +219,31 @@ body {
 .translationForm__entryAlreadyCorrectlyTranslated__true,
 .translationForm__entryAlreadyCorrectlyTranslated__false {
   position: relative;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  width: 95%;
-  /* αυτά δίνονται μεσα στο ReactFitText */
-  /* padding: 1vh 1vh 2.5vh 1vh; */
-  /* font-size: 12vh; */
+  width: 80vw;
+  min-height: 20vh;
+  padding: 3vh 1vh 2vh 1vh;
+  white-space: nowrap;
+  font-family: Courier New, Courier, monospace;
+  letter-spacing: -0.45vw;
+  word-spacing: -1vw;
   margin-top: 1vh;
   color: black;
-  text-align: center;
   background: #c3c59e;
   border: solid 1px #adb585;
   border-top-left-radius: 2vh;
   -webkit-border-top-left-radius: 2vh;
   -moz-border-top-left-radius: 2vh;
+  /* -webkit-text-stroke-width: 1px; */
+  /* -webkit-text-stroke-color: white; */
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__true:before {
   content: "";
+  font-size: 12vh;
   position: absolute;
   top: 0;
   right: 0;
@@ -267,7 +275,7 @@ body {
 
 .translationForm__foreignTermNotes {
   box-sizing: border-box;
-  width: 95%;
+  width: 80vw;
   padding: 1.5vh 0.5vh 1.5vh 0.5vh;
   font-size: 4vh;
   min-height: 8vh;
@@ -291,7 +299,7 @@ body {
 .translationForm__translationInput {
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
-  width: 95%;
+  width: 80vw;
   font-size: 14vh;
   color: white;
   background: #d7d99e;

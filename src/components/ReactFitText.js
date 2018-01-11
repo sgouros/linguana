@@ -37,18 +37,14 @@ module.exports = createClass({
   _onBodyResize: function() {
     var element = ReactDOM.findDOMNode(this);
     let stringLength = this.props.children.props.children.length;
-    if (stringLength <= 20) {
-      element.style.fontSize = "12vh";
-      element.style.padding = "1vh 1vh 2.5vh 1vh";
-    } else if (stringLength > 20 && stringLength <= 25) {
-      element.style.fontSize = "10vh";
-      element.style.padding = "2.5vh 1vh 3.5vh 1vh";
-    } else if (stringLength > 25 && stringLength <= 35) {
-      element.style.fontSize = "8vh";
-      element.style.padding = "3.5vh 1vh 4.5vh 1vh";
+    if (stringLength <= 15) {
+      element.style.fontSize = "calc(80vw / 0.625 / 15)";
+    } else if (stringLength > 15 && stringLength <= 20) {
+      element.style.fontSize = "calc(80vw / 0.625 / " + (stringLength - 1);
+    } else if (stringLength > 20 && stringLength <= 28) {
+      element.style.fontSize = "calc(80vw / 0.625 / " + (stringLength - 3);
     } else {
-      element.style.fontSize = "6vh";
-      element.style.padding = "4vh 1vh 5vh 1vh";
+      element.style.fontSize = "calc(80vw / 0.625 / " + (stringLength - 5);
     }
     console.debug("****** stringLength: " + stringLength);
     console.debug("****** element.style.fontSize: " + element.style.fontSize);

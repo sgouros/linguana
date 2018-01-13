@@ -378,8 +378,8 @@ export default class App extends Component {
   newEntrySaveToDbSucceeded = (nativeTerm, foreignTerm, response) => {
     console.info(`${nativeTerm}-${foreignTerm} saved to DB. Response: ${JSON.stringify(response)}`);
   };
-
   newEntrySaveToDbFailed = (nativeTerm, foreignTerm, error) => {
+
     console.info(`Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`);
   };
 

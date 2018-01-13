@@ -19,16 +19,16 @@ export default class VocabularyFactory {
         live: true,
         retry: true
       })
-      .on("change", function(change) {
+      .on("change", (change) => {
         console.debug("Vocabulary synced!");
       })
-      .on("paused", function(info) {
+      .on("paused", (info) => {
         console.debug("Vocabulary replication was paused, usually because of a lost connection");
       })
-      .on("active", function(info) {
+      .on("active", (info) => {
         console.debug("Vocabulary replication resumed");
       })
-      .on("error", function(err) {
+      .on("error", (err) => {
         console.debug("Vocabulary totally unhandeld replication error");
       });
   }

@@ -21,19 +21,20 @@ export default class StatsFactory {
         live: true,
         retry: true
       })
-      .on("change", function(change) {
+      .on("change", (change) => {
         console.debug("Stats synced! Changes:");
         console.debug(change);
         this.app.statsDbUpdated();
       })
-      .on("paused", function(info) {
+      .on("paused", (info) => {
         console.debug("Stats replication was paused, usually because of a lost connection");
       })
-      .on("active", function(info) {
+      .on("active", (info) => {
         console.debug("Stats replication resumed");
       })
-      .on("error", function(err) {
+      .on("error", (err) => {
         console.debug("Stats totally unhandeld replication error");
+        console.debug(err);
       });
   }
 

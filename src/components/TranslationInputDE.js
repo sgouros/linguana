@@ -78,9 +78,16 @@ export default class TranslationInputDE extends Component {
       letterToAdd = letterToAdd.toUpperCase();
     }
 
-    event.target.value += letterToAdd;
-    console.info("******** event.target.value = " + event.target.value);
+   
+    // console.info("******** event.target.value = " + event.target.value);
 
+    // event.target.value = event.target.value.substring(0, event.target.value.length - 1);
+    // console.info("******** event.target.value afater substging= " + event.target.value);
+    event.target.value += letterToAdd;
+
+    // console.info("******** event.target.value after add= " + event.target.value);
+    // console.info("********");
+    // console.info(event);
     // let text = event.target.value;
     // console.info(text);
     // text = text.slice(0, -1);
@@ -89,7 +96,7 @@ export default class TranslationInputDE extends Component {
     // console.info(text);
     // event.target.value = text;
     this.handleOnChange(event);
-    // event.preventDefault();
+    event.preventDefault();
   };
 
   resetSpecialKeyPress = () => {

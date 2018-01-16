@@ -77,9 +77,19 @@ export default class TranslationInputDE extends Component {
     if (uppercase) {
       letterToAdd = letterToAdd.toUpperCase();
     }
+
     event.target.value += letterToAdd;
+    console.info("******** event.target.value = " + event.target.value);
+
+    // let text = event.target.value;
+    // console.info(text);
+    // text = text.slice(0, -1);
+    // console.info(text);
+    // text += letterToAdd;
+    // console.info(text);
+    // event.target.value = text;
     this.handleOnChange(event);
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   resetSpecialKeyPress = () => {

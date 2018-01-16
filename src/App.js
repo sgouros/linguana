@@ -379,7 +379,6 @@ export default class App extends Component {
     console.info(`${nativeTerm}-${foreignTerm} saved to DB. Response: ${JSON.stringify(response)}`);
   };
   newEntrySaveToDbFailed = (nativeTerm, foreignTerm, error) => {
-
     console.info(`Failed to save ${nativeTerm}-${foreignTerm} to DB. Error description: ${JSON.stringify(error)}`);
   };
 
@@ -560,7 +559,14 @@ export default class App extends Component {
   };
 
   toggleCssSkin = event => {
-    if (event.keyCode === 48 || event.keyCode === 56 || event.keyCode === 57 || event.keyCode === 51 || event.keyCode === 52) {
+    if (
+      event.keyCode === 48 ||
+      event.keyCode === 56 ||
+      event.keyCode === 57 ||
+      event.keyCode === 50 ||
+      event.keyCode === 51 ||
+      event.keyCode === 52
+    ) {
       event.preventDefault();
       if (this.state.cssSkin === "./blackSkin.css") {
         this.setState({ cssSkin: "./normalSkin.css" });

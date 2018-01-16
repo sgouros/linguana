@@ -1,15 +1,17 @@
 body {
-  background-image: url("/img/bk.png");
+  background-image: url("/img/blackSkin.png");
   color: #aaa;
+  padding: 0;
   /* padding-top: 65vh; */
   /* margin-top: -5vh; */
   background-size: cover;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .app {
-  height: 100vh;
-  padding-top: 55vh !important;
+  /* height: 100vh; */
+  padding-top: 52.5vh !important;
+  padding-right: 10.5vw !important;
 }
 
 .app__header__logo__logoImage,
@@ -32,8 +34,9 @@ body {
 }
 
 .app__footer {
-  padding-top: 1vh;
-  padding-bottom: 8vh;
+  position: absolute;
+  bottom: 85px;
+  left: 12px;
   font-weight: bold;
 }
 
@@ -69,14 +72,14 @@ body {
 }
 
 .app__nav__navButton--openVocabularyManagerButton {
-  color: #999;
+  color: #ddd;
   background: white;
   border: none;
   cursor: pointer;
 }
 
 .app__nav__navButton--startNewSessionButton {
-  color: #999;
+  color: #ddd;
   background: white;
   border: none;
   cursor: pointer;
@@ -152,6 +155,7 @@ body {
   background: #fff !important;
   color: #fff !important;
   border: none;
+  display: none;
 }
 
 .testArea__component__translationForm {
@@ -181,6 +185,7 @@ body {
 .app__header__debugButtons__debugButton {
   height: 1rem;
   cursor: pointer;
+  display: none;
 }
 
 .translationInput--correctTranslation {
@@ -197,19 +202,30 @@ body {
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__false {
-  color: rgb(85, 66, 66) !important;
-  font-size: 1.6rem !important;
-  padding-top: 1.5vh !important;
+  position: absolute;
+  padding: 0 !important;
+  top: 0px;
+  left: 500px;
+  font-size: 18px !important;
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__true {
   color: rgb(19, 65, 8) !important;
-  font-size: 1.6rem !important;
-  padding-top: 1.5vh !important;
+
+  /* padding-top: 11.5vh !important; */
+  position: absolute;
+  padding: 0 !important;
+  top: 0px;
+  left: 500px;
+  font-size: 18px !important;
 }
 
 .translationForm__translationInput {
-  font-size: 1.3rem;
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  font-size: 17px !important;
+
   color: rgb(60, 62, 71);
   width: 25rem;
   border: none;

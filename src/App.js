@@ -14,7 +14,7 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
-//      * όταν τα γαμοστατς κατεβαίνουν να ανανεώνεται το UI
+//      * να γίνεται scroll το DE text box όταν γράφω (το preventDefault δημιουργεί το πρόβλημα)
 //      * να μεταφερθούν τα styles από μέσα από το reactfittext μέσα στο css
 //      * http://malte-wessel.github.io/react-textfit/
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal

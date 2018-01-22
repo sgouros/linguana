@@ -96,6 +96,7 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
+    // todo: αυτό να γίνει 6 και όχι hardcoded
     this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, 4);
     this.allSelectedEntries = [];
     this.setState({
@@ -188,6 +189,7 @@ export default class App extends Component {
     this.setState({
       vocabulary: updatedVocabulary
     });
+    // todo: αυτό να γίνει 4 και όχι hardcoded
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 6, this.allSelectedEntries);
   };
 

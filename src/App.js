@@ -51,6 +51,9 @@ export default class App extends Component {
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
   }
+  NUMBER_OF_OLD_VOC_ENTRIES = 7;
+  NUMBER_OF_NEW_VOC_ENTRIES = 3;
+
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
 
@@ -96,8 +99,8 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
-    // todo: αυτό να γίνει 6 και όχι hardcoded
-    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, 4);
+
+    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
@@ -189,8 +192,12 @@ export default class App extends Component {
     this.setState({
       vocabulary: updatedVocabulary
     });
-    // todo: αυτό να γίνει 4 και όχι hardcoded
-    this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 6, this.allSelectedEntries);
+
+    this.vocabularyFactory.newVocabularyNeeded(
+      this.onNewVocabularyArrived,
+      this.NUMBER_OF_NEW_VOC_ENTRIES,
+      this.allSelectedEntries
+    );
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {

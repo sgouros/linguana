@@ -51,8 +51,8 @@ export default class App extends Component {
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
   }
-  NUMBER_OF_OLD_VOC_ENTRIES = 7;
-  NUMBER_OF_NEW_VOC_ENTRIES = 3;
+  NUMBER_OF_OLD_VOC_ENTRIES = 8;
+  NUMBER_OF_NEW_VOC_ENTRIES = 4;
 
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;

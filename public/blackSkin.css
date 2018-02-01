@@ -210,7 +210,7 @@ body {
 }
 
 .translationForm__entryAlreadyCorrectlyTranslated__true {
-  color: rgb(19, 65, 8) !important;
+  color: rgb(177, 250, 177) !important;
 
   /* padding-top: 11.5vh !important; */
   position: absolute;

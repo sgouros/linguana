@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class TranslationInputDE extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
-
+  spaceIsPressed=false;
   normalKeySubstitutions = {
     186: "q",
     87: "w",
@@ -46,7 +46,14 @@ export default class TranslationInputDE extends Component {
 
   handleKeyDown = event => {
     let uppercase = false;
-    if (event.getModifierState("Shift") || event.getModifierState("CapsLock")) {
+
+    if (event.keyCode === 32) {
+    console.debug("*******************space press: " + event.keyCode);
+    this.spaceIsPressed=true;
+    }
+
+    if (event.getModifierState("Shift") || event.getModifierState("CapsLock") || this.spaceIsPressed) {
+      console.debug("***************************uppercase is true");
       uppercase = true;
     }
     // 27: esc 109: -  107: +
@@ -72,12 +79,24 @@ export default class TranslationInputDE extends Component {
     }
   };
 
+  handleKeyUp = event => {
+    if (event.keyCode === 32) {
+      this.spaceIsPressed = false;
+      console.debug("*****************space UNpress: " + event.keyCode);
+    }
+  }
+
   handleNormalKeyPress = (event, uppercase) => {
     let letterToAdd = this.normalKeySubstitutions[event.keyCode];
     if (uppercase) {
       letterToAdd = letterToAdd.toUpperCase();
     }
 
+    if (this.spaceIsPressed) {
+      console.debug(` ---------------------- ${event.target.value}`);
+      event.target.value = event.target.value.substring(0, event.target.value.length - 1);
+      console.debug(` -------------------------- ${event.target.value}`);
+    }
    
     // console.info("******** event.target.value = " + event.target.value);
 
@@ -164,6 +183,7 @@ export default class TranslationInputDE extends Component {
         spellCheck="off"
         value={this.props.currentInputValue}
         onKeyDown={this.handleKeyDown}
+        onKeyUp={this.handleKeyUp}
         onChange={this.handleOnChange}
         placeholder={this.props.placeholder}
       />

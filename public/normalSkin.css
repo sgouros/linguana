@@ -309,6 +309,7 @@ body {
 }
 
 .translationForm__translationInput {
+  cursor: none;
   padding: 2vh 1vh 3vh 1vh;
   box-sizing: border-box;
   width: 80vw;
@@ -515,6 +516,7 @@ body {
 }
 
 .app__vocabularyManagerComponent__form__translationInputGR:focus {
+
   outline: 0 none;
 }
 

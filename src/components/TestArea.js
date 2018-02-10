@@ -26,7 +26,7 @@ export default class Testarea extends Component {
     this.setState({ currentTranslationInputValue: translation_typed });
     this.checkTranslation(translation_typed);
   };
-
+ 
   checkTranslation = translation_typed => {
     this.translationIsCorrect(translation_typed)
       ? this.highlightCorrectAnswer()

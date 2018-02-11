@@ -140,8 +140,8 @@ export default class VocabularyFactory {
     this.localVocDb
       .put(changedEntry)
       .then(response => {
-        console.info(`Just edited successfully an entry in DB! newValidEntry:`);
-        console.info(changedEntry);
+        console.debug(`Just edited successfully an entry in DB! newValidEntry:`);
+        console.debug(changedEntry);
       })
       .catch(err => {
         console.error("error inside editEntry:");
@@ -188,13 +188,13 @@ export default class VocabularyFactory {
   };
 
   extractVocabulary = voc => {
-    console.info("************** extracting Vocabulary DB ****************");
+    console.debug("************** extracting Vocabulary DB ****************");
     voc.map(entry => entry.extract());
-    console.info("************** end of Vocabulary DB extraction ****************");
+    console.debug("************** end of Vocabulary DB extraction ****************");
   };
 
   traceVocDB = () => {
-    console.info("tracing vocabulary DB:");
+    console.debug("tracing vocabulary DB:");
 
     this.localVocDb
       .find({
@@ -268,9 +268,9 @@ export default class VocabularyFactory {
   // .catch(console.log.bind(console));
 
   traceVocabulary = (voc, logMessage = `tracing vocabulary (length: ${voc.length})`) => {
-    console.info(logMessage);
+    console.debug(logMessage);
     voc.map(entry => entry.trace());
-    console.info(`Total number of entries: ${voc.length}`);
+    console.debug(`Total number of entries: ${voc.length}`);
   };
 
   search = (searchTerm, onSearchCompleted) => {

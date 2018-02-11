@@ -239,9 +239,10 @@ body {
   min-height: 20vh;
   padding: 3vh 1vh 2vh 1vh;
   white-space: nowrap;
-  font-family: Courier New, Courier, monospace;
-  letter-spacing: -0.45vw;
-  word-spacing: -1vw;
+  /* font-family: Courier New, Courier, monospace; */
+  /* letter-spacing: -0.45vw; */
+  /* word-spacing: -1vw; */
+  /* font-size: 20px; */
   margin-top: 1vh;
   color: black;
   background: #c3c59e;

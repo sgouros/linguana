@@ -27,20 +27,20 @@ export default class VocabularyEntry {
   }
 
   trace() {
-    console.info(`  tracing ${this._id}:`);
-    console.info(`    this._rev: ${this._rev}`);
-    console.info(`    this.nativeTerm: ${this.nativeTerm}`);
-    console.info(`    this.foreignTerm: ${this.foreignTerm}`);
-    console.info(`    this.foreignTermNotes: ${this.foreignTermNotes}`);
-    console.info(`    this.totalFailures: ${this.totalFailures}`);
-    console.info(`    this.totalSuccesses: ${this.totalSuccesses}`);
-    console.info(`    this.totalTimesSelected: ${this.totalTimesSelected}`);
-    console.info(`    this.lastDateCorrectlyTranslated: ${this.lastDateCorrectlyTranslated}`);
-    console.info(`    this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
+    console.debug(`  tracing ${this._id}:`);
+    console.debug(`    this._rev: ${this._rev}`);
+    console.debug(`    this.nativeTerm: ${this.nativeTerm}`);
+    console.debug(`    this.foreignTerm: ${this.foreignTerm}`);
+    console.debug(`    this.foreignTermNotes: ${this.foreignTermNotes}`);
+    console.debug(`    this.totalFailures: ${this.totalFailures}`);
+    console.debug(`    this.totalSuccesses: ${this.totalSuccesses}`);
+    console.debug(`    this.totalTimesSelected: ${this.totalTimesSelected}`);
+    console.debug(`    this.lastDateCorrectlyTranslated: ${this.lastDateCorrectlyTranslated}`);
+    console.debug(`    this.isCurrentlyCorrectlyTranslated: ${this.isCurrentlyCorrectlyTranslated}`);
   }
 
   extract() {
-    console.info(
+    console.debug(
       `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
         .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
         .lastDateCorrectlyTranslated}"),`

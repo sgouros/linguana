@@ -29,12 +29,12 @@ export default class StatsEntry {
   }
 
   extract() {
-    console.info(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
+    console.debug(`new StatsEntry("${this._id}", null, ${this.totalWordsLearned}),`);
   }
 
   trace() {
-    console.info(`  tracing STATS for date: ${this._id}:`);
-    console.info(`    this._rev: ${this._rev}`);
-    console.info(`    this.totalWordsLearned: ${this.totalWordsLearned}`);
+    console.debug(`  tracing STATS for date: ${this._id}:`);
+    console.debug(`    this._rev: ${this._rev}`);
+    console.debug(`    this.totalWordsLearned: ${this.totalWordsLearned}`);
   }
 }

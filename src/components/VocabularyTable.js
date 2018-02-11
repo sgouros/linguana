@@ -35,28 +35,28 @@ export default class VocabularyTable extends Component {
   };
 
   onNativeTermChanged = term => {
-    console.info("onNativeTermChanged " + term);
+    console.debug("onNativeTermChanged " + term);
     let newEntry = this.state.entryBeingEdited;
     newEntry.nativeTerm = term;
     this.setState({ entryBeingEdited: newEntry });
   };
 
   onForeignTermChanged = term => {
-    console.info("onForeignTermChanged");
+    console.debug("onForeignTermChanged");
     let newEntry = this.state.entryBeingEdited;
     newEntry.foreignTerm = term;
     this.setState({ entryBeingEdited: newEntry });
   };
 
   onForeignTermNotesChanged = term => {
-    console.info("onForeignTermNotesChanged");
+    console.debug("onForeignTermNotesChanged");
     let newEntry = this.state.entryBeingEdited;
     newEntry.foreignTermNotes = term;
     this.setState({ entryBeingEdited: newEntry });
   };
 
   onEditSubmitted = () => {
-    console.info("submitted Entry!");
+    console.debug("submitted Entry!");
     this.props.onEditSubmitted(this.state.entryBeingEdited);
     this.setState({
       showEditDialog: false,
@@ -68,15 +68,15 @@ export default class VocabularyTable extends Component {
   };
 
   onEditClosed = () => {
-    console.info("edit cancelled (closed)! Resetting to values:");
+    console.debug("edit cancelled (closed)! Resetting to values:");
     let entryBeingEdited = this.state.entryBeingEdited;
     entryBeingEdited.nativeTerm = this.state.initialNativeTerm;
     entryBeingEdited.foreignTerm = this.state.initialForeignTerm;
     entryBeingEdited.foreignTermNotes = this.state.initialForeignTermNotes;
 
-    console.info(entryBeingEdited.nativeTerm);
-    console.info(entryBeingEdited.foreignTerm);
-    console.info(entryBeingEdited.foreignTermNotes);
+    console.debug(entryBeingEdited.nativeTerm);
+    console.debug(entryBeingEdited.foreignTerm);
+    console.debug(entryBeingEdited.foreignTermNotes);
 
     this.setState({
       showEditDialog: false,

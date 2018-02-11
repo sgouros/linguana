@@ -141,15 +141,15 @@ export default class StatsFactory {
   };
 
   extractStats = stats => {
-    console.info("************** extracting Stats DB ****************");
+    console.debug("************** extracting Stats DB ****************");
     stats.map(entry => entry.extract());
-    console.info("************** end of Stats DB extraction ****************");
+    console.debug("************** end of Stats DB extraction ****************");
   };
 
   increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
     let today = new Date();
     let id = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-    console.info("id=" + id);
+    console.debug("id=" + id);
 
     let total = 0;
     this.localStatsDb
@@ -182,7 +182,7 @@ export default class StatsFactory {
         );
       })
       .then(() => {
-        console.info(`${this.localStatsDbName} DB has been reset`);
+        console.debug(`${this.localStatsDbName} DB has been reset`);
       })
       .catch(err => {
         console.error("error inside Stats reset DB");

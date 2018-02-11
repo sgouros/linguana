@@ -20,6 +20,7 @@
     "react-confirm-dialog": "^1.0.5",
     "react-modal-dialog": "^4.0.7",
     "react-notification-system": "^0.2.15",
+    "react-scale-text": "^1.2.2",
     "react-scripts": "^1.0.14",
     "react-spinjs": "^3.0.0",
     "react-textfit": "^1.1.0",

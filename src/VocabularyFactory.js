@@ -19,16 +19,16 @@ export default class VocabularyFactory {
         live: true,
         retry: true
       })
-      .on("change", (change) => {
+      .on("change", change => {
         console.debug("Vocabulary synced!");
       })
-      .on("paused", (info) => {
+      .on("paused", info => {
         console.debug("Vocabulary replication was paused, usually because of a lost connection");
       })
-      .on("active", (info) => {
+      .on("active", info => {
         console.debug("Vocabulary replication resumed");
       })
-      .on("error", (err) => {
+      .on("error", err => {
         console.debug("Vocabulary totally unhandeld replication error");
       });
   }
@@ -140,8 +140,8 @@ export default class VocabularyFactory {
     this.localVocDb
       .put(changedEntry)
       .then(response => {
-        console.debug(`Just edited successfully an entry in DB! newValidEntry:`);
-        console.debug(changedEntry);
+        console.info(`Just edited successfully an entry in DB! newValidEzyyntry:`);
+        console.info(changedEntry);
       })
       .catch(err => {
         console.error("error inside editEntry:");
@@ -188,13 +188,13 @@ export default class VocabularyFactory {
   };
 
   extractVocabulary = voc => {
-    console.debug("************** extracting Vocabulary DB ****************");
+    console.info("************** extracting Vocabulary DB ****************");
     voc.map(entry => entry.extract());
-    console.debug("************** end of Vocabulary DB extraction ****************");
+    console.info("************** end of Vocabulary DB extraction ****************");
   };
 
   traceVocDB = () => {
-    console.debug("tracing vocabulary DB:");
+    console.info("tracing vocabulary DB:");
 
     this.localVocDb
       .find({
@@ -268,9 +268,9 @@ export default class VocabularyFactory {
   // .catch(console.log.bind(console));
 
   traceVocabulary = (voc, logMessage = `tracing vocabulary (length: ${voc.length})`) => {
-    console.debug(logMessage);
+    console.info(logMessage);
     voc.map(entry => entry.trace());
-    console.debug(`Total number of entries: ${voc.length}`);
+    console.info(`Total number of entries: ${voc.length}`);
   };
 
   search = (searchTerm, onSearchCompleted) => {

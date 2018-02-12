@@ -10,26 +10,46 @@ export default class TranslationForm extends Component {
 
   componentDidMount = () => {
     // από εδώ
-    // να δεις πόσο padding έχει
-    // να δείς γιατί το κόκκινο γίνεται τόσο μικρό
     // console.info(this.refs.initialTermDiv.offsetWidth);
     // console.info(this.refs.resize.offsetWidth);
-    // let parentDivWidth=this.refs.initialTermDiv.offsetWidth;
-    // let childDivWidth=this.refs.resize.offsetWidth;
-    // let division = parentDivWidth/childDivWidth;
-    // let node = this.refs.initialTermDiv.childNodes[0];
-    // let nodeStyle = window.getComputedStyle(node)
-    // let slideMarginRight = nodeStyle.getPropertyValue('margin-right')
-    // console.info(slideMarginRight);
-    // this.refs.resize.style.transform = `scale(${division})`;
-  }
+    let parent = this.refs.initialTermDiv;
+    let parentStyle = window.getComputedStyle(parent);
+    let parentPaddingRight = parentStyle.getPropertyValue("padding-right");
+    let parentPaddingLeft = parentStyle.getPropertyValue("padding-left");
+
+    let parentDivWidth = this.refs.initialTermDiv.offsetWidth - parentPaddingRight - parentPaddingLeft;
+    let childDivWidth = this.refs.resize.offsetWidth;
+    let division = parentDivWidth / childDivWidth;
+
+    this.refs.resize.style.transform = `scale(${division})`;
+
+    // να μεγαλωσεις το padding πχ 2vw
+    // να κάνεις scale που να λαμβάνει υπόψιν και το height και να παίρνεις το μικρότερο;
+  };
+
+  componentDidUpdate = () => {
+    // από εδώ
+    // να δεις πόσο padding έχει
+    // console.info(this.refs.initialTermDiv.offsetWidth);
+    // console.info(this.refs.resize.offsetWidth);
+    let parentDivWidth = this.refs.initialTermDiv.offsetWidth;
+    let childDivWidth = this.refs.resize.offsetWidth;
+    let division = parentDivWidth / childDivWidth;
+    let node = this.refs.initialTermDiv.childNodes[0];
+    let nodeStyle = window.getComputedStyle(node);
+    let slideMarginRight = nodeStyle.getPropertyValue("margin-right");
+    console.info(slideMarginRight);
+    this.refs.resize.style.transform = `scale(${division})`;
+  };
 
   render() {
     let form;
     if (this.props.fromNativeToForeign) {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}>{this.props.nativeTerm}</div>
+          <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}>
+            {this.props.nativeTerm}
+          </div>
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputDE
@@ -47,9 +67,10 @@ export default class TranslationForm extends Component {
     } else {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
-          
-          <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}><span ref="resize">{this.props.foreignTerm}</span></div>
-       
+          <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}>
+            <span ref="resize">{this.props.foreignTerm}</span>
+          </div>
+
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
           <TranslationInputGR

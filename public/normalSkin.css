@@ -231,7 +231,7 @@ body {
 .translationForm__entryAlreadyCorrectlyTranslated__true,
 .translationForm__entryAlreadyCorrectlyTranslated__false {
   position: relative;
-  display:  flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -267,6 +267,7 @@ body {
 
 .translationForm__entryAlreadyCorrectlyTranslated__false:before {
   content: "";
+  font-size: 12vh;
   position: absolute;
   top: 0;
   right: 0;
@@ -517,7 +518,6 @@ body {
 }
 
 .app__vocabularyManagerComponent__form__translationInputGR:focus {
-
   outline: 0 none;
 }
 

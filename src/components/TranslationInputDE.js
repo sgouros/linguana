@@ -86,7 +86,7 @@ export default class TranslationInputDE extends Component {
     if (event.keyCode === 32) {
       this.spaceIsPressed = false;
       console.debug("*****************space UNpress: " + event.keyCode);
-      if (this.uppercaseUsed == true) {
+      if (this.uppercaseUsed === true) {
         event.preventDefault(); // kill space event
         this.uppercaseUsed = false;
       } else {

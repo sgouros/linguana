@@ -9,9 +9,6 @@ export default class TranslationForm extends Component {
   };
 
   componentDidMount = () => {
-    // από εδώ
-    // console.info(this.refs.initialTermDiv.offsetWidth);
-    // console.info(this.refs.resize.offsetWidth);
     let parent = this.refs.initialTermDiv;
     let parentStyle = window.getComputedStyle(parent);
     let parentPaddingRight = parentStyle.getPropertyValue("padding-right");
@@ -29,7 +26,6 @@ export default class TranslationForm extends Component {
 
   componentDidUpdate = () => {
     // από εδώ
-    // να δεις πόσο padding έχει
     // console.info(this.refs.initialTermDiv.offsetWidth);
     // console.info(this.refs.resize.offsetWidth);
     // let parentDivWidth = this.refs.initialTermDiv.offsetWidth;

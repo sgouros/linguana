@@ -3,7 +3,8 @@ import React, { Component } from "react";
 export default class TranslationInputDE extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
-  spaceIsPressed=false;
+  spaceIsPressed = false;
+  uppercaseUsed = false;
   normalKeySubstitutions = {
     186: "q",
     87: "w",
@@ -48,8 +49,10 @@ export default class TranslationInputDE extends Component {
     let uppercase = false;
 
     if (event.keyCode === 32) {
-    console.debug("*******************space press: " + event.keyCode);
-    this.spaceIsPressed=true;
+      console.debug("*******************space press: " + event.keyCode);
+      this.spaceIsPressed = true;
+      // kill space (we'll add it later if needed)
+      event.preventDefault();
     }
 
     if (event.getModifierState("Shift") || event.getModifierState("CapsLock") || this.spaceIsPressed) {
@@ -83,37 +86,22 @@ export default class TranslationInputDE extends Component {
     if (event.keyCode === 32) {
       this.spaceIsPressed = false;
       console.debug("*****************space UNpress: " + event.keyCode);
+      if (this.uppercaseUsed == true) {
+        event.preventDefault(); // kill space event
+        this.uppercaseUsed = false;
+      } else {
+        event.target.value += " "; // this is a real space so add it
+      }
     }
-  }
+  };
 
   handleNormalKeyPress = (event, uppercase) => {
     let letterToAdd = this.normalKeySubstitutions[event.keyCode];
     if (uppercase) {
       letterToAdd = letterToAdd.toUpperCase();
+      this.uppercaseUsed = true;
     }
-
-    if (this.spaceIsPressed) {
-      console.debug(` ---------------------- ${event.target.value}`);
-      event.target.value = event.target.value.substring(0, event.target.value.length - 1);
-      console.debug(` -------------------------- ${event.target.value}`);
-    }
-   
-    // console.info("******** event.target.value = " + event.target.value);
-
-    // event.target.value = event.target.value.substring(0, event.target.value.length - 1);
-    // console.info("******** event.target.value afater substging= " + event.target.value);
     event.target.value += letterToAdd;
-
-    // console.info("******** event.target.value after add= " + event.target.value);
-    // console.info("********");
-    // console.info(event);
-    // let text = event.target.value;
-    // console.info(text);
-    // text = text.slice(0, -1);
-    // console.info(text);
-    // text += letterToAdd;
-    // console.info(text);
-    // event.target.value = text;
     this.handleOnChange(event);
     event.preventDefault();
   };
@@ -136,6 +124,7 @@ export default class TranslationInputDE extends Component {
     let letterToAdd = this.specialKeySubstitutions[event.keyCode];
     if (uppercase) {
       letterToAdd = letterToAdd.toUpperCase();
+      this.uppercaseUsed = true;
     }
     const initialBoxValue = event.target.value;
     const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 2) + letterToAdd;

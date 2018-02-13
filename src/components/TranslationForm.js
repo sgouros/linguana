@@ -32,14 +32,14 @@ export default class TranslationForm extends Component {
     // να δεις πόσο padding έχει
     // console.info(this.refs.initialTermDiv.offsetWidth);
     // console.info(this.refs.resize.offsetWidth);
-    let parentDivWidth = this.refs.initialTermDiv.offsetWidth;
-    let childDivWidth = this.refs.resize.offsetWidth;
-    let division = parentDivWidth / childDivWidth;
-    let node = this.refs.initialTermDiv.childNodes[0];
-    let nodeStyle = window.getComputedStyle(node);
-    let slideMarginRight = nodeStyle.getPropertyValue("margin-right");
-    console.info(slideMarginRight);
-    this.refs.resize.style.transform = `scale(${division})`;
+    // let parentDivWidth = this.refs.initialTermDiv.offsetWidth;
+    // let childDivWidth = this.refs.resize.offsetWidth;
+    // let division = parentDivWidth / childDivWidth;
+    // let node = this.refs.initialTermDiv.childNodes[0];
+    // let nodeStyle = window.getComputedStyle(node);
+    // let slideMarginRight = nodeStyle.getPropertyValue("margin-right");
+    // console.info(slideMarginRight);
+    // this.refs.resize.style.transform = `scale(${division})`;
   };
 
   render() {

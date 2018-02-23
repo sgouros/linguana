@@ -381,7 +381,7 @@ export default class App extends Component {
       this.newEntrySaveToDbFailed
     );
 
-    this.submittedEntriesFromVocabularyManager.push(`${nativeTerm}-${foreignTerm}`);
+    this.submittedEntriesFromVocabularyManager.unshift(`${nativeTerm}-${foreignTerm}`);
   };
 
   newEntrySaveToDbSucceeded = (nativeTerm, foreignTerm, response) => {

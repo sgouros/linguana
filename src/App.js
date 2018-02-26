@@ -45,7 +45,7 @@ export default class App extends Component {
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       totalWordsLearnedForTodayCount: 0,
       pageNotFound: true,
-      cssSkin: "./blackSkin.css"
+      cssSkin: "./normalSkin.css"
     };
     this.fromNativeToForeign = false;
     this.totalWordsLearnedForTodayArray = [];

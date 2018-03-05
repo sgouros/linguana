@@ -15,8 +15,6 @@ import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
 //      * να γίνεται scroll το DE text box όταν γράφω (το preventDefault δημιουργεί το πρόβλημα)
-//      * να μεταφερθούν τα styles από μέσα από το reactfittext μέσα στο css
-//      * http://malte-wessel.github.io/react-textfit/
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * να κάνω refactor σε display components + layout components
 //      * να βάλω στο παιχνίδι τις routes
@@ -44,7 +42,7 @@ export default class App extends Component {
       heatmapStats: [],
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       totalWordsLearnedForTodayCount: 0,
-      pageNotFound: false,
+      pageNotFound: true,
       cssSkin: "./normalSkin.css"
     };
     this.fromNativeToForeign = false;
@@ -83,7 +81,7 @@ export default class App extends Component {
 
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
-
+    this.refs.passwordInput.focus();
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 
@@ -613,7 +611,7 @@ export default class App extends Component {
           <h1> Under Costruction!</h1>
           <img src="/img/construction.png" alt="page under construction" />
           <p>Page is under construction. Please leave us your email and we will get back to you!</p>
-          <input type="text" onKeyDown={this.handlePassKeyDown} />
+          <input ref="passwordInput" type="text" onKeyDown={this.handlePassKeyDown} />
         </div>
       );
     } else {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TranslationInputGR from "./TranslationInputGR.js";
 import TranslationInputDE from "./TranslationInputDE.js";
-import ReactFitText from "./ReactFitText.js";
 
 export default class TranslationForm extends Component {
   getCssClassForSourceTerm = () => {
@@ -9,12 +8,16 @@ export default class TranslationForm extends Component {
   };
 
   componentDidMount = () => {
-    window.addEventListener("resize", this.scaleTextToFit);
+    window.addEventListener("resize", this.componentDidUpdate);
   };
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.scaleTextToFit);
+    window.removeEventListener("resize", this.componentDidUpdate);
   }
+
+  componentDidUpdate = () => {
+    this.scaleTextToFit();
+  };
 
   scaleTextToFit = () => {
     // find width needed scaling

@@ -237,12 +237,8 @@ body {
   box-sizing: border-box;
   width: 80vw;
   min-height: 20vh;
-  padding: 3vh 1vh 2vh 1vh;
+  padding: 2.3vh 1.5vh 2vh 1.5vh;
   white-space: nowrap;
-  /* font-family: Courier New, Courier, monospace; */
-  /* letter-spacing: -0.45vw; */
-  /* word-spacing: -1vw; */
-  /* font-size: 20px; */
   margin-top: 1vh;
   color: black;
   background: #c3c59e;
@@ -321,15 +317,12 @@ body {
   margin-top: 4vh;
   border: solid 1px #adb545;
   border-radius: 2vh;
+  text-align: center;
   -webkit-border-radius: 2vh;
   -moz-border-radius: 2vh;
 
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-}
-
-.translationInput--centered_text {
-  text-align: center;
 }
 
 .translationForm__translationInput:focus {

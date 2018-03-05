@@ -9,33 +9,34 @@ export default class TranslationForm extends Component {
   };
 
   componentDidMount = () => {
-    let parent = this.refs.initialTermDiv;
-    let parentStyle = window.getComputedStyle(parent);
-    let parentPaddingRight = parentStyle.getPropertyValue("padding-right");
-    let parentPaddingLeft = parentStyle.getPropertyValue("padding-left");
-
-    let parentDivWidth = this.refs.initialTermDiv.offsetWidth - parentPaddingRight - parentPaddingLeft;
-    let childDivWidth = this.refs.resize.offsetWidth;
-    let division = parentDivWidth / childDivWidth;
-
-    this.refs.resize.style.transform = `scale(${division})`;
-
-    // να μεγαλωσεις το padding πχ 2vw
-    // να κάνεις scale που να λαμβάνει υπόψιν και το height και να παίρνεις το μικρότερο;
+    window.addEventListener("resize", this.scaleTextToFit);
   };
 
-  componentDidUpdate = () => {
-    // από εδώ
-    // console.info(this.refs.initialTermDiv.offsetWidth);
-    // console.info(this.refs.resize.offsetWidth);
-    // let parentDivWidth = this.refs.initialTermDiv.offsetWidth;
-    // let childDivWidth = this.refs.resize.offsetWidth;
-    // let division = parentDivWidth / childDivWidth;
-    // let node = this.refs.initialTermDiv.childNodes[0];
-    // let nodeStyle = window.getComputedStyle(node);
-    // let slideMarginRight = nodeStyle.getPropertyValue("margin-right");
-    // console.info(slideMarginRight);
-    // this.refs.resize.style.transform = `scale(${division})`;
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.scaleTextToFit);
+  }
+
+  scaleTextToFit = () => {
+    // find width needed scaling
+    let initialTermDivCssStyle = window.getComputedStyle(this.refs.initialTermDiv);
+    let initialTermDivWidth =
+      this.refs.initialTermDiv.offsetWidth -
+      parseFloat(initialTermDivCssStyle.getPropertyValue("padding-right")) -
+      parseFloat(initialTermDivCssStyle.getPropertyValue("padding-left"));
+    let textWidth = this.refs.resize.offsetWidth;
+    let widthScale = initialTermDivWidth / textWidth;
+
+    // find height needed scaling
+    let initialTermDivHeight =
+      this.refs.initialTermDiv.offsetHeight -
+      parseFloat(initialTermDivCssStyle.getPropertyValue("padding-top")) -
+      parseFloat(initialTermDivCssStyle.getPropertyValue("padding-bottom"));
+    let textHeight = this.refs.resize.offsetHeight;
+    let heightScale = initialTermDivHeight / textHeight;
+
+    // choose min scaling from the two
+    let scale = widthScale < heightScale ? widthScale : heightScale;
+    this.refs.resize.style.transform = `scale(${scale})`;
   };
 
   render() {

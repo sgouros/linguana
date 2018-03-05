@@ -101,9 +101,13 @@ export default class TranslationInputDE extends Component {
       letterToAdd = letterToAdd.toUpperCase();
       this.uppercaseUsed = true;
     }
-    event.target.value += letterToAdd;
+    const initialBoxValue = event.target.value;
+    console.log(`KEY PRESSED event.target.value= ${event.target.value}`);
+    const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 1) + letterToAdd;
+    event.target.value = correct_input_box_value;
+    console.log(`NEW event.target.value = ${event.target.value}`);
     this.handleOnChange(event);
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   resetSpecialKeyPress = () => {

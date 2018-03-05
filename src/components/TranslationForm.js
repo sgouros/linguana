@@ -26,7 +26,7 @@ export default class TranslationForm extends Component {
       this.refs.initialTermDiv.offsetWidth -
       parseFloat(initialTermDivCssStyle.getPropertyValue("padding-right")) -
       parseFloat(initialTermDivCssStyle.getPropertyValue("padding-left"));
-    let textWidth = this.refs.resize.offsetWidth;
+    let textWidth = this.refs.initialTermDivText.offsetWidth;
     let widthScale = initialTermDivWidth / textWidth;
 
     // find height needed scaling
@@ -34,12 +34,12 @@ export default class TranslationForm extends Component {
       this.refs.initialTermDiv.offsetHeight -
       parseFloat(initialTermDivCssStyle.getPropertyValue("padding-top")) -
       parseFloat(initialTermDivCssStyle.getPropertyValue("padding-bottom"));
-    let textHeight = this.refs.resize.offsetHeight;
+    let textHeight = this.refs.initialTermDivText.offsetHeight;
     let heightScale = initialTermDivHeight / textHeight;
 
     // choose min scaling from the two
     let scale = widthScale < heightScale ? widthScale : heightScale;
-    this.refs.resize.style.transform = `scale(${scale})`;
+    this.refs.initialTermDivText.style.transform = `scale(${scale})`;
   };
 
   render() {
@@ -48,7 +48,7 @@ export default class TranslationForm extends Component {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
           <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}>
-            {this.props.nativeTerm}
+            <span ref="initialTermDivText">{this.props.nativeTerm}</span>
           </div>
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>
 
@@ -68,7 +68,7 @@ export default class TranslationForm extends Component {
       form = (
         <form className="translationForm" onSubmit={this.props.onSubmit}>
           <div ref="initialTermDiv" className={this.getCssClassForSourceTerm()}>
-            <span ref="resize">{this.props.foreignTerm}</span>
+            <span ref="initialTermDivText">{this.props.foreignTerm}</span>
           </div>
 
           <div className="translationForm__foreignTermNotes">{this.props.foreignTermNotes}</div>

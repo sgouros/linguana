@@ -23,14 +23,13 @@ export default class Testarea extends Component {
 
   handleTranslationInputChange = event => {
     const translation_typed = event.target.value;
+    console.info(`JUST TYPED: ${event.target.value}`);
     this.setState({ currentTranslationInputValue: translation_typed });
     this.checkTranslation(translation_typed);
   };
- 
+
   checkTranslation = translation_typed => {
-    this.translationIsCorrect(translation_typed)
-      ? this.highlightCorrectAnswer()
-      : this.highlightWrongAnswer();
+    this.translationIsCorrect(translation_typed) ? this.highlightCorrectAnswer() : this.highlightWrongAnswer();
   };
 
   highlightCorrectAnswer = () => {
@@ -162,15 +161,11 @@ export default class Testarea extends Component {
           <tbody>
             <tr>
               <td>Correct answer:</td>
-              <td>
-                {correct}
-              </td>
+              <td>{correct}</td>
             </tr>
             <tr>
               <td>You typed:</td>
-              <td>
-                {typed}
-              </td>
+              <td>{typed}</td>
             </tr>
           </tbody>
         </table>
@@ -209,13 +204,13 @@ export default class Testarea extends Component {
           fromNativeToForeign={this.props.fromNativeToForeign}
         />
 
-        {this.state.showWordComparisonDialog
-          ? <WordComparisonDialog
-              title="hmmm, I don't think so..."
-              content={this.getWordComparisonDialogContent()}
-              onClose={this.closeWordComparisonDialog}
-            />
-          : null}
+        {this.state.showWordComparisonDialog ? (
+          <WordComparisonDialog
+            title="hmmm, I don't think so..."
+            content={this.getWordComparisonDialogContent()}
+            onClose={this.closeWordComparisonDialog}
+          />
+        ) : null}
       </div>
     );
   }

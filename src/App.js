@@ -51,6 +51,8 @@ export default class App extends Component {
   }
   NUMBER_OF_OLD_VOC_ENTRIES = 1;
   NUMBER_OF_NEW_VOC_ENTRIES = 1;
+  // NUMBER_OF_OLD_VOC_ENTRIES = 7;
+  // NUMBER_OF_NEW_VOC_ENTRIES = 3;
 
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;

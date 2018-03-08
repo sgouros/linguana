@@ -80,6 +80,7 @@ export default class TranslationInputDE extends Component {
         this.handleSpecialKeyPress(event);
       }
     }
+    this.scrollToEnd(this.refs.input);
   };
 
   handleKeyUp = event => {
@@ -91,6 +92,7 @@ export default class TranslationInputDE extends Component {
         this.uppercaseUsed = false;
       } else {
         event.target.value += " "; // this is a real space so add it
+        this.scrollToEnd(this.refs.input);
       }
     }
   };
@@ -150,6 +152,11 @@ export default class TranslationInputDE extends Component {
       this.props.onPlusPress();
       event.preventDefault();
     }
+  };
+
+  scrollToEnd = inputBox => {
+    inputBox.focus();
+    inputBox.scrollLeft = inputBox.scrollWidth;
   };
 
   constructCssClassName = () => {

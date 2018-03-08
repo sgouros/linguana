@@ -14,14 +14,12 @@ import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
 // todo:
-//      * να γίνεται scroll το DE text box όταν γράφω (το preventDefault δημιουργεί το πρόβλημα)
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * να κάνω refactor σε display components + layout components
 //      * να βάλω στο παιχνίδι τις routes
 //      * να χρησιμοποιήσω immutability
 //      * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
 //      * να διαλέγει με hash_tag
-//      * να κάνει αυτόματα focus στο αρχικό password string και μετά αυτόματα στο γενικό div
 
 export default class App extends Component {
   constructor() {

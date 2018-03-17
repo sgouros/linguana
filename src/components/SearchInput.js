@@ -54,7 +54,7 @@ export default class SearchInput extends Component {
       letterToAdd = letterToAdd.toUpperCase();
     }
     const initialBoxValue = event.target.value;
-    const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 2) + letterToAdd;
+    const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 1) + letterToAdd;
     event.target.value = correct_input_box_value;
     this.handleOnChange(event);
     this.resetSpecialKeyPress();

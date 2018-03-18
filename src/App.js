@@ -221,19 +221,17 @@ export default class App extends Component {
   };
 
   handleEscPress = currentIndex => {
+    console.debug(`esc pressed`);
     let entry = this.state.vocabulary[currentIndex];
     let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
 
     // αυτό είναι true ακόμη και αν ο όρος είχε μεταφραστεί σωστά την ΠΡΟΗΓΟΥΜΕΝΗ φορά
     if (entry.isCurrentlyCorrectlyTranslated) {
-      console.info(`esc pressed and ${entry._id} is correctly translated`);
-
+      console.debug(`${entry._id} is correctly translated. Saving stat`);
       if (this.fromNativeToForeign) {
         this.saveStatsOfLearnedWord(entry);
       }
-    } else {
-      console.info(`esc pressed and ${entry._id} is NOT correctly translated`);
-    }
+    } 
     this.removeEntryFromVocabulary(currentIndex);
 
     if (thisIsTheLastVocWord) {

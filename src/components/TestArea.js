@@ -23,7 +23,7 @@ export default class Testarea extends Component {
 
   handleTranslationInputChange = event => {
     const translation_typed = event.target.value;
-    console.info(`JUST TYPED: ${event.target.value}`);
+    console.debug(`JUST TYPED: ${event.target.value}`);
     this.setState({ currentTranslationInputValue: translation_typed });
     this.checkTranslation(translation_typed);
   };
@@ -50,7 +50,7 @@ export default class Testarea extends Component {
       this.props.onSuccessfulTranslation(entry_index);
       this.loadNextEntry();
     } else {
-      console.debug("wrong translation");
+      console.info("wrong translation");
       this.showWordComparisonDialog();
       this.props.onFailedTranslation(entry_index);
     }

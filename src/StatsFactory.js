@@ -12,7 +12,8 @@ export default class StatsFactory {
 
     this.localStatsDbName = "linguana_stats";
     // this.remoteStatsDbName = "http://83.212.105.237:5984/" + this.localStatsDbName;
-    this.remoteStatsDbName = "http://192.168.2.60:5984/" + this.localStatsDbName;
+    // this.remoteStatsDbName = "http://192.168.2.60:5984/" + this.localStatsDbName;
+    this.remoteStatsDbName = "http://sgourosboiler.dedyn.io:5984/" + this.localStatsDbName;
     // this.remoteStatsDbName = "http://localhost:5984/" + this.localStatsDbName;
     this.localStatsDb = new PouchDB(this.localStatsDbName);
     this.remoteStatsDb = new PouchDB(this.remoteStatsDbName);

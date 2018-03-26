@@ -40,7 +40,7 @@ export default class App extends Component {
       heatmapStats: [],
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       totalWordsLearnedForTodayCount: 0,
-      pageNotFound: false,
+      pageNotFound: true,
       cssSkin: "./normalSkin.css"
     };
     this.fromNativeToForeign = false;

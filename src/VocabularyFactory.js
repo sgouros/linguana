@@ -9,8 +9,9 @@ export default class VocabularyFactory {
     window.PouchDB = PouchDB; // for dev tools
 
     this.localVocDbName = "linguana_vocabulary";
-    this.remoteVocDbName = "http://83.212.105.237:5984/" + this.localVocDbName;
+    // this.remoteVocDbName = "http://83.212.105.237:5984/" + this.localVocDbName;
     // this.remoteVocDbName = "http://localhost:5984/" + this.localVocDbName;
+    this.remoteVocDbName = "http://192.168.2.60:5984/" + this.localVocDbName;
     this.localVocDb = new PouchDB(this.localVocDbName);
     this.remoteVocDb = new PouchDB(this.remoteVocDbName);
 

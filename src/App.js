@@ -79,7 +79,10 @@ export default class App extends Component {
 
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
-    this.refs.passwordInput.focus();
+    if (this.refs.passwordInput) {
+       this.refs.passwordInput.focus() 
+      }
+
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 

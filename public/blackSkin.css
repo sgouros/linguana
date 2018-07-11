@@ -6,6 +6,8 @@ body {
   /* margin-top: -5vh; */
   background-size: cover;
   /* height: 100vh; */
+  background-repeat: no-repeat;
+  background-color: #303438;
 }
 
 .app {

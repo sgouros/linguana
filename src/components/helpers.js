@@ -49,6 +49,7 @@ export const MONTHS_GEN = {
 };
 
 export function getDateString(requestedDate, article = false) {
+  // console.log("requestedDate = " + requestedDate);
   let date = new Date(requestedDate);
 
   let dateString = "";

@@ -58,6 +58,9 @@ export default class StatsFactory {
       })
       .then(responseFromDb => {
         let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
+        // console.info("----------------------- tracing stats ------------------");
+        // console.info(statsArray);
+        // console.info("-------------------- END OF tracing stats ------------------");
         onSuccessCallback(statsArray);
       })
       .catch(err => {
@@ -195,6 +198,7 @@ export default class StatsFactory {
 
   traceStats = (stats, logMessage = `tracing stats (length: ${stats.length})`) => {
     console.info(logMessage);
+    console.log(stats);
     stats.map(item => item.trace());
   };
 

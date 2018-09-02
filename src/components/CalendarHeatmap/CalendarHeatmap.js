@@ -42,7 +42,7 @@ export default class CalendarHeatmap extends React.Component {
   getStartDate() {
     return shiftDate(this.getEndDate(), -this.props.numDays + 1); // +1 because endDate is inclusive
   }
-
+ 
   getEndDate() {
     return getBeginningTimeForDate(convertToDate(this.props.endDate));
   }
@@ -56,7 +56,12 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   getNumEmptyDaysAtEnd() {
-    return DAYS_IN_WEEK - 1 - this.getEndDate().getDay();
+    // console.info("aa1 " + DAYS_IN_WEEK);
+    // console.info("aa2 " + this.getEndDate().getDay());
+    let s = DAYS_IN_WEEK - 1 - this.getEndDate().getDay();
+    // console.info("aa3 " + s);
+
+    return s;
   }
 
   getWeekCount() {
@@ -182,12 +187,19 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   renderSquare(dayIndex, index, weekIndex) {
+    // console.info("rendering day " + dayIndex + " of week " + weekIndex + " (index= " + index +")");
     const indexOutOfRange = index < this.getNumEmptyDaysAtStart() || index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
     if (indexOutOfRange && !this.props.showOutOfRangeDays) {
+      // console.info("returning null");
       return null;
     }
     const [x, y] = this.getSquareCoordinates(dayIndex);
     const value = this.getValueForIndex(index);
+    // console.info("value:");
+    // if (value!=null) {
+    //   console.info(value.date);
+    // }
+    // console.info(this.props.titleForValue(value));
     // let onDate = shiftDate(this.getStartDateWithEmptyDays(), index);
     // let date = new Date(onDate.getFullYear(), onDate.getMonth(), onDate.getDate());
     // console.info(`renderSquare | dayIndex = ${dayIndex}  index = ${index} weekIndex = ${weekIndex}`);
@@ -247,6 +259,9 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   render() {
+    // console.info("---------------- values ------------------");
+    // console.info(this.props.values);
+    // console.info("---------------- values END ------------------");
     return (
       <div>
         <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
@@ -255,6 +270,7 @@ export default class CalendarHeatmap extends React.Component {
         </svg>
         <ReactTooltip type="success" className="calendar__heatmap__tooltip" />
       </div>
+     
     );
   }
 }
@@ -287,3 +303,4 @@ CalendarHeatmap.defaultProps = {
   showOutOfRangeDays: false,
   classForValue: value => (value ? "color-filled" : "color-empty")
 };
+ 

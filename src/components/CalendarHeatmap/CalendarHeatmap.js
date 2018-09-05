@@ -42,7 +42,7 @@ export default class CalendarHeatmap extends React.Component {
   getStartDate() {
     return shiftDate(this.getEndDate(), -this.props.numDays + 1); // +1 because endDate is inclusive
   }
- 
+
   getEndDate() {
     return getBeginningTimeForDate(convertToDate(this.props.endDate));
   }
@@ -85,8 +85,7 @@ export default class CalendarHeatmap extends React.Component {
     return reduce(
       values,
       (memo, value) => {
-        const date = convertToDate(value.date);
-        const index = Math.floor((date - this.getStartDateWithEmptyDays()) / MILLISECONDS_IN_ONE_DAY);
+        const index = this.getIndexForDate(value.date);
         memo[index] = {
           value,
           className: this.props.classForValue(value),
@@ -98,6 +97,22 @@ export default class CalendarHeatmap extends React.Component {
       },
       {}
     );
+  }
+
+  getIndexForDate(date) {
+    let date_in_ms = convertToDate(date);
+    let index = Math.round((date_in_ms - this.getStartDateWithEmptyDays()) / MILLISECONDS_IN_ONE_DAY);
+    return index;
+  }
+
+  getDateForIndex(index) {
+    // let ticks = index * MILLISECONDS_IN_ONE_DAY - this.getStartDateWithEmptyDays();
+
+    // Date date = new DateTime(long.Parse(ticks));
+
+    // return date.ToString("yyyy/m/d");
+
+    return "2018-4-5";
   }
 
   getValueForIndex(index) {
@@ -190,40 +205,32 @@ export default class CalendarHeatmap extends React.Component {
     // console.info("rendering day " + dayIndex + " of week " + weekIndex + " (index= " + index +")");
     const indexOutOfRange = index < this.getNumEmptyDaysAtStart() || index >= this.getNumEmptyDaysAtStart() + this.props.numDays;
     if (indexOutOfRange && !this.props.showOutOfRangeDays) {
-      // console.info("returning null");
       return null;
     }
     const [x, y] = this.getSquareCoordinates(dayIndex);
-    const value = this.getValueForIndex(index);
-    // console.info("value:");
-    // if (value!=null) {
-    //   console.info(value.date);
-    // }
-    // console.info(this.props.titleForValue(value));
-    // let onDate = shiftDate(this.getStartDateWithEmptyDays(), index);
-    // let date = new Date(onDate.getFullYear(), onDate.getMonth(), onDate.getDate());
-    // console.info(`renderSquare | dayIndex = ${dayIndex}  index = ${index} weekIndex = ${weekIndex}`);
 
-    // if (value) {
-    //   let dateString = getDateString(value.date, true);
-    //   console.info(
-    //     `george rendering day ${dayIndex}: ${WEEKDAY_LABELS[
-    //       dayIndex
-    //     ]} date: ${value.date} |  ${dateString} έμαθες ${value.count} λέξεις!`
-    //   );
-    // } else {
-    //   console.info(`george rendering day ${dayIndex}: ${WEEKDAY_LABELS[dayIndex]} date: null`);
-    // }
+    let value = this.getValueForIndex(index);
+    if (value === null) {
+      value = new Object();
+      value.date = this.getDateForIndex(index);
+      value.count = 0;
+    }
+
+    let the_key = index;
+    let the_data_tip = this.props.titleForValue(value);
+    let the_title = this.getTitleForIndex(index);
+    let the_className = this.getClassNameForIndex(index);
+
     return (
       <rect
-        key={index}
+        key={the_key}
         width={SQUARE_SIZE}
         height={SQUARE_SIZE}
         x={x}
         y={y}
-        data-tip={this.props.titleForValue(value)}
-        title={this.getTitleForIndex(index)}
-        className={this.getClassNameForIndex(index)}
+        data-tip={the_data_tip}
+        title={the_title}
+        className={the_className}
         onClick={this.handleClick.bind(this, value)}
         {...this.getTooltipDataAttrsForIndex(index)}
       />
@@ -270,7 +277,6 @@ export default class CalendarHeatmap extends React.Component {
         </svg>
         <ReactTooltip type="success" className="calendar__heatmap__tooltip" />
       </div>
-     
     );
   }
 }
@@ -303,4 +309,3 @@ CalendarHeatmap.defaultProps = {
   showOutOfRangeDays: false,
   classForValue: value => (value ? "color-filled" : "color-empty")
 };
- 

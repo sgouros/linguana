@@ -49,7 +49,7 @@ export default class App extends Component {
   }
   NUMBER_OF_NEW_VOC_ENTRIES = 3;
   NUMBER_OF_OLD_VOC_ENTRIES = 7;
-  
+
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
 
@@ -80,8 +80,8 @@ export default class App extends Component {
   componentDidMount = () => {
     console.info("App.componentDidMount called!");
     if (this.refs.passwordInput) {
-       this.refs.passwordInput.focus() 
-      }
+      this.refs.passwordInput.focus();
+    }
 
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
@@ -234,7 +234,7 @@ export default class App extends Component {
       if (this.fromNativeToForeign) {
         this.saveStatsOfLearnedWord(entry);
       }
-    } 
+    }
     this.removeEntryFromVocabulary(currentIndex);
 
     if (thisIsTheLastVocWord) {
@@ -505,7 +505,11 @@ export default class App extends Component {
   constructHeatmapCalendarTooltip = value => {
     if (value) {
       let dateString = getDateString(value.date, true);
-      return `${dateString} έμαθες ${value.count} λέξεις!`;
+      if (value > 0) {
+        return `${dateString} έμαθες ${value.count} λέξεις!`;
+      } else {
+        return `${dateString} δεν έμαθες κάτι`;
+      }
     } else {
       return "";
     }
@@ -527,8 +531,8 @@ export default class App extends Component {
     let maxCount = this.countMaxCorrectAnswers(this.state.heatmapStats);
 
     let threshold_1 = maxCount / 4;
-    let threshold_2 = maxCount / 4 * 2;
-    let threshold_3 = maxCount / 4 * 3;
+    let threshold_2 = (maxCount / 4) * 2;
+    let threshold_3 = (maxCount / 4) * 3;
 
     if (value.count > threshold_3) {
       return "color-github-4";

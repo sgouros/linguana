@@ -56,11 +56,7 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   getNumEmptyDaysAtEnd() {
-    // console.info("aa1 " + DAYS_IN_WEEK);
-    // console.info("aa2 " + this.getEndDate().getDay());
     let s = DAYS_IN_WEEK - 1 - this.getEndDate().getDay();
-    // console.info("aa3 " + s);
-
     return s;
   }
 
@@ -100,19 +96,14 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   getIndexForDate(date) {
-    let date_in_ms = convertToDate(date);
-    let index = Math.round((date_in_ms - this.getStartDateWithEmptyDays()) / MILLISECONDS_IN_ONE_DAY);
+    let index = Math.round((convertToDate(date) - this.getStartDateWithEmptyDays()) / MILLISECONDS_IN_ONE_DAY);
     return index;
   }
 
   getDateForIndex(index) {
-    // let ticks = index * MILLISECONDS_IN_ONE_DAY - this.getStartDateWithEmptyDays();
-
-    // Date date = new DateTime(long.Parse(ticks));
-
-    // return date.ToString("yyyy/m/d");
-
-    return "2018-4-5";
+    let date = this.getStartDateWithEmptyDays();
+    date.setDate(date.getDate() + index);
+    return date.toString("yyyy-m-d");
   }
 
   getValueForIndex(index) {
@@ -211,9 +202,10 @@ export default class CalendarHeatmap extends React.Component {
 
     let value = this.getValueForIndex(index);
     if (value === null) {
-      value = new Object();
-      value.date = this.getDateForIndex(index);
-      value.count = 0;
+      value = {
+        date: this.getDateForIndex(index),
+        count: 0
+      };
     }
 
     let the_key = index;

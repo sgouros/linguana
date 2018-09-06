@@ -15,10 +15,10 @@ export default class VocabularyFactory {
     this.remoteVocDbName = "http://sgouros.hopto.org:5984/" + this.localVocDbName;
     this.localVocDb = new PouchDB(this.localVocDbName);
     this.remoteVocDb = new PouchDB(this.remoteVocDbName);
- 
+
     this.localVocDb
       .sync(this.remoteVocDb, {
-        live: true,
+        // live: true,
         retry: true
       })
       .on("change", change => {
@@ -32,6 +32,32 @@ export default class VocabularyFactory {
       })
       .on("error", err => {
         console.debug("Vocabulary totally unhandeld replication error");
+      })
+      .on("complete", info => {
+        console.info("------- Vocabulary DB replication completed! Starting live sync -------");
+        this.app.showAlert("Vocabulary synced!", {
+          position: "bottom-left",
+          effect: "bouncyflip",
+          timeout: 4000
+        });
+        this.localVocDb
+          .sync(this.remoteVocDb, {
+            live: true,
+            retry: true
+          })
+          .on("change", change => {
+            console.debug("Vocabulary synced!");
+          })
+          .on("paused", info => {
+            console.debug("Vocabulary replication was paused, usually because of a lost connection");
+          })
+          .on("active", info => {
+            console.debug("Vocabulary replication resumed");
+          })
+          .on("error", err => {
+            console.debug("Vocabulary totally unhandeld replication error");
+            console.debug(err);
+          });
       });
   }
 

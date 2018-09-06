@@ -13,6 +13,15 @@ import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
+import Alert from "react-s-alert";
+import "react-s-alert/dist/s-alert-default.css";
+import "react-s-alert/dist/s-alert-css-effects/slide.css";
+import "react-s-alert/dist/s-alert-css-effects/scale.css";
+import "react-s-alert/dist/s-alert-css-effects/bouncyflip.css";
+import "react-s-alert/dist/s-alert-css-effects/flip.css";
+import "react-s-alert/dist/s-alert-css-effects/genie.css";
+import "react-s-alert/dist/s-alert-css-effects/jelly.css";
+import "react-s-alert/dist/s-alert-css-effects/stackslide.css";
 // todo:
 //      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
 //      * να κάνω refactor σε display components + layout components
@@ -607,6 +616,10 @@ export default class App extends Component {
     element.click();
   };
 
+  showAlert = (message, options) => {
+    Alert.info(message, options);
+  };
+
   render() {
     if (this.state.pageNotFound) {
       return (
@@ -719,6 +732,7 @@ export default class App extends Component {
               />
             </footer>
           )}
+          <Alert stack={{ limit: 5 }} />
         </div>
       );
     }

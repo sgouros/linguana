@@ -21,23 +21,46 @@ export default class StatsFactory {
 
     this.localStatsDb
       .sync(this.remoteStatsDb, {
-        live: true,
+        // live: true,
         retry: true
       })
-      .on("change", (change) => {
+      .on("change", change => {
         console.debug("Stats synced! Changes:");
         console.debug(change);
         this.app.statsDbUpdated();
       })
-      .on("paused", (info) => {
+      .on("paused", info => {
         console.debug("Stats replication was paused, usually because of a lost connection");
       })
-      .on("active", (info) => {
+      .on("active", info => {
         console.debug("Stats replication resumed");
       })
-      .on("error", (err) => {
+      .on("error", err => {
         console.debug("Stats totally unhandeld replication error");
         console.debug(err);
+      })
+      .on("complete", info => {
+        console.info("------- Stats DB replication completed! Starting live sync -------");
+        this.localStatsDb
+          .sync(this.remoteStatsDb, {
+            live: true,
+            retry: true
+          })
+          .on("change", change => {
+            console.debug("Stats synced! Changes:");
+            console.debug(change);
+            this.app.statsDbUpdated();
+          })
+          .on("paused", info => {
+            console.debug("Stats replication was paused, usually because of a lost connection");
+          })
+          .on("active", info => {
+            console.debug("Stats replication resumed");
+          })
+          .on("error", err => {
+            console.debug("Stats totally unhandeld replication error");
+            console.debug(err);
+          });
       });
   }
 

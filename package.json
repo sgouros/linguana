@@ -20,9 +20,10 @@
     "react-confirm-dialog": "^1.0.5",
     "react-modal-dialog": "^4.0.7",
     "react-notification-system": "^0.2.15",
-    "react-scripts": "^1.0.14",
+    "react-s-alert": "^1.4.1",
+    "react-scripts": "^1.1.5",
     "react-spinjs": "^3.0.0",
-    "react-tooltip": "^3.4.0"
+    "react-tooltip": "^3.8.0"
   },
   "devDependencies": {
     "concurrently": "2.2.0",

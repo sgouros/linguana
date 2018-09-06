@@ -514,7 +514,7 @@ export default class App extends Component {
   constructHeatmapCalendarTooltip = value => {
     if (value) {
       let dateString = getDateString(value.date, true);
-      if (value > 0) {
+      if (value.count > 0) {
         return `${dateString} έμαθες ${value.count} λέξεις!`;
       } else {
         return `${dateString} δεν έμαθες κάτι`;

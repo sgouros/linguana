@@ -37,9 +37,9 @@ export default class VocabularyFactory {
         console.info("------- Vocabulary DB replication completed! Starting live sync -------");
         this.app.showAlert("Vocabulary synced!", {
           position: "bottom-left",
-          effect: "bouncyflip",
-          timeout: 4000
-        });
+          effect: "stackslide",
+          timeout: 6000
+        }, "success");
         this.localVocDb
           .sync(this.remoteVocDb, {
             live: true,

@@ -616,8 +616,20 @@ export default class App extends Component {
     element.click();
   };
 
-  showAlert = (message, options) => {
-    Alert.info(message, options);
+  showAlert = (message, options, type="info") => {
+    switch(type) {
+      case "success":
+        Alert.success(message,options);
+        break;
+      case "warning":
+        Alert.warning(message,options);
+        break;
+      case "error":
+        Alert.error(message,options);
+        break;
+      default:
+        Alert.info(message,options);
+    }
   };
 
   render() {

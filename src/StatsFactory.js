@@ -41,6 +41,11 @@ export default class StatsFactory {
       })
       .on("complete", info => {
         console.info("------- Stats DB replication completed! Starting live sync -------");
+        this.app.showAlert("Stats synced!", {
+          position: "bottom-left",
+          effect: "stackslide",
+          timeout: 6000
+        }, "success");
         this.localStatsDb
           .sync(this.remoteStatsDb, {
             live: true,

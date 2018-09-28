@@ -18,54 +18,26 @@ export default class StatsFactory {
     this.remoteStatsDbName = "http://sgouros.hopto.org:5984/" + this.localStatsDbName;
     this.localStatsDb = new PouchDB(this.localStatsDbName);
     this.remoteStatsDb = new PouchDB(this.remoteStatsDbName);
-
+ 
     this.localStatsDb
       .sync(this.remoteStatsDb, {
-        // live: true,
+        live: true,
         retry: true
       })
-      .on("change", change => {
+      .on("change", (change) => {
         console.debug("Stats synced! Changes:");
         console.debug(change);
         this.app.statsDbUpdated();
       })
-      .on("paused", info => {
+      .on("paused", (info) => {
         console.debug("Stats replication was paused, usually because of a lost connection");
       })
-      .on("active", info => {
+      .on("active", (info) => {
         console.debug("Stats replication resumed");
       })
-      .on("error", err => {
+      .on("error", (err) => {
         console.debug("Stats totally unhandeld replication error");
         console.debug(err);
-      })
-      .on("complete", info => {
-        console.info("------- Stats DB replication completed! Starting live sync -------");
-        this.app.showAlert("Stats synced!", {
-          position: "bottom-left",
-          effect: "stackslide",
-          timeout: 6000
-        }, "success");
-        this.localStatsDb
-          .sync(this.remoteStatsDb, {
-            live: true,
-            retry: true
-          })
-          .on("change", change => {
-            console.debug("Stats synced! Changes:");
-            console.debug(change);
-            this.app.statsDbUpdated();
-          })
-          .on("paused", info => {
-            console.debug("Stats replication was paused, usually because of a lost connection");
-          })
-          .on("active", info => {
-            console.debug("Stats replication resumed");
-          })
-          .on("error", err => {
-            console.debug("Stats totally unhandeld replication error");
-            console.debug(err);
-          });
       });
   }
 
@@ -86,9 +58,6 @@ export default class StatsFactory {
       })
       .then(responseFromDb => {
         let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
-        // console.info("----------------------- tracing stats ------------------");
-        // console.info(statsArray);
-        // console.info("-------------------- END OF tracing stats ------------------");
         onSuccessCallback(statsArray);
       })
       .catch(err => {
@@ -226,7 +195,6 @@ export default class StatsFactory {
 
   traceStats = (stats, logMessage = `tracing stats (length: ${stats.length})`) => {
     console.info(logMessage);
-    console.log(stats);
     stats.map(item => item.trace());
   };
 

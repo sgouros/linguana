@@ -221,7 +221,7 @@ export default class CalendarHeatmap extends React.Component {
         x={x}
         y={y}
         data-tip={the_data_tip}
-        title={the_title}
+        title={the_key}
         className={the_className}
         onClick={this.handleClick.bind(this, value)}
         {...this.getTooltipDataAttrsForIndex(index)}

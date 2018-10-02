@@ -33,8 +33,8 @@ export default class StatsEntry {
   }
 
   trace() {
-    console.debug(`  tracing STATS for date: ${this._id}:`);
-    console.debug(`    this._rev: ${this._rev}`);
-    console.debug(`    this.totalWordsLearned: ${this.totalWordsLearned}`);
+    console.info(`  tracing STATS for date: ${this._id}:`);
+    console.info(`    this._rev: ${this._rev}`);
+    console.info(`    this.totalWordsLearned: ${this.totalWordsLearned}`);
   }
 }

@@ -38,10 +38,10 @@ export default class Debugbuttons extends Component {
         {/* <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceVocDBPressed}>
           trace Voc DB
         </div>
-
+*/}
         <div className="app__header__debugButtons__debugButton" onClick={this.props.onTraceStatsDBPressed}>
           trace Stats DB
-        </div> */}
+        </div> 
 
   
 

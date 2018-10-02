@@ -34,12 +34,16 @@ export default class VocabularyFactory {
         console.debug("Vocabulary totally unhandeld replication error");
       })
       .on("complete", info => {
-        console.info("------- Vocabulary DB replication completed! Starting live sync -------");
-        this.app.showAlert("Vocabulary synced!", {
-          position: "bottom-left",
-          effect: "stackslide",
-          timeout: 6000
-        }, "success");
+        console.info("Vocabulary DB replication completed! Starting live sync");
+        this.app.showAlert(
+          "Vocabulary synced!",
+          {
+            position: "bottom-left",
+            effect: "stackslide",
+            timeout: 6000
+          },
+          "success"
+        );
         this.localVocDb
           .sync(this.remoteVocDb, {
             live: true,

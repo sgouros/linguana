@@ -13,11 +13,31 @@ const MONTH_LABEL_GUTTER_SIZE = 4;
 export default class CalendarHeatmap extends React.Component {
   constructor(props) {
     super(props);
-
+    // console.info(props.values);
     this.state = {
       valueCache: this.getValueCache(props.values),
       tooltip: null
     };
+  }
+
+  getValueCache(values) {
+    return reduce(
+      values,
+      (memo, value) => {
+        const index = this.getIndexForDate(value.date);
+        // console.info("reducing index " + index);
+        memo[index] = {
+          value,
+          className: this.props.classForValue(value),
+          title: this.props.titleForValue ? this.props.titleForValue(value) : null,
+          tooltipDataAttrs: this.getTooltipDataAttrsForValue(value)
+        };
+        // console.info(`memo[${index}] = [${memo[index].value.date} , ${memo[index].value.count}]`);
+        // console.info(values);
+        return memo;
+      },
+      {}
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,11 +60,13 @@ export default class CalendarHeatmap extends React.Component {
   }
 
   getStartDate() {
-    return shiftDate(this.getEndDate(), -this.props.numDays + 1); // +1 because endDate is inclusive
+    let d = shiftDate(this.getEndDate(), -this.props.numDays + 1); // +1 because endDate is inclusive
+    return d;
   }
 
   getEndDate() {
-    return getBeginningTimeForDate(convertToDate(this.props.endDate));
+    let d = getBeginningTimeForDate(convertToDate(this.props.endDate));
+    return d;
   }
 
   getStartDateWithEmptyDays() {
@@ -75,24 +97,6 @@ export default class CalendarHeatmap extends React.Component {
 
   getHeight() {
     return this.getWeekWidth() + (this.getMonthLabelSize() - this.props.gutterSize);
-  }
-
-  getValueCache(values) {
-    return reduce(
-      values,
-      (memo, value) => {
-        const index = this.getIndexForDate(value.date);
-        memo[index] = {
-          value,
-          className: this.props.classForValue(value),
-          title: this.props.titleForValue ? this.props.titleForValue(value) : null,
-          tooltipDataAttrs: this.getTooltipDataAttrsForValue(value)
-        };
-
-        return memo;
-      },
-      {}
-    );
   }
 
   getIndexForDate(date) {
@@ -221,7 +225,7 @@ export default class CalendarHeatmap extends React.Component {
         x={x}
         y={y}
         data-tip={the_data_tip}
-        title={the_key}
+        title={the_title}
         className={the_className}
         onClick={this.handleClick.bind(this, value)}
         {...this.getTooltipDataAttrsForIndex(index)}

@@ -62,7 +62,7 @@ export default class App extends Component {
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
 
-  daysInHeatmap = 280; // how many days will the heatmap show
+  daysInHeatmap = 170; // how many days will the heatmap show
   vocabularyFactory = new VocabularyFactory(this);
   statsFactory = new StatsFactory(this);
 
@@ -451,7 +451,8 @@ export default class App extends Component {
 
   traceStatsPressed = () => {
     console.info("--------------- traceStatsDBPressed");
-    console.info(this.state.heatmapStats);
+    this.statsFactory.traceStats(this.state.heatmapStats);
+    // console.info(this.state.heatmapStats);
   };
 
   onSearchCompleted = voc => {
@@ -616,19 +617,19 @@ export default class App extends Component {
     element.click();
   };
 
-  showAlert = (message, options, type="info") => {
-    switch(type) {
+  showAlert = (message, options, type = "info") => {
+    switch (type) {
       case "success":
-        Alert.success(message,options);
+        Alert.success(message, options);
         break;
       case "warning":
-        Alert.warning(message,options);
+        Alert.warning(message, options);
         break;
       case "error":
-        Alert.error(message,options);
+        Alert.error(message, options);
         break;
       default:
-        Alert.info(message,options);
+        Alert.info(message, options);
     }
   };
 

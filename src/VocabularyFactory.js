@@ -254,8 +254,7 @@ export default class VocabularyFactory {
       .then(responseFromDb => {
         let voc = this.constructNewVocabulary(responseFromDb.docs);
         let downloadString = this.constructVocabularyDownloadString(voc, stringArray);
-        downloadString.push(`// Total voc entries: ${voc.length}`);
-        onSuccess(downloadString);
+        onSuccess(downloadString, voc.length);
       })
       .catch(err => {
         console.error("error inside voc constructDownloadDbString");
@@ -264,10 +263,6 @@ export default class VocabularyFactory {
   };
 
   constructVocabularyDownloadString = (voc, stringArray) => {
-    stringArray.push(`// copy this to file: databaseSeeds.js then reset and seed both DBs";`);
-    stringArray.push(`import VocabularyEntry from "./components/VocabularyEntry.js";`);
-    stringArray.push(`import StatsEntry from "./components/StatsEntry.js";`);
-    stringArray.push("");
     stringArray.push("export const VOCABULARY_SEEDS = [");
     voc.map((entry, index, vocArray) => {
       let lastItem = vocArray.length - 1 === index;

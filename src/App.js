@@ -62,7 +62,7 @@ export default class App extends Component {
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
 
-  daysInHeatmap = 170; // how many days will the heatmap show
+  daysInHeatmap = 260; // how many days will the heatmap show
   vocabularyFactory = new VocabularyFactory(this);
   statsFactory = new StatsFactory(this);
 
@@ -451,8 +451,8 @@ export default class App extends Component {
 
   traceStatsPressed = () => {
     console.info("--------------- traceStatsDBPressed");
-    this.statsFactory.traceStats(this.state.heatmapStats);
-    // console.info(this.state.heatmapStats);
+    this.statsFactory.traceStats();
+    console.info(this.state.heatmapStats);
   };
 
   onSearchCompleted = voc => {
@@ -602,13 +602,21 @@ export default class App extends Component {
     this.vocabularyFactory.constructDownloadDbString(dbStringArray, this.onVocDbDowloadStringCreated);
   };
 
-  onVocDbDowloadStringCreated = dbStringArray => {
+  onVocDbDowloadStringCreated = (dbStringArray, numberOfVocEntries) => {
     console.info("download DB string created!");
     dbStringArray.push("\n");
-    this.statsFactory.constructDownloadDbString(dbStringArray, this.onStatsDbDownloadStringCreated);
+    this.statsFactory.constructDownloadDbString(dbStringArray, numberOfVocEntries, this.onStatsDbDownloadStringCreated);
   };
 
-  onStatsDbDownloadStringCreated = dbStringArray => {
+  onStatsDbDownloadStringCreated = (dbStringArray, numberOfVocEntries, numberOfStatsEntries) => {
+    dbStringArray.unshift("");
+    dbStringArray.unshift(`import StatsEntry from "./components/StatsEntry.js";`);
+    dbStringArray.unshift(`import VocabularyEntry from "./components/VocabularyEntry.js";`);
+    dbStringArray.unshift("");
+    dbStringArray.unshift(`// Total stats entries: ${numberOfStatsEntries}`);
+    dbStringArray.unshift(`// Total voc entries  : ${numberOfVocEntries}`);
+    dbStringArray.unshift(`// copy this to file: databaseSeeds.js then reset and seed both DBs`);
+
     let element = document.createElement("a");
     let file = new Blob([dbStringArray.join("\n")], { type: "text/plain" });
     let filename = "linguanaDB_" + getTodayDateTimeString() + ".txt";

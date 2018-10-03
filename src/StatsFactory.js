@@ -155,7 +155,7 @@ export default class StatsFactory {
       });
   };
 
-  constructDownloadDbString = (stringArray, onSuccess) => {
+  constructDownloadDbString = (stringArray, numberOFVocEntries, onSuccess) => {
     this.localStatsDb
       .find({
         selector: {
@@ -165,8 +165,7 @@ export default class StatsFactory {
       .then(responseFromDb => {
         let stats = this.constructNewStats(responseFromDb.docs);
         let downloadString = this.constructStatsDownloadString(stats, stringArray);
-        downloadString.push(`// Total stats entries: ${stats.length}`);
-        onSuccess(downloadString);
+        onSuccess(downloadString, numberOFVocEntries, stats.length);
       })
       .catch(err => {
         console.error("error inside stats constructDownloadDbString");

@@ -198,10 +198,12 @@ export default class VocabularyFactory {
     this.localVocDb
       .find({
         selector: {
-          $and: [{ _id: { $exists: "true" } }, { foreignTerm: { $gt: -1 } }]
-        }
+          _id: { $exists: "true" }
+        },
+        sort: [{ _id: "desc" }]
       })
       .then(responseFromDb => {
+        console.log(responseFromDb);
         let v = this.constructNewVocabulary(responseFromDb.docs);
         this.extractVocabulary(v);
       })
@@ -241,7 +243,8 @@ export default class VocabularyFactory {
       .find({
         selector: {
           _id: { $exists: "true" }
-        }
+        },
+        sort: [{ _id: "desc" }]
       })
       .then(responseFromDb => {
         let voc = this.constructNewVocabulary(responseFromDb.docs);

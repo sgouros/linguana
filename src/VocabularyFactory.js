@@ -196,18 +196,10 @@ export default class VocabularyFactory {
 
   extractVocDB = () => {
     this.localVocDb
-      .createIndex({
-        index: {
-          fields: ["foreignTerm"]
+      .find({
+        selector: {
+          $and: [{ _id: { $exists: "true" } }, { foreignTerm: { $gt: -1 } }]
         }
-      })
-      .then(() => {
-        return this.localVocDb.find({
-          selector: {
-            $and: [{ _id: { $exists: "true" } }, { foreignTerm: { $gt: -1 } }]
-          },
-          sort: [{ foreignTerm: "asc" }]
-        });
       })
       .then(responseFromDb => {
         let v = this.constructNewVocabulary(responseFromDb.docs);

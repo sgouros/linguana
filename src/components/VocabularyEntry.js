@@ -10,8 +10,9 @@ export default class VocabularyEntry {
     totalTimesSelected,
     lastDateCorrectlyTranslated = this.getOldestDate()
   ) {
+    let dateStamp = this.getToday();
     if (id === null) {
-      this._id = `${foreignTerm}_${nativeTerm}`;
+      this._id = `${dateStamp}_${foreignTerm}_${nativeTerm}`;
     } else {
       this._id = id;
     }
@@ -41,24 +42,24 @@ export default class VocabularyEntry {
 
   extract() {
     console.debug(
-      `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
-        .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
-        .lastDateCorrectlyTranslated}"),`
+      `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this.foreignTermNotes}", ${
+        this.totalSuccesses
+      }, ${this.totalFailures}, ${this.totalTimesSelected}, "${this.lastDateCorrectlyTranslated}"),`
     );
   }
 
   constructDownloadString(stringArray, isLastItem) {
     if (isLastItem) {
       stringArray.push(
-        `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
-          .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
-          .lastDateCorrectlyTranslated}")`
+        `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this.foreignTermNotes}", ${
+          this.totalSuccesses
+        }, ${this.totalFailures}, ${this.totalTimesSelected}, "${this.lastDateCorrectlyTranslated}")`
       );
     } else {
       stringArray.push(
-        `new VocabularyEntry("${this.foreignTerm}_${this.nativeTerm}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this
-          .foreignTermNotes}", ${this.totalSuccesses}, ${this.totalFailures}, ${this.totalTimesSelected}, "${this
-          .lastDateCorrectlyTranslated}"),`
+        `new VocabularyEntry("${this._id}", null, "${this.nativeTerm}", "${this.foreignTerm}", "${this.foreignTermNotes}", ${
+          this.totalSuccesses
+        }, ${this.totalFailures}, ${this.totalTimesSelected}, "${this.lastDateCorrectlyTranslated}"),`
       );
     }
   }

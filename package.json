@@ -21,9 +21,9 @@
     "react-modal-dialog": "^4.0.7",
     "react-notification-system": "^0.2.15",
     "react-s-alert": "^1.4.1",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^2.1.1",
     "react-spinjs": "^3.0.0",
-    "react-tooltip": "^3.8.4"
+    "react-tooltip": "^3.9.0"
   },
   "devDependencies": {
     "concurrently": "2.2.0",
@@ -42,5 +42,11 @@
     "presets": [
       "es2015"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -97,6 +97,7 @@ export default class StatsFactory {
         });
       })
       .then(responseFromDb => {
+        console.info(responseFromDb);
         let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
         console.info(statsArray);
         onSuccessCallback(statsArray);

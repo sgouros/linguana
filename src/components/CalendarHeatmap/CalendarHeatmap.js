@@ -107,7 +107,7 @@ export default class CalendarHeatmap extends React.Component {
   getDateForIndex(index) {
     let date = this.getStartDateWithEmptyDays();
     date.setDate(date.getDate() + index);
-    return date.toString("yyyy-m-d");
+    return date.toString("yyyy-mm-dd");
   }
 
   getValueForIndex(index) {

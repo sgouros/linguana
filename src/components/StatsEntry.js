@@ -1,3 +1,5 @@
+import { addZero } from "./helpers";
+
 export default class StatsEntry {
   constructor(id, rev, totalWordsLearned) {
     id === null ? (this._id = this.getToday()) : (this._id = id);
@@ -7,15 +9,9 @@ export default class StatsEntry {
 
   getToday() {
     let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
+    let dd = addZero(today.getDate());
+    let mm = addZero(today.getMonth() + 1);
     let yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
     today = yyyy + "-" + mm + "-" + dd;
     return today;
   }

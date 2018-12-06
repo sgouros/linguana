@@ -321,8 +321,6 @@ export default class App extends Component {
     return this.getTotalEntries() - this.getTotalCorrectTranslations();
   };
 
-  // <td className="td-lastDateCorrectlyTranslated">{getShortDateString(entry.lastDateCorrectlyTranslated)}</td>
-
   constructStartingSummaryModalContent = () => {
     const htmlTable = this.state.vocabulary.map(entry => {
       return (

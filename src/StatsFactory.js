@@ -2,6 +2,8 @@ import StatsEntry from "./components/StatsEntry.js";
 import PouchDB from "pouchdb";
 import PouchFind from "pouchdb-find";
 import { STATS_SEEDS } from "./databaseSeeds";
+import { addZero } from "./components/helpers";
+
 PouchDB.plugin(PouchFind);
 PouchDB.plugin(require("pouchdb-upsert"));
 
@@ -97,9 +99,9 @@ export default class StatsFactory {
         });
       })
       .then(responseFromDb => {
-        console.info(responseFromDb);
+        // console.info(responseFromDb);
         let statsArray = this.massageStatsForCalendarHeatmap(responseFromDb.docs);
-        console.info(statsArray);
+        // console.info(statsArray);
         onSuccessCallback(statsArray);
       })
       .catch(err => {
@@ -192,7 +194,10 @@ export default class StatsFactory {
 
   increaseTotalWordsLearnedForTodayCount = onSuccessCallback => {
     let today = new Date();
-    let id = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+    let yy = today.getFullYear();
+    let mm = addZero(today.getMonth() + 1);
+    let dd = addZero(today.getDate());
+    let id = yy + "-" + mm + "-" + dd;
     console.debug("id=" + id);
 
     let total = 0;

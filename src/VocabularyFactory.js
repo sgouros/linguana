@@ -40,7 +40,7 @@ export default class VocabularyFactory {
           {
             position: "bottom-left",
             effect: "stackslide",
-            timeout: 6000
+            timeout: "none"
           },
           "success"
         );

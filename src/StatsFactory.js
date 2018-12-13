@@ -48,7 +48,7 @@ export default class StatsFactory {
           {
             position: "bottom-left",
             effect: "stackslide",
-            timeout: 6000
+            timeout: "none"
           },
           "success"
         );

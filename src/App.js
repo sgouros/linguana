@@ -12,7 +12,9 @@ import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import SearchForm from "./components/SearchForm.js";
+import SessionTagForm from "./components/SessionTagForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
+import HeaderInputs from "./components/HeaderInputs.js";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
@@ -45,6 +47,8 @@ export default class App extends Component {
       currentSearchInputValue: "",
       searchResults: [],
       showSearchResults: false,
+      currentSessionTagInputValue: "", // predifined tag
+      showDebugButons: false,
       showStatistics: true,
       heatmapStats: [],
       // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
@@ -58,6 +62,7 @@ export default class App extends Component {
   }
   NUMBER_OF_NEW_VOC_ENTRIES = 3;
   NUMBER_OF_OLD_VOC_ENTRIES = 7;
+  NUMBER_OF_PREDEFINED_VOC_ENTRIES = 10;
 
   passKeyAlreadyPressed = false;
   passKeyTimeout = 0;
@@ -105,10 +110,14 @@ export default class App extends Component {
     this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
   };
 
-  newSession = () => {
-    console.info("\n\n-------- new Session:");
+  newPredifinedSession = vocabularyTag => {
+    console.info("\n\n-------- new Predifined Session with tag: " + vocabularyTag);
 
-    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
+    this.vocabularyFactory.predifinedVocabularyNeeded(
+      vocabularyTag,
+      this.onPredifinedVocabularyArrived,
+      this.NUMBER_OF_PREDEFINED_VOC_ENTRIES
+    );
     this.allSelectedEntries = [];
     this.setState({
       vocabulary: [],
@@ -121,6 +130,29 @@ export default class App extends Component {
       searchResults: []
     });
     this.fromNativeToForeign = false;
+  };
+
+  newSession = () => {
+    console.info("\n\n-------- new Session:");
+    const tag = this.state.currentSessionTagInputValue;
+    console.info(`\n\n currentSessionTagInputValue: ${tag}`);
+    if (tag === "") {
+      this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
+      this.allSelectedEntries = [];
+      this.setState({
+        vocabulary: [],
+        showStartModal: true,
+        isStartModalLoading: true,
+        showSearchResults: false,
+        showVocabularyManager: false,
+        currentSearchInputValue: "",
+        showStatistics: false,
+        searchResults: []
+      });
+      this.fromNativeToForeign = false;
+    } else {
+      this.newPredifinedSession(tag);
+    }
   };
 
   newSemiSession = () => {
@@ -154,20 +186,6 @@ export default class App extends Component {
         showFinishModal: true
       });
     }
-  };
-
-  filterSuccessfullSelectedEntries = () => {
-    let filteredEntries = this.allSelectedEntries.filter(entry => entry.isCurrentlyCorrectlyTranslated);
-    filteredEntries.map(entry => entry.failure());
-    return filteredEntries;
-  };
-
-  traceTotalWordsLearnedForTodayPressed = () => {
-    console.info(`total words learned for today length: ${this.totalWordsLearnedForTodayArray.length}`);
-    this.totalWordsLearnedForTodayArray.map(item => {
-      console.info("  " + item.id);
-      return item;
-    });
   };
 
   onNewVocabularyArrived = (newVoc, currentIndex) => {
@@ -206,6 +224,37 @@ export default class App extends Component {
       this.NUMBER_OF_NEW_VOC_ENTRIES,
       this.allSelectedEntries
     );
+  };
+
+  onPredifinedVocabularyArrived = (predifinedVoc, currentIndex) => {
+    console.info("predifined voc arrived");
+    this.vocabularyFactory.traceVocabulary(predifinedVoc);
+    const updatedVocabulary = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...predifinedVoc,
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+    ];
+    this.allSelectedEntries.push(...predifinedVoc);
+
+    this.setState({
+      showTestArea: true,
+      isStartModalLoading: false,
+      vocabulary: updatedVocabulary
+    });
+  };
+
+  filterSuccessfullSelectedEntries = () => {
+    let filteredEntries = this.allSelectedEntries.filter(entry => entry.isCurrentlyCorrectlyTranslated);
+    filteredEntries.map(entry => entry.failure());
+    return filteredEntries;
+  };
+
+  traceTotalWordsLearnedForTodayPressed = () => {
+    console.info(`total words learned for today length: ${this.totalWordsLearnedForTodayArray.length}`);
+    this.totalWordsLearnedForTodayArray.map(item => {
+      console.info("  " + item.id);
+      return item;
+    });
   };
 
   onStatsForCalendarHeatmapArrived = statsArray => {
@@ -467,6 +516,10 @@ export default class App extends Component {
     this.setState({ currentSearchInputValue: this.refs.searchInputForm.refs.searchInput.refs.input.value });
   };
 
+  handleSessionTagInputOnChange = event => {
+    this.setState({ currentSessionTagInputValue: this.refs.searchInputForm.refs.sessionTagInput.refs.input.value });
+  };
+
   handleSearchSubmit = event => {
     event.preventDefault();
     let searchTerm = this.state.currentSearchInputValue;
@@ -576,20 +629,24 @@ export default class App extends Component {
     this.passKeyAlreadyPressed = false;
   };
 
-  toggleCssSkin = event => {
-    if (
-      event.keyCode === 48 ||
-      event.keyCode === 56 ||
-      event.keyCode === 57 ||
-      event.keyCode === 50 ||
-      event.keyCode === 51 ||
-      event.keyCode === 52
-    ) {
+  shortcuts = event => {
+    if (event.keyCode === 192) {
+      // ` key
       event.preventDefault();
       if (this.state.cssSkin === "./blackSkin.css") {
         this.setState({ cssSkin: "./normalSkin.css" });
       } else {
         this.setState({ cssSkin: "./blackSkin.css" });
+      }
+    }
+
+    if (event.keyCode === 45) {
+      // insert key
+      event.preventDefault();
+      if (this.state.showDebugButons === true) {
+        this.setState({ showDebugButons: false });
+      } else {
+        this.setState({ showDebugButons: true });
       }
     }
   };
@@ -651,22 +708,24 @@ export default class App extends Component {
       );
     } else {
       return (
-        <div className="app" tabIndex="0" onKeyDown={this.toggleCssSkin}>
+        <div className="app" tabIndex="0" onKeyDown={this.shortcuts}>
           <link rel="stylesheet" type="text/css" href={this.state.cssSkin} />
           <header className="app__header">
             <HeaderLogo ifClicked={this.goToStartPage} />
-            <DebugButtons
-              onExtractVocDBPressed={this.extractVocDBPressed}
-              onResetVocDBPressed={this.resetVocDBPressed}
-              onSeedVocDBPressed={this.seedVocDBPressed}
-              onTraceVocDBPressed={this.traceVocDBPressed}
-              onExtractStatsDBPressed={this.extractStatsDBPressed}
-              onResetStatsDBPressed={this.resetStatsDBPressed}
-              onSeedStatsDBPressed={this.seedStatsDBPressed}
-              onTraceStatsDBPressed={this.traceStatsDBPressed}
-              onTraceVocabularyPressed={this.traceVocabularyPressed}
-              onDownloadDBPressed={this.downloadDB}
-            />
+            {this.state.showDebugButons && (
+              <DebugButtons
+                onExtractVocDBPressed={this.extractVocDBPressed}
+                onResetVocDBPressed={this.resetVocDBPressed}
+                onSeedVocDBPressed={this.seedVocDBPressed}
+                onTraceVocDBPressed={this.traceVocDBPressed}
+                onExtractStatsDBPressed={this.extractStatsDBPressed}
+                onResetStatsDBPressed={this.resetStatsDBPressed}
+                onSeedStatsDBPressed={this.seedStatsDBPressed}
+                onTraceStatsDBPressed={this.traceStatsDBPressed}
+                onTraceVocabularyPressed={this.traceVocabularyPressed}
+                onDownloadDBPressed={this.downloadDB}
+              />
+            )}
 
             <SearchForm
               ref="searchInputForm"
@@ -740,7 +799,7 @@ export default class App extends Component {
             />
           ) : null}
           {this.state.showSemiFinishModal ? (
-            <SemiFinishModal title={`Ok now let's try the oposite!`} onClose={this.closeSemiFinishModal} />
+            <SemiFinishModal title={`Ok now let's try the opposite!`} onClose={this.closeSemiFinishModal} />
           ) : null}
           {this.state.showTestArea && (
             <footer className="app__footer">

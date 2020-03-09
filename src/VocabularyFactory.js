@@ -65,6 +65,46 @@ export default class VocabularyFactory {
       });
   }
 
+  predifinedVocabularyNeeded = (vocTag, onSuccess, numberOfEntries, allSelectedEntries = [], currentIndex = 0) => {
+    let tagRegex = vocTag;
+
+    let allSelectedEntryIDs = allSelectedEntries.map(entry => {
+      return entry._id;
+    });
+    let updatedVoc = [];
+
+    this.localVocDb
+      .createIndex({
+        index: {
+          fields: ["foreignTermNotes", "lastDateCorrectlyTranslated", "totalTimesSelected"]
+        }
+      })
+      .then(() => {
+        return this.localVocDb.find({
+          selector: {
+            _id: { $nin: allSelectedEntryIDs },
+            foreignTermNotes: { $regex: tagRegex },
+            lastDateCorrectlyTranslated: { $gt: -1 },
+            totalTimesSelected: { $gt: -1 }
+          },
+          sort: [{ lastDateCorrectlyTranslated: "asc" }, { totalTimesSelected: "asc" }],
+          limit: numberOfEntries
+        });
+      })
+      .then(resultFromDb => {
+        let newVoc = this.constructNewVocabulary(resultFromDb.docs);
+        updatedVoc = newVoc.map(entry => {
+          entry.selected();
+          return entry;
+        });
+        return this.localVocDb.bulkDocs(updatedVoc);
+      })
+      .then(result => {
+        onSuccess(updatedVoc, currentIndex);
+      })
+      .catch(console.log.bind(console));
+  };
+
   newVocabularyNeeded = (onSuccess, numberOfEntries, allSelectedEntries = [], currentIndex = 0) => {
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
       return entry._id;

@@ -30,7 +30,7 @@ body {
 .app__header__logo__logoImage {
   height: 16vh;
 }
- 
+
 .app__header__logo__logoText {
   padding-top: 4.3vh;
   font-size: 10vh;
@@ -87,6 +87,9 @@ body {
 }
 
 .app__header__searchForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   grid-column-start: 3;
   grid-column-end: 4;
   padding: 2vh;
@@ -96,11 +99,32 @@ body {
   box-sizing: border-box;
   height: 4.2vh;
   padding-left: 1.6vh;
+
   width: 100%;
   flex-grow: 1;
   font-size: 2vh;
   font-weight: bold;
   background-color: #c9cb7b;
+  color: #fcffde;
+  border: solid 1px #8d901d;
+  border-radius: 0.8vh;
+  -moz-border-radius: 0.8vh;
+  -webkit-border-radius: 0.8vh;
+  box-shadow: none;
+  transition: box-shadow 0.3s, border 0.3s;
+  /*border: solid 1px red;*/
+}
+
+.app__header__sessionTagForm__sessionTagInput {
+  box-sizing: border-box;
+  height: 4.2vh;
+  padding-left: 1.6vh;
+  right: 5vh;
+  width: 18vh;
+  flex-grow: 0;
+  font-size: 2vh;
+  font-weight: bold;
+  background-color: #4d520c;
   color: #fcffde;
   border: solid 1px #8d901d;
   border-radius: 0.8vh;

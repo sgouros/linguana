@@ -153,15 +153,27 @@ export default class Testarea extends Component {
   };
 
   getWordComparisonDialogContent = () => {
-    let correct = this.props.fromNativeToForeign ? this.getCorrectForeignTerm() : this.getCorrectNativeTerm();
+    let termUnderTranslation = "";
+    let correctTranslation = "";
+    if (this.props.fromNativeToForeign === true) {
+      termUnderTranslation = this.getCorrectNativeTerm();
+      correctTranslation = this.getCorrectForeignTerm();
+    } else {
+      correctTranslation = this.getCorrectNativeTerm();
+      termUnderTranslation = this.getCorrectForeignTerm();
+    }
+
     let typed = this.state.currentTranslationInputValue;
     return (
       <div>
         <table className="wordComparisonDialog__Table">
           <tbody>
             <tr>
+              <td>{termUnderTranslation}</td>
+            </tr>
+            <tr>
               <td>Correct answer:</td>
-              <td>{correct}</td>
+              <td>{correctTranslation}</td>
             </tr>
             <tr>
               <td>You typed:</td>

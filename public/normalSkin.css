@@ -405,8 +405,18 @@ body {
   padding: 10px 10px 10px 15px;
 }
 
-.wordComparisonDialog__Table tr:first-child td:last-child {
-  background: #c3c59e;
+.wordComparisonDialog__Table td.termUnderTranslation {
+  background: #dadcb9;
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  border: solid 1px #adb545;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.wordComparisonDialog__Table td.correctTranslation {
+  background: #d2dc4e;
   font-size: 3rem;
   font-weight: bold;
   color: white;
@@ -415,8 +425,8 @@ body {
   -webkit-text-stroke-color: black;
 }
 
-.wordComparisonDialog__Table tr:last-child td:last-child {
-  background: #d7d99e;
+.wordComparisonDialog__Table td.you_typed {
+  background: white;
   font-size: 3rem;
   height: 3.2rem;
   font-weight: bold;

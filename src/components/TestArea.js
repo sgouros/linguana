@@ -169,15 +169,16 @@ export default class Testarea extends Component {
         <table className="wordComparisonDialog__Table">
           <tbody>
             <tr>
-              <td>{termUnderTranslation}</td>
+              <td>The term:</td>
+              <td className="termUnderTranslation">{termUnderTranslation}</td>
             </tr>
             <tr>
               <td>Correct answer:</td>
-              <td>{correctTranslation}</td>
+              <td className="correctTranslation">{correctTranslation}</td>
             </tr>
             <tr>
               <td>You typed:</td>
-              <td>{typed}</td>
+              <td className="you_typed">{typed}</td>
             </tr>
           </tbody>
         </table>

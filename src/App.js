@@ -22,13 +22,6 @@ import "react-s-alert/dist/s-alert-css-effects/flip.css";
 import "react-s-alert/dist/s-alert-css-effects/genie.css";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
 import "react-s-alert/dist/s-alert-css-effects/stackslide.css";
-// todo:
-//      * οταν πατάς enter στις αρχικές λέξεις που δείχνει να γίνεται dismiss το modal
-//      * να κάνω refactor σε display components + layout components
-//      * να βάλω στο παιχνίδι τις routes
-//      * να χρησιμοποιήσω immutability
-//      * να δω αρθρα που εκανα favorite στο twitter και να διαβάσω τα ενδιαφέροντα
-//      * να διαλέγει με hash_tag
 
 export default class App extends Component {
   constructor() {
@@ -81,13 +74,13 @@ export default class App extends Component {
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
-      currentValueOfSearchInput: "",
-      currentValueOfPredifinedTagInput: "",
       searchResults: [],
       showSearchResults: false,
       showStatistics: true
     });
     this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
+    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
   };
 
   componentDidMount = () => {

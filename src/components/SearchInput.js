@@ -65,17 +65,24 @@ export default class SearchInput extends Component {
     return keyCode === this.alreadyPressedSpecialKeyCode;
   };
 
+  onKeyPress = event => {
+    if (event.key === "Enter") {
+      this.props.onSearchSubmit(event);
+    }
+  };
+
   render() {
     return (
       <input
-        ref="input"
-        className="app__header__searchForm__searchInput"
+        onKeyPress={this.onKeyPress}
+        ref="actual_input_ref"
+        className="app__header__headerForm__searchInput"
         name="searchInput"
         type="text"
         autoComplete="off"
         autoCorrect="off"
         spellCheck="off"
-        value={this.props.currentSearchInputValue}
+        value={this.props.currentValueOfSearchInput}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleOnChange}
         placeholder="αναζήτηση..."

@@ -153,7 +153,7 @@ body {
   display: none;
 }
 
-.app__header__searchForm__searchInput {
+.app__header__headerForm__searchInput {
   background: #fff !important;
   color: #fff !important;
   border: none;

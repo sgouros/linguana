@@ -11,10 +11,8 @@ import VocabularyTable from "./components/VocabularyTable.js";
 import CalendarHeatmap from "./components/CalendarHeatmap/CalendarHeatmap.js";
 import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
-import SearchForm from "./components/SearchForm.js";
-import SessionTagForm from "./components/SessionTagForm.js";
+import HeaderForm from "./components/HeaderForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
-import HeaderInputs from "./components/HeaderInputs.js";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
@@ -44,10 +42,10 @@ export default class App extends Component {
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
-      currentSearchInputValue: "",
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
       searchResults: [],
       showSearchResults: false,
-      currentSessionTagInputValue: "", // predifined tag
       showDebugButons: false,
       showStatistics: true,
       heatmapStats: [],
@@ -83,7 +81,8 @@ export default class App extends Component {
       showVocabularyManager: false,
       isStartModalLoading: false,
       showAddEntryLoading: false,
-      currentSearchInputValue: "",
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
       searchResults: [],
       showSearchResults: false,
       showStatistics: true
@@ -125,7 +124,8 @@ export default class App extends Component {
       isStartModalLoading: true,
       showSearchResults: false,
       showVocabularyManager: false,
-      currentSearchInputValue: "",
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
       showStatistics: false,
       searchResults: []
     });
@@ -134,25 +134,20 @@ export default class App extends Component {
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
-    const tag = this.state.currentSessionTagInputValue;
-    console.info(`\n\n currentSessionTagInputValue: ${tag}`);
-    if (tag === "") {
-      this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
-      this.allSelectedEntries = [];
-      this.setState({
-        vocabulary: [],
-        showStartModal: true,
-        isStartModalLoading: true,
-        showSearchResults: false,
-        showVocabularyManager: false,
-        currentSearchInputValue: "",
-        showStatistics: false,
-        searchResults: []
-      });
-      this.fromNativeToForeign = false;
-    } else {
-      this.newPredifinedSession(tag);
-    }
+    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
+    this.allSelectedEntries = [];
+    this.setState({
+      vocabulary: [],
+      showStartModal: true,
+      isStartModalLoading: true,
+      showSearchResults: false,
+      showVocabularyManager: false,
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
+      showStatistics: false,
+      searchResults: []
+    });
+    this.fromNativeToForeign = false;
   };
 
   newSemiSession = () => {
@@ -164,7 +159,8 @@ export default class App extends Component {
       isStartModalLoading: false,
       showSearchResults: false,
       showVocabularyManager: false,
-      currentSearchInputValue: "",
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
 
       searchResults: []
     });
@@ -513,18 +509,36 @@ export default class App extends Component {
   };
 
   handleSearchInputOnChange = event => {
-    this.setState({ currentSearchInputValue: this.refs.searchInputForm.refs.searchInput.refs.input.value });
+    this.setState({
+      currentValueOfSearchInput: this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value
+    });
   };
 
-  handleSessionTagInputOnChange = event => {
-    this.setState({ currentSessionTagInputValue: this.refs.searchInputForm.refs.sessionTagInput.refs.input.value });
+  handlePredifinedTagInputOnChange = event => {
+    this.setState({
+      currentValueOfPredifinedTagInput: this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref
+        .value
+    });
   };
 
-  handleSearchSubmit = event => {
+  handleSearchOnSubmit = event => {
+    console.info("search submit pressed");
     event.preventDefault();
-    let searchTerm = this.state.currentSearchInputValue;
+    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
+    let searchTerm = this.state.currentValueOfSearchInput;
     let callBack = this.onSearchCompleted;
     this.vocabularyFactory.search(searchTerm, callBack);
+  };
+
+  handlePredifinedTagOnSubmit = event => {
+    console.info("predifined tag submit pressed");
+    event.preventDefault();
+    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+    const tag = this.state.currentValueOfPredifinedTagInput;
+    console.info(`\n\n tag: ${tag}`);
+    if (tag !== "") {
+      this.newPredifinedSession(tag);
+    }
   };
 
   editEntry = changedEntry => {
@@ -727,11 +741,14 @@ export default class App extends Component {
               />
             )}
 
-            <SearchForm
-              ref="searchInputForm"
-              currentSearchInputValue={this.state.currentSearchInputValue}
-              onInputChange={this.handleSearchInputOnChange}
-              onSubmitPressed={this.handleSearchSubmit}
+            <HeaderForm
+              ref="headerForm_ref"
+              currentValueOfSearchInput={this.state.currentValueOfSearchInput}
+              onSearchInputChange={this.handleSearchInputOnChange}
+              currentValueOfPredifinedTagInput={this.state.currentValueOfPredifinedTagInput}
+              onPredifinedTagInputChange={this.handlePredifinedTagInputOnChange}
+              onPredifinedTagSubmit={this.handlePredifinedTagOnSubmit}
+              onSearchSubmit={this.handleSearchOnSubmit}
             />
           </header>
           <nav className="app__nav">

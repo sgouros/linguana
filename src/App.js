@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
+import SessionAlreadyRunningModal from "./components/SessionAlreadyRunningModal.js";
 import FinishModal from "./components/FinishModal.js";
 import SemiFinishModal from "./components/SemiFinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
@@ -13,6 +14,7 @@ import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import HeaderForm from "./components/HeaderForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
+import ConfirmDialog from "react-confirm-dialog";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
@@ -29,6 +31,7 @@ export default class App extends Component {
 
     this.state = {
       vocabulary: [],
+      showSessionAlreadyRunningModal: false,
       showTestArea: false,
       showStartModal: false,
       showFinishModal: false,
@@ -50,6 +53,7 @@ export default class App extends Component {
     this.fromNativeToForeign = false;
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
+    this.sessionIsRunning = false;
   }
   NUMBER_OF_NEW_VOC_ENTRIES = 3;
   NUMBER_OF_OLD_VOC_ENTRIES = 7;
@@ -65,22 +69,27 @@ export default class App extends Component {
   allSelectedEntries = []; // the selected vocabulary entries for the current session
 
   goToStartPage = () => {
-    this.allSelectedEntries = [];
-    this.setState({
-      vocabulary: [],
-      showTestArea: false,
-      showStartModal: false,
-      showFinishModal: false,
-      showVocabularyManager: false,
-      isStartModalLoading: false,
-      showAddEntryLoading: false,
-      searchResults: [],
-      showSearchResults: false,
-      showStatistics: true
-    });
-    this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
-    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
+    if (this.sessionIsRunning === true) {
+      this.setState({ showSessionAlreadyRunningModal: true });
+    } else {
+      this.allSelectedEntries = [];
+      this.setState({
+        vocabulary: [],
+        showTestArea: false,
+        showStartModal: false,
+        showSessionAlreadyRunningModal: false,
+        showFinishModal: false,
+        showVocabularyManager: false,
+        isStartModalLoading: false,
+        showAddEntryLoading: false,
+        searchResults: [],
+        showSearchResults: false,
+        showStatistics: true
+      });
+      this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
+      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
+    }
   };
 
   componentDidMount = () => {
@@ -104,43 +113,54 @@ export default class App extends Component {
 
   newPredifinedSession = vocabularyTag => {
     console.info("\n\n-------- new Predifined Session with tag: " + vocabularyTag);
-
-    this.vocabularyFactory.predifinedVocabularyNeeded(
-      vocabularyTag,
-      this.onPredifinedVocabularyArrived,
-      this.NUMBER_OF_PREDEFINED_VOC_ENTRIES
-    );
-    this.allSelectedEntries = [];
-    this.setState({
-      vocabulary: [],
-      showStartModal: true,
-      isStartModalLoading: true,
-      showSearchResults: false,
-      showVocabularyManager: false,
-      currentValueOfSearchInput: "",
-      currentValueOfPredifinedTagInput: "",
-      showStatistics: false,
-      searchResults: []
-    });
-    this.fromNativeToForeign = false;
+    if (this.sessionIsRunning === true) {
+      this.setState({ showSessionAlreadyRunningModal: true });
+    } else {
+      this.vocabularyFactory.predifinedVocabularyNeeded(
+        vocabularyTag,
+        this.onPredifinedVocabularyArrived,
+        this.NUMBER_OF_PREDEFINED_VOC_ENTRIES
+      );
+      this.allSelectedEntries = [];
+      this.setState({
+        vocabulary: [],
+        showStartModal: true,
+        isStartModalLoading: true,
+        showSearchResults: false,
+        showVocabularyManager: false,
+        currentValueOfSearchInput: "",
+        currentValueOfPredifinedTagInput: "",
+        showStatistics: false,
+        searchResults: []
+      });
+      this.fromNativeToForeign = false;
+      this.sessionIsRunning = true;
+      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
+    }
   };
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
-    this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
-    this.allSelectedEntries = [];
-    this.setState({
-      vocabulary: [],
-      showStartModal: true,
-      isStartModalLoading: true,
-      showSearchResults: false,
-      showVocabularyManager: false,
-      currentValueOfSearchInput: "",
-      currentValueOfPredifinedTagInput: "",
-      showStatistics: false,
-      searchResults: []
-    });
-    this.fromNativeToForeign = false;
+    if (this.sessionIsRunning === true) {
+      this.setState({ showSessionAlreadyRunningModal: true });
+    } else {
+      this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
+      this.allSelectedEntries = [];
+      this.setState({
+        vocabulary: [],
+        showStartModal: true,
+        isStartModalLoading: true,
+        showSearchResults: false,
+        showVocabularyManager: false,
+        showStatistics: false,
+        searchResults: []
+      });
+      this.sessionIsRunning = true;
+      this.fromNativeToForeign = false;
+      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
+    }
   };
 
   newSemiSession = () => {
@@ -229,6 +249,12 @@ export default class App extends Component {
       showTestArea: true,
       isStartModalLoading: false,
       vocabulary: updatedVocabulary
+    });
+  };
+
+  sessionAlreadyRunningModalOnClose = () => {
+    this.setState({
+      showSessionAlreadyRunningModal: false
     });
   };
 
@@ -401,15 +427,22 @@ export default class App extends Component {
       showStatistics: true
     });
     this.fromNativeToForeign = false;
+    this.sessionIsRunning = false;
+    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref = "";
   };
 
   openVocabularyManager = () => {
-    this.setState({
-      showVocabularyManager: true,
-      showSearchResults: false,
-      showTestArea: false,
-      showStatistics: false
-    });
+    if (this.sessionIsRunning === true) {
+      this.setState({ showSessionAlreadyRunningModal: true });
+    } else {
+      this.setState({
+        showVocabularyManager: true,
+        showSearchResults: false,
+        showTestArea: false,
+        showStatistics: false
+      });
+    }
   };
 
   newEntrySubmitted = (nativeTerm, foreignTerm, foreignTermNotes, newEntrySaveSucceeded, newEntrySaveFailed) => {
@@ -499,6 +532,7 @@ export default class App extends Component {
       showTestArea: false,
       showStatistics: false
     });
+    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
   };
 
   handleSearchInputOnChange = event => {
@@ -517,9 +551,17 @@ export default class App extends Component {
   handleSearchOnSubmit = event => {
     console.info("search submit pressed");
     event.preventDefault();
-    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
-    let searchTerm = this.state.currentValueOfSearchInput;
-    let callBack = this.onSearchCompleted;
+    if (this.sessionIsRunning === true) {
+      this.setState({ showSessionAlreadyRunningModal: true });
+      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+    } else {
+      let searchTerm = this.state.currentValueOfSearchInput;
+      let callBack = this.onSearchCompleted;
+      this.startSearch(searchTerm, callBack);
+    }
+  };
+
+  startSearch = (searchTerm, callBack) => {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
@@ -792,6 +834,11 @@ export default class App extends Component {
               />
             )}
           </main>
+
+          {this.state.showSessionAlreadyRunningModal ? (
+            <SessionAlreadyRunningModal onClose={this.sessionAlreadyRunningModalOnClose} />
+          ) : null}
+
           {this.state.showStartModal ? (
             <StartModal
               title="Welcome to Linguana! Your words for today:"

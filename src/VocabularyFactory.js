@@ -36,7 +36,7 @@ export default class VocabularyFactory {
       .on("complete", info => {
         console.info("Vocabulary DB replication completed! Starting live sync");
         this.app.showAlert(
-          "Vocabulary not found!",
+          " ERROR: Vocabulary not found!",
           {
             position: "bottom-left",
             effect: "stackslide",

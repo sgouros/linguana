@@ -877,7 +877,7 @@ export default class App extends Component {
             />
           ) : null}
           {this.state.showSemiFinishModal ? (
-            <SemiFinishModal title={`Ok now let's try the opposite!`} onClose={this.closeSemiFinishModal} />
+            <SemiFinishModal title={`Great! Now let's try the opposite!`} onClose={this.closeSemiFinishModal} />
           ) : null}
           {this.state.showTestArea && (
             <footer className="app__footer">

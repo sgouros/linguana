@@ -38,7 +38,8 @@ export default class TranslationInputDE extends Component {
     83: "ß",
     65: "ä",
     85: "ü",
-    79: "ö"
+    79: "ö",
+    32: "," // space
   };
 
   handleOnChange = event => {
@@ -59,7 +60,7 @@ export default class TranslationInputDE extends Component {
       console.debug("***************************uppercase is true");
       uppercase = true;
     }
-    // 27: esc 109: -  107: +
+    // 27: esc     109: -       107: +
     if (event.keyCode === 27 || event.keyCode === 109) {
       console.debug("esc press: " + event.keyCode);
       this.handleEscPress(event);

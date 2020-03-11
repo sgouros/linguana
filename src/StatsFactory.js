@@ -44,13 +44,13 @@ export default class StatsFactory {
       .on("complete", info => {
         console.info("Stats DB replication completed! Starting live sync");
         this.app.showAlert(
-          "Stats synced!",
+          "Stats not found!",
           {
             position: "bottom-left",
             effect: "stackslide",
             timeout: "none"
           },
-          "success"
+          "error"
         );
         this.localStatsDb
           .sync(this.remoteStatsDb, {

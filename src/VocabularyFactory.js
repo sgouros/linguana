@@ -36,13 +36,13 @@ export default class VocabularyFactory {
       .on("complete", info => {
         console.info("Vocabulary DB replication completed! Starting live sync");
         this.app.showAlert(
-          "Vocabulary synced!",
+          "Vocabulary not found!",
           {
             position: "bottom-left",
             effect: "stackslide",
             timeout: "none"
           },
-          "success"
+          "error"
         );
         this.localVocDb
           .sync(this.remoteVocDb, {

@@ -741,6 +741,7 @@ export default class App extends Component {
   };
 
   showAlert = (message, options, type = "info") => {
+    console.log("alert:" + message);
     switch (type) {
       case "success":
         Alert.success(message, options);
@@ -764,6 +765,7 @@ export default class App extends Component {
           <img src="/img/construction.png" alt="page under construction" />
           <p>Page is under construction. Please leave us your email and we will get back to you!</p>
           <input ref="passwordInput" type="text" onKeyDown={this.handlePassKeyDown} />
+          <Alert stack={{ limit: 5 }} />
         </div>
       );
     } else {

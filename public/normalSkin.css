@@ -716,9 +716,9 @@ img.finishModalLinguanaFaceImg {
 
 .td-lastDateCorrectlyTranslated {
   text-align: center;
-  font-weight: normal;
-  color: darkgrey;
-  width: 15vh;
+  font-weight: bold;
+  color: rgb(65, 55, 65);
+  width: 12vh;
 }
 
 .modalDialogTable tr:nth-child(odd) {

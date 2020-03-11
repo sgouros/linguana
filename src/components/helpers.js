@@ -67,6 +67,17 @@ export function getDateString(requestedDate, article = false) {
   return dateString;
 }
 
+export function getShortDate(requestedDate) {
+  let date = new Date(requestedDate);
+  let dateString = "";
+  dateString += date.getDate();
+  dateString += ".";
+  dateString += date.getMonth() + 1;
+  dateString += ".";
+  dateString += date.getFullYear();
+  return dateString;
+}
+
 export function addZero(number) {
   if (number < 10) {
     number = "0" + number;

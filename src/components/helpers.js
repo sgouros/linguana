@@ -70,9 +70,9 @@ export function getDateString(requestedDate, article = false) {
 export function getShortDate(requestedDate) {
   let date = new Date(requestedDate);
   let dateString = "";
-  dateString += date.getDate();
+  dateString += addZero(date.getDate());
   dateString += ".";
-  dateString += date.getMonth() + 1;
+  dateString += addZero(date.getMonth() + 1);
   dateString += ".";
   dateString += date.getFullYear();
   return dateString;

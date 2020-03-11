@@ -5,11 +5,10 @@ import PropTypes from "prop-types";
 export default class SessionAlreadyRunningModal extends Component {
   static propTypes = {
     title: PropTypes.string,
-    onCancel: PropTypes.func,
-    onOk: PropTypes.func
+    onCancel: PropTypes.func
   };
 
-  closeDialog = event => {
+  closeDialogOnEnter = event => {
     event.preventDefault();
     // close on enter as well
     if (event.keyCode === 13) {
@@ -22,7 +21,7 @@ export default class SessionAlreadyRunningModal extends Component {
       <ModalContainer id="sessionAlreadyRunningModal">
         <ModalDialog
           onClose={this.props.onClose}
-          onKeyDown={this.closeDialog}
+          onKeyDown={this.closeDialogOnEnter}
           id="confirmNewSessionModal"
           dismissOnBackgroundClick={true}
           width="50%"
@@ -31,7 +30,7 @@ export default class SessionAlreadyRunningModal extends Component {
             <img className="sessionAlreadyRunningModalImg" src="/img/correct.png" alt="happy linguana" />
 
             <h1>You are in the middle of a running session!</h1>
-            <div>Please finish with your current translation session in order to start a new one.</div>
+            <div>Please finish with your current translation session first.</div>
             <button autoFocus className="wordComparisonDialog__okButton" onClick={this.props.onClose}>
               Ok I got it
             </button>

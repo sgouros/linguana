@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
+import CustomModal from "./components/CustomModal.js";
 import SessionAlreadyRunningModal from "./components/SessionAlreadyRunningModal.js";
 import FinishModal from "./components/FinishModal.js";
 import SemiFinishModal from "./components/SemiFinishModal.js";
@@ -14,7 +15,6 @@ import { getDateString, getTodayDateTimeString } from "./components/helpers.js";
 import DebugButtons from "./components/DebugButtons.js";
 import HeaderForm from "./components/HeaderForm.js";
 import HeaderLogo from "./components/HeaderLogo.js";
-import ConfirmDialog from "react-confirm-dialog";
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
@@ -45,9 +45,9 @@ export default class App extends Component {
       showDebugButons: false,
       showStatistics: true,
       heatmapStats: [],
-      // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
-      totalWordsLearnedForTodayCount: 0,
+      totalWordsLearnedForTodayCount: 0, // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       pageNotFound: true,
+      showInvalidTagModal: false,
       cssSkin: "./normalSkin.css"
     };
     this.fromNativeToForeign = false;
@@ -69,6 +69,7 @@ export default class App extends Component {
   allSelectedEntries = []; // the selected vocabulary entries for the current session
 
   goToStartPage = () => {
+    console.info("Went to Start Page");
     if (this.sessionIsRunning === true) {
       this.setState({ showSessionAlreadyRunningModal: true });
     } else {
@@ -84,11 +85,12 @@ export default class App extends Component {
         showAddEntryLoading: false,
         searchResults: [],
         showSearchResults: false,
-        showStatistics: true
+        showStatistics: true,
+        currentValueOfSearchInput: "",
+        currentValueOfPredifinedTagInput: "",
+        showInvalidTagModal: false
       });
       this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
-      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
     }
   };
 
@@ -97,7 +99,6 @@ export default class App extends Component {
     if (this.refs.passwordInput) {
       this.refs.passwordInput.focus();
     }
-
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
   };
 
@@ -113,36 +114,31 @@ export default class App extends Component {
 
   newPredifinedSession = vocabularyTag => {
     console.info("\n\n-------- new Predifined Session with tag: " + vocabularyTag);
-    if (this.sessionIsRunning === true) {
-      this.setState({ showSessionAlreadyRunningModal: true });
-    } else {
-      this.vocabularyFactory.predifinedVocabularyNeeded(
-        vocabularyTag,
-        this.onPredifinedVocabularyArrived,
-        this.NUMBER_OF_PREDEFINED_VOC_ENTRIES
-      );
-      this.allSelectedEntries = [];
-      this.setState({
-        vocabulary: [],
-        showStartModal: true,
-        isStartModalLoading: true,
-        showSearchResults: false,
-        showVocabularyManager: false,
-        currentValueOfSearchInput: "",
-        currentValueOfPredifinedTagInput: "",
-        showStatistics: false,
-        searchResults: []
-      });
-      this.fromNativeToForeign = false;
-      this.sessionIsRunning = true;
-      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
-    }
+    this.vocabularyFactory.predifinedVocabularyNeeded(
+      vocabularyTag,
+      this.onPredifinedVocabularyArrived,
+      this.NUMBER_OF_PREDEFINED_VOC_ENTRIES
+    );
+    this.allSelectedEntries = [];
+    this.setState({
+      vocabulary: [],
+      showStartModal: true,
+      isStartModalLoading: true,
+      showSearchResults: false,
+      showVocabularyManager: false,
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: "",
+      showStatistics: false,
+      searchResults: []
+    });
+    this.fromNativeToForeign = false;
+    this.sessionIsRunning = true;
   };
 
   newSession = () => {
     console.info("\n\n-------- new Session:");
     if (this.sessionIsRunning === true) {
+      console.info("newSession: New session already running!");
       this.setState({ showSessionAlreadyRunningModal: true });
     } else {
       this.vocabularyFactory.oldVocabularyNeeded(this.onOldVocabularyArrived, this.NUMBER_OF_OLD_VOC_ENTRIES);
@@ -154,12 +150,12 @@ export default class App extends Component {
         showSearchResults: false,
         showVocabularyManager: false,
         showStatistics: false,
-        searchResults: []
+        searchResults: [],
+        currentValueOfSearchInput: "",
+        currentValueOfPredifinedTagInput: ""
       });
       this.sessionIsRunning = true;
       this.fromNativeToForeign = false;
-      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-      this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
     }
   };
 
@@ -238,24 +234,35 @@ export default class App extends Component {
   onPredifinedVocabularyArrived = (predifinedVoc, currentIndex) => {
     console.info("predifined voc arrived");
     this.vocabularyFactory.traceVocabulary(predifinedVoc);
-    const updatedVocabulary = [
-      ...this.state.vocabulary.slice(0, currentIndex),
-      ...predifinedVoc,
-      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
-    ];
-    this.allSelectedEntries.push(...predifinedVoc);
 
-    this.setState({
-      showTestArea: true,
-      isStartModalLoading: false,
-      vocabulary: updatedVocabulary
-    });
+    if (predifinedVoc.length > 0) {
+      const updatedVocabulary = [
+        ...this.state.vocabulary.slice(0, currentIndex),
+        ...predifinedVoc,
+        ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+      ];
+      this.allSelectedEntries.push(...predifinedVoc);
+
+      this.setState({
+        showTestArea: true,
+        isStartModalLoading: false,
+        vocabulary: updatedVocabulary
+      });
+    } else {
+      console.info("no words for this tag");
+      this.setState({ showInvalidTagModal: true });
+    }
   };
 
   sessionAlreadyRunningModalOnClose = () => {
     this.setState({
       showSessionAlreadyRunningModal: false
     });
+  };
+
+  invalidTagModalOnClose = () => {
+    this.sessionIsRunning = false;
+    this.goToStartPage();
   };
 
   filterSuccessfullSelectedEntries = () => {
@@ -421,15 +428,8 @@ export default class App extends Component {
 
   closeFinishModal = () => {
     this.downloadDB();
-    this.setState({
-      showFinishModal: false,
-      showTestArea: false,
-      showStatistics: true
-    });
-    this.fromNativeToForeign = false;
     this.sessionIsRunning = false;
-    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref = "";
+    this.goToStartPage();
   };
 
   openVocabularyManager = () => {
@@ -530,9 +530,10 @@ export default class App extends Component {
       searchResults: voc,
       showVocabularyManager: false,
       showTestArea: false,
-      showStatistics: false
+      showStatistics: false,
+      currentValueOfSearchInput: "",
+      currentValueOfPredifinedTagInput: ""
     });
-    this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref.value = "";
   };
 
   handleSearchInputOnChange = event => {
@@ -542,9 +543,10 @@ export default class App extends Component {
   };
 
   handlePredifinedTagInputOnChange = event => {
+    const newValue = event.target.value;
+    console.info("------------ new value: " + newValue);
     this.setState({
-      currentValueOfPredifinedTagInput: this.refs.headerForm_ref.refs.headerForm_predifinedTagInput_ref.refs.actual_input_ref
-        .value
+      currentValueOfPredifinedTagInput: newValue
     });
   };
 
@@ -552,8 +554,11 @@ export default class App extends Component {
     console.info("search submit pressed");
     event.preventDefault();
     if (this.sessionIsRunning === true) {
-      this.setState({ showSessionAlreadyRunningModal: true });
-      this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
+      this.setState({
+        showSessionAlreadyRunningModal: true,
+        currentValueOfSearchInput: "",
+        currentValueOfPredifinedTagInput: ""
+      });
     } else {
       let searchTerm = this.state.currentValueOfSearchInput;
       let callBack = this.onSearchCompleted;
@@ -566,13 +571,19 @@ export default class App extends Component {
   };
 
   handlePredifinedTagOnSubmit = event => {
-    console.info("predifined tag submit pressed");
     event.preventDefault();
-    this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value = "";
-    const tag = this.state.currentValueOfPredifinedTagInput;
-    console.info(`\n\n tag: ${tag}`);
-    if (tag !== "") {
-      this.newPredifinedSession(tag);
+    if (this.sessionIsRunning === true) {
+      console.info("handlePredifinedTagOnSubmit: New session already running!");
+      this.setState({ showSessionAlreadyRunningModal: true });
+    } else {
+      const tag = event.target.value;
+      console.info(`\n\n "predifined tag submit pressed. Tag: ${tag}`);
+      if (tag !== "") {
+        this.newPredifinedSession(tag);
+      } else {
+        console.info("Empty tag!");
+        this.setState({ showInvalidTagModal: true });
+      }
     }
   };
 
@@ -837,6 +848,14 @@ export default class App extends Component {
 
           {this.state.showSessionAlreadyRunningModal ? (
             <SessionAlreadyRunningModal onClose={this.sessionAlreadyRunningModalOnClose} />
+          ) : null}
+
+          {this.state.showInvalidTagModal ? (
+            <CustomModal
+              title="Invalid tag!"
+              text="Please provide a valid word teaming tag."
+              onClose={this.invalidTagModalOnClose}
+            />
           ) : null}
 
           {this.state.showStartModal ? (

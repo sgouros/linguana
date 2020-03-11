@@ -82,7 +82,7 @@ export default class SearchInput extends Component {
         autoComplete="off"
         autoCorrect="off"
         spellCheck="off"
-        value={this.props.currentValueOfSearchInput}
+        value={this.props.currentValueOfActualSearchInput}
         onKeyDown={this.handleKeyDown}
         onChange={this.handleOnChange}
         placeholder="αναζήτηση..."

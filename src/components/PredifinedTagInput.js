@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 export default class PredifinedTagInput extends Component {
-  handleOnChange = event => {
-    this.props.onChange(event);
-  };
+  // handleOnChange = event => {
+  //   this.props.onChange(event);
+  // };
 
   onKeyPress = event => {
     if (event.key === "Enter") {
@@ -22,8 +22,8 @@ export default class PredifinedTagInput extends Component {
         autoComplete="on"
         autoCorrect="off"
         spellCheck="off"
-        value={this.props.currentValueOfPredifinedTagInput}
-        onChange={this.handleOnChange}
+        value={this.props.currentValueOfActualPredifinedTagInput}
+        onChange={this.props.onTagChange}
         placeholder="optional tag ..."
       />
     );

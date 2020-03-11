@@ -66,7 +66,7 @@ export default class VocabularyFactory {
   }
 
   predifinedVocabularyNeeded = (vocTag, onSuccess, numberOfEntries, allSelectedEntries = [], currentIndex = 0) => {
-    let tagRegex = "#" + vocTag;
+    let tagRegex = "#" + vocTag + "#";
 
     let allSelectedEntryIDs = allSelectedEntries.map(entry => {
       return entry._id;

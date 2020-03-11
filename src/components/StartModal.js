@@ -11,21 +11,34 @@ export default class StartModal extends Component {
     isLoading: PropTypes.bool
   };
 
+  closeDialogIfEnterPressed = event => {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      this.props.onClose(event);
+    }
+  };
+
   render() {
     return (
       <ModalContainer onClose={this.props.onClose}>
-        {this.props.isLoading
-          ? <ReactSpinner />
-          : <ModalDialog
-              onClose={this.props.onClose}
-              className="startModal"
-              dismissOnBackgroundClick={true}
-              width="80%"
-            >
-              <img src={this.props.imageUrl} alt={this.props.title} className="modalImg" />
-              <h1>{this.props.title}</h1>
-              <div>{this.props.content}</div>
-            </ModalDialog>}
+        {this.props.isLoading ? (
+          <ReactSpinner />
+        ) : (
+          <ModalDialog
+            onClose={this.props.onClose}
+            className="startModal"
+            dismissOnBackgroundClick={true}
+            onKeyDown={this.closeDialogIfEnterPressed}
+            width="80%"
+          >
+            <img src={this.props.imageUrl} alt={this.props.title} className="modalImg" />
+            <h1>{this.props.title}</h1>
+            <div>{this.props.content}</div>
+            <button autoFocus className="customModal__okButton" onClick={this.props.onClose}>
+              I'm ready!
+            </button>
+          </ModalDialog>
+        )}
       </ModalContainer>
     );
   }

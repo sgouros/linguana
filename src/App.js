@@ -3,9 +3,7 @@ import Stats from "./components/Stats.js";
 import TestArea from "./components/TestArea.js";
 import StartModal from "./components/StartModal.js";
 import CustomModal from "./components/CustomModal.js";
-import SessionAlreadyRunningModal from "./components/SessionAlreadyRunningModal.js";
 import FinishModal from "./components/FinishModal.js";
-import SemiFinishModal from "./components/SemiFinishModal.js";
 import VocabularyFactory from "./VocabularyFactory.js";
 import StatsFactory from "./StatsFactory.js";
 import VocabularyManager from "./components/VocabularyManager.js";
@@ -412,17 +410,6 @@ export default class App extends Component {
         <table className="modalDialogTable">
           <tbody>{htmlTable}</tbody>
         </table>
-      </div>
-    );
-  };
-
-  constructFinishModalContent = () => {
-    return (
-      <div>
-        <div className="finishModalImages">
-          <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />
-          <img className="css-congratulations-img" src="/img/congratulations.jpg" alt="congratulations" />
-        </div>
       </div>
     );
   };
@@ -850,7 +837,11 @@ export default class App extends Component {
           </main>
 
           {this.state.showSessionAlreadyRunningModal ? (
-            <SessionAlreadyRunningModal onClose={this.sessionAlreadyRunningModalOnClose} />
+            <CustomModal
+              title="You are in the middle of a running session!"
+              text="Please finish with your current translation session first."
+              onClose={this.sessionAlreadyRunningModalOnClose}
+            />
           ) : null}
 
           {this.state.showInvalidTagModal ? (
@@ -873,13 +864,14 @@ export default class App extends Component {
           {this.state.showFinishModal ? (
             <FinishModal
               title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}
-              content={this.constructFinishModalContent()}
               onClose={this.closeFinishModal}
             />
           ) : null}
+
           {this.state.showSemiFinishModal ? (
-            <SemiFinishModal title={`Great! Now let's try the opposite!`} onClose={this.closeSemiFinishModal} />
+            <CustomModal title="Great!" text="Now let's try the opposite." onClose={this.closeSemiFinishModal} />
           ) : null}
+
           {this.state.showTestArea && (
             <footer className="app__footer">
               <Stats

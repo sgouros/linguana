@@ -18,21 +18,20 @@ export default class CustomModal extends Component {
 
   render() {
     return (
-      <ModalContainer className="customModal">
+      <ModalContainer>
         <ModalDialog
+          className="customModal"
           onClose={this.props.onClose}
           onKeyDown={this.closeDialogIfEnterPressed}
           dismissOnBackgroundClick={true}
-          width="50%"
+          width="70%"
         >
-          <div>
-            <img src="/img/start.png" alt="linguana" />
-            <h1>{this.props.title}</h1>
-            <div>{this.props.text}</div>
-            <button autoFocus className="customModal__okButton" onClick={this.props.onClose}>
-              Ok I got it
-            </button>
-          </div>
+          <img className="modalImg" src="/img/start.png" alt="linguana" />
+          <h1>{this.props.title}</h1>
+          <div className="customModalDiv">{this.props.text}</div>
+          <button autoFocus className="customModal__okButton" onClick={this.props.onClose}>
+            Ok I got it
+          </button>
         </ModalDialog>
       </ModalContainer>
     );

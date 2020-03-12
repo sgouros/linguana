@@ -644,6 +644,17 @@ body {
   align-items: center;
 }
 
+.customModal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.customModalDiv {
+  width: 90%;
+  padding: 1em;
+}
+
 .finishModalImages {
   display: flex;
   width: 80%;
@@ -652,29 +663,21 @@ body {
 
 #finishModal {
   top: 5% !important;
-  padding: 0 1em 0 1em;
+  padding: 2em;
 }
 
 img.finishModalLinguanaFaceImg {
   max-width: 100%;
-  margin-top: -1em;
+  padding-top: 1em;
   height: auto;
   width: 20%;
   align-self: center;
   padding-right: 2%;
 }
 
-.semiFinishModal {
-  display: grid;
-  grid-template-columns: 20% 80%;
-}
-
-.semiFinishModalLinguanaFaceImg {
-  width: 65%;
-}
-
-.semiFinishModal > h1 {
-  align-self: center;
+h1.finishModalTitle {
+  text-align: center;
+  color: #0153a1;
 }
 
 #VocabularyManagerSubmitButton {
@@ -774,6 +777,7 @@ img.finishModalLinguanaFaceImg {
 
 .css-congratulations-img {
   width: 100%;
+  padding-top: 4em;
   object-fit: contain;
 }
 

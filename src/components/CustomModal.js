@@ -26,7 +26,7 @@ export default class CustomModal extends Component {
           width="50%"
         >
           <div>
-            <img src="/img/correct.png" alt="happy linguana" />
+            <img src="/img/start.png" alt="linguana" />
             <h1>{this.props.title}</h1>
             <div>{this.props.text}</div>
             <button autoFocus className="customModal__okButton" onClick={this.props.onClose}>

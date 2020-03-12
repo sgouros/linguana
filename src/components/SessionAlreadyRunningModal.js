@@ -27,7 +27,7 @@ export default class SessionAlreadyRunningModal extends Component {
           width="50%"
         >
           <div className="sessionAlreadyRunningModal">
-            <img className="sessionAlreadyRunningModalImg" src="/img/correct.png" alt="happy linguana" />
+            <img className="sessionAlreadyRunningModalImg" src="/img/start.png" alt="linguana" />
 
             <h1>You are in the middle of a running session!</h1>
             <div>Please finish with your current translation session first.</div>

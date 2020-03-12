@@ -690,7 +690,7 @@ img.finishModalLinguanaFaceImg {
   /* width: 50%; */
   height: 1.5em;
   padding: 0.2rem 0.2rem 0.2rem 0.5rem;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .td-correctTranslationsCount {
@@ -716,7 +716,7 @@ img.finishModalLinguanaFaceImg {
 
 .td-lastDateCorrectlyTranslated {
   text-align: center;
-  font-weight: bold;
+  font-weight: normal;
   color: rgb(65, 55, 65);
   width: 12vh;
 }
@@ -808,7 +808,7 @@ img.finishModalLinguanaFaceImg {
 
 .app__searchResults__table--tdEdit {
   cursor: pointer;
-  background-image: url("/img/editOnDb.ico");
+  background-image: url("/img/edit.png");
   background-size: 5.2vh 5.2vh;
   width: 5vh;
   background-repeat: no-repeat;

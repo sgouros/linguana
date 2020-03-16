@@ -24,10 +24,9 @@ export default class CustomModal extends Component {
           onClose={this.props.onClose}
           onKeyDown={this.closeDialogIfEnterPressed}
           dismissOnBackgroundClick={true}
-          width="70%"
         >
-          <img className="modalImg" src="/img/start.png" alt="linguana" />
-          <h1>{this.props.title}</h1>
+          <img className="customModalImg" src="/img/start.png" alt="linguana" />
+          <h1 className="customModalTitle">{this.props.title}</h1>
           <div className="customModalDiv">{this.props.text}</div>
           <button autoFocus className="customModal__okButton" onClick={this.props.onClose}>
             Ok I got it

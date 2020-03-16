@@ -31,15 +31,15 @@ export default class TranslationInputDE extends Component {
     86: "v",
     66: "b",
     78: "n",
-    77: "m"
+    77: "m",
+    18: ", " // left alt
   };
 
   specialKeySubstitutions = {
     83: "ß",
     65: "ä",
     85: "ü",
-    79: "ö",
-    32: "," // space
+    79: "ö"
   };
 
   handleOnChange = event => {

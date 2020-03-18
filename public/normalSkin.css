@@ -412,13 +412,13 @@ body {
   font-size: 3rem;
   font-weight: bold;
   color: black;
-  border: solid 1px #adb545;
+  border: solid 1px #a0a27a;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
 
 .wordComparisonDialog__Table td.correctTranslation {
-  background: #99ff33;
+  background: #80b749;
   font-size: 3rem;
   font-weight: bold;
   color: white;
@@ -433,7 +433,7 @@ body {
   height: 3.2rem;
   font-weight: bold;
   color: red;
-  border: solid 1px #adb545;
+  border: solid 1px #c76926;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
@@ -484,7 +484,6 @@ body {
 .customModalTitle {
   font-size: 2.7rem;
   width: 70%;
-  margin-right
 }
 
 .customModalDiv {
@@ -493,7 +492,7 @@ body {
   width: 100%;
   padding: 2.5em;
   margin: 1em;
-  background: #888e46;
+  background: #a8b74f;
   border-radius: 1.8vh;
   color: #fcffde;
 }
@@ -689,11 +688,12 @@ img.finishModalLinguanaFaceImg {
   width: 20%;
   align-self: center;
   padding-right: 2%;
+  padding-left: 1em;
 }
 
 h1.finishModalTitle {
-  text-align: center;
-  color: #0153a1;
+  color: black;
+  padding-left: 1em;
 }
 
 #VocabularyManagerSubmitButton {
@@ -708,7 +708,7 @@ h1.finishModalTitle {
 .modalDialogTable td {
   /* width: 50%; */
   height: 1.5em;
-  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+  a8b74fpadding: 0.2rem 0.2rem 0.2rem 0.5rem;
   font-size: 1.2rem;
 }
 

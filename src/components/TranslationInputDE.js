@@ -118,7 +118,7 @@ export default class TranslationInputDE extends Component {
 
   handleSpecialKeyPress = event => {
     this.resetSpecialKeyPress(); // get rid of previous presses
-    this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 190);
+    this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 145);
     console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };

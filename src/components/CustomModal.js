@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { ModalContainer, ModalDialog } from "react-modal-dialog";
 import PropTypes from "prop-types";
 
+// https://github.com/qimingweng/react-modal-dialog
+
 export default class CustomModal extends Component {
   static propTypes = {
     title: PropTypes.string,

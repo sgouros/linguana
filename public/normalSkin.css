@@ -422,7 +422,7 @@ body {
   font-size: 3rem;
   font-weight: bold;
   color: white;
-  border: solid 1px #adb545;
+  border: solid 1px #515615;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
@@ -453,7 +453,7 @@ body {
   cursor: pointer;
   background: #515efd;
   color: #fcffde;
-  border: solid 1px #8d901d;
+  border: solid 1px black;
 }
 
 .wordComparisonDialog__okButton:hover {
@@ -473,11 +473,11 @@ body {
   background-color: #e7eac4;
   margin-left: 10%;
   margin-right: 10%;
-  padding: 2em;
+  padding: 1.5em;
 }
 
 .customModalImg {
-  width: 30%;
+  width: 25%;
   height: auto;
 }
 
@@ -490,8 +490,8 @@ body {
   font-size: 1.7rem;
   font-weight: bold;
   width: 100%;
-  padding: 2.5em;
-  margin: 1em;
+  padding: 1.5em;
+  margin: 0.5em;
   background: #a8b74f;
   border-radius: 1.8vh;
   color: #fcffde;
@@ -512,7 +512,7 @@ body {
   cursor: pointer;
   background: #515efd;
   color: #fcffde;
-  border: solid 1px #8d901d;
+  border: solid 1px black;
 }
 
 .customModal__okButton:focus {

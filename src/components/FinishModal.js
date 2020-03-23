@@ -11,7 +11,7 @@ export default class FinishModal extends Component {
 
   render() {
     return (
-      <ModalContainer onClose={this.props.onClose} id="finishModal">
+      <ModalContainer onClose={this.props.onClose} id="finishModalContainer">
         <ModalDialog onClose={this.props.onClose} id="finishModal" dismissOnBackgroundClick={true} width="75vw">
           <div className="finishModalImages">
             <img className="finishModalLinguanaFaceImg" src="/img/correct.png" alt="happy linguana" />

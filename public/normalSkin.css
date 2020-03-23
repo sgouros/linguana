@@ -675,8 +675,9 @@ body {
 }
 
 #finishModal {
-  top: 5% !important;
-  padding: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 img.finishModalLinguanaFaceImg {

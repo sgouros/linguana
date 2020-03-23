@@ -20,12 +20,13 @@ export default class CustomModal extends Component {
 
   render() {
     return (
-      <ModalContainer>
+      <ModalContainer className="customModalContainer">
         <ModalDialog
           className="customModal"
           onClose={this.props.onClose}
           onKeyDown={this.closeDialogIfEnterPressed}
           dismissOnBackgroundClick={true}
+          width="75vw"
         >
           <img className="customModalImg" src="/img/start.png" alt="linguana" />
           <h1 className="customModalTitle">{this.props.title}</h1>

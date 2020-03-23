@@ -20,21 +20,11 @@ export default class WordComparisonDialog extends Component {
   render() {
     return (
       <ModalContainer onClose={this.props.onClose}>
-        <ModalDialog
-          onClose={this.props.onClose}
-          className="wordComparisonDialog"
-          dismissOnBackgroundClick={true}
-          width="85%"
-        >
+        <ModalDialog onClose={this.props.onClose} className="wordComparisonDialog" dismissOnBackgroundClick={true} width="80vw">
           <img src="/img/redCross.png" alt="I don't think so" className="modalImg" />
           <h1>{this.props.title}</h1>
           <div>{this.props.content}</div>
-          <button
-            autoFocus
-            className="wordComparisonDialog__okButton"
-            onKeyDown={this.closeDialog}
-            onClick={this.props.onClose}
-          >
+          <button autoFocus className="wordComparisonDialog__okButton" onKeyDown={this.closeDialog} onClick={this.props.onClose}>
             OK I got it
           </button>
         </ModalDialog>

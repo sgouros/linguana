@@ -41,7 +41,7 @@ export default class EditEntryModal extends Component {
   render() {
     return (
       <ModalContainer onClose={this.handleClose} id="editEntryModal">
-        <ModalDialog onClose={this.handleClose} id="editEntryModal" dismissOnBackgroundClick={true} width="85%">
+        <ModalDialog onClose={this.handleClose} id="editEntryModal" dismissOnBackgroundClick={true} width="85vw">
           <div className="app__vocabularyManagerComponent">
             <form className="app__vocabularyManagerComponent__form" onSubmit={this.handleSubmit}>
               <div className="app__vocabularyManagerComponent__form__germanFlag" />

@@ -29,7 +29,7 @@ export default class StartModal extends Component {
             className="startModal"
             dismissOnBackgroundClick={true}
             onKeyDown={this.closeDialogIfEnterPressed}
-            width="80%"
+            width="85vw"
           >
             <img src={this.props.imageUrl} alt={this.props.title} className="modalImg" />
             <h1>{this.props.title}</h1>

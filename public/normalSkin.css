@@ -449,7 +449,7 @@ body {
   border: 1px solid #888;
   width: 20rem;
   margin: 0px auto;
-  margin-top: 3rem;
+  margin-top: 2rem;
   cursor: pointer;
   background: #515efd;
   color: #fcffde;
@@ -470,9 +470,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  background-color: #e7eac4;
-  margin-left: 10%;
-  margin-right: 10%;
+  background-color: #fcffde;
   padding: 1.5em;
 }
 
@@ -508,7 +506,7 @@ body {
   border: 1px solid #888;
   width: 20rem;
   margin: 0px auto;
-  margin-top: 3rem;
+  margin-top: 2rem;
   cursor: pointer;
   background: #515efd;
   color: #fcffde;
@@ -706,9 +704,8 @@ h1.finishModalTitle {
 }
 
 .modalDialogTable td {
-  /* width: 50%; */
   height: 1.5em;
-  a8b74fpadding: 0.2rem 0.2rem 0.2rem 0.5rem;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
   font-size: 1.2rem;
 }
 

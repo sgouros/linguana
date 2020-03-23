@@ -666,7 +666,7 @@ export default class App extends Component {
         this.setState({ pageNotFound: false });
       } else {
         this.passKeyAlreadyPressed = true;
-        this.passKeyTimeout = setTimeout(this.resetPassKeyPress, 145);
+        this.passKeyTimeout = setTimeout(this.resetPassKeyPress, 155);
       }
     }
   };

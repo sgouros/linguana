@@ -861,6 +861,7 @@ export default class App extends Component {
               imageUrl="/img/start.png"
             />
           ) : null}
+
           {this.state.showFinishModal ? (
             <FinishModal
               title={`Today, you 've learned ${this.state.totalWordsLearnedForTodayCount} words in total!`}

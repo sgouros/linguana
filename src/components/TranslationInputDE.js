@@ -50,14 +50,14 @@ export default class TranslationInputDE extends Component {
     let uppercase = false;
 
     if (event.keyCode === 32) {
-      console.debug("*******************space press: " + event.keyCode);
+      console.info("*******************space press: " + event.keyCode);
       this.spaceIsPressed = true;
       // kill space (we'll add it later if needed)
       event.preventDefault();
     }
 
     if (event.getModifierState("Shift") || event.getModifierState("CapsLock") || this.spaceIsPressed) {
-      console.debug("***************************uppercase is true");
+      console.info("***************************uppercase is true");
       uppercase = true;
     }
     // 27: esc     109: -       107: +
@@ -68,7 +68,7 @@ export default class TranslationInputDE extends Component {
       console.debug("plus press: " + event.keyCode);
       this.handlePlusPress(event);
     } else if (this.normalKeySubstitutions[event.keyCode]) {
-      console.debug("normal key press: " + event.keyCode);
+      console.info("normal key press: " + event.keyCode);
       this.handleNormalKeyPress(event, uppercase);
     }
 
@@ -87,11 +87,12 @@ export default class TranslationInputDE extends Component {
   handleKeyUp = event => {
     if (event.keyCode === 32) {
       this.spaceIsPressed = false;
-      console.debug("*****************space UNpress: " + event.keyCode);
+      console.info("*****************space UNpress: " + event.keyCode);
       if (this.uppercaseUsed === true) {
         event.preventDefault(); // kill space event
         this.uppercaseUsed = false;
       } else {
+        console.info("*****************adding real space");
         event.target.value += " "; // this is a real space so add it
         this.scrollToEnd(this.refs.input);
       }
@@ -110,7 +111,7 @@ export default class TranslationInputDE extends Component {
   };
 
   resetSpecialKeyPress = () => {
-    console.debug(`Clearing special key press timeout ${this.s_Timeout}`);
+    console.info(`Clearing special key press timeout ${this.s_Timeout}`);
     clearTimeout(this.s_Timeout);
     this.s_Timeout = 0;
     this.alreadyPressedSpecialKeyCode = -1;

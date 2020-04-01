@@ -52,12 +52,12 @@ export default class TranslationInputDE extends Component {
     if (event.keyCode === 32) {
       console.info("*******************space press: " + event.keyCode);
       this.spaceIsPressed = true;
-      // kill space (we'll add it later if needed)
+      console.info("killing space event");
       event.preventDefault();
     }
 
     if (event.getModifierState("Shift") || event.getModifierState("CapsLock") || this.spaceIsPressed) {
-      console.info("***************************uppercase is true");
+      console.info("***************************setting uppercase to true");
       uppercase = true;
     }
     // 27: esc     109: -       107: +
@@ -89,9 +89,12 @@ export default class TranslationInputDE extends Component {
       this.spaceIsPressed = false;
       console.info("*****************space UNpress: " + event.keyCode);
       if (this.uppercaseUsed === true) {
+        console.info("*****************upercaseUsed is true so killing space event");
         event.preventDefault(); // kill space event
         this.uppercaseUsed = false;
+        console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
       } else {
+        console.info("this.uppercaseUsed is currently " + this.uppercaseUsed);
         console.info("*****************adding real space");
         event.target.value += " "; // this is a real space so add it
         this.scrollToEnd(this.refs.input);
@@ -102,8 +105,15 @@ export default class TranslationInputDE extends Component {
   handleNormalKeyPress = (event, uppercase) => {
     let letterToAdd = this.normalKeySubstitutions[event.keyCode];
     if (uppercase) {
-      letterToAdd = letterToAdd.toUpperCase();
+      if (event.target.value.substr(-1) === " ") {
+        // αν προλάβαμε να αφήσουμε το space
+        letterToAdd = letterToAdd.toUpperCase();
+      } else {
+        // πρόσθεσε και το space γιατί μάλλον δεν προλάβαμε να το αφήσουμε
+        letterToAdd = " " + letterToAdd.toUpperCase();
+      }
       this.uppercaseUsed = true;
+      console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
     }
     event.target.value += letterToAdd;
     this.handleOnChange(event);
@@ -127,8 +137,10 @@ export default class TranslationInputDE extends Component {
   handleSameSpecialKeyPress = (event, uppercase) => {
     let letterToAdd = this.specialKeySubstitutions[event.keyCode];
     if (uppercase) {
+      // δες λίγο τί γίνεται με το uppercase στην handleNormalKeyPress (για το όταν το ξεχάσουμε το space πατημένο. Εδώ δεν το βάζεις)
       letterToAdd = letterToAdd.toUpperCase();
       this.uppercaseUsed = true;
+      console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
     }
     const initialBoxValue = event.target.value;
     const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 2) + letterToAdd;

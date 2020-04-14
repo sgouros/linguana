@@ -48,6 +48,7 @@ export default class TranslationInputDE extends Component {
 
   handleKeyDown = event => {
     let uppercase = false;
+    console.info("event.keyCode=" + event.keyCode);
 
     if (event.keyCode === 32) {
       console.info("*******************space press: " + event.keyCode);
@@ -94,6 +95,7 @@ export default class TranslationInputDE extends Component {
         this.uppercaseUsed = false;
         console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
       } else {
+        // uppercaseUsed is false below
         console.info("this.uppercaseUsed is currently " + this.uppercaseUsed);
         console.info("*****************adding real space");
         event.target.value += " "; // this is a real space so add it

@@ -38,6 +38,7 @@ export default class App extends Component {
       showAddEntryLoading: false,
       currentValueOfSearchInput: "",
       currentValueOfPredifinedTagInput: "",
+      currentValueOfOptionsInput: "", // αν 1 τότε θα τρέξει μόνο το 2ο semisession (από Ελληνικά σε Γερμανικά)
       searchResults: [],
       showSearchResults: false,
       showDebugButons: false,
@@ -46,9 +47,9 @@ export default class App extends Component {
       totalWordsLearnedForTodayCount: 0, // Το count είναι διαφορετικό με το array για την ώρα γιατί αποθηκεύεται στη βάση
       pageNotFound: true,
       showInvalidTagModal: false,
-      cssSkin: "./normalSkin.css"
+      cssSkin: "./normalSkin.css",
     };
-    this.fromNativeToForeign = false;
+    this.fromNativeToForeign = false; // Native: Ελληνικά Foreign: Γερμανικά. Όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
     this.totalWordsLearnedForTodayArray = [];
     this.submittedEntriesFromVocabularyManager = [];
     this.sessionIsRunning = false;
@@ -86,9 +87,9 @@ export default class App extends Component {
         showStatistics: true,
         currentValueOfSearchInput: "",
         currentValueOfPredifinedTagInput: "",
-        showInvalidTagModal: false
+        showInvalidTagModal: false,
       });
-      this.fromNativeToForeign = false; // όταν είναι true σημαίνει οτι είμαστε στο 2ο semisession
+      this.fromNativeToForeign = false;
     }
   };
 
@@ -110,7 +111,7 @@ export default class App extends Component {
     this.refs.testArea.refs.translationForm.refs.translationInput.refs.input.focus();
   };
 
-  newPredifinedSession = vocabularyTag => {
+  newPredifinedSession = (vocabularyTag) => {
     console.info("\n\n-------- new Predifined Session with tag: " + vocabularyTag);
     this.vocabularyFactory.predifinedVocabularyNeeded(
       vocabularyTag,
@@ -127,7 +128,7 @@ export default class App extends Component {
       currentValueOfSearchInput: "",
       currentValueOfPredifinedTagInput: "",
       showStatistics: false,
-      searchResults: []
+      searchResults: [],
     });
     this.fromNativeToForeign = false;
     this.sessionIsRunning = true;
@@ -150,7 +151,7 @@ export default class App extends Component {
         showStatistics: false,
         searchResults: [],
         currentValueOfSearchInput: "",
-        currentValueOfPredifinedTagInput: ""
+        currentValueOfPredifinedTagInput: "",
       });
       this.sessionIsRunning = true;
       this.fromNativeToForeign = false;
@@ -169,7 +170,7 @@ export default class App extends Component {
       currentValueOfSearchInput: "",
       currentValueOfPredifinedTagInput: "",
 
-      searchResults: []
+      searchResults: [],
     });
     this.fromNativeToForeign = true;
 
@@ -179,33 +180,16 @@ export default class App extends Component {
         showSemiFinishModal: true,
         showTestArea: true,
         showStatistics: false,
-        showFinishModal: false
+        showFinishModal: false,
       });
     } else {
       this.setState({
         vocabulary: [],
         showTestArea: false,
         showStatistics: true,
-        showFinishModal: true
+        showFinishModal: true,
       });
     }
-  };
-
-  onNewVocabularyArrived = (newVoc, currentIndex) => {
-    console.info("new voc arrived");
-    this.vocabularyFactory.traceVocabulary(newVoc);
-    const updatedVocabulary = [
-      ...this.state.vocabulary.slice(0, currentIndex),
-      ...newVoc,
-      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
-    ];
-    this.allSelectedEntries.push(...newVoc);
-
-    this.setState({
-      showTestArea: true,
-      isStartModalLoading: false,
-      vocabulary: updatedVocabulary
-    });
   };
 
   onOldVocabularyArrived = (oldVoc, currentIndex) => {
@@ -214,12 +198,12 @@ export default class App extends Component {
     const updatedVocabulary = [
       ...this.state.vocabulary.slice(0, currentIndex),
       ...oldVoc,
-      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length),
     ];
     this.allSelectedEntries.push(...oldVoc);
 
     this.setState({
-      vocabulary: updatedVocabulary
+      vocabulary: updatedVocabulary,
     });
 
     this.vocabularyFactory.newVocabularyNeeded(
@@ -227,6 +211,31 @@ export default class App extends Component {
       this.NUMBER_OF_NEW_VOC_ENTRIES,
       this.allSelectedEntries
     );
+  };
+
+  onNewVocabularyArrived = (newVoc, currentIndex) => {
+    console.info("new voc arrived");
+    this.vocabularyFactory.traceVocabulary(newVoc);
+    const updatedVocabulary = [
+      ...this.state.vocabulary.slice(0, currentIndex),
+      ...newVoc,
+      ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length),
+    ];
+    this.allSelectedEntries.push(...newVoc);
+
+    this.setState({
+      showTestArea: true,
+      isStartModalLoading: false,
+      vocabulary: updatedVocabulary,
+    });
+
+    if (this.state.currentValueOfOptionsInput === "1") {
+      console.info("One way translation. Setting all entries to correctly translated");
+      this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
+        console.info("Recording success for id:" + entry_index_in_voc);
+        this.recordSuccessfulTranslation(entry_index_in_voc);
+      });
+    }
   };
 
   onPredifinedVocabularyArrived = (predifinedVoc, currentIndex) => {
@@ -237,15 +246,23 @@ export default class App extends Component {
       const updatedVocabulary = [
         ...this.state.vocabulary.slice(0, currentIndex),
         ...predifinedVoc,
-        ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length)
+        ...this.state.vocabulary.slice(currentIndex, this.state.vocabulary.length),
       ];
       this.allSelectedEntries.push(...predifinedVoc);
 
       this.setState({
         showTestArea: true,
         isStartModalLoading: false,
-        vocabulary: updatedVocabulary
+        vocabulary: updatedVocabulary,
       });
+
+      if (this.state.currentValueOfOptionsInput === "1") {
+        console.info("One way translation. Setting all entries to correctly translated");
+        this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
+          console.info("Recording success for id:" + entry_index_in_voc);
+          this.recordSuccessfulTranslation(entry_index_in_voc);
+        });
+      }
     } else {
       console.info("no words for this tag");
       this.setState({ showInvalidTagModal: true });
@@ -254,7 +271,7 @@ export default class App extends Component {
 
   sessionAlreadyRunningModalOnClose = () => {
     this.setState({
-      showSessionAlreadyRunningModal: false
+      showSessionAlreadyRunningModal: false,
     });
   };
 
@@ -264,25 +281,25 @@ export default class App extends Component {
   };
 
   filterSuccessfullSelectedEntries = () => {
-    let filteredEntries = this.allSelectedEntries.filter(entry => entry.isCurrentlyCorrectlyTranslated);
-    filteredEntries.map(entry => entry.failure());
+    let filteredEntries = this.allSelectedEntries.filter((entry) => entry.isCurrentlyCorrectlyTranslated);
+    filteredEntries.map((entry) => entry.failure());
     return filteredEntries;
   };
 
   traceTotalWordsLearnedForTodayPressed = () => {
     console.info(`total words learned for today length: ${this.totalWordsLearnedForTodayArray.length}`);
-    this.totalWordsLearnedForTodayArray.map(item => {
+    this.totalWordsLearnedForTodayArray.map((item) => {
       console.info("  " + item.id);
       return item;
     });
   };
 
-  onStatsForCalendarHeatmapArrived = statsArray => {
+  onStatsForCalendarHeatmapArrived = (statsArray) => {
     console.info("new stats for heatmap arrived");
     this.setState({ heatmapStats: statsArray });
   };
 
-  recordSuccessfulTranslation = entry_index => {
+  recordSuccessfulTranslation = (entry_index) => {
     const new_voc = this.state.vocabulary;
     console.info("Successful translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].success();
@@ -293,7 +310,7 @@ export default class App extends Component {
     this.setState({ vocabulary: new_voc });
   };
 
-  recordFailedTranslation = entry_index => {
+  recordFailedTranslation = (entry_index) => {
     const new_voc = this.state.vocabulary;
     console.info("Recording failed translation of: " + entry_index + " " + new_voc[entry_index]._id);
     new_voc[entry_index].failure();
@@ -301,7 +318,7 @@ export default class App extends Component {
     this.setState({ vocabulary: new_voc });
   };
 
-  handleEscPress = currentIndex => {
+  handleEscPress = (currentIndex) => {
     console.debug(`esc pressed`);
     let entry = this.state.vocabulary[currentIndex];
     let thisIsTheLastVocWord = this.state.vocabulary.length === 1;
@@ -318,7 +335,7 @@ export default class App extends Component {
     if (thisIsTheLastVocWord) {
       if (this.fromNativeToForeign) {
         this.setState({
-          showFinishModal: true
+          showFinishModal: true,
         });
       } else {
         this.newSemiSession();
@@ -326,11 +343,11 @@ export default class App extends Component {
     }
   };
 
-  saveStatsOfLearnedWord = entry => {
+  saveStatsOfLearnedWord = (entry) => {
     let wordLearned = {
       id: entry._id,
       nativeTerm: entry.nativeTerm,
-      foreignTerm: entry.foreignTerm
+      foreignTerm: entry.foreignTerm,
     };
 
     if (!this.arrayIncludesWordLearned(this.totalWordsLearnedForTodayArray, wordLearned)) {
@@ -339,18 +356,18 @@ export default class App extends Component {
     }
   };
 
-  onTotalWordsLearnedForTodayCountUpdated = totalWordsLearned => {
+  onTotalWordsLearnedForTodayCountUpdated = (totalWordsLearned) => {
     this.statsFactory.requestStatsForCalendarHeatmap(this.daysInHeatmap, this.onStatsForCalendarHeatmapArrived);
 
     this.setState({
-      totalWordsLearnedForTodayCount: totalWordsLearned
+      totalWordsLearnedForTodayCount: totalWordsLearned,
     });
   };
 
   arrayIncludesWordLearned = (theArray, wordLearned) => {
     let theResult = false;
 
-    theArray.map(item => {
+    theArray.map((item) => {
       if (item.id === wordLearned.id) {
         theResult = true;
       }
@@ -359,20 +376,20 @@ export default class App extends Component {
     return theResult;
   };
 
-  removeEntryFromVocabulary = currentIndex => {
+  removeEntryFromVocabulary = (currentIndex) => {
     let entry = this.state.vocabulary[currentIndex];
     console.info(`removing entry ${entry._id} from vocabulary array`);
     const new_voc = [
       ...this.state.vocabulary.slice(0, currentIndex),
-      ...this.state.vocabulary.slice(currentIndex + 1, this.state.vocabulary.length)
+      ...this.state.vocabulary.slice(currentIndex + 1, this.state.vocabulary.length),
     ];
     this.setState({
-      vocabulary: new_voc
+      vocabulary: new_voc,
     });
   };
 
   // increase current Voc by 1
-  addEntryToVocabulary = currentIndex => {
+  addEntryToVocabulary = (currentIndex) => {
     this.vocabularyFactory.newVocabularyNeeded(this.onNewVocabularyArrived, 1, this.allSelectedEntries, currentIndex);
   };
 
@@ -391,7 +408,7 @@ export default class App extends Component {
   };
 
   constructStartingSummaryModalContent = () => {
-    const htmlTable = this.state.vocabulary.map(entry => {
+    const htmlTable = this.state.vocabulary.map((entry) => {
       return (
         <tr key={entry._id}>
           <td>{entry.nativeTerm}</td>
@@ -428,7 +445,7 @@ export default class App extends Component {
         showVocabularyManager: true,
         showSearchResults: false,
         showTestArea: false,
-        showStatistics: false
+        showStatistics: false,
       });
     }
   };
@@ -512,7 +529,7 @@ export default class App extends Component {
     console.info(this.state.heatmapStats);
   };
 
-  onSearchCompleted = voc => {
+  onSearchCompleted = (voc) => {
     this.setState({
       showSearchResults: true,
       searchResults: voc,
@@ -520,32 +537,41 @@ export default class App extends Component {
       showTestArea: false,
       showStatistics: false,
       currentValueOfSearchInput: "",
-      currentValueOfPredifinedTagInput: ""
+      currentValueOfPredifinedTagInput: "",
     });
   };
 
-  handleSearchInputOnChange = event => {
+  handleSearchInputOnChange = (event) => {
+    // todo εδώ γιατί δεν το παίρνουμε το value από το event όπως στην ακόλουθη συνάρητηση;
     this.setState({
-      currentValueOfSearchInput: this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value
+      currentValueOfSearchInput: this.refs.headerForm_ref.refs.headerForm_searchInput_ref.refs.actual_input_ref.value,
     });
   };
 
-  handlePredifinedTagInputOnChange = event => {
+  handlePredifinedTagInputOnChange = (event) => {
     const newValue = event.target.value;
     console.info("------------ new value: " + newValue);
     this.setState({
-      currentValueOfPredifinedTagInput: newValue
+      currentValueOfPredifinedTagInput: newValue,
     });
   };
 
-  handleSearchOnSubmit = event => {
+  handleOptionsInputOnChange = (event) => {
+    const newValue = event.target.value;
+    console.info("------------ new value of options: " + newValue);
+    this.setState({
+      currentValueOfOptionsInput: newValue,
+    });
+  };
+
+  handleSearchOnSubmit = (event) => {
     console.info("search submit pressed");
     event.preventDefault();
     if (this.sessionIsRunning === true) {
       this.setState({
         showSessionAlreadyRunningModal: true,
         currentValueOfSearchInput: "",
-        currentValueOfPredifinedTagInput: ""
+        currentValueOfPredifinedTagInput: "",
       });
     } else {
       let searchTerm = this.state.currentValueOfSearchInput;
@@ -558,7 +584,7 @@ export default class App extends Component {
     this.vocabularyFactory.search(searchTerm, callBack);
   };
 
-  handlePredifinedTagOnSubmit = event => {
+  handlePredifinedTagOnSubmit = (event) => {
     event.preventDefault();
     if (this.sessionIsRunning === true) {
       console.info("handlePredifinedTagOnSubmit: New session already running!");
@@ -575,11 +601,11 @@ export default class App extends Component {
     }
   };
 
-  editEntry = changedEntry => {
+  editEntry = (changedEntry) => {
     this.vocabularyFactory.editEntry(changedEntry);
   };
 
-  deleteEntry = vocabularyEntry => {
+  deleteEntry = (vocabularyEntry) => {
     console.info(`------- deleting entry: ${vocabularyEntry._id}`);
 
     // delete entry from db
@@ -598,7 +624,7 @@ export default class App extends Component {
     let newSearchResults = this.state.searchResults.filter((entry, index) => index !== b);
     // this.vocabularyFactory.traceVocabulary(newSearchResults, "tracing newSearchResults");
     this.setState({
-      searchResults: newSearchResults
+      searchResults: newSearchResults,
     });
 
     // delete entry from state vocabulary
@@ -607,11 +633,11 @@ export default class App extends Component {
     let newVocabulary = this.state.vocabulary.filter((entry, index) => index !== c);
     // this.vocabularyFactory.traceVocabulary(newVocabulary, "tracing newVocabulary");
     this.setState({
-      vocabulary: newVocabulary
+      vocabulary: newVocabulary,
     });
   };
 
-  constructHeatmapCalendarTooltip = value => {
+  constructHeatmapCalendarTooltip = (value) => {
     if (value) {
       let dateString = getDateString(value.date, true);
       if (value.count > 0) {
@@ -624,7 +650,7 @@ export default class App extends Component {
     }
   };
 
-  countMaxCorrectAnswers = correctAnswersPerDayArray => {
+  countMaxCorrectAnswers = (correctAnswersPerDayArray) => {
     let maxCorrectAnswers = correctAnswersPerDayArray.reduce((max, currentItem) => {
       // console.info(`max = ${max}`);
       // console.info(`currentItem.count = ${currentItem.count}`);
@@ -633,7 +659,7 @@ export default class App extends Component {
     return maxCorrectAnswers;
   };
 
-  getCSSClass = value => {
+  getCSSClass = (value) => {
     if (!value || value.count === 0) {
       return "color-empty";
     }
@@ -659,7 +685,7 @@ export default class App extends Component {
   };
 
   // initial password
-  handlePassKeyDown = event => {
+  handlePassKeyDown = (event) => {
     if (event.keyCode === 71) {
       if (this.passKeyAlreadyPressed) {
         this.resetPassKeyPress();
@@ -677,7 +703,7 @@ export default class App extends Component {
     this.passKeyAlreadyPressed = false;
   };
 
-  shortcuts = event => {
+  shortcuts = (event) => {
     if (event.keyCode === 192) {
       // ` key
       event.preventDefault();
@@ -784,6 +810,8 @@ export default class App extends Component {
               currentValueOfPredifinedTagInput={this.state.currentValueOfPredifinedTagInput}
               onPredifinedTagInputChange={this.handlePredifinedTagInputOnChange}
               onPredifinedTagSubmit={this.handlePredifinedTagOnSubmit}
+              currentValueOfOptionsInput={this.state.currentValueOfOptionsInput}
+              onOptionsInputChange={this.handleOptionsInputOnChange}
               onSearchSubmit={this.handleSearchOnSubmit}
             />
           </header>

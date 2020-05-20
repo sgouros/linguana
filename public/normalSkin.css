@@ -134,6 +134,27 @@ body {
   /*border: solid 1px red;*/
 }
 
+.app__header__headerForm__optionsInput {
+  box-sizing: border-box;
+  height: 4.2vh;
+  padding-left: 1.6vh;
+  margin-right: 2vh;
+  right: 5vh;
+  width: 60%;
+  flex-grow: 0;
+  font-size: 2vh;
+  font-weight: bold;
+  background-color: #898e50;
+  color: #fcffde;
+  border: solid 1px #8d901d;
+  border-radius: 0.8vh;
+  -moz-border-radius: 0.8vh;
+  -webkit-border-radius: 0.8vh;
+  box-shadow: none;
+  transition: box-shadow 0.3s, border 0.3s;
+  /*border: solid 1px red;*/
+}
+
 .app__header__headerForm__searchInput:focus {
   border: solid 1px #707070;
   box-shadow: 0 0 6px 2px #e9ebab;
@@ -141,6 +162,12 @@ body {
 }
 
 .app__header__headerForm__predifinedTagInput:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 6px 2px #e9ebab;
+  outline: 0 none;
+}
+
+.app__header__headerForm__optionsInput:focus {
   border: solid 1px #707070;
   box-shadow: 0 0 6px 2px #e9ebab;
   outline: 0 none;

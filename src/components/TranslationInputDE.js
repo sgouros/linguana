@@ -32,23 +32,24 @@ export default class TranslationInputDE extends Component {
     66: "b",
     78: "n",
     77: "m",
-    18: ", " // left alt
+    18: ", ", // left alt
   };
 
   specialKeySubstitutions = {
     83: "ß",
     65: "ä",
     85: "ü",
-    79: "ö"
+    79: "ö",
   };
 
-  handleOnChange = event => {
+  handleOnChange = (event) => {
     this.props.onChange(event);
   };
 
-  handleKeyDown = event => {
+  handleKeyDown = (event) => {
     let uppercase = false;
-    console.info("event.keyCode=" + event.keyCode);
+    let keyPressed = this.normalKeySubstitutions[event.keyCode];
+    console.info(`NEW KEY PRESSED code: ${event.keyCode} key: ${keyPressed}`);
 
     if (event.keyCode === 32) {
       console.info("*******************space press: " + event.keyCode);
@@ -85,7 +86,7 @@ export default class TranslationInputDE extends Component {
     this.scrollToEnd(this.refs.input);
   };
 
-  handleKeyUp = event => {
+  handleKeyUp = (event) => {
     if (event.keyCode === 32) {
       this.spaceIsPressed = false;
       console.info("*****************space UNpress: " + event.keyCode);
@@ -129,7 +130,7 @@ export default class TranslationInputDE extends Component {
     this.alreadyPressedSpecialKeyCode = -1;
   };
 
-  handleSpecialKeyPress = event => {
+  handleSpecialKeyPress = (event) => {
     this.resetSpecialKeyPress(); // get rid of previous presses
     this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 155);
     console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
@@ -152,25 +153,25 @@ export default class TranslationInputDE extends Component {
     event.preventDefault();
   };
 
-  sameSpecialKeyPressed = keyCode => {
+  sameSpecialKeyPressed = (keyCode) => {
     return keyCode === this.alreadyPressedSpecialKeyCode;
   };
 
-  handleEscPress = event => {
+  handleEscPress = (event) => {
     if (!this.props.disableSpecialEscPress) {
       this.props.onEscPress();
       event.preventDefault();
     }
   };
 
-  handlePlusPress = event => {
+  handlePlusPress = (event) => {
     if (!this.props.disableSpecialPlusPress) {
       this.props.onPlusPress();
       event.preventDefault();
     }
   };
 
-  scrollToEnd = inputBox => {
+  scrollToEnd = (inputBox) => {
     inputBox.focus();
     inputBox.scrollLeft = inputBox.scrollWidth;
   };

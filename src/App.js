@@ -38,7 +38,7 @@ export default class App extends Component {
       showAddEntryLoading: false,
       currentValueOfSearchInput: "",
       currentValueOfPredifinedTagInput: "",
-      currentValueOfOptionsInput: "", // αν 1 τότε θα τρέξει μόνο το 2ο semisession (από Ελληνικά σε Γερμανικά)
+
       searchResults: [],
       showSearchResults: false,
       showDebugButons: false,
@@ -229,13 +229,11 @@ export default class App extends Component {
       vocabulary: updatedVocabulary,
     });
 
-    if (this.state.currentValueOfOptionsInput === "1") {
-      console.info("One way translation. Setting all entries to correctly translated");
-      this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
-        console.info("Recording success for id:" + entry_index_in_voc);
-        this.recordSuccessfulTranslation(entry_index_in_voc);
-      });
-    }
+    console.info("One way translation. Setting all entries to correctly translated");
+    this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
+      console.info("Recording success for id:" + entry_index_in_voc);
+      this.recordSuccessfulTranslation(entry_index_in_voc);
+    });
   };
 
   onPredifinedVocabularyArrived = (predifinedVoc, currentIndex) => {
@@ -256,13 +254,11 @@ export default class App extends Component {
         vocabulary: updatedVocabulary,
       });
 
-      if (this.state.currentValueOfOptionsInput === "1") {
-        console.info("One way translation. Setting all entries to correctly translated");
-        this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
-          console.info("Recording success for id:" + entry_index_in_voc);
-          this.recordSuccessfulTranslation(entry_index_in_voc);
-        });
-      }
+      console.info("Setting all entries to correctly translated");
+      this.allSelectedEntries.forEach((entry, entry_index_in_voc) => {
+        console.info("Recording success for id:" + entry_index_in_voc);
+        this.recordSuccessfulTranslation(entry_index_in_voc);
+      });
     } else {
       console.info("no words for this tag");
       this.setState({ showInvalidTagModal: true });
@@ -556,14 +552,6 @@ export default class App extends Component {
     });
   };
 
-  handleOptionsInputOnChange = (event) => {
-    const newValue = event.target.value;
-    console.info("------------ new value of options: " + newValue);
-    this.setState({
-      currentValueOfOptionsInput: newValue,
-    });
-  };
-
   handleSearchOnSubmit = (event) => {
     console.info("search submit pressed");
     event.preventDefault();
@@ -810,8 +798,6 @@ export default class App extends Component {
               currentValueOfPredifinedTagInput={this.state.currentValueOfPredifinedTagInput}
               onPredifinedTagInputChange={this.handlePredifinedTagInputOnChange}
               onPredifinedTagSubmit={this.handlePredifinedTagOnSubmit}
-              currentValueOfOptionsInput={this.state.currentValueOfOptionsInput}
-              onOptionsInputChange={this.handleOptionsInputOnChange}
               onSearchSubmit={this.handleSearchOnSubmit}
             />
           </header>

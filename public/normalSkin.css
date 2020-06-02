@@ -134,7 +134,7 @@ body {
   /*border: solid 1px red;*/
 }
 
-.app__header__headerForm__optionsInput {
+/* .app__header__headerForm__optionsInput {
   box-sizing: border-box;
   height: 4.2vh;
   padding-left: 1.6vh;
@@ -153,7 +153,7 @@ body {
   box-shadow: none;
   transition: box-shadow 0.3s, border 0.3s;
   /*border: solid 1px red;*/
-}
+} */
 
 .app__header__headerForm__searchInput:focus {
   border: solid 1px #707070;
@@ -167,11 +167,11 @@ body {
   outline: 0 none;
 }
 
-.app__header__headerForm__optionsInput:focus {
+/* .app__header__headerForm__optionsInput:focus {
   border: solid 1px #707070;
   box-shadow: 0 0 6px 2px #e9ebab;
   outline: 0 none;
-}
+} */
 
 ::-webkit-input-placeholder {
   color: #fcffde; /*Για την placeholder του search */

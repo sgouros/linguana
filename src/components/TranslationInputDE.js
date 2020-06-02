@@ -3,8 +3,8 @@ import React, { Component } from "react";
 export default class TranslationInputDE extends Component {
   s_Timeout = 0;
   alreadyPressedSpecialKeyCode = -1;
-  spaceIsPressed = false;
-  uppercaseUsed = false;
+  uppercase = false;
+  oneSpaceIsEaten = false;
   normalKeySubstitutions = {
     186: "q",
     87: "w",
@@ -47,39 +47,38 @@ export default class TranslationInputDE extends Component {
   };
 
   handleKeyDown = (event) => {
-    let uppercase = false;
-    let keyPressed = this.normalKeySubstitutions[event.keyCode];
-    console.info(`NEW KEY PRESSED code: ${event.keyCode} key: ${keyPressed}`);
+    let thePressedkey = this.normalKeySubstitutions[event.keyCode];
+    console.info(`---- NEW KEY PRESSED! Code: ${event.keyCode} Key: ${thePressedkey} -----`);
 
     if (event.keyCode === 32) {
-      console.info("*******************space press: " + event.keyCode);
-      this.spaceIsPressed = true;
-      console.info("killing space event");
+      this.uppercase = true;
+      console.info(`  This is a space press. Have set UPPERCASE to ${this.uppercase}`);
       event.preventDefault();
     }
 
-    if (event.getModifierState("Shift") || event.getModifierState("CapsLock") || this.spaceIsPressed) {
-      console.info("***************************setting uppercase to true");
-      uppercase = true;
+    if (event.getModifierState("Shift")) {
+      console.info("  SHIFT is PRESSED so setting UPPERCASE to TRUE and continuing");
+      this.uppercase = true;
     }
+
     // 27: esc     109: -       107: +
     if (event.keyCode === 27 || event.keyCode === 109) {
-      console.debug("esc press: " + event.keyCode);
+      console.debug("  ESC or MINUS was pressed. Handling esc press: " + event.keyCode);
       this.handleEscPress(event);
     } else if (event.keyCode === 107) {
-      console.debug("plus press: " + event.keyCode);
+      console.debug("  PLUS was pressed. Handling plus press: " + event.keyCode);
       this.handlePlusPress(event);
     } else if (this.normalKeySubstitutions[event.keyCode]) {
-      console.info("normal key press: " + event.keyCode);
-      this.handleNormalKeyPress(event, uppercase);
+      console.info("  Handling normal key press. If it is special, then we will transform this letter. Code = " + event.keyCode);
+      this.handleNormalKeyPress(event);
     }
 
     if (this.specialKeySubstitutions[event.keyCode]) {
       if (this.sameSpecialKeyPressed(event.keyCode)) {
-        console.debug("same special key press: " + event.keyCode);
-        this.handleSameSpecialKeyPress(event, uppercase);
+        console.debug(" handling same special key press: " + event.keyCode);
+        this.handleSameSpecialKeyPress(event);
       } else {
-        console.debug("special key press: " + event.keyCode);
+        console.debug("  handling special key press: " + event.keyCode);
         this.handleSpecialKeyPress(event);
       }
     }
@@ -88,35 +87,40 @@ export default class TranslationInputDE extends Component {
 
   handleKeyUp = (event) => {
     if (event.keyCode === 32) {
-      this.spaceIsPressed = false;
-      console.info("*****************space UNpress: " + event.keyCode);
-      if (this.uppercaseUsed === true) {
-        console.info("*****************upercaseUsed is true so killing space event");
-        event.preventDefault(); // kill space event
-        this.uppercaseUsed = false;
-        console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
+      console.debug("*****************space UNpress: " + event.keyCode);
+      const lastChar = event.target.value.slice(-1);
+      if (lastChar == lastChar.toLowerCase() || this.oneSpaceIsEaten === true) {
+        console.debug(`event.target.value=${event.target.value} and oneSpaceIsEaten=${this.oneSpaceIsEaten} so ADDING SPACE`);
+        event.target.value += " "; // lastChar is lowercase so space was not used for uppercase mode, so add a real space
+        console.debug("Setting onSpaceIsEaten TO FALSE");
+        this.oneSpaceIsEaten = false; // reset oneSpaceIsEaten. We do not want it for the next iteration
       } else {
-        // uppercaseUsed is false below
-        console.info("this.uppercaseUsed is currently " + this.uppercaseUsed);
-        console.info("*****************adding real space");
-        event.target.value += " "; // this is a real space so add it
-        this.scrollToEnd(this.refs.input);
+        console.debug(`event.target.value=${event.target.value} and oneSpaceIsEaten=${this.oneSpaceIsEaten} so NOT ADDING SPACE`);
+        console.debug("Setting onSpaceIsEaten TO TRUE");
+        this.oneSpaceIsEaten = true;
       }
+      this.scrollToEnd(this.refs.input);
+      this.uppercase = false;
+      console.debug("this.uppercase set to " + this.uppercase);
+    }
+
+    if (event.keyCode === 16) {
+      const lastChar = event.target.value.slice(-1);
+      if (lastChar == lastChar.toUpperCase()) {
+        // αν το shift χρησιμοποιήθηκε, τότε το επόμενο space πρέπει να δώσει κανονικά διάστημα
+        this.oneSpaceIsEaten = true;
+      }
+      this.uppercase = false;
+      console.debug(`SHIFT unpressed so this.uppercase set to ${this.uppercase} this.oneSpaceIsEaten=${this.oneSpaceIsEaten}`);
     }
   };
 
-  handleNormalKeyPress = (event, uppercase) => {
+  handleNormalKeyPress = (event) => {
+    console.debug(`Handling normal key press with code = ${event.keyCode} and uppercase = ${this.uppercase}`);
     let letterToAdd = this.normalKeySubstitutions[event.keyCode];
-    if (uppercase) {
-      if (event.target.value.substr(-1) === " ") {
-        // αν προλάβαμε να αφήσουμε το space
-        letterToAdd = letterToAdd.toUpperCase();
-      } else {
-        // πρόσθεσε και το space γιατί μάλλον δεν προλάβαμε να το αφήσουμε
-        letterToAdd = " " + letterToAdd.toUpperCase();
-      }
-      this.uppercaseUsed = true;
-      console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
+    if (this.uppercase) {
+      letterToAdd = letterToAdd.toUpperCase();
+      console.debug(`just uppercased letter to ${letterToAdd} uppercase=${this.uppercase}`);
     }
     event.target.value += letterToAdd;
     this.handleOnChange(event);
@@ -132,21 +136,21 @@ export default class TranslationInputDE extends Component {
 
   handleSpecialKeyPress = (event) => {
     this.resetSpecialKeyPress(); // get rid of previous presses
-    this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 155);
+    this.s_Timeout = setTimeout(this.resetSpecialKeyPress, 165);
     console.debug(`Special key (${event.keyCode}) pressed for the FIRST time. Setting timeout ${this.s_Timeout}`);
     this.alreadyPressedSpecialKeyCode = event.keyCode;
   };
 
-  handleSameSpecialKeyPress = (event, uppercase) => {
+  handleSameSpecialKeyPress = (event) => {
     let letterToAdd = this.specialKeySubstitutions[event.keyCode];
-    if (uppercase) {
-      // δες λίγο τί γίνεται με το uppercase στην handleNormalKeyPress (για το όταν το ξεχάσουμε το space πατημένο. Εδώ δεν το βάζεις)
+    console.debug(`handleSameSpecialKeyPress:: letter=${letterToAdd}.uppercase=${this.uppercase}}`);
+    if (this.uppercase === true) {
       letterToAdd = letterToAdd.toUpperCase();
-      this.uppercaseUsed = true;
-      console.info("this.uppercaseUsed set to " + this.uppercaseUsed);
+      console.debug(`letter transformed to ${letterToAdd}`);
     }
     const initialBoxValue = event.target.value;
     const correct_input_box_value = initialBoxValue.substr(0, initialBoxValue.length - 2) + letterToAdd;
+    console.debug(`** handleSameSpecialKeyPress:: TRANSFORMING ${initialBoxValue} to ${correct_input_box_value}`);
     event.target.value = correct_input_box_value;
     this.handleOnChange(event);
     this.resetSpecialKeyPress();

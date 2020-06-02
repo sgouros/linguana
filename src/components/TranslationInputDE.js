@@ -89,7 +89,7 @@ export default class TranslationInputDE extends Component {
     if (event.keyCode === 32) {
       console.debug("*****************space UNpress: " + event.keyCode);
       const lastChar = event.target.value.slice(-1);
-      if (lastChar == lastChar.toLowerCase() || this.oneSpaceIsEaten === true) {
+      if (lastChar === lastChar.toLowerCase() || this.oneSpaceIsEaten === true) {
         console.debug(`event.target.value=${event.target.value} and oneSpaceIsEaten=${this.oneSpaceIsEaten} so ADDING SPACE`);
         event.target.value += " "; // lastChar is lowercase so space was not used for uppercase mode, so add a real space
         console.debug("Setting onSpaceIsEaten TO FALSE");
@@ -106,7 +106,7 @@ export default class TranslationInputDE extends Component {
 
     if (event.keyCode === 16) {
       const lastChar = event.target.value.slice(-1);
-      if (lastChar == lastChar.toUpperCase()) {
+      if (lastChar === lastChar.toUpperCase()) {
         // αν το shift χρησιμοποιήθηκε, τότε το επόμενο space πρέπει να δώσει κανονικά διάστημα
         this.oneSpaceIsEaten = true;
       }

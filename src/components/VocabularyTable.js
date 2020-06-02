@@ -8,7 +8,7 @@ export default class VocabularyTable extends Component {
     vocabulary: PropTypes.array,
     title: PropTypes.string,
     onDelete: PropTypes.func,
-    onEditSubmitted: PropTypes.func
+    onEditSubmitted: PropTypes.func,
   };
 
   constructor() {
@@ -18,11 +18,11 @@ export default class VocabularyTable extends Component {
       entryBeingEdited: null,
       initialNativeTerm: null,
       initialForeignTerm: null,
-      initialForeignTermNotes: null
+      initialForeignTermNotes: null,
     };
   }
 
-  onEditRequested = indexInVocabulary => {
+  onEditRequested = (indexInVocabulary) => {
     let requestedEntryForEdit = this.props.vocabulary[indexInVocabulary];
 
     this.setState({
@@ -30,25 +30,25 @@ export default class VocabularyTable extends Component {
       initialForeignTerm: requestedEntryForEdit.foreignTerm,
       initialForeignTermNotes: requestedEntryForEdit.foreignTermNotes,
       showEditDialog: true,
-      entryBeingEdited: requestedEntryForEdit
+      entryBeingEdited: requestedEntryForEdit,
     });
   };
 
-  onNativeTermChanged = term => {
+  onNativeTermChanged = (term) => {
     console.debug("onNativeTermChanged " + term);
     let newEntry = this.state.entryBeingEdited;
     newEntry.nativeTerm = term;
     this.setState({ entryBeingEdited: newEntry });
   };
 
-  onForeignTermChanged = term => {
+  onForeignTermChanged = (term) => {
     console.debug("onForeignTermChanged");
     let newEntry = this.state.entryBeingEdited;
     newEntry.foreignTerm = term;
     this.setState({ entryBeingEdited: newEntry });
   };
 
-  onForeignTermNotesChanged = term => {
+  onForeignTermNotesChanged = (term) => {
     console.debug("onForeignTermNotesChanged");
     let newEntry = this.state.entryBeingEdited;
     newEntry.foreignTermNotes = term;
@@ -63,7 +63,7 @@ export default class VocabularyTable extends Component {
       entryBeingEdited: null,
       initialNativeTerm: null,
       initialForeignTerm: null,
-      initialForeignTermNotes: null
+      initialForeignTermNotes: null,
     });
   };
 
@@ -83,68 +83,47 @@ export default class VocabularyTable extends Component {
       entryBeingEdited: null,
       initialNativeTerm: null,
       initialForeignTerm: null,
-      initialForeignTermNotes: null
+      initialForeignTermNotes: null,
     });
   };
 
-  onDelete = args => {
+  onDelete = (args) => {
     this.props.onDelete(this.props.vocabulary[args.indexInVocabulary]);
   };
 
   getHtmlTable = () => {
-    let htmlTable = this.props.vocabulary.map((entry, index) => {
-      return (
-        <tr key={entry._id}>
-          <td className="app__searchResults__table--tdTranslation">
-            {entry.foreignTerm}
-          </td>
-          <td className="app__searchResults__table--tdTerm">
-            {entry.nativeTerm}
-          </td>
-          <td className="app__searchResults__table--tdNotes">
-            {entry.foreignTermNotes}
-          </td>
-          <td
-            className="app__searchResults__table--tdNumber"
-            title="total successes"
-          >
-            <div className="app__searchResults__table__totalSuccesses__circle">
-              {entry.totalSuccesses}
-            </div>
-          </td>
-          <td
-            className="app__searchResults__table--tdNumber"
-            title="total failures"
-          >
-            <div className="app__searchResults__table__totalFailures__circle">
-              {entry.totalFailures}
-            </div>
-          </td>
-          <td
-            className="app__searchResults__table--tdNumber"
-            title="total times selected"
-          >
-            <div className="app__searchResults__table__totalTimesSelected__circle">
-              {entry.totalTimesSelected}
-            </div>
-          </td>
+    let htmlTable = "Search: Sorry, could not find anything.";
+    if (this.props.vocabulary.length > 0) {
+      htmlTable = this.props.vocabulary.map((entry, index) => {
+        return (
+          <tr key={entry._id}>
+            <td className="app__searchResults__table--tdTranslation">{entry.foreignTerm}</td>
+            <td className="app__searchResults__table--tdTerm">{entry.nativeTerm}</td>
+            <td className="app__searchResults__table--tdNotes">{entry.foreignTermNotes}</td>
+            <td className="app__searchResults__table--tdNumber" title="total successes">
+              <div className="app__searchResults__table__totalSuccesses__circle">{entry.totalSuccesses}</div>
+            </td>
+            <td className="app__searchResults__table--tdNumber" title="total failures">
+              <div className="app__searchResults__table__totalFailures__circle">{entry.totalFailures}</div>
+            </td>
+            <td className="app__searchResults__table--tdNumber" title="total times selected">
+              <div className="app__searchResults__table__totalTimesSelected__circle">{entry.totalTimesSelected}</div>
+            </td>
 
-          <td
-            className="app__searchResults__table--tdEdit"
-            onClick={() => this.onEditRequested(index)}
-          />
-          <td className="app__searchResults__table--tdDelete">
-            <ConfirmDialog
-              confirmMessage="This will delete the entry PERMANENTLY from the database. Are you sure?"
-              confirmText="Yes, delete it!"
-              cancelText="Cancel"
-              action={this.onDelete}
-              actionArgs={{ indexInVocabulary: index }}
-            />
-          </td>
-        </tr>
-      );
-    });
+            <td className="app__searchResults__table--tdEdit" onClick={() => this.onEditRequested(index)} />
+            <td className="app__searchResults__table--tdDelete">
+              <ConfirmDialog
+                confirmMessage="This will delete the entry PERMANENTLY from the database. Are you sure?"
+                confirmText="Yes, delete it!"
+                cancelText="Cancel"
+                action={this.onDelete}
+                actionArgs={{ indexInVocabulary: index }}
+              />
+            </td>
+          </tr>
+        );
+      });
+    }
     return htmlTable;
   };
 

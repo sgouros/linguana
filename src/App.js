@@ -526,15 +526,17 @@ export default class App extends Component {
   };
 
   onSearchCompleted = (voc) => {
-    this.setState({
-      showSearchResults: true,
-      searchResults: voc,
-      showVocabularyManager: false,
-      showTestArea: false,
-      showStatistics: false,
-      currentValueOfSearchInput: "",
-      currentValueOfPredifinedTagInput: "",
-    });
+    if (this.sessionIsRunning === false) {
+      this.setState({
+        showSearchResults: true,
+        searchResults: voc,
+        showVocabularyManager: false,
+        showTestArea: false,
+        showStatistics: false,
+        currentValueOfSearchInput: "",
+        currentValueOfPredifinedTagInput: "",
+      });
+    }
   };
 
   handleSearchInputOnChange = (event) => {
